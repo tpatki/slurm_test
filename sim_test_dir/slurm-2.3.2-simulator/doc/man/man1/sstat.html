@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>SSTAT</H1>
+Section: Slurm components (1)<BR>Updated: August 2011<BR><A HREF="#index">Index</A>
+
+<P>
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+sstat - Display various status information
+of a running job/step.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_SYNOPSIS"></a>
+<H2>SYNOPSIS</H2>
+
+<B>sstat </B>
+
+[<I>OPTIONS</I>...]
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<P>
+
+Status information for running jobs invoked with SLURM.
+<P>
+
+The
+<B>sstat </B>
+
+command displays job status information for your analysis.
+The
+<B>sstat </B>
+
+command displays information pertaining to CPU, Task, Node, Resident
+Set Size (RSS) and Virtual Memory (VM).
+You can tailor the output with the use of the
+<B>--fields=</B>
+option to specify the fields to be shown.
+<P>
+
+For the root user, the
+<B>sstat </B>
+
+command displays job status data for any job running on the system.
+<P>
+
+For the non-root user, the
+<B>sstat </B>
+
+output is limited to the user's jobs.
+<P>
+<P>
+
+Note:  the
+<B>sstat </B>
+
+command requires that the <B>jobacct_gather</B> plugin be installed and
+operational.
+<P>
+<DL COMPACT>
+<a id="OPT_allsteps"></a>
+<DT><B>-a</B><B>,</B> <B>--allsteps</B><DD>
+Print all steps for the given job(s) when no step is specified.
+<P>
+<a id="OPT_helpformat"></a>
+<DT><B>-e</B><B>,</B> <B>--helpformat</B><DD>
+Print a list of fields that can be specified with the '--format' option.
+<P>
+<a id="OPT_help"></a>
+<DT><B>-h</B><B>,</B> <B>--help</B><DD>
+Displays a general help message.
+<P>
+<a id="OPT_pidformat"></a>
+<DT><B>-i</B><B>,</B> <B>--pidformat</B><DD>
+Predefined format to list the pids running for each job step.
+(JobId,Nodes,Pids)
+<P>
+<a id="OPT_jobs"></a>
+<DT><B>-j</B><B>,</B> <B>--jobs</B><DD>
+Format is &lt;job(.step)&gt;. Stat this job step or comma-separated list of
+job steps. This option is required.  The step portion will default to
+lowest step running if not specified, unless the --allsteps flag is
+set where not specifying a step will result in all running steps to be
+displayed.
+NOTE: A step id of 'batch' will display the information about the batch step.
+<P>
+<a id="OPT_noheader"></a>
+<DT><B>-n</B><B>,</B> <B>--noheader</B><DD>
+No heading will be added to the output. The default action is to
+display a header.
+<P>
+<a id="OPT_format"></a>
+<DT><B>-o</B><B>,</B> <B>--format</B>, <B>--fields</B><DD>
+Comma separated list of fields.
+(use '--helpformat' for a list of available fields).
+<P>
+NOTE: When using the format option for listing various fields you can put a
+%NUMBER afterwards to specify how many characters should be printed.
+<P>
+i.e. format=name%30 will print 30 characters of field name right
+justified.  A -30 will print 30 characters left justified.
+<P>
+<a id="OPT_parsable"></a>
+<DT><B>-p</B><B>,</B> <B>--parsable</B><DD>
+output will be '|' delimited with a '|' at the end
+<P>
+<a id="OPT_parsable2"></a>
+<DT><B>-P</B><B>,</B> <B>--parsable2</B><DD>
+output will be '|' delimited without a '|' at the end
+<P>
+<a id="OPT_usage"></a>
+<DT><B>--usage</B><DD>
+Display a command usage summary.
+<P>
+<a id="OPT_verbose"></a>
+<DT><B>-v</B><B>,</B> <B>--verbose</B><DD>
+Primarily for debugging purposes, report the state of various
+variables during processing.
+<P>
+<a id="OPT_version"></a>
+<DT><B>-V</B><B>,</B> <B>--version</B><DD>
+Print version.
+<P>
+<P>
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<H3>Job Status Fields</H3>
+
+The following are the field options:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_AveCPU"></a>
+<DT><B>AveCPU</B><DD>
+Average (system + user) CPU time of all tasks in job.
+<P>
+<a id="OPT_AvePages"></a>
+<DT><B>AvePages</B><DD>
+Average number of page faults of all tasks in job.
+<P>
+<a id="OPT_AveRSS"></a>
+<DT><B>AveRSS</B><DD>
+Average resident set size of all tasks in job.
+<P>
+<a id="OPT_AveVMSize"></a>
+<DT><B>AveVMSize</B><DD>
+Average Virtual Memory size of all tasks in job.
+<P>
+<a id="OPT_JobID"></a>
+<DT><B>JobID</B><DD>
+The number of the job or job step.
+It is in the form:
+<I>job.jobstep</I>.
+<P>
+<a id="OPT_MaxPages"></a>
+<DT><B>MaxPages</B><DD>
+Maximum number of page faults of all tasks in job.
+<P>
+<a id="OPT_MaxPagesNode"></a>
+<DT><B>MaxPagesNode</B><DD>
+The node on which the maxpages occurred.
+<P>
+<a id="OPT_MaxPagesTask"></a>
+<DT><B>MaxPagesTask</B><DD>
+The task ID where the maxpages occurred.
+<P>
+<a id="OPT_MaxRSS"></a>
+<DT><B>MaxRSS</B><DD>
+Maximum resident set size of all tasks in job.
+<P>
+<a id="OPT_MaxRSSNode"></a>
+<DT><B>MaxRSSNode</B><DD>
+The node on which the maxrss occurred.
+<P>
+<a id="OPT_MaxRSSTask"></a>
+<DT><B>MaxRSSTask</B><DD>
+The task ID where the maxrss occurred.
+<P>
+<a id="OPT_MaxVMSize"></a>
+<DT><B>MaxVMSize</B><DD>
+Maximum Virtual Memory size of all tasks in job.
+<P>
+<a id="OPT_MaxVMSizeNode"></a>
+<DT><B>MaxVMSizeNode</B><DD>
+The node on which the maxvsize occurred.
+<P>
+<a id="OPT_MaxVMSizeTask"></a>
+<DT><B>MaxVMSizeTask</B><DD>
+The task ID where the maxvsize occurred.
+<P>
+<a id="OPT_MinCPU"></a>
+<DT><B>MinCPU</B><DD>
+Minimum (system + user) CPU time of all tasks in job.
+<P>
+<a id="OPT_MinCPUNode"></a>
+<DT><B>MinCPUNode</B><DD>
+The node on which the mincpu occurred.
+<P>
+<a id="OPT_MinCPUTask"></a>
+<DT><B>MinCPUTask</B><DD>
+The task ID where the mincpu occurred.
+<P>
+<a id="OPT_NTasks"></a>
+<DT><B>NTasks</B><DD>
+Total number of tasks in a job or step.
+<P>
+<P>
+</DL>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_EXAMPLES"></a>
+<H2>EXAMPLES</H2>
+
+<P>
+<DL COMPACT>
+<a id="OPT_format=AveCPU,AvePages,AveRSS,AveVMSize,JobID -j 11"></a>
+<DT><B>sstat --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID -j 11</B><DD>
+25:02.000  0K         1.37M      5.93M      9.0
+<P>
+<a id="OPT_format=AveCPU,AvePages,AveRSS,AveVMSize,JobID -j 11"></a>
+<DT><B>sstat -p --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID -j 11</B><DD>
+25:02.000|0K|1.37M|5.93M|9.0|
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2009 Lawrence Livermore National Security.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="sacct.html">sacct</A></B>(1)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DL>
+<DT><A HREF="#lbAE">Job Status Fields</A><DD>
+</DL>
+<DT><A HREF="#lbAF">EXAMPLES</A><DD>
+<DT><A HREF="#lbAG">COPYING</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

@@ -1,0 +1,1472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>SCONTROL</H1>
+Section: Slurm components (1)<BR>Updated: July 2011<BR><A HREF="#index">Index</A>
+
+<P>
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+scontrol - Used view and modify Slurm configuration and state.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_SYNOPSIS"></a>
+<H2>SYNOPSIS</H2>
+
+<B>scontrol</B> [<I>OPTIONS</I>...] [<I>COMMAND</I>...]
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>scontrol</B> is used to view or modify Slurm configuration including: job,
+job step, node, partition, reservation, and overall system configuration. Most
+of the commands can only be executed by user root. If an attempt to view or modify
+configuration information is made by an unauthorized user, an error message
+will be printed and the requested action will not occur. If no command is
+entered on the execute line, <B>scontrol</B> will operate in an interactive
+mode and prompt for input. It will continue prompting for input and executing
+commands until explicitly terminated. If a command is entered on the execute
+line, <B>scontrol</B> will execute that command and terminate. All commands
+and options are case-insensitive, although node names, partition names, and
+reservation names are case-sensitive (node names &quot;LX&quot; and &quot;lx&quot; are distinct).
+All commands and options can be abbreviated to the extent that the
+specification is unique.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_OPTIONS"></a>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<a id="OPT_all"></a>
+<DT><B>-a</B>, <B>--all</B><DD>
+When the <I>show</I> command is used, then display all partitions, their jobs
+and jobs steps. This causes information to be displayed about partitions
+that are configured as hidden and partitions that are unavailable to user's
+group.
+<a id="OPT_details"></a>
+<DT><B>-d</B>, <B>--details</B><DD>
+Causes the <B>show</B> command to provide additional details where available.
+<a id="OPT_help"></a>
+<DT><B>-h</B>, <B>--help</B><DD>
+Print a help message describing the usage of scontrol.
+<a id="OPT_hide"></a>
+<DT><B>--hide</B><DD>
+Do not display information about hidden partitions, their jobs and job steps.
+By default, neither partitions that are configured as hidden nor those partitions
+unavailable to user's group will be displayed (i.e. this is the default behavior).
+<a id="OPT_clusters"></a>
+<DT><B>-M</B>, <B>--clusters</B>=&lt;<I>string</I>&gt;<DD>
+The cluster to issue commands to. Only one cluster name may be specified.
+<P>
+<a id="OPT_oneliner"></a>
+<DT><B>-o</B>, <B>--oneliner</B><DD>
+Print information one line per record.
+<a id="OPT_quiet"></a>
+<DT><B>-Q</B>, <B>--quiet</B><DD>
+Print no warning or informational messages, only fatal error messages.
+<a id="OPT_verbose"></a>
+<DT><B>-v</B>, <B>--verbose</B><DD>
+Print detailed event logging. Multiple <B>-v</B>'s will further increase
+the verbosity of logging. By default only errors will be displayed.
+<P>
+<a id="OPT_version"></a>
+<DT><B>-V</B> , <B>--version</B><DD>
+Print version information and exit.
+<a id="OPT_COMMANDS"></a>
+<DT><B>COMMANDS</B><DD>
+<P>
+<a id="OPT_all"></a>
+<DT><B>all</B><DD>
+Show all partitions, their jobs and jobs steps. This causes information to be
+displayed about partitions that are configured as hidden and partitions that
+are unavailable to user's group.
+<P>
+<a id="OPT_abort"></a>
+<DT><B>abort</B><DD>
+Instruct the Slurm controller to terminate immediately and generate a core file.
+See &quot;man slurmctld&quot; for information about where the core file will be written.
+<P>
+<a id="OPT_checkpoint"></a>
+<DT><B>checkpoint</B> <I>CKPT_OP</I> <I>ID</I><DD>
+Perform a checkpoint activity on the job step(s) with the specified identification.
+<I>ID</I> can be used to identify a specific job (e.g. &quot;&lt;job_id&gt;&quot;,
+which applies to all of its existing steps)
+or a specific job step (e.g. &quot;&lt;job_id&gt;.&lt;step_id&gt;&quot;).
+Acceptable values for <I>CKPT_OP</I> include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><I>able</I><DD>
+Test if presently not disabled, report start time if checkpoint in progress
+<DT><I>create</I><DD>
+Create a checkpoint and continue the job or job step
+<DT><I>disable</I><DD>
+Disable future checkpoints
+<DT><I>enable</I><DD>
+Enable future checkpoints
+<DT><I>error</I><DD>
+Report the result for the last checkpoint request, error code and message
+<DT><I>restart</I><DD>
+Restart execution of the previously checkpointed job or job step
+<DT><I>requeue</I><DD>
+Create a checkpoint and requeue the batch job, combines vacate
+and restart operations
+<DT><I>vacate</I><DD>
+Create a checkpoint and terminate the job or job step
+</DL>
+</DL>
+
+Acceptable values for <I>CKPT_OP</I> include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><I>MaxWait=&lt;seconds&gt;</I><DD>
+Maximum time for checkpoint to be written.
+Default value is 10 seconds.
+Valid with <I>create</I> and <I>vacate</I> options only.
+<DT><I>ImageDir=&lt;directory_name&gt;</I><DD>
+Location of checkpoint file.
+Valid with <I>create</I>, <I>vacate</I> and <I>restart</I> options only.
+This value takes precedent over any --checkpoint-dir value specified
+at job submission time.
+<DT><I>StickToNodes</I><DD>
+If set, resume job on the same nodes are previously used.
+Valid with the <I>restart</I> option only.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_cluster"></a>
+<DT><B>cluster</B> <I>CLUSTER_NAME</I><DD>
+The cluster to issue commands to. Only one cluster name may be specified.
+<P>
+<a id="OPT_create"></a>
+<DT><B>create</B> <I>SPECIFICATION</I><DD>
+Create a new partition or reservation.  See the full list of parameters
+below.  Include the tag &quot;res&quot; to create a reservation without specifying
+a reservation name.
+<P>
+<a id="OPT_completing"></a>
+<DT><B>completing</B><DD>
+Display all jobs in a COMPLETING state along with associated nodes in either a
+COMPLETING or DOWN state.
+<P>
+<a id="OPT_delete"></a>
+<DT><B>delete</B> <I>SPECIFICATION</I><DD>
+Delete the entry with the specified <I>SPECIFICATION</I>.
+The two <I>SPECIFICATION</I> choices are <I>PartitionName=&lt;name&gt;</I> and
+<I>Reservation=&lt;name&gt;</I>.  On Dynamically laid out Bluegene systems
+<I>BlockName=&lt;name&gt;</I> also works. Reservations and partitions should have
+no associated jobs at the time of their deletion (modify the job's first).
+If the specified partition is in use, the request is denied.
+<P>
+<a id="OPT_details"></a>
+<DT><B>details</B><DD>
+Causes the <I>show</I> command to provide additional details where available.
+Batch job information will include the batch script for jobs the user is
+authorized to view.
+Job information will include CPUs and NUMA memory allocated on each node.
+Note that on computers with hyperthreading enabled and SLURM configured to
+allocate cores, each listed CPU represents one physical core.
+Each hyperthread on that core can be allocated a separate task, so a job's
+CPU count and task count may differ.
+See the <B>--cpu_bind</B> and <B>--mem_bind</B> option descriptions in
+srun man pages for more information.
+The <B>details</B> option is currently only supported for the <I>show job</I>
+command.
+<P>
+<a id="OPT_exit"></a>
+<DT><B>exit</B><DD>
+Terminate the execution of scontrol.
+This is an independent command with no options meant for use in interactive mode.
+<P>
+<a id="OPT_help"></a>
+<DT><B>help</B><DD>
+Display a description of scontrol options and commands.
+<P>
+<a id="OPT_hide"></a>
+<DT><B>hide</B><DD>
+Do not display partition, job or jobs step information for partitions that are
+configured as hidden or partitions that are unavailable to the user's group.
+This is the default behavior.
+<P>
+<a id="OPT_hold"></a>
+<DT><B>hold</B> <I>job_id</I><DD>
+Prevent a pending job from beginning started (sets it's priority to 0).
+Use the <I>release</I> command to permit the job to be scheduled.
+Note that when a job is held by a system administrator using the <B>hold</B>
+command, only a system administrator may release the job for execution (also
+see the <B>uhold</B> command). When the job is held by its owner, it may also
+be released by the job's owner.
+<P>
+<a id="OPT_notify"></a>
+<DT><B>notify</B> <I>job_id</I> <I>message</I><DD>
+Send a message to standard error of the salloc or srun command or batch job 
+associated with the specified <I>job_id</I>.
+<P>
+<a id="OPT_oneliner"></a>
+<DT><B>oneliner</B><DD>
+Print information one line per record.
+<P>
+<a id="OPT_pidinfo"></a>
+<DT><B>pidinfo</B> <I>proc_id</I><DD>
+Print the Slurm job id and scheduled termination time corresponding to the
+supplied process id, <I>proc_id</I>, on the current node.  This will work only
+with processes on node on which scontrol is run, and only for those processes
+spawned by SLURM and their descendants.
+<P>
+<a id="OPT_listpids"></a>
+<DT><B>listpids</B> [<I>job_id</I>[.<I>step_id</I>]] [<I>NodeName</I>]<DD>
+Print a listing of the process IDs in a job step (if JOBID.STEPID is provided),
+or all of the job steps in a job (if <I>job_id</I> is provided), or all of the job
+steps in all of the jobs on the local node (if <I>job_id</I> is not provided
+or <I>job_id</I> is &quot;*&quot;).  This will work only with processes on the node on
+which scontrol is run, and only for those processes spawned by SLURM and
+their descendants. Note that some SLURM configurations
+(<I>ProctrackType</I> value of <I>pgid</I> or <I>aix</I>)
+are unable to identify all processes associated with a job or job step.
+<P>
+Note that the NodeName option is only really useful when you have multiple
+slurmd daemons running on the same host machine.  Multiple slurmd daemons on
+one host are, in general, only used by SLURM developers.
+<P>
+<a id="OPT_ping"></a>
+<DT><B>ping</B><DD>
+Ping the primary and secondary slurmctld daemon and report if
+they are responding.
+<P>
+<a id="OPT_quiet"></a>
+<DT><B>quiet</B><DD>
+Print no warning or informational messages, only fatal error messages.
+<P>
+<a id="OPT_quit"></a>
+<DT><B>quit</B><DD>
+Terminate the execution of scontrol.
+<P>
+<a id="OPT_reconfigure"></a>
+<DT><B>reconfigure</B><DD>
+Instruct all Slurm daemons to re-read the configuration file.
+This command does not restart the daemons.
+This mechanism would be used to modify configuration parameters (Epilog,
+Prolog, SlurmctldLogFile, SlurmdLogFile, etc.) register the physical
+addition or removal of nodes from the cluster or recognize the change
+of a node's configuration, such as the addition of memory or processors.
+The Slurm controller (slurmctld) forwards the request all other daemons
+(slurmd daemon on each compute node). Running jobs continue execution.
+Most configuration parameters can be changed by just running this command,
+however, SLURM daemons should be shutdown and restarted if any of these
+parameters are to be changed: AuthType, BackupAddr, BackupController,
+ControlAddr, ControlMach, PluginDir, StateSaveLocation, SlurmctldPort
+or SlurmdPort.
+<P>
+<a id="OPT_release"></a>
+<DT><B>release</B> <I>job_id</I><DD>
+Release a previously held job to begin execution. Also see <B>hold</B>.
+<P>
+<a id="OPT_requeue"></a>
+<DT><B>requeue</B> <I>job_id</I><DD>
+Requeue a running or pending SLURM batch job.
+<P>
+<a id="OPT_resume"></a>
+<DT><B>resume</B> <I>job_id</I><DD>
+Resume a previously suspended job. Also see <B>suspend</B>.
+<P>
+<a id="OPT_schedloglevel"></a>
+<DT><B>schedloglevel</B> <I>LEVEL</I><DD>
+Enable or disable scheduler logging.
+<I>LEVEL</I> may be &quot;0&quot;, &quot;1&quot;, &quot;disable&quot; or &quot;enable&quot;. &quot;0&quot; has the same 
+effect as &quot;disable&quot;. &quot;1&quot; has the same effect as &quot;enable&quot;.
+This value is temporary and will be overwritten when the slurmctld 
+daemon reads the slurm.conf configuration file (e.g. when the daemon 
+is restarted or <B>scontrol reconfigure</B> is executed) if the
+SlurmSchedLogLevel parameter is present.
+<P>
+<a id="OPT_setdebug"></a>
+<DT><B>setdebug</B> <I>LEVEL</I><DD>
+Change the debug level of the slurmctld daemon.
+<I>LEVEL</I> may be an integer value between zero and nine (using the
+same values as <I>SlurmctldDebug</I> in the <I>slurm.conf</I> file) or
+the name of the most detailed message type to be printed:
+&quot;quiet&quot;, &quot;fatal&quot;, &quot;error&quot;, &quot;info&quot;, &quot;verbose&quot;, &quot;debug&quot;, &quot;debug2&quot;, &quot;debug3&quot;,
+&quot;debug4&quot;, or &quot;debug5&quot;.
+This value is temporary and will be overwritten whenever the slurmctld
+daemon reads the slurm.conf configuration file (e.g. when the daemon
+is restarted or <B>scontrol reconfigure</B> is executed).
+<P>
+<a id="OPT_setdebugflags"></a>
+<DT><B>setdebugflags</B> [+|-]<I>FLAG</I><DD>
+Add or remove DebugFlags of the slurmctld daemon.
+See &quot;man slurm.conf&quot; for a list of supported DebugFlags.
+NOTE: Changing the value of some DebugFlags will have no effect without
+restarting the slurmctld daemon, which would set DebugFlags based upon the
+contents of the slurm.conf configuration file.
+<P>
+<a id="OPT_show"></a>
+<DT><B>show</B> <I>ENTITY</I> <I>ID</I><DD>
+Display the state of the specified entity with the specified identification.
+<I>ENTITY</I> may be <I>aliases</I>, <I>config</I>, <I>daemons</I>, <I>frontend</I>,
+<I>job</I>, <I>node</I>, <I>partition</I>, <I>reservation</I>, <I>slurmd</I>,
+<I>step</I>, <I>topology</I>, <I>hostlist</I> or <I>hostnames</I>
+(also <I>block</I> or <I>subbp</I> on BlueGene systems).
+<I>ID</I> can be used to identify a specific element of the identified
+entity: the configuration parameter name, job ID, node name, partition name,
+reservation name, or job step ID for <I>config</I>, <I>job</I>, <I>node</I>,
+<I>partition</I>, or <I>step</I> respectively.
+For an <I>ENTITY</I> of <I>topology</I>, the <I>ID</I> may be a node or switch name.
+If one node name is specified, all switches connected to that node (and
+their parent switches) will be shown.
+If more than one node name is specified, only switches that connect to all
+named nodes will be shown.
+<I>aliases</I> will return all <I>NodeName</I> values associated to a given
+<I>NodeHostname</I> (useful to get the list of virtual nodes associated with a
+real node in a configuration where multiple slurmd daemons execute on a single
+compute node).
+<I>config</I> displays parameter names from the configuration files in mixed
+case (e.g. SlurmdPort=7003) while derived parameters names are in upper case
+only (e.g. SLURM_VERSION).
+<I>hostnames</I> takes an optional hostlist expression as input and
+writes a list of individual host names to standard output (one per
+line). If no hostlist expression is supplied, the contents of the
+SLURM_NODELIST environment variable is used. For example &quot;tux[1-3]&quot;
+is mapped to &quot;tux1&quot;,&quot;tux2&quot; and &quot;tux3&quot; (one hostname per line).
+<I>hostlist</I> takes a list of host names and prints the hostlist
+expression for them (the inverse of <I>hostnames</I>).
+<I>hostlist</I> can also take the absolute pathname of a file
+(beginning with the character '/') containing a list of hostnames.
+Multiple node names may be specified using simple node range expressions
+(e.g. &quot;lx[10-20]&quot;). All other <I>ID</I> values must identify a single
+element. The job step ID is of the form &quot;job_id.step_id&quot;, (e.g. &quot;1234.1&quot;).
+<I>slurmd</I> reports the current status of the slurmd daemon executing
+on the same node from which the scontrol command is executed (the
+local host). It can be useful to diagnose problems.
+By default, all elements of the entity type specified are printed.
+For an <I>ENTITY</I> of <I>job</I>, if the job does not specify
+socket-per-node, cores-per-socket or threads-per-core then it
+will display '*' in ReqS:C:T=*:*:* field.
+<P>
+<a id="OPT_shutdown"></a>
+<DT><B>shutdown</B> <I>OPTION</I><DD>
+Instruct Slurm daemons to save current state and terminate.
+By default, the Slurm controller (slurmctld) forwards the request all
+other daemons (slurmd daemon on each compute node).
+An <I>OPTION</I> of <I>slurmctld</I> or <I>controller</I> results in
+only the slurmctld daemon being shutdown and the slurmd daemons
+remaining active.
+<P>
+<a id="OPT_suspend"></a>
+<DT><B>suspend</B> <I>job_id</I><DD>
+Suspend a running job.
+Use the <I>resume</I> command to resume its execution.
+User processes must stop on receipt of SIGSTOP signal and resume
+upon receipt of SIGCONT for this operation to be effective.
+Not all architectures and configurations support job suspension.
+<P>
+<a id="OPT_takeover"></a>
+<DT><B>takeover</B><DD>
+Instruct SLURM's backup controller (slurmctld) to take over system control.
+SLURM's backup controller requests control from the primary and waits for
+its termination. After that, it switches from backup mode to controller
+mode. If primary controller can not be contacted, it directly switches to
+controller mode. This can be used to speed up the SLURM controller
+fail-over mechanism when the primary node is down.
+This can be used to minimize disruption if the computer executing the
+primary SLURM controller is scheduled down.
+(Note: SLURM's primary controller will take the control back at startup.)
+<P>
+<a id="OPT_uhold"></a>
+<DT><B>uhold</B> <I>job_id</I><DD>
+Prevent a pending job from being started (sets it's priority to 0).
+Use the <I>release</I> command to permit the job to be scheduled.
+This command is designed for a system administrator to hold a job so that
+the job owner may release it rather than requiring the interventon of a
+system administrator (also see the <B>hold</B> command).
+<P>
+<a id="OPT_update"></a>
+<DT><B>update</B> <I>SPECIFICATION</I><DD>
+Update job, step, node, partition, or reservation configuration per the 
+supplied specification. <I>SPECIFICATION</I> is in the same format as the Slurm
+configuration file and the output of the <I>show</I> command described above. It
+may be desirable to execute the <I>show</I> command (described above) on the
+specific entity you which to update, then use cut-and-paste tools to enter
+updated configuration values to the <I>update</I>. Note that while most
+configuration values can be changed using this command, not all can be changed
+using this mechanism. In particular, the hardware configuration of a node or
+the physical addition or removal of nodes from the cluster may only be
+accomplished through editing the Slurm configuration file and executing
+the <I>reconfigure</I> command (described above).
+<P>
+<a id="OPT_verbose"></a>
+<DT><B>verbose</B><DD>
+Print detailed event logging.
+This includes time-stamps on data structures, record counts, etc.
+<P>
+<a id="OPT_version"></a>
+<DT><B>version</B><DD>
+Display the version number of scontrol being executed.
+<P>
+<a id="OPT_wait_job"></a>
+<DT><B>wait_job</B> <I>job_id</I><DD>
+Wait until a job andall of its nodes are ready for use or the job has entered
+some termination state. This option is particularly useful in the SLURM Prolog
+or in the batch script itself if nodes are powered down and restarted
+automatically as needed.
+<P>
+<a id="OPT_!!"></a>
+<DT><B>!!</B><DD>
+Repeat the last command executed.
+<P>
+<a id="OPT_SPECIFICATIONS FOR UPDATE COMMAND, JOBS"></a>
+<DT><B>SPECIFICATIONS FOR UPDATE COMMAND, JOBS</B><DD>
+<DT><I>Account</I>=&lt;account&gt;<DD>
+Account name to be changed for this job's resource use.
+Value may be cleared with blank data value, &quot;Account=&quot;.
+<DT><I>Conn-Type</I>=&lt;type&gt;<DD>
+Reset the node connection type.
+Possible values on Blue Gene are &quot;MESH&quot;, &quot;TORUS&quot; and &quot;NAV&quot;
+(mesh else torus).
+<DT><I>Contiguous</I>=&lt;yes|no&gt;<DD>
+Set the job's requirement for contiguous (consecutive) nodes to be allocated.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+<DT><I>Dependency</I>=&lt;dependency_list&gt;<DD>
+Defer job's initiation until specified job dependency specification 
+is satisfied.
+Cancel dependency with an empty dependency_list (e.g. &quot;Dependency=&quot;).
+&lt;<I>dependency_list</I>&gt; is of the form
+&lt;<I>type:job_id[:job_id][,type:job_id[:job_id]]</I>&gt;.
+Many jobs can share the same dependency and these jobs may even belong to
+different  users. 
+
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_after:job_id[:jobid...]"></a>
+<DT><B>after:job_id[:jobid...]</B><DD>
+This job can begin execution after the specified jobs have begun
+execution.
+<a id="OPT_afterany:job_id[:jobid...]"></a>
+<DT><B>afterany:job_id[:jobid...]</B><DD>
+This job can begin execution after the specified jobs have terminated.
+<a id="OPT_afternotok:job_id[:jobid...]"></a>
+<DT><B>afternotok:job_id[:jobid...]</B><DD>
+This job can begin execution after the specified jobs have terminated
+in some failed state (non-zero exit code, node failure, timed out, etc).
+<a id="OPT_afterok:job_id[:jobid...]"></a>
+<DT><B>afterok:job_id[:jobid...]</B><DD>
+This job can begin execution after the specified jobs have successfully
+executed (ran to completion with an exit code of zero).
+<a id="OPT_singleton"></a>
+<DT><B>singleton</B><DD>
+This job can begin execution after any previously launched jobs
+sharing the same job name and user have terminated.
+</DL>
+</DL>
+
+<DT><I>EligibleTime</I>=&lt;time_spec&gt;<DD>
+See <I>StartTime</I>.
+<DT><I>ExcNodeList</I>=&lt;nodes&gt;<DD>
+Set the job's list of excluded node. Multiple node names may be
+specified using simple node range expressions (e.g. &quot;lx[10-20]&quot;).
+Value may be cleared with blank data value, &quot;ExcNodeList=&quot;.
+<DT><I>Features</I>=&lt;features&gt;<DD>
+Set the job's required node features.
+The list of features may include multiple feature names separated
+by ampersand (AND) and/or vertical bar (OR) operators.
+For example: <B>Features=&quot;opteron&amp;video&quot;</B> or <B>Features=&quot;fast|faster&quot;</B>.
+In the first example, only nodes having both the feature &quot;opteron&quot; AND
+the feature &quot;video&quot; will be used.
+There is no mechanism to specify that you want one node with feature
+&quot;opteron&quot; and another node with feature &quot;video&quot; in case no
+node has both features.
+If only one of a set of possible options should be used for all allocated
+nodes, then use the OR operator and enclose the options within square brackets.
+For example: &quot;<B>Features=[rack1|rack2|rack3|rack4]&quot;</B> might
+be used to specify that all nodes must be allocated on a single rack of
+the cluster, but any of those four racks can be used.
+A request can also specify the number of nodes needed with some feature
+by appending an asterisk and count after the feature name.
+For example &quot;<B>Features=graphics*4&quot;</B>
+indicates that at least four allocated nodes must have the feature &quot;graphics.&quot;
+Constraints with node counts may only be combined with AND operators.
+Value may be cleared with blank data value, for example &quot;Features=&quot;.
+<P>
+<DT><I>Geometry</I>=&lt;geo&gt;<DD>
+Reset the required job geometry.
+On Blue Gene the value should be three digits separated by
+&quot;x&quot; or &quot;,&quot;. The digits represent the allocation size in
+X, Y and Z dimensions (e.g. &quot;2x3x4&quot;).
+<P>
+<DT><I>Gres</I>=&lt;list&gt;<DD>
+Specifies a comma delimited list of generic consumable resources.
+The format of each entry on the list is &quot;name[:count[*cpu]]&quot;.
+The name is that of the consumable resource.
+The count is the number of those resources with a default value of 1.
+The specified resources will be allocated to the job on each node
+allocated unless &quot;*cpu&quot; is appended, in which case the resources
+will be allocated on a per cpu basis.
+The available generic consumable resources is configurable by the system
+administrator.
+A list of available generic consumable resources will be printed and the
+command will exit if the option argument is &quot;help&quot;.
+Examples of use include &quot;Gres=gpus:2*cpu,disk=40G&quot; and &quot;Gres=help&quot;.
+<P>
+<DT><I>JobId</I>=&lt;id&gt;<DD>
+Identify the job to be updated. This specification is required.
+<DT><I>Licenses</I>=&lt;name&gt;<DD>
+Specification of licenses (or other resources available on all nodes
+of the cluster) as described in salloc/sbatch/srun man pages.
+<DT><I>MinCPUsNode</I>=&lt;count&gt;<DD>
+Set the job's minimum number of CPUs per node to the specified value.
+<DT><I>MinMemoryCPU</I>=&lt;megabytes&gt;<DD>
+Set the job's minimum real memory required per allocated CPU to the specified
+value.
+Either <I>MinMemoryCPU</I> or <I>MinMemoryNode</I> may be set, but not both.
+<DT><I>MinMemoryNode</I>=&lt;megabytes&gt;<DD>
+Set the job's minimum real memory required per node to the specified value.
+Either <I>MinMemoryCPU</I> or <I>MinMemoryNode</I> may be set, but not both.
+<DT><I>MinTmpDiskNode</I>=&lt;megabytes&gt;<DD>
+Set the job's minimum temporary disk space required per node to the specified value.
+<DT><I>Name</I>=&lt;name&gt;<DD>
+Set the job's name to the specified value.
+<DT><I>Nice</I>[=delta]<DD>
+Adjust job's priority by the specified value. Default value is 100.
+The adjustment range is from -10000 (highest priority)
+to 10000 (lowest priority).
+Nice value changes are not additive, but overwrite any prior nice
+value and are applied to the job's base priority.
+Only privileged users can specify a negative adjustment.
+<DT><I>NodeList</I>=&lt;nodes&gt;<DD>
+Change the nodes allocated to a running job to shrink it's size.
+The specified list of nodes must be a subset of the nodes currently
+allocated to the job. Multiple node names may be specified using
+simple node range expressions (e.g. &quot;lx[10-20]&quot;). After a job's allocation
+is reduced, subsequent <B>srun</B> commands must explicitly specify node and
+task counts which are valid for the new allocation.
+<DT><I>NumCPUs</I>=&lt;min_count&gt;[-&lt;max_count&gt;]<DD>
+Set the job's minimum and optionally maximum count of CPUs to be allocated.
+<DT><I>NumNodes</I>=&lt;min_count&gt;[-&lt;max_count&gt;]<DD>
+Set the job's minimum and optionally maximum count of nodes to be allocated.
+If the job is already running, use this to specify a node count less than
+currently allocated and resources previously allocated to the job will be
+relinquished. After a job's allocation is reduced, subsequent <B>srun</B>
+commands must explicitly specify node and task counts which are valid for the
+new allocation. Also see the <I>NodeList</I> parameter above.
+<DT><I>NumTasks</I>=&lt;count&gt;<DD>
+Set the job's count of required tasks to the specified value.
+<DT><I>Partition</I>=&lt;name&gt;<DD>
+Set the job's partition to the specified value.
+<DT><I>Priority</I>=&lt;number&gt;<DD>
+Set the job's priority to the specified value.
+Note that a job priority of zero prevents the job from ever being scheduled.
+By setting a job's priority to zero it is held.
+Set the priority to a non-zero value to permit it to run.
+Explicitly setting a job's priority clears any previously set nice value.
+<DT><I>QOS</I>=&lt;name&gt;<DD>
+Set the job's QOS (Quality Of Service) to the specified value.
+Value may be cleared with blank data value, &quot;QOS=&quot;.
+<DT><I>ReqCores</I>=&lt;count&gt;<DD>
+Set the job's count of cores per socket to the specified value.
+<DT><I>ReqNodeList</I>=&lt;nodes&gt;<DD>
+Set the job's list of required node. Multiple node names may be specified using
+simple node range expressions (e.g. &quot;lx[10-20]&quot;).
+Value may be cleared with blank data value, &quot;ReqNodeList=&quot;.
+<DT><I>ReqSockets</I>=&lt;count&gt;<DD>
+Set the job's count of sockets per node to the specified value.
+<DT><I>ReqThreads</I>=&lt;count&gt;<DD>
+Set the job's count of threads per core to the specified value.
+<DT><I>Requeue</I>=&lt;0|1&gt;<DD>
+Stipulates whether a job should be requeued after a node failure: 0
+for no, 1 for yes.
+<DT><I>ReservationName</I>=&lt;name&gt;<DD>
+Set the job's reservation to the specified value.
+Value may be cleared with blank data value, &quot;ReservationName=&quot;.
+<DT><I>Rotate</I>=&lt;yes|no&gt;<DD>
+Permit the job's geometry to be rotated.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+<DT><I>Shared</I>=&lt;yes|no&gt;<DD>
+Set the job's ability to share nodes with other jobs. Possible values are
+&quot;YES&quot; and &quot;NO&quot;.
+<DT><I>StartTime</I>=&lt;time_spec&gt;<DD>
+Set the job's earliest initiation time.
+It accepts times of the form <I>HH:MM:SS</I> to run a job at
+a specific time of day (seconds are optional).
+(If that time is already past, the next day is assumed.)
+You may also specify <I>midnight</I>, <I>noon</I>, or
+<I>teatime</I> (4pm) and you can have a time-of-day suffixed
+with <I>AM</I> or <I>PM</I> for running in the morning or the evening.
+You can also say what day the job will be run, by specifying
+a date of the form <I>MMDDYY</I> or <I>MM/DD/YY</I> or <I>MM.DD.YY</I>,
+or a date and time as <I>YYYY-MM-DD[THH:MM[:SS]]</I>.  You can also
+give times like <I>now + count time-units</I>, where the time-units
+can be <I>minutes</I>, <I>hours</I>, <I>days</I>, or <I>weeks</I>
+and you can tell SLURM to run the job today with the keyword
+<I>today</I> and to run the job tomorrow with the keyword
+<I>tomorrow</I>.
+<DL COMPACT><DT><DD>
+<P>
+
+Notes on date/time specifications:
+<BR>&nbsp;-&nbsp;although&nbsp;the&nbsp;'seconds'&nbsp;field&nbsp;of&nbsp;the&nbsp;HH:MM:SS&nbsp;time&nbsp;specification&nbsp;is
+allowed by the code, note that the poll time of the SLURM scheduler
+is not precise enough to guarantee dispatch of the job on the exact
+second.  The job will be eligible to start on the next poll
+following the specified time. The exact poll interval depends on the
+SLURM scheduler (e.g., 60 seconds with the default sched/builtin).
+<BR>&nbsp;-&nbsp;if&nbsp;no&nbsp;time&nbsp;(HH:MM:SS)&nbsp;is&nbsp;specified,&nbsp;the&nbsp;default&nbsp;is&nbsp;(00:00:00).
+<BR>&nbsp;-&nbsp;if&nbsp;a&nbsp;date&nbsp;is&nbsp;specified&nbsp;without&nbsp;a&nbsp;year&nbsp;(e.g.,&nbsp;MM/DD)&nbsp;then&nbsp;the&nbsp;current
+year is assumed, unless the combination of MM/DD and HH:MM:SS has
+already passed for that year, in which case the next year is used.
+</DL>
+
+<DT><I>Switches</I>=&lt;count&gt;[@&lt;max-time-to-wait&gt;]<DD>
+When a tree topology is used, this defines the maximum count of switches
+desired for the job allocation. If SLURM finds an allocation containing more
+switches than the count specified, the job remain pending until it either finds
+an allocation with desired switch count or the time limit expires. By default
+there is no switch count limit and no time limit delay. Set the count
+to zero in order to clean any previously set count (disabling the limit).
+The job's maximum time delay may be limited by the system administrator using
+the <B>SchedulerParameters</B> configuration parameter with the
+<B>max_switch_wait</B> parameter option.
+Also see <I>wait-for-switch</I>.
+<P>
+<DT><I>TimeLimit</I>=&lt;time&gt;<DD>
+The job's time limit.
+Output format is [days-]hours:minutes:seconds or &quot;UNLIMITED&quot;.
+Input format (for <B>update</B> command) set is minutes, minutes:seconds,
+hours:minutes:seconds, days-hours, days-hours:minutes or
+days-hours:minutes:seconds.
+Time resolution is one minute and second values are rounded up to
+the next minute.
+If changing the time limit of a job, either specify a new time limit value or
+preceed the time with a &quot;+&quot; or &quot;-&quot; to increment or decrement the current
+time limit (e.g. &quot;TimeLimit=+30&quot;). In order to increment or decrement the
+current time limit, the <I>JobId</I> specification must preceed the
+<I>TimeLimit</I> specification.
+<P>
+<DT><I>wait-for-switch</I>=&lt;max-time-to-wait&gt;<DD>
+When a tree topology is used, this defines the  maximum time to wait for the
+desired count of switches. If SLURM finds an allocation containing more
+switches than the count specified, the job remain pending until it either finds
+an allocation with desired switch count or the time limit expires. By default
+there is no switch count limit and there is not time delay. Set the time
+to zero in order to clean any previously set time limit (disabling the limit).
+The job's maximum time delay may be limited by the system administrator using
+the <B>SchedulerParameters</B> configuration parameter with the
+<B>max_switch_wait parameter</B> option.
+Also see <I>Switches</I>.
+<DT><I>WCKey</I>=&lt;key&gt;<DD>
+Set the job's workload characterization key to the specified value.
+<P>
+<DT>NOTE: The &quot;show&quot; command, when used with the &quot;job&quot; or &quot;job &lt;jobid&gt;&quot;<DD>
+entity displays detailed information about a job or jobs.  Much of
+this information may be modified using the &quot;update job&quot; command as
+described above.  However, the following fields displayed by the show
+job command are read-only and cannot be modified:
+<P>
+<DT><I>AllocNode:Sid</I><DD>
+Local node and system id making the resource allocation.
+<DT><I>EndTime</I><DD>
+The time the job is expected to terminate based on the job's time
+limit.  When the job ends sooner, this field will be updated with the
+actual end time.
+<DT><I>ExitCode</I>=&lt;exit&gt;:&lt;sig&gt;<DD>
+Exit status reported for the job by the wait() function.
+The first number is the exit code, typically as set by the exit() function.
+The second number of the signal that caused the process to terminate if
+it was terminated by a signal.
+<DT><I>JobState</I><DD>
+The current state of the job.
+<DT><I>NodeList</I><DD>
+The list of nodes allocated to the job.
+<DT><I>NodeListIndices</I><DD>
+The NodeIndices expose the internal indices into the node table
+associated with the node(s) allocated to the job.
+<DT><I>PreemptTime</I><DD>
+Time at which job was signaled that it was selected for preemption.
+(Meaningful only for PreemptMode=CANCEL and the partition or QOS
+with which the job is associated has a GraceTime value designated.)
+<DT><I>PreSusTime</I><DD>
+Time the job ran prior to last suspend.
+<DT><I>Reason</I><DD>
+The reason job is not running: e.g., waiting &quot;Resources&quot;.
+<DT><I>SubmitTime</I><DD>
+The time  and  date stamp (in Universal Time Coordiated, UTC)
+the job was submitted.  The format of the output is identical
+to that of the EndTime field.
+<P>
+NOTE: If a job is requeued, the submit time is reset.
+To obtain the original submit time it is necessary
+to use the &quot;sacct -j &lt;job_id[.&lt;step_id&gt;]&quot; command also
+designating the -D or --duplicate option to display all
+duplicate entries for a job.
+<DT><I>SuspendTime</I><DD>
+Time the job was last suspended or resumed.
+<DT><I>UserId</I>  <I>GroupId</I><DD>
+The user and group under which the job was submitted.
+<DT>NOTE on information displayed for various job states: <DD>
+When you submit a request for the &quot;show job&quot; function the scontrol
+process makes an RPC request call to slurmctld with a REQUEST_JOB_INFO
+message type.  If the state of the job is PENDING, then it returns
+some detail information such as: min_nodes, min_procs, cpus_per_task,
+etc. If the state is other than PENDING the code assumes that it is in
+a further state such as RUNNING, COMPLETE, etc. In these cases the
+code explicitly returns zero for these values. These values are
+meaningless once the job resources have been allocated and the job has
+started.
+<P>
+<a id="OPT_SPECIFICATIONS FOR UPDATE COMMAND, STEPS"></a>
+<DT><B>SPECIFICATIONS FOR UPDATE COMMAND, STEPS</B><DD>
+<DT><I>StepId</I>=&lt;job_id&gt;[.&lt;step_id&gt;]<DD>
+Identify the step to be updated. 
+If the job_id is given, but no step_id is specified then all steps of 
+the identified job will be modified.
+This specification is required.
+<DT><I>TimeLimit</I>=&lt;time&gt;<DD>
+The job's time limit.
+Output format is [days-]hours:minutes:seconds or &quot;UNLIMITED&quot;.
+Input format (for <B>update</B> command) set is minutes, minutes:seconds,
+hours:minutes:seconds, days-hours, days-hours:minutes or
+days-hours:minutes:seconds.
+Time resolution is one minute and second values are rounded up to
+the next minute.
+If changing the time limit of a step, either specify a new time limit value or
+preceed the time with a &quot;+&quot; or &quot;-&quot; to increment or decrement the current
+time limit (e.g. &quot;TimeLimit=+30&quot;). In order to increment or decrement the
+current time limit, the <I>StepId</I> specification must preceed the
+<I>TimeLimit</I> specification.
+<P>
+<a id="OPT_SPECIFICATIONS FOR UPDATE COMMAND, NODES"></a>
+<DT><B>SPECIFICATIONS FOR UPDATE COMMAND, NODES</B><DD>
+<DT><I>NodeName</I>=&lt;name&gt;<DD>
+Identify the node(s) to be updated. Multiple node names may be specified using
+simple node range expressions (e.g. &quot;lx[10-20]&quot;). This specification is required.
+<DT><I>Features</I>=&lt;features&gt;<DD>
+Identify feature(s) to be associated with the specified node.  Any
+previously defined feature(s) will be overwritten with the new value.
+Features assigned via <B>scontrol</B> will only persist across the restart 
+of the slurmctld daemon with the <I>-R</I> option and state files 
+preserved or slurmctld's receipt of a SIGHUP. 
+Update slurm.conf with any changes meant to be persistent across normal 
+restarts of slurmctld or the execution of <B>scontrol reconfig</B>.
+<P>
+<DT><I>Gres</I>=&lt;gres&gt;<DD>
+Identify generic resources to be associated with the specified node.  Any
+previously defined generic resources will be overwritten with the new value.
+Specifications for multiple generic resources should be comma separated.
+Each resource specification consists of a name followed by an optional
+colon with a numeric value (default value is one)
+(e.g. &quot;Gres=bandwidth:10000,gpus&quot;).
+Generic resources assigned via <B>scontrol</B> will only persist across the
+restart of the slurmctld daemon with the <I>-R</I> option and state files
+preserved or slurmctld's receipt of a SIGHUP.
+Update slurm.conf with any changes meant to be persistent across normal
+restarts of slurmctld or the execution of <B>scontrol reconfig</B>.
+<P>
+<DT><I>Reason</I>=&lt;reason&gt;<DD>
+Identify the reason the node is in a &quot;DOWN&quot;. &quot;DRAINED&quot;, &quot;DRAINING&quot;,
+&quot;FAILING&quot; or &quot;FAIL&quot; state.
+Use quotes to enclose a reason having more than one word.
+<P>
+<DT><I>State</I>=&lt;state&gt;<DD>
+Identify the state to be assigned to the node. Possible values are  &quot;NoResp&quot;,
+&quot;ALLOC&quot;, &quot;ALLOCATED&quot;, &quot;DOWN&quot;, &quot;DRAIN&quot;, &quot;FAIL&quot;, &quot;FAILING&quot;, &quot;IDLE&quot;,
+&quot;MIXED&quot;, &quot;MAINT&quot;, &quot;POWER_DOWN&quot;, &quot;POWER_UP&quot;, or &quot;RESUME&quot;.
+If a node is in a &quot;MIXED&quot; state it usually means the node is in
+multiple states.  For instance if only part of the node is &quot;ALLOCATED&quot;
+and the rest of the node is &quot;IDLE&quot; the state will be &quot;MIXED&quot;.
+If you want to remove a node from service, you typically want to set
+it's state to &quot;DRAIN&quot;.
+&quot;FAILING&quot; is similar to &quot;DRAIN&quot; except that some applications will
+seek to relinquish those nodes before the job completes.
+&quot;RESUME&quot; is not an actual node state, but will return a &quot;DRAINED&quot;, &quot;DRAINING&quot;,
+or &quot;DOWN&quot; node to service, either &quot;IDLE&quot; or &quot;ALLOCATED&quot; state as appropriate.
+Setting a node &quot;DOWN&quot; will cause all running and suspended jobs on that
+node to be terminated.
+&quot;POWER_DOWN&quot; and &quot;POWER_UP&quot; will use the configured <I>SuspendProg</I> and
+<I>ResumeProg</I> programs to explicitly place a node in or out of a power
+saving mode.
+The &quot;NoResp&quot; state will only set the &quot;NoResp&quot; flag for a node without
+changing its underlying state.
+While all of the above states are valid, some of them are not valid new
+node states given their prior state.
+Generally only &quot;DRAIN&quot;, &quot;FAIL&quot; and &quot;RESUME&quot; should be used.
+NOTE: The scontrol command should not be used to change node state on Cray
+systems. Use Cray tools such as <I>xtprocadmin</I> instead.
+<P>
+<DT><I>Weight</I>=&lt;weight&gt;<DD>
+Identify weight to be associated with specified nodes. This allows
+dynamic changes to weight associated with nodes, which will be used
+for the subsequent node allocation decisions.
+Weight assigned via <B>scontrol</B> will only persist across the restart 
+of the slurmctld daemon with the <I>-R</I> option and state files 
+preserved or slurmctld's receipt of a SIGHUP. 
+Update slurm.conf with any changes meant to be persistent across normal 
+restarts of slurmctld or the execution of <B>scontrol reconfig</B>.
+<P>
+<a id="OPT_SPECIFICATIONS FOR UPDATE COMMAND, FRONTEND"></a>
+<DT><B>SPECIFICATIONS FOR UPDATE COMMAND, FRONTEND</B><DD>
+<P>
+<DT><I>FrontendName</I>=&lt;name&gt;<DD>
+Identify the front end node to be updated. This specification is required.
+<P>
+<DT><I>Reason</I>=&lt;reason&gt;<DD>
+Identify the reason the node is in a &quot;DOWN&quot; or &quot;DRAIN&quot; state.
+Use quotes to enclose a reason having more than one word.
+<P>
+<DT><I>State</I>=&lt;state&gt;<DD>
+Identify the state to be assigned to the front end node. Possible values are
+&quot;DOWN&quot;, &quot;DRAIN&quot; or &quot;RESUME&quot;.
+If you want to remove a front end node from service, you typically want to set
+it's state to &quot;DRAIN&quot;.
+&quot;RESUME&quot; is not an actual node state, but will return a &quot;DRAINED&quot;, &quot;DRAINING&quot;,
+or &quot;DOWN&quot; front end node to service, either &quot;IDLE&quot; or &quot;ALLOCATED&quot; state as
+appropriate.
+Setting a front end node &quot;DOWN&quot; will cause all running and suspended jobs on
+that node to be terminated.
+<P>
+<a id="OPT_SPECIFICATIONS FOR CREATE, UPDATE, AND DELETE COMMANDS, PARTITIONS"></a>
+<DT><B>SPECIFICATIONS FOR CREATE, UPDATE, AND DELETE COMMANDS, PARTITIONS</B><DD>
+<DT><I>AllowGroups</I>=&lt;name&gt;<DD>
+Identify the user groups which may use this partition.
+Multiple groups may be specified in a comma separated list.
+To permit all groups to use the partition specify &quot;AllowGroups=ALL&quot;.
+<P>
+<DT><I>AllocNodes</I>=&lt;name&gt;<DD>
+Comma separated list of nodes from which users can execute jobs in the
+partition.
+Node names may be specified using the node range expression syntax
+described above.
+The default value is &quot;ALL&quot;.
+<P>
+<DT><I>Alternate</I>=&lt;partition name&gt;<DD>
+Alternate partition to be used if the state of this partition is &quot;DRAIN&quot; or
+&quot;INACTIVE.&quot;  The value &quot;NONE&quot; will clear a previously set alternate partition.
+<P>
+<DT><I>Default</I>=&lt;yes|no&gt;<DD>
+Specify if this partition is to be used by jobs which do not explicitly
+identify a partition to use.
+Possible output values are &quot;YES&quot; and &quot;NO&quot;.
+In order to change the default partition of a running system,
+use the scontrol update command and set Default=yes for the partition
+that you want to become the new default.
+<P>
+<DT><I>DefaultTime</I>=&lt;time&gt;<DD>
+Run time limit used for jobs that don't specify a value. If not set
+then MaxTime will be used.
+Format is the same as for MaxTime.
+<P>
+<DT><I>DefMemPerCPU</I>=&lt;MB&gt;<DD>
+Set the default memory to be allocated per CPU for jobs in this partition.
+The memory size is specified in megabytes.
+<DT><I>DefMemPerCNode</I>=&lt;MB&gt;<DD>
+Set the default memory to be allocated per node for jobs in this partition.
+The memory size is specified in megabytes.
+<P>
+<DT><I>DisableRootJobs</I>=&lt;yes|no&gt;<DD>
+Specify if jobs can be executed as user root.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+<P>
+<DT><I>GraceTime</I>=&lt;seconds&gt;<DD>
+Specifies, in units of seconds, the preemption grace time
+to be extended to a job which has been selected for preemption.
+The default value is zero, no preemption grace time is allowed on
+this partition or qos.
+(Meaningful only for PreemptMode=CANCEL)
+<P>
+<DT><I>Hidden</I>=&lt;yes|no&gt;<DD>
+Specify if the partition and its jobs should be hidden from view.
+Hidden partitions will by default not be reported by SLURM APIs
+or commands.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+<P>
+<DT><I>MaxMemPerCPU</I>=&lt;MB&gt;<DD>
+Set the maximum memory to be allocated per CPU for jobs in this partition.
+The memory size is specified in megabytes.
+<DT><I>MaxMemPerCNode</I>=&lt;MB&gt;<DD>
+Set the maximum memory to be allocated per node for jobs in this partition.
+The memory size is specified in megabytes.
+<P>
+<DT><I>MaxNodes</I>=&lt;count&gt;<DD>
+Set the maximum number of nodes which will be allocated to any single job
+in the partition. Specify a number, &quot;INFINITE&quot; or &quot;UNLIMITED&quot;.  (On a
+Bluegene type system this represents a c-node count.)
+Changing the <I>MaxNodes</I> of a partition has no effect upon jobs that
+have already begun execution.
+<P>
+<DT><I>MaxTime</I>=&lt;time&gt;<DD>
+The maximum run time for jobs.
+Output format is [days-]hours:minutes:seconds or &quot;UNLIMITED&quot;.
+Input format (for <B>update</B> command) is minutes, minutes:seconds,
+hours:minutes:seconds, days-hours, days-hours:minutes or
+days-hours:minutes:seconds.
+Time resolution is one minute and second values are rounded up to
+the next minute.
+Changing the <I>MaxTime</I> of a partition has no effect upon jobs that
+have already begun execution.
+<P>
+<DT><I>MinNodes</I>=&lt;count&gt;<DD>
+Set the minimum number of nodes which will be allocated to any single job
+in the partition.   (On a Bluegene type system this represents a c-node count.)
+Changing the <I>MinNodes</I> of a partition has no effect upon jobs that
+have already begun execution.
+<P>
+<DT><I>Nodes</I>=&lt;name&gt;<DD>
+Identify the node(s) to be associated with this partition. Multiple node names
+may be specified using simple node range expressions (e.g. &quot;lx[10-20]&quot;).
+Note that jobs may only be associated with one partition at any time.
+Specify a blank data value to remove all nodes from a partition: &quot;Nodes=&quot;.
+Changing the <I>Nodes</I> in a partition has no effect upon jobs that
+have already begun execution.
+<P>
+<DT><I>PartitionName</I>=&lt;name&gt;<DD>
+Identify the partition to be updated. This specification is required.
+<P>
+<DT><I>PreemptMode</I>=&lt;mode&gt;<DD>
+Reset the mechanism used to preempt jobs in this partition if <I>PreemptType</I>
+is configured to <I>preempt/partition_prio</I>. The default preemption mechanism
+is specified by the cluster-wide <I>PreemptMode</I> configuration parameter.
+Possible values are &quot;OFF&quot;, &quot;CANCEL&quot;, &quot;CHECKPOINT&quot;, &quot;REQUEUE&quot; and &quot;SUSPEND&quot;.
+<P>
+<DT><I>Priority</I>=&lt;count&gt;<DD>
+Jobs submitted to a higher priority partition will be dispatched
+before pending jobs in lower priority partitions and if possible
+they will preempt running jobs from lower priority partitions.
+Note that a partition's priority takes precedence over a job's
+priority.
+The value may not exceed 65533.
+<P>
+<DT><I>RootOnly</I>=&lt;yes|no&gt;<DD>
+Specify if only allocation requests initiated by user root will be satisfied.
+This can be used to restrict control of the partition to some meta-scheduler.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+<P>
+<DT><I>Shared</I>=&lt;yes|no|exclusive|force&gt;[:&lt;job_count&gt;]<DD>
+Specify if nodes in this partition can be shared by multiple jobs.
+Possible values are &quot;YES&quot;, &quot;NO&quot;, &quot;EXCLUSIVE&quot; and &quot;FORCE&quot;.
+An optional job count specifies how many jobs can be allocated to use
+each resource.
+<P>
+<DT><I>State</I>=&lt;up|down|drain|inactive&gt;<DD>
+Specify if jobs can be allocated nodes or queued in this partition. 
+Possible values are &quot;UP&quot;, &quot;DOWN&quot;, &quot;DRAIN&quot; and &quot;INACTIVE&quot;.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><I>UP</I><DD>
+Designates that new jobs may queued on the partition, and that
+jobs may be allocated nodes and run from the partition.
+<DT><I>DOWN</I><DD>
+Designates that new jobs may be queued on the partition, but
+queued jobs may not be allocated nodes and run from the partition. Jobs
+already running on the partition continue to run. The jobs
+must be explicitly canceled to force their termination.
+<DT><I>DRAIN</I><DD>
+Designates that no new jobs may be queued on the partition (job
+submission requests will be denied with an error message), but jobs
+already queued on the partition may be allocated nodes and run.
+See also the &quot;Alternate&quot; partition specification.
+<DT><I>INACTIVE</I><DD>
+Designates that no new jobs may be queued on the partition,
+and jobs already queued may not be allocated nodes and run.
+See also the &quot;Alternate&quot; partition specification.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_SPECIFICATIONS FOR CREATE, UPDATE, AND DELETE COMMANDS, RESERVATIONS"></a>
+<DT><B>SPECIFICATIONS FOR CREATE, UPDATE, AND DELETE COMMANDS, RESERVATIONS</B><DD>
+<DT><DD>
+<DT><I>Reservation</I>=&lt;name&gt;<DD>
+Identify the name of the reservation to be created, updated, or deleted.
+This parameter is required for update and is the only parameter for delete.
+For create, if you do not want to give a reservation name, use
+&quot;scontrol create res ...&quot; and a name will be created automatically.
+<P>
+<DT><I>Accounts</I>=&lt;account list&gt;<DD>
+List of accounts permitted to use the reserved nodes.
+E.g.  Accounts=physcode1,physcode2.  A user in any of the accounts
+may use the reserved nodes.
+A new reservation must specify Users and/or Accounts.
+<P>
+<DT><I>Licenses</I>=&lt;license&gt;<DD>
+Specification of licenses (or other resources available on all
+nodes of the cluster) which are to be reserved.
+License names can be followed by an asterisk and count
+(the default count is one).
+Multiple license names should be comma separated (e.g. &quot;Licenses=foo*4,bar&quot;).
+A new reservation must specify one or more resource to be included: NodeCnt,
+Nodes and/or Licenses.
+<P>
+<DT><I>NodeCnt</I>=&lt;num&gt;<DD>
+Identify number of nodes to be reserved.
+On BlueGene systems, this number represents a cnode (compute node) count and
+will be rounded up as needed to represent whole nodes (midplanes).
+A new reservation must specify one or more resource to be included: NodeCnt,
+Nodes and/or Licenses.
+<P>
+<DT><I>Nodes</I>=&lt;name&gt;<DD>
+Identify the node(s) to be reserved. Multiple node names
+may be specified using simple node range expressions (e.g. &quot;Nodes=lx[10-20]&quot;).
+Specify a blank data value to remove all nodes from a reservation: &quot;Nodes=&quot;.
+A new reservation must specify one or more resource to be included: NodeCnt,
+Nodes and/or Licenses.
+<P>
+<DT><I>StartTime</I>=&lt;time_spec&gt;<DD>
+The start time for the reservation.  A new reservation must specify a start
+time.  It accepts times of the form <I>HH:MM:SS</I> for
+a specific time of day (seconds are optional).
+(If that time is already past, the next day is assumed.)
+You may also specify <I>midnight</I>, <I>noon</I>, or
+<I>teatime</I> (4pm) and you can have a time-of-day suffixed
+with <I>AM</I> or <I>PM</I> for running in the morning or the evening.
+You can also say what day the job will be run, by specifying
+a date of the form <I>MMDDYY</I> or <I>MM/DD/YY</I> or <I>MM.DD.YY</I>,
+or a date and time as <I>YYYY-MM-DD[THH:MM[:SS]]</I>.  You can also
+give times like <I>now + count time-units</I>, where the time-units
+can be <I>minutes</I>, <I>hours</I>, <I>days</I>, or <I>weeks</I>
+and you can tell SLURM to run the job today with the keyword
+<I>today</I> and to run the job tomorrow with the keyword
+<I>tomorrow</I>.
+<P>
+<DT><I>EndTime</I>=&lt;time_spec&gt;<DD>
+The end time for the reservation.  A new reservation must specify an end
+time or a duration.  Valid formats are the same as for StartTime.
+<P>
+<DT><I>Duration</I>=&lt;time&gt;<DD>
+The length of a reservation.  A new reservation must specify an end
+time or a duration.  Valid formats are minutes, minutes:seconds,
+hours:minutes:seconds, days-hours, days-hours:minutes,
+days-hours:minutes:seconds, or UNLIMITED.  Time resolution is one minute and
+second values are rounded up to the next minute. Output format is always
+[days-]hours:minutes:seconds.
+<P>
+<DT><I>PartitionName</I>=&lt;name&gt;<DD>
+Identify the partition to be reserved.
+<P>
+<DT><I>Flags</I>=&lt;flags&gt;<DD>
+Flags associated with the reservation.
+In order to remove a flag with the update option, precede the name with
+a minus sign. For example: Flags=-DAILY (NOTE: this option is not supported
+for all flags).
+Currently supported flags include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><I>LICENSE_ONLY</I><DD>
+This is a reservation for licenses only and not compute nodes.
+If this flag is set, a job using this reservation may use the associated
+licenses and any compute nodes.
+If this flag is not set, a job using this reservation may use only the nodes
+and licenses associated with the reservation.
+<DT><I>MAINT</I><DD>
+Maintenance mode, receives special accounting treatment.
+This partition is permitted to use resources that are already in another
+reservation.
+<DT><I>OVERLAP</I><DD>
+This reservation can be allocated resources that are already in another
+reservation.
+<DT><I>IGNORE_JOBS</I><DD>
+Ignore currently running jobs when creating the reservation.
+This can be especially useful when reserving all nodes in the system
+for maintenance.
+<DT><I>DAILY</I><DD>
+Repeat the reservation at the same time every day
+<DT><I>WEEKLY</I><DD>
+Repeat the reservation at the same time every week
+<DT><I>SPEC_NODES</I><DD>
+Reservation is for specific nodes (output only)
+</DL>
+</DL>
+
+<P>
+<DT><I>Features</I>=&lt;features&gt;<DD>
+Set the reservation's required node features. Multiple values
+may be &quot;&amp;&quot; separated if all features are required (AND operation) or
+separated by &quot;|&quot; if any of the specified features are required (OR operation).
+Value may be cleared with blank data value, &quot;Features=&quot;.
+<P>
+<DT><I>Users</I>=&lt;user list&gt;<DD>
+List of users permitted to use the reserved nodes.
+E.g.  Users=jones1,smith2.
+A new reservation must specify Users and/or Accounts.
+<P>
+<a id="OPT_SPECIFICATIONS FOR UPDATE, BLOCK "></a>
+<DT><B>SPECIFICATIONS FOR UPDATE, BLOCK </B><DD>
+<DT>Bluegene systems only!<DD>
+<DT><I>BlockName</I>=&lt;name&gt;<DD>
+Identify the bluegene block to be updated. This specification is required.
+<DT><I>State</I>=&lt;free|error|remove&gt;<DD>
+This will update the state of a bluegene block to either FREE or ERROR.
+(i.e. update BlockName=RMP0 STATE=ERROR) State error will not allow jobs
+to run on the block. <B>WARNING!!!!</B> This will cancel any
+running job on the block!  On dynamically laid out systems REMOVE will
+free and remove the block from the system.  If the block is smaller
+than a midplane every block on that midplane will be removed.
+<DT><I>SubBPName</I>=&lt;name&gt;<DD>
+Identify the bluegene ionodes to be updated (i.e. bg000[0-3]). This
+specification is required.
+<DT><DD>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_ENVIRONMENT VARIABLES"></a>
+<H2>ENVIRONMENT VARIABLES</H2>
+
+<P>
+
+Some <B>scontrol</B> options may
+be set via environment variables. These environment variables,
+along with their corresponding options, are listed below. (Note:
+Commandline options will always override these settings.)
+<DL COMPACT>
+<a id="OPT_SCONTROL_ALL"></a>
+<DT><B>SCONTROL_ALL</B><DD>
+<B>-a, --all</B>
+<a id="OPT_SLURM_CLUSTERS"></a>
+<DT><B>SLURM_CLUSTERS</B><DD>
+Same as <B>--clusters</B>
+<a id="OPT_SLURM_CONF"></a>
+<DT><B>SLURM_CONF</B><DD>
+The location of the SLURM configuration file.
+<a id="OPT_SLURM_TIME_FORMAT"></a>
+<DT><B>SLURM_TIME_FORMAT</B><DD>
+Specify the format used to report time stamps. A value of <I>standard</I>, the
+default value, generates output in the form &quot;year-month-dateThour:minute:second&quot;.
+A value of <I>relative</I> returns only &quot;hour:minute:second&quot; if the current day.
+For other dates in the current year it prints the &quot;hour:minute&quot; preceded by
+&quot;Tomorr&quot; (tomorrow), &quot;Ystday&quot; (yesterday), the name of the day for the coming
+week (e.g. &quot;Mon&quot;, &quot;Tue&quot;, etc.), otherwise the date (e.g. &quot;25 Apr&quot;).
+For other years it returns a date month and year without a time (e.g.
+&quot;6 Jun 2012&quot;).
+Another suggested value is &quot;%a %T&quot; for a day of week and time stamp (e.g.
+&quot;Mon 12:34:56&quot;). All of the time stamps use a 24 hour format.
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_AUTHORIZATION"></a>
+<H2>AUTHORIZATION</H2>
+
+<P>
+When using the SLURM db, users who have AdminLevel's defined (Operator
+or Admin) and users who are account coordinators are given the
+authority to view and modify jobs, reservations, nodes, etc., as
+defined in the following table - regardless of whether a PrivateData
+restriction has been defined in the slurm.conf file.
+<P>
+<BR>
+
+<B>scontrol show job(s):       </B> Admin, Operator, Coordinator
+<BR>
+
+<B>scontrol update job:        </B> Admin, Operator, Coordinator
+<BR>
+
+<B>scontrol requeue:           </B> Admin, Operator, Coordinator
+<BR>
+
+<B>scontrol show step(s):      </B> Admin, Operator, Coordinator
+<BR>
+
+<B>scontrol update step:       </B> Admin, Operator, Coordinator
+<BR>
+
+<P>
+<B>scontrol show block:        </B> Admin, Operator
+<BR>
+
+<B>scontrol update block:      </B> Admin
+<BR>
+
+<P>
+<B>scontrol show node:         </B> Admin, Operator
+<BR>
+
+<B>scontrol update node:       </B> Admin
+<BR>
+
+<P>
+<B>scontrol create partition:  </B> Admin
+<BR>
+
+<B>scontrol show partition:    </B> Admin, Operator
+<BR>
+
+<B>scontrol update partition:  </B> Admin
+<BR>
+
+<B>scontrol delete partition:  </B> Admin
+<BR>
+
+<P>
+<B>scontrol create reservation:</B> Admin, Operator
+<BR>
+
+<B>scontrol show reservation:  </B> Admin, Operator
+<BR>
+
+<B>scontrol update reservation:</B> Admin, Operator
+<BR>
+
+<B>scontrol delete reservation:</B> Admin, Operator
+<BR>
+
+<P>
+<B>scontrol reconfig:          </B> Admin
+<BR>
+
+<B>scontrol shutdown:          </B> Admin
+<BR>
+
+<B>scontrol takeover:          </B> Admin
+<BR>
+
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_EXAMPLES"></a>
+<H2>EXAMPLES</H2>
+
+
+<BR>
+
+# scontrol
+<BR>
+
+scontrol: show part debug
+<BR>
+
+PartitionName=debug
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;AllocNodes=ALL&nbsp;AllowGroups=ALL&nbsp;Default=YES
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;DefaultTime=NONE&nbsp;DisableRootJobs=NO&nbsp;Hidden=NO
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;MaxNodes=UNLIMITED&nbsp;MaxTime=UNLIMITED&nbsp;MinNodes=1
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;Nodes=snowflake[0-48]
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;Priority=1&nbsp;RootOnly=NO&nbsp;Shared=YES:4
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;State=UP&nbsp;TotalCPUs=694&nbsp;TotalNodes=49
+<BR>
+
+scontrol: update PartitionName=debug MaxTime=60:00 MaxNodes=4
+<BR>
+
+scontrol: show job 71701
+<BR>
+
+JobId=71701 Name=hostname
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;UserId=da(1000)&nbsp;GroupId=da(1000)
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;Priority=66264&nbsp;Account=none&nbsp;QOS=normal&nbsp;WCKey=*123
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;JobState=COMPLETED&nbsp;Reason=None&nbsp;Dependency=(null)
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;TimeLimit=UNLIMITED&nbsp;Requeue=1&nbsp;Restarts=0&nbsp;BatchFlag=0&nbsp;ExitCode=0:0
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;SubmitTime=2010-01-05T10:58:40&nbsp;EligibleTime=2010-01-05T10:58:40
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;StartTime=2010-01-05T10:58:40&nbsp;EndTime=2010-01-05T10:58:40
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;SuspendTime=None&nbsp;SecsPreSuspend=0
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;Partition=debug&nbsp;AllocNode:Sid=snowflake:4702
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;ReqNodeList=(null)&nbsp;ExcNodeList=(null)
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;NodeList=snowflake0
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;NumNodes=1&nbsp;NumCPUs=10&nbsp;CPUs/Task=2&nbsp;ReqS:C:T=1:1:1
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;MinCPUsNode=2&nbsp;MinMemoryNode=0&nbsp;MinTmpDiskNode=0
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;Features=(null)&nbsp;Reservation=(null)
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;Shared=OK&nbsp;Contiguous=0&nbsp;Licenses=(null)&nbsp;Network=(null)
+<BR>
+
+scontrol: update JobId=71701 TimeLimit=30:00 Priority=500
+<BR>
+
+scontrol: show hostnames tux[1-3]
+<BR>
+
+tux1
+<BR>
+
+tux2
+<BR>
+
+tux3
+<BR>
+
+scontrol: create res StartTime=2009-04-01T08:00:00 Duration=5:00:00 Users=dbremer NodeCnt=10
+<BR>
+
+Reservation created: dbremer_1
+<BR>
+
+scontrol: update Reservation=dbremer_1 Flags=Maint NodeCnt=20
+<BR>
+
+scontrol: delete Reservation=dbremer_1
+<BR>
+
+scontrol: quit
+
+
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2002-2007 The Regents of the University of California.
+Copyright (C) 2008-2010 Lawrence Livermore National Security.
+Portions Copyright (C) 2010 SchedMD &lt;<A HREF="http://www.schedmd.com">http://www.schedmd.com</A>&gt;.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<A NAME="lbAJ">&nbsp;</A>
+<a id="SECTION_FILES"></a>
+<H2>FILES</H2>
+
+<P>
+
+/etc/slurm.conf
+<A NAME="lbAK">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="scancel.html">scancel</A></B>(1), <B><A HREF="sinfo.html">sinfo</A></B>(1), <B><A HREF="squeue.html">squeue</A></B>(1),
+<B>slurm_checkpoint</B> (3),
+<B>slurm_create_partition</B> (3),
+<B>slurm_delete_partition</B> (3),
+<B>slurm_load_ctl_conf</B> (3),
+<B>slurm_load_jobs</B> (3), <B>slurm_load_node</B> (3),
+<B>slurm_load_partitions</B> (3),
+<B>slurm_reconfigure</B> (3),  <B>slurm_requeue</B> (3),
+<B>slurm_resume</B> (3),
+<B>slurm_shutdown</B> (3), <B>slurm_suspend</B> (3),
+<B>slurm_takeover</B> (3),
+<B>slurm_update_job</B> (3), <B>slurm_update_node</B> (3),
+<B>slurm_update_partition</B> (3),
+<B><A HREF="slurm.conf.html">slurm.conf</A></B>(5), <B><A HREF="slurmctld.html">slurmctld</A></B>(8)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbAG">AUTHORIZATION</A><DD>
+<DT><A HREF="#lbAH">EXAMPLES</A><DD>
+<DT><A HREF="#lbAI">COPYING</A><DD>
+<DT><A HREF="#lbAJ">FILES</A><DD>
+<DT><A HREF="#lbAK">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

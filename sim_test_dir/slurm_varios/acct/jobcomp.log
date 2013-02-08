@@ -1,0 +1,5 @@
+JobId=1002 UserId=par11017(217) GroupId=root(0) Name=test JobState=COMPLETED Partition=projects TimeLimit=78 StartTime=2011-09-16T23:56:35 EndTime=2011-09-16T23:57:35 NodeList=merlot1 NodeCnt=1 ProcCnt=8 WorkDir=/tmp 
+JobId=1001 UserId=par11001(201) GroupId=root(0) Name=test JobState=COMPLETED Partition=projects TimeLimit=780 StartTime=2011-09-16T23:56:05 EndTime=2011-09-17T00:06:05 NodeList=merlot1 NodeCnt=1 ProcCnt=4 WorkDir=/tmp 
+JobId=1003 UserId=par11033(233) GroupId=root(0) Name=test JobState=COMPLETED Partition=projects TimeLimit=780 StartTime=2011-09-16T23:57:35 EndTime=2011-09-17T00:07:35 NodeList=merlot1 NodeCnt=1 ProcCnt=8 WorkDir=/tmp 
+JobId=1005 UserId=par11044(244) GroupId=root(0) Name=test JobState=COMPLETED Partition=projects TimeLimit=78 StartTime=2011-09-17T00:07:35 EndTime=2011-09-17T00:08:35 NodeList=merlot1 NodeCnt=1 ProcCnt=4 WorkDir=/tmp 
+JobId=1004 UserId=par11041(241) GroupId=root(0) Name=test JobState=COMPLETED Partition=projects TimeLimit=780 StartTime=2011-09-17T00:06:05 EndTime=2011-09-17T00:16:05 NodeList=merlot1 NodeCnt=1 ProcCnt=4 WorkDir=/tmp 

@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>wiki.conf</H1>
+Section: Slurm configuration file (5)<BR>Updated: December 2007<BR><A HREF="#index">Index</A>
+
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+wiki.conf - Slurm configuration file for wiki and wiki2 scheduler plugins
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>wiki.conf</B> is an ASCII file which describes wiki and wiki2
+scheduler specific SLURM configuration information.
+The file location can be modified at system build time using the
+DEFAULT_SLURM_CONF parameter or at execution time by setting the SLURM_CONF
+environment variable. The file will always be located in the
+same directory as the <B>slurm.conf</B> file.
+<P>
+
+Parameter names are case insensitive.
+Any text following a &quot;#&quot; in the configuration file is treated
+as a comment through the end of that line.
+The size of each line in the file is limited to 1024 characters.
+Changes to the configuration file take effect upon restart of
+SLURM daemons, daemon receipt of the SIGHUP signal, or execution
+of the command &quot;scontrol reconfigure&quot; unless otherwise noted.
+<P>
+
+The overall configuration parameters available include:
+<P>
+<DL COMPACT>
+<a id="OPT_AuthKey"></a>
+<DT><B>AuthKey</B><DD>
+Authentication key for communications.
+This should be no more than a 32-bit unsigned integer and match the
+KEY configured in the <B>moab-private.cnf</B> file (for the Moab Scheduler)
+or the <B>--with-key=</B> value used to configure the Maui Scheduler.
+<P>
+<a id="OPT_EHost"></a>
+<DT><B>EHost</B><DD>
+Name the computer on which Moab server executes.
+It is used in establishing a communications path for event notification.
+By default <B>EHost</B> will be identical in value to the
+<B>ControlAddr</B> configured in slurm.conf.
+Not applicable to wiki plugin, only the wiki2 plugin.
+<P>
+<a id="OPT_EHostBackup"></a>
+<DT><B>EHostBackup</B><DD>
+Name the computer on which the backup Moab server executes.
+It is used in establishing a communications path for event notification.
+By default <B>EHostBackup</B> will be identical in value to the
+<B>BackupAddr</B> configured in slurm.conf.
+Not applicable to wiki plugin, only the wiki2 plugin.
+<P>
+<a id="OPT_EPort"></a>
+<DT><B>EPort</B><DD>
+Port to be used to notify Moab of events (job submitted to SLURM,
+job terminates, etc.).
+This numeric value should match EPORT configured in the
+<B>moab.cnf</B> file.
+Not applicable to wiki plugin, only the wiki2 plugin.
+<P>
+<a id="OPT_ExcludePartitions"></a>
+<DT><B>ExcludePartitions</B><DD>
+Identifies partitions whose jobs are to be scheduled directly
+by SLURM rather than Moab/Maui.
+This only effects jobs which are submitted using SLURM
+commands (i.e. srun, salloc or sbatch, NOT msub from Moab).
+These jobs will be scheduled on a First-Come-First-Served
+basis directly by SLURM.
+Note that SLURM recognizes jobs submitted via msub based
+upon the value <B>FirstJobId</B> configured in <I>slurm.conf</I>.
+Set the values <B>MINJOBID</B> and <B>MAXJOBID</B> in <I>moab.cfg</I>
+accordingly.
+For example MINJOBID=1, MAXJOBID=65535 and FirstJobId=65536.
+Jobs submitted using msub will have job ID values in the range
+of 1 and 65535 while jobs submitted directly using SLURM commands
+will have a job ID of 65536 or higher.
+Moab/Maui controls for resource reservation, fair share
+scheduling, etc. will not apply to the initiation of these jobs.
+While Moab/Maui will not control the initiation of jobs in these
+partitions, it will account for and report the jobs.
+If more than one partition is to be scheduled directly by
+SLURM, use a comma separator between their names.
+This may provide faster response times than Moab/Maui scheduling.
+<P>
+<a id="OPT_HidePartitionJobs"></a>
+<DT><B>HidePartitionJobs</B><DD>
+Identifies partitions whose jobs are not to be reported to Moab/Maui.
+These jobs will not be accounted for or otherwise visible to Moab/Maui.
+Any partitions listed here must also be listed in <B>ExcludePartitions</B>.
+This only effects jobs which are submitted using SLURM commands (i.e.
+<I>srun</I>, <I>salloc</I> or <I>sbatch</I>, NOT <I>msub</I> from Moab).
+If more than one partition is to have its jobs hidden, use a comma
+separator between their names.
+<P>
+<a id="OPT_HidePartitionNodes"></a>
+<DT><B>HidePartitionNodes</B><DD>
+Identifies partitions whose nodes are not to be reported to Moab/Maui.
+Nodes which are configured only in hidden partitions will not be accounted
+for or otherwise visible to Moab/Maui.
+Any partitions included here will normally also be included in the
+<B>ExcludePartitions</B> and <B>HidePartitionJobs</B> parameters.
+If more than one partition is to have its jobs hidden, use a comma
+separator between their names.
+<P>
+<a id="OPT_HostFormat"></a>
+<DT><B>HostFormat</B><DD>
+Controls the format of host lists exchanged between SLURM and Moab.
+The default value is &quot;0&quot;.
+Not applicable to wiki plugin, only the wiki2 plugin.
+<P>
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_0"></a>
+<DT><B>0</B><DD>
+No data compression. Each host name is listed individually.
+<a id="OPT_1"></a>
+<DT><B>1</B><DD>
+SLURM hostlist expressions are exchanged with task counts
+(e.g. &quot;tux[0-16]*2&quot;) in job state information and job
+initiation requests.
+<a id="OPT_2"></a>
+<DT><B>2</B><DD>
+SLURM hostlist expressions are used to report node state information.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_JobAggregationTime"></a>
+<DT><B>JobAggregationTime</B><DD>
+This is used to avoid notifying Moab of large numbers of events
+occuring about the same time.
+If an event occurs within this number of seconds since Moab was
+last notified of an event, another notification is not sent.
+This should be an integer number of seconds.
+The default value is 10 seconds.
+The value should match JOBAGGREGATIONTIME configured in the
+<B>moab.cnf</B> file.
+Not applicable to wiki plugin, only the wiki2 plugin.
+<P>
+<a id="OPT_JobPriority"></a>
+<DT><B>JobPriority</B><DD>
+Controls initial job priority.
+The default value is &quot;hold&quot;.
+Not applicable to wiki plugin, only the wiki2 plugin.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_run"></a>
+<DT><B>run</B><DD>
+Job permitted to run directly under SLURM's control
+<a id="OPT_hold"></a>
+<DT><B>hold</B><DD>
+Hold all incoming jobs until Moab or Maui tell them to run
+</DL>
+</DL>
+
+<P>
+</DL>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_EXAMPLE"></a>
+<H2>EXAMPLE</H2>
+
+<P>
+
+<BR>
+
+##################################################################
+<BR>
+
+# SLURM's configuration file for sched/wiki plugin
+<BR>
+
+##################################################################
+<BR>
+
+#
+<BR>
+
+# Hold all incoming jobs until Moab tells them to run
+<BR>
+
+JobPriority=hold
+<BR>
+
+# Slurm directly schedules jobs in the debug and test partitions
+<BR>
+
+ExcludePartitions=debug,test
+<BR>
+
+#
+<BR>
+
+# Moab encryption key, matches KEY in moab-private.cfg
+<BR>
+
+AuthKey=1234
+<BR>
+
+#
+<BR>
+
+# Moab event notification port, matches EPORT in moab.cfg
+<BR>
+
+EPort=15017
+<BR>
+
+# Moab event notification hosts, where Moab executes
+<BR>
+
+EHost=tux0
+<BR>
+
+EHostBackup=tux1
+<BR>
+
+# Moab event notifcation throttle, matches JOBAGGREGATIONTIME
+<BR>
+
+# in moab.cfg (integer value in seconds)
+<BR>
+
+JobAggregationTime=15
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2006-2007 The Regents of the University of California.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<P>
+
+<B><A HREF="slurm.conf.html">slurm.conf</A></B>(5)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAD">EXAMPLE</A><DD>
+<DT><A HREF="#lbAE">COPYING</A><DD>
+<DT><A HREF="#lbAF">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

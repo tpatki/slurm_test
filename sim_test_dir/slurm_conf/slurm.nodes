@@ -1,0 +1,2 @@
+NodeName=DEFAULT RealMemory=3168 Procs=16 Sockets=2 CoresPerSocket=8 ThreadsPerCore=1
+NodeName=merlot[1] NodeAddr=merlot NodeHostName=merlot Procs=16 Sockets=2 CoresPerSocket=8 ThreadsPerCore=1

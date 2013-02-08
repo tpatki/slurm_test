@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>SLURMCTLD</H1>
+Section: Slurm components (8)<BR>Updated: March 2010<BR><A HREF="#index">Index</A>
+
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+slurmctld - The central management daemon of Slurm.
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_SYNOPSIS"></a>
+<H2>SYNOPSIS</H2>
+
+<B>slurmctld</B> [<I>OPTIONS</I>...]
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>slurmctld</B> is the central management daemon of Slurm. It monitors
+all other Slurm daemons and resources, accepts work (jobs), and allocates
+resources to those jobs. Given the critical functionality of <B>slurmctld</B>,
+there may be a backup server to assume these functions in the event that
+the primary server fails.
+<DL COMPACT>
+<DT>OPTIONS<DD>
+<P>
+<a id="OPT_-B"></a>
+<DT><B>-B</B><DD>
+Do not recover state of BlueGene blocks when running on a bluegene
+system.
+<P>
+<a id="OPT_-c"></a>
+<DT><B>-c</B><DD>
+Clear all previous <B>slurmctld</B> state from its last checkpoint.
+Without this option, previously running jobs will be preserved along
+with node <I>State</I> of DOWN, DRAINED and DRAINING nodes and the associated
+<I>Reason</I> field for those nodes.
+<P>
+<a id="OPT_-D"></a>
+<DT><B>-D</B><DD>
+Debug mode. Execute <B>slurmctld</B> in the foreground with logging to stdout.
+<a id="OPT_-f &lt;file&gt;"></a>
+<DT><B>-f &lt;file&gt;</B><DD>
+Read configuration from the specified file. See <B>NOTES</B> below.
+<a id="OPT_-h"></a>
+<DT><B>-h</B><DD>
+Help; print a brief summary of command options.
+<a id="OPT_-L &lt;file&gt;"></a>
+<DT><B>-L &lt;file&gt;</B><DD>
+Write log messages to the specified file.
+<P>
+<a id="OPT_-n &lt;value&gt;"></a>
+<DT><B>-n &lt;value&gt;</B><DD>
+Set the daemon's nice value to the specified value, typically a negative number.
+<P>
+<a id="OPT_-r"></a>
+<DT><B>-r</B><DD>
+Recover partial state from last checkpoint: jobs and node DOWN/DRAIN
+state and reason information state.  No partition state is recovered.
+This is the default action.
+<P>
+<a id="OPT_-R"></a>
+<DT><B>-R</B><DD>
+Recover full state from last checkpoint: jobs, node, and partition state.
+Without this option, previously running jobs will be preserved along
+with node <I>State</I> of DOWN, DRAINED and DRAINING nodes and the associated
+<I>Reason</I> field for those nodes. No other node or partition state will
+be preserved.
+<P>
+<a id="OPT_-v"></a>
+<DT><B>-v</B><DD>
+Verbose operation. Multiple <B>-v</B>'s increase verbosity.
+<a id="OPT_-V"></a>
+<DT><B>-V</B><DD>
+Print version information and exit.
+<P>
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_ENVIRONMENT VARIABLES"></a>
+<H2>ENVIRONMENT VARIABLES</H2>
+
+The following environment variables can be used to override settings
+compiled into slurmctld.
+<DL COMPACT>
+<a id="OPT_SLURM_CONF"></a>
+<DT><B>SLURM_CONF</B><DD>
+The location of the SLURM configuration file. This is overridden by
+explicitly naming a configuration file on the command line.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_CORE FILE LOCATION"></a>
+<H2>CORE FILE LOCATION</H2>
+
+If slurmctld is started with the <B>-D</B> option then the core file will be
+written to the current working directory.
+Otherwise if <B>SlurmctldLogFile</B> is a fully qualified path name (starting
+with a slash), the core file will be written to the same directory as the
+log file.
+Otherwise the core file will be written to the <B>StateSaveLocation</B>.
+The command &quot;scontrol abort&quot; can be used to abort the slurmctld daemon and
+generate a core file.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_NOTES"></a>
+<H2>NOTES</H2>
+
+It may be useful to experiment with different <B>slurmctld</B> specific
+configuration parameters using a distinct configuration file
+(e.g. timeouts).  However, this special configuration file will not be
+used by the <B>slurmd</B> daemon or the Slurm programs, unless you
+specifically tell each of them to use it. If you desire changing
+communication ports, the location of the temporary file system, or
+other parameters used by other Slurm components, change the common
+configuration file, <B>slurm.conf</B>.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2002-2007 The Regents of the University of California.
+Copyright (C) 2008-2010 Lawrence Livermore National Security.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="slurm.conf.html">slurm.conf</A></B>(5), <B><A HREF="slurmd.html">slurmd</A></B>(8)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbAF">CORE FILE LOCATION</A><DD>
+<DT><A HREF="#lbAG">NOTES</A><DD>
+<DT><A HREF="#lbAH">COPYING</A><DD>
+<DT><A HREF="#lbAI">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

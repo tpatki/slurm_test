@@ -1,0 +1,3299 @@
+Register: opening file /proc/2490/cmdline
+[Read 77 bytes] Using program name /home/tpatki/local/src/slurm-test/sim_test_dir//slurm_programs/sbin/slurmctld
+[Read 68(0) bytes] Registering program slurmctld and pid 2490
+Registering slurmctld with pid 2490
+Initializing semaphores...
+Getting main_thread_id 32
+Opening semaphore alucero_slurm_simulator_thread_sem_32
+Opening semaphore alucero_slurm_simulator_thread_sem_back_32
+Looking for real gettimeofday function
+This slurm program is not the controller nor a slurmd (2490)(controller: 2490)(daemon: 0)
+Looking for real sleep function
+Looking for real time function
+Looking for real pthread_create function
+Looking for real pthread_exit function
+Looking for real pthread_join function
+sim_init: done
+Found uid 0 for name root
+Found uid 0 for name root
+slurmctld: pidfile not locked, assuming no running daemon
+Found name root for uid 0
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/accounting_storage_slurmdbd.so
+slurmctld: Accounting storage SLURMDBD plugin loaded with AuthInfo=(null)
+slurmctld: debug3: Success.
+slurmctld: debug4: Accounting storage SLURMDBD plugin loaded
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/auth_none.so
+slurmctld: Null authentication plugin loaded
+slurmctld: debug3: Success.
+slurmctld: debug:  slurmdbd: Sent DbdInit msg
+slurmctld: debug4: slurmdbd: There is no state save file to open by name /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/dbd.messages
+Found uid 1002 for name alucero
+Found uid 3487 for name bsc05380
+Found uid 3600 for name bsc05422
+Found uid 2335 for name bsc05599
+Found uid 3250 for name bsc05638
+Found uid 3156 for name bsc05698
+Found uid 3305 for name bsc05776
+Found uid 2299 for name bsc05996
+Found uid 2003 for name bsc15041
+Found uid 3005 for name bsc15105
+Found uid 3515 for name bsc15240
+Found uid 7041 for name bsc15289
+Found uid 3173 for name bsc15302
+Found uid 2271 for name bsc15368
+Found uid 3003 for name bsc15371
+Found uid 3588 for name bsc15418
+Found uid 3001 for name bsc15705
+Found uid 3439 for name bsc15827
+Found uid 3159 for name bsc15894
+Found uid 3637 for name bsc15936
+Found uid 7474 for name bsc18023
+Found uid 2255 for name bsc18025
+Found uid 3392 for name bsc18697
+Found uid 3416 for name bsc18895
+Found uid 3510 for name bsc18952
+Found uid 3585 for name bsc19272
+Found uid 3481 for name bsc19607
+Found uid 2091 for name bsc19732
+Found uid 7363 for name bsc19776
+Found uid 2905 for name bsc21017
+Found uid 3429 for name bsc21021
+Found uid 3417 for name bsc21059
+Found uid 3286 for name bsc21149
+Found uid 7241 for name bsc21222
+Found uid 0 for name bsc21253
+Found uid 3248 for name bsc21257
+Found uid 3382 for name bsc21308
+Found uid 7505 for name bsc21449
+Found uid 7042 for name bsc21554
+Found uid 3383 for name bsc21671
+Found uid 3524 for name bsc21845
+Found uid 7503 for name bsc21861
+Found uid 3533 for name bsc21870
+Found uid 3469 for name bsc21894
+Found uid 3526 for name bsc21984
+Found uid 7309 for name bsc27834
+Found uid 3328 for name bsc28062
+Found uid 2086 for name bsc28600
+Found uid 7198 for name bsc28627
+Found uid 3564 for name bsc28953
+Found uid 2109 for name bsc31597
+Found uid 3162 for name bsc32353
+Found uid 3103 for name bsc32771
+Found uid 3375 for name bsc33083
+Found uid 3113 for name bsc33882
+Found uid 1315 for name bsc41010
+Found uid 1301 for name bsc41273
+Found uid 1302 for name bsc41425
+Found uid 1305 for name bsc41971
+Found uid 2103 for name bsc51110
+Found uid 3536 for name bsc51230
+Found uid 3638 for name bsc51333
+Found uid 2278 for name bsc51495
+Found uid 2260 for name bsc51496
+Found uid 2247 for name bsc51551
+Found uid 3303 for name bsc54449
+Found uid 3396 for name bsc56962
+Found uid 3570 for name bsc67440
+Found uid 3461 for name bsc72071
+Found uid 7265 for name bsc72476
+Found uid 3625 for name bsc85036
+Found uid 2085 for name bsc93455
+Found uid 10415 for name bsc96452
+Found uid 508 for name bsc99022
+Found uid 3202 for name bsc99034
+Found uid 501 for name bsc99101
+Found uid 7374 for name bsc99186
+Found uid 506 for name bsc99349
+Found uid 2279 for name bsc99368
+Found uid 7154 for name bsc99704
+Found uid 3232 for name bsc99745
+Found uid 3400 for name bsc99776
+Found uid 7751 for name bsc99843
+Found uid 300 for name linpack
+Found uid 7752 for name mathieu
+Found uid 200 for name par11000
+Found uid 201 for name par11001
+Found uid 202 for name par11002
+Found uid 203 for name par11003
+Found uid 204 for name par11004
+Found uid 205 for name par11005
+Found uid 206 for name par11006
+Found uid 207 for name par11007
+Found uid 208 for name par11008
+Found uid 209 for name par11009
+Found uid 210 for name par11010
+Found uid 211 for name par11011
+Found uid 212 for name par11012
+Found uid 213 for name par11013
+Found uid 214 for name par11014
+Found uid 215 for name par11015
+Found uid 216 for name par11016
+Found uid 217 for name par11017
+Found uid 218 for name par11018
+Found uid 219 for name par11019
+Found uid 220 for name par11020
+Found uid 221 for name par11021
+Found uid 222 for name par11022
+Found uid 223 for name par11023
+Found uid 224 for name par11024
+Found uid 225 for name par11025
+Found uid 226 for name par11026
+Found uid 227 for name par11027
+Found uid 228 for name par11028
+Found uid 229 for name par11029
+Found uid 230 for name par11030
+Found uid 231 for name par11031
+Found uid 232 for name par11032
+Found uid 233 for name par11033
+Found uid 234 for name par11034
+Found uid 235 for name par11035
+Found uid 236 for name par11036
+Found uid 237 for name par11037
+Found uid 238 for name par11038
+Found uid 239 for name par11039
+Found uid 240 for name par11040
+Found uid 241 for name par11041
+Found uid 242 for name par11042
+Found uid 243 for name par11043
+Found uid 244 for name par11044
+Found uid 245 for name par11045
+Found uid 0 for name root
+Found uid 1005 for name tester
+Found uid 246 for name tra10001
+Found uid 247 for name tra10002
+Found uid 248 for name tra10003
+Found uid 249 for name tra10004
+Found uid 250 for name tra10005
+Found uid 251 for name tra10006
+Found uid 252 for name tra10007
+Found uid 253 for name tra10008
+Found uid 254 for name tra10009
+Found uid 255 for name tra10010
+Found uid 256 for name tra10011
+Found uid 257 for name tra10012
+Found uid 258 for name tra10013
+Found uid 259 for name tra10014
+Found uid 260 for name tra10015
+Found uid 245 for name par11045
+slurmctld: debug2: user par11045 default acct is par11
+Found uid 244 for name par11044
+slurmctld: debug2: user par11044 default acct is par11
+Found uid 243 for name par11043
+slurmctld: debug2: user par11043 default acct is par11
+Found uid 242 for name par11042
+slurmctld: debug2: user par11042 default acct is par11
+Found uid 241 for name par11041
+slurmctld: debug2: user par11041 default acct is par11
+Found uid 240 for name par11040
+slurmctld: debug2: user par11040 default acct is par11
+Found uid 239 for name par11039
+slurmctld: debug2: user par11039 default acct is par11
+Found uid 238 for name par11038
+slurmctld: debug2: user par11038 default acct is par11
+Found uid 237 for name par11037
+slurmctld: debug2: user par11037 default acct is par11
+Found uid 236 for name par11036
+slurmctld: debug2: user par11036 default acct is par11
+Found uid 235 for name par11035
+slurmctld: debug2: user par11035 default acct is par11
+Found uid 234 for name par11034
+slurmctld: debug2: user par11034 default acct is par11
+Found uid 233 for name par11033
+slurmctld: debug2: user par11033 default acct is par11
+Found uid 232 for name par11032
+slurmctld: debug2: user par11032 default acct is par11
+Found uid 231 for name par11031
+slurmctld: debug2: user par11031 default acct is par11
+Found uid 230 for name par11030
+slurmctld: debug2: user par11030 default acct is par11
+Found uid 229 for name par11029
+slurmctld: debug2: user par11029 default acct is par11
+Found uid 228 for name par11028
+slurmctld: debug2: user par11028 default acct is par11
+Found uid 227 for name par11027
+slurmctld: debug2: user par11027 default acct is par11
+Found uid 226 for name par11026
+slurmctld: debug2: user par11026 default acct is par11
+Found uid 225 for name par11025
+slurmctld: debug2: user par11025 default acct is par11
+Found uid 224 for name par11024
+slurmctld: debug2: user par11024 default acct is par11
+Found uid 223 for name par11023
+slurmctld: debug2: user par11023 default acct is par11
+Found uid 222 for name par11022
+slurmctld: debug2: user par11022 default acct is par11
+Found uid 221 for name par11021
+slurmctld: debug2: user par11021 default acct is par11
+Found uid 220 for name par11020
+slurmctld: debug2: user par11020 default acct is par11
+Found uid 219 for name par11019
+slurmctld: debug2: user par11019 default acct is par11
+Found uid 218 for name par11018
+slurmctld: debug2: user par11018 default acct is par11
+Found uid 217 for name par11017
+slurmctld: debug2: user par11017 default acct is par11
+Found uid 216 for name par11016
+slurmctld: debug2: user par11016 default acct is par11
+Found uid 215 for name par11015
+slurmctld: debug2: user par11015 default acct is par11
+Found uid 214 for name par11014
+slurmctld: debug2: user par11014 default acct is par11
+Found uid 213 for name par11013
+slurmctld: debug2: user par11013 default acct is par11
+Found uid 212 for name par11012
+slurmctld: debug2: user par11012 default acct is par11
+Found uid 211 for name par11011
+slurmctld: debug2: user par11011 default acct is par11
+Found uid 210 for name par11010
+slurmctld: debug2: user par11010 default acct is par11
+Found uid 209 for name par11009
+slurmctld: debug2: user par11009 default acct is par11
+Found uid 208 for name par11008
+slurmctld: debug2: user par11008 default acct is par11
+Found uid 207 for name par11007
+slurmctld: debug2: user par11007 default acct is par11
+Found uid 206 for name par11006
+slurmctld: debug2: user par11006 default acct is par11
+Found uid 205 for name par11005
+slurmctld: debug2: user par11005 default acct is par11
+Found uid 204 for name par11004
+slurmctld: debug2: user par11004 default acct is par11
+Found uid 203 for name par11003
+slurmctld: debug2: user par11003 default acct is par11
+Found uid 202 for name par11002
+slurmctld: debug2: user par11002 default acct is par11
+Found uid 201 for name par11001
+slurmctld: debug2: user par11001 default acct is par11
+Found uid 200 for name par11000
+slurmctld: debug2: user par11000 default acct is par11
+Found uid 1002 for name alucero
+slurmctld: debug2: user alucero default acct is bsc
+Found uid 1005 for name tester
+slurmctld: debug2: user tester default acct is bsc
+Found uid 10415 for name bsc96452
+slurmctld: debug2: user bsc96452 default acct is bsc96
+Found uid 7309 for name bsc27834
+slurmctld: debug2: user bsc27834 default acct is bsc27
+Found uid 260 for name tra10015
+slurmctld: debug2: user tra10015 default acct is tra10
+Found uid 259 for name tra10014
+slurmctld: debug2: user tra10014 default acct is tra10
+Found uid 258 for name tra10013
+slurmctld: debug2: user tra10013 default acct is tra10
+Found uid 257 for name tra10012
+slurmctld: debug2: user tra10012 default acct is tra10
+Found uid 256 for name tra10011
+slurmctld: debug2: user tra10011 default acct is tra10
+Found uid 255 for name tra10010
+slurmctld: debug2: user tra10010 default acct is tra10
+Found uid 254 for name tra10009
+slurmctld: debug2: user tra10009 default acct is tra10
+Found uid 253 for name tra10008
+slurmctld: debug2: user tra10008 default acct is tra10
+Found uid 252 for name tra10007
+slurmctld: debug2: user tra10007 default acct is tra10
+Found uid 251 for name tra10006
+slurmctld: debug2: user tra10006 default acct is tra10
+Found uid 250 for name tra10005
+slurmctld: debug2: user tra10005 default acct is tra10
+Found uid 249 for name tra10004
+slurmctld: debug2: user tra10004 default acct is tra10
+Found uid 248 for name tra10003
+slurmctld: debug2: user tra10003 default acct is tra10
+Found uid 247 for name tra10002
+slurmctld: debug2: user tra10002 default acct is tra10
+Found uid 246 for name tra10001
+slurmctld: debug2: user tra10001 default acct is tra10
+Found uid 3103 for name bsc32771
+slurmctld: debug2: user bsc32771 default acct is bsc32
+Found uid 3162 for name bsc32353
+slurmctld: debug2: user bsc32353 default acct is bsc32
+Found uid 2085 for name bsc93455
+slurmctld: debug2: user bsc93455 default acct is bsc93
+Found uid 3625 for name bsc85036
+Found uid 2299 for name bsc05996
+slurmctld: debug2: user bsc05996 default acct is bsc05
+Found uid 3305 for name bsc05776
+slurmctld: debug2: user bsc05776 default acct is bsc05
+Found uid 3250 for name bsc05638
+slurmctld: debug2: user bsc05638 default acct is bsc05
+Found uid 2335 for name bsc05599
+slurmctld: debug2: user bsc05599 default acct is bsc05
+Found uid 3600 for name bsc05422
+slurmctld: debug2: user bsc05422 default acct is bsc05
+Found uid 3487 for name bsc05380
+slurmctld: debug2: user bsc05380 default acct is bsc05
+Found uid 3156 for name bsc05698
+slurmctld: debug2: user bsc05698 default acct is bsc05
+Found uid 7265 for name bsc72476
+slurmctld: debug2: user bsc72476 default acct is bsc72
+Found uid 3461 for name bsc72071
+slurmctld: debug2: user bsc72071 default acct is bsc72
+Found uid 3396 for name bsc56962
+slurmctld: debug2: user bsc56962 default acct is bsc56
+Found uid 3113 for name bsc33882
+slurmctld: debug2: user bsc33882 default acct is bsc33
+Found uid 3375 for name bsc33083
+slurmctld: debug2: user bsc33083 default acct is bsc33
+Found uid 3570 for name bsc67440
+slurmctld: debug2: user bsc67440 default acct is bsc67
+Found uid 3303 for name bsc54449
+slurmctld: debug2: user bsc54449 default acct is bsc54
+Found uid 3638 for name bsc51333
+slurmctld: debug2: user bsc51333 default acct is bsc51
+Found uid 2247 for name bsc51551
+slurmctld: debug2: user bsc51551 default acct is bsc51
+Found uid 2260 for name bsc51496
+slurmctld: debug2: user bsc51496 default acct is bsc51
+Found uid 2278 for name bsc51495
+slurmctld: debug2: user bsc51495 default acct is bsc51
+Found uid 2103 for name bsc51110
+slurmctld: debug2: user bsc51110 default acct is bsc51
+Found uid 3536 for name bsc51230
+slurmctld: debug2: user bsc51230 default acct is bsc51
+Found uid 2260 for name bsc51496
+Found uid 2278 for name bsc51495
+Found uid 2103 for name bsc51110
+Found uid 2109 for name bsc31597
+slurmctld: debug2: user bsc31597 default acct is bsc31
+Found uid 2086 for name bsc28600
+slurmctld: debug2: user bsc28600 default acct is bsc28
+Found uid 3564 for name bsc28953
+slurmctld: debug2: user bsc28953 default acct is bsc28
+Found uid 7198 for name bsc28627
+slurmctld: debug2: user bsc28627 default acct is bsc28
+Found uid 3328 for name bsc28062
+slurmctld: debug2: user bsc28062 default acct is bsc28
+Found uid 3526 for name bsc21984
+slurmctld: debug2: user bsc21984 default acct is bsc21
+Found uid 7241 for name bsc21222
+slurmctld: debug2: user bsc21222 default acct is bsc21
+Found uid 3286 for name bsc21149
+slurmctld: debug2: user bsc21149 default acct is bsc21
+Found uid 7505 for name bsc21449
+slurmctld: debug2: user bsc21449 default acct is bsc21
+Found uid 3417 for name bsc21059
+slurmctld: debug2: user bsc21059 default acct is bsc21
+Found uid 3524 for name bsc21845
+slurmctld: debug2: user bsc21845 default acct is bsc21
+Found uid 3382 for name bsc21308
+slurmctld: debug2: user bsc21308 default acct is bsc21
+Found uid 0 for name bsc21253
+slurmctld: debug2: user bsc21253 default acct is bsc21
+Found uid 2905 for name bsc21017
+slurmctld: debug2: user bsc21017 default acct is bsc21
+Found uid 3469 for name bsc21894
+slurmctld: debug2: user bsc21894 default acct is bsc21
+Found uid 3248 for name bsc21257
+slurmctld: debug2: user bsc21257 default acct is bsc21
+Found uid 7503 for name bsc21861
+slurmctld: debug2: user bsc21861 default acct is bsc21
+Found uid 3383 for name bsc21671
+slurmctld: debug2: user bsc21671 default acct is bsc21
+Found uid 3429 for name bsc21021
+slurmctld: debug2: user bsc21021 default acct is bsc21
+Found uid 3533 for name bsc21870
+slurmctld: debug2: user bsc21870 default acct is bsc21
+Found uid 7042 for name bsc21554
+slurmctld: debug2: user bsc21554 default acct is bsc21
+Found uid 7751 for name bsc99843
+slurmctld: debug2: user bsc99843 default acct is bsc99
+Found uid 3232 for name bsc99745
+slurmctld: debug2: user bsc99745 default acct is bsc99
+Found uid 7154 for name bsc99704
+slurmctld: debug2: user bsc99704 default acct is bsc99
+Found uid 2279 for name bsc99368
+slurmctld: debug2: user bsc99368 default acct is bsc99
+Found uid 506 for name bsc99349
+slurmctld: debug2: user bsc99349 default acct is bsc99
+Found uid 7374 for name bsc99186
+slurmctld: debug2: user bsc99186 default acct is bsc99
+Found uid 501 for name bsc99101
+slurmctld: debug2: user bsc99101 default acct is bsc99
+Found uid 3400 for name bsc99776
+slurmctld: debug2: user bsc99776 default acct is bsc99
+Found uid 300 for name linpack
+slurmctld: debug2: user linpack default acct is bsc99
+Found uid 508 for name bsc99022
+slurmctld: debug2: user bsc99022 default acct is bsc99
+Found uid 3202 for name bsc99034
+slurmctld: debug2: user bsc99034 default acct is bsc99
+Found uid 1305 for name bsc41971
+slurmctld: debug2: user bsc41971 default acct is bsc41
+Found uid 1302 for name bsc41425
+slurmctld: debug2: user bsc41425 default acct is bsc41
+Found uid 1301 for name bsc41273
+slurmctld: debug2: user bsc41273 default acct is bsc41
+Found uid 1315 for name bsc41010
+slurmctld: debug2: user bsc41010 default acct is bsc41
+Found uid 1315 for name bsc41010
+Found uid 2003 for name bsc15041
+slurmctld: debug2: user bsc15041 default acct is bsc15
+Found uid 3159 for name bsc15894
+slurmctld: debug2: user bsc15894 default acct is bsc15
+Found uid 3439 for name bsc15827
+slurmctld: debug2: user bsc15827 default acct is bsc15
+Found uid 3003 for name bsc15371
+slurmctld: debug2: user bsc15371 default acct is bsc15
+Found uid 2271 for name bsc15368
+slurmctld: debug2: user bsc15368 default acct is bsc15
+Found uid 3173 for name bsc15302
+slurmctld: debug2: user bsc15302 default acct is bsc15
+Found uid 7041 for name bsc15289
+slurmctld: debug2: user bsc15289 default acct is bsc15
+Found uid 3005 for name bsc15105
+slurmctld: debug2: user bsc15105 default acct is bsc15
+Found uid 3637 for name bsc15936
+slurmctld: debug2: user bsc15936 default acct is bsc15
+Found uid 3001 for name bsc15705
+slurmctld: debug2: user bsc15705 default acct is bsc15
+Found uid 3515 for name bsc15240
+slurmctld: debug2: user bsc15240 default acct is bsc15
+Found uid 3588 for name bsc15418
+slurmctld: debug2: user bsc15418 default acct is bsc15
+Found uid 3416 for name bsc18895
+slurmctld: debug2: user bsc18895 default acct is bsc18
+Found uid 3510 for name bsc18952
+slurmctld: debug2: user bsc18952 default acct is bsc18
+Found uid 3392 for name bsc18697
+slurmctld: debug2: user bsc18697 default acct is bsc18
+Found uid 2255 for name bsc18025
+slurmctld: debug2: user bsc18025 default acct is bsc18
+Found uid 7474 for name bsc18023
+slurmctld: debug2: user bsc18023 default acct is bsc18
+Found uid 7474 for name bsc18023
+Found uid 3585 for name bsc19272
+slurmctld: debug2: user bsc19272 default acct is bsc19
+Found uid 7363 for name bsc19776
+slurmctld: debug2: user bsc19776 default acct is bsc19
+Found uid 3481 for name bsc19607
+slurmctld: debug2: user bsc19607 default acct is bsc19
+Found uid 2091 for name bsc19732
+slurmctld: debug2: user bsc19732 default acct is bsc19
+Found uid 0 for name root
+slurmctld: debug2: user bsc21253 default acct is root
+slurmctld: debug3: Version in assoc_mgr_state header is 1
+slurmctld: slurmctld version 2.3.2 started on cluster perfdevel
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/crypto_openssl.so
+slurmctld: OpenSSL cryptographic signature plugin loaded
+slurmctld: debug3: Success.
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/select_cons_res.so
+slurmctld: Consumable Resources (CR) Node Selection plugin loaded with argument 1
+slurmctld: debug3: Success.
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/preempt_none.so
+slurmctld: preempt/none loaded
+slurmctld: debug3: Success.
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/checkpoint_none.so
+slurmctld: debug3: Success.
+slurmctld: Checkpoint plugin loaded: checkpoint/none
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobacct_gather_linux.so
+slurmctld: Job accounting gather LINUX plugin loaded
+slurmctld: debug3: Success.
+slurmctld: debug:  No backup controller to shutdown
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/switch_none.so
+slurmctld: switch NONE plugin loaded
+slurmctld: debug3: Success.
+Found uid 0 for name root
+Found uid 0 for name root
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/topology_none.so
+slurmctld: topology NONE plugin loaded
+slurmctld: debug3: Success.
+slurmctld: debug:  No DownNodes
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobcomp_filetxt.so
+slurmctld: debug3: Success.
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/sched_backfill.so
+slurmctld: sched: Backfill scheduler plugin loaded
+slurmctld: debug3: Success.
+slurmctld: error: Could not open node state file /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/node_state: No such file or directory
+slurmctld: error: NOTE: Trying backup state save file. Information may be lost!
+slurmctld: No node state file (/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/node_state.old) to recover
+slurmctld: error: Incomplete node data checkpoint file
+slurmctld: Recovered state of 0 nodes
+slurmctld: error: Could not open front_end state file /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/front_end_state: No such file or directory
+slurmctld: error: NOTE: Trying backup front_end_state save file. Information may be lost!
+slurmctld: No node state file (/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/front_end_state.old) to recover
+slurmctld: error: Incomplete front_end node data checkpoint file
+slurmctld: Recovered state of 0 front_end nodes
+slurmctld: error: Could not open job state file /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/job_state: No such file or directory
+slurmctld: error: NOTE: Trying backup state save file. Jobs may be lost!
+slurmctld: No job state file (/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/job_state.old) to recover
+slurmctld: cons_res: select_p_node_init
+slurmctld: cons_res: preparing for 2 partitions
+slurmctld: debug3: found batch directory for job_id 1005
+slurmctld: debug3: found batch directory for job_id 1002
+slurmctld: debug3: found batch directory for job_id 1003
+slurmctld: debug3: found batch directory for job_id 1001
+slurmctld: debug3: found batch directory for job_id 1004
+slurmctld: Purging files for defunct batch job 1005
+slurmctld: Purging files for defunct batch job 1002
+slurmctld: Purging files for defunct batch job 1003
+slurmctld: Purging files for defunct batch job 1001
+slurmctld: Purging files for defunct batch job 1004
+slurmctld: debug:  Updating partition uid access list
+slurmctld: error: Could not open reservation state file /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/resv_state: No such file or directory
+slurmctld: error: NOTE: Trying backup state save file. Reservations may be lost
+slurmctld: No reservation state file (/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/resv_state.old) to recover
+slurmctld: Recovered state of 0 reservations
+slurmctld: error: Could not open trigger state file /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/trigger_state: No such file or directory
+slurmctld: error: NOTE: Trying backup state save file. Triggers may be lost!
+slurmctld: No trigger state file (/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/var/state/trigger_state.old) to recover
+slurmctld: error: Incomplete trigger data checkpoint file
+slurmctld: State of 0 triggers recovered
+slurmctld: read_slurm_conf: backup_controller not specified.
+slurmctld: Reinitializing job accounting state
+slurmctld: Ending any jobs in accounting that were running when controller went down on
+slurmctld: cons_res: select_p_reconfigure
+slurmctld: cons_res: select_p_node_init
+slurmctld: cons_res: preparing for 2 partitions
+slurmctld: Running as primary controller
+slurmctld: Registering slurmctld at port 6817 with slurmdbd.
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug3: Trying to load plugin /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/priority_multifactor.so
+slurmctld: debug:  Priority MULTIFACTOR plugin loaded
+slurmctld: debug3: Success.
+slurmctld: debug3: _slurmctld_rpc_mgr pid = 2490
+slurmctld: debug3: _slurmctld_background pid = 2490
+slurmctld: debug:  power_save module disabled, SuspendTime < 0
+slurmctld: debug2: slurmctld listening on 0.0.0.0:6817
+slurmctld: debug4: done writing time 1316241965
+slurmctld: debug2: Processing RPC: MESSAGE_NODE_REGISTRATION_STATUS from uid=0
+slurmctld: debug2: name:merlot boot_time:1316241965 up_time:206716
+slurmctld: debug:  Nodes merlot1 have registered
+slurmctld: debug2: _slurm_rpc_node_registration complete for merlot usec=300
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug:  backfill: no jobs to backfill
+slurmctld: debug4: done writing time 1316242265
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316242565
+slurmctld: debug2: Processing RPC: REQUEST_SUBMIT_BATCH_JOB from uid=0
+slurmctld: debug3: JobDesc: user_id=201 job_id=-1 partition=projects name=test
+slurmctld: debug3:    cpus=4-4294967294 pn_min_cpus=1
+slurmctld: debug3:    -N min-[max]: 1-[4294967294]:65534:65534:65534
+slurmctld: debug3:    pn_min_memory_job=-1 pn_min_tmp_disk=-1
+slurmctld: debug3:    immediate=0 features=(null) reservation=(null)
+slurmctld: debug3:    req_nodes=(null) exc_nodes=(null) gres=(null)
+slurmctld: debug3:    time_limit=780-780 priority=-1 contiguous=0 shared=-1
+slurmctld: debug3:    kill_on_node_fail=-1 script=#!/bin/bash
+# @ class = class_a
+# @ job_...
+slurmctld: debug3:    argv="/home/tpatki/local/src/slurm-test/sim_test_dir/test_command.cmd"
+slurmctld: debug3:    environment=LD_PRELOAD=libslurm_sim.so,LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm,HOSTNAME=merlot,...
+slurmctld: debug3:    stdin=/dev/null stdout=/tmp/dumb stderr=/tmp/dumb
+slurmctld: debug3:    work_dir=/tmp alloc_node:sid=merlot:1778
+slurmctld: debug3:    resp_host=(null) alloc_resp_port=0  other_port=0
+slurmctld: debug3:    dependency=(null) account=par11 qos=normal comment=using_normal_resources
+slurmctld: debug3:    mail_type=0 mail_user=(null) nice=55534 num_tasks=4 open_mode=0 overcommit=-1 acctg_freq=-1
+slurmctld: debug3:    network=(null) begin=Unknown cpus_per_task=1 requeue=0 licenses=(null)
+slurmctld: debug3:    end_time=Unknown signal=0@0 wait_all_nodes=-1
+slurmctld: debug3:    ntasks_per_node=-1 ntasks_per_socket=-1 ntasks_per_core=-1
+slurmctld: debug3:    cpus_bind=65534:(null) mem_bind=65534:(null) plane_size:65534
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 0
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 1002
+slurmctld: debug4: not the right user 201 != 1005
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3487
+slurmctld: debug4: not the right user 201 != 3600
+slurmctld: debug4: not the right user 201 != 2335
+slurmctld: debug4: not the right user 201 != 3250
+slurmctld: debug4: not the right user 201 != 3156
+slurmctld: debug4: not the right user 201 != 3305
+slurmctld: debug4: not the right user 201 != 2299
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 2003
+slurmctld: debug4: not the right user 201 != 3005
+slurmctld: debug4: not the right user 201 != 3515
+slurmctld: debug4: not the right user 201 != 7041
+slurmctld: debug4: not the right user 201 != 3173
+slurmctld: debug4: not the right user 201 != 2271
+slurmctld: debug4: not the right user 201 != 3003
+slurmctld: debug4: not the right user 201 != 3588
+slurmctld: debug4: not the right user 201 != 3001
+slurmctld: debug4: not the right user 201 != 3439
+slurmctld: debug4: not the right user 201 != 3159
+slurmctld: debug4: not the right user 201 != 3637
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 7474
+slurmctld: debug4: not the right user 201 != 7474
+slurmctld: debug4: not the right user 201 != 2255
+slurmctld: debug4: not the right user 201 != 3392
+slurmctld: debug4: not the right user 201 != 3416
+slurmctld: debug4: not the right user 201 != 3510
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3585
+slurmctld: debug4: not the right user 201 != 3481
+slurmctld: debug4: not the right user 201 != 2091
+slurmctld: debug4: not the right user 201 != 7363
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 2905
+slurmctld: debug4: not the right user 201 != 3429
+slurmctld: debug4: not the right user 201 != 3417
+slurmctld: debug4: not the right user 201 != 3286
+slurmctld: debug4: not the right user 201 != 7241
+slurmctld: debug4: not the right user 201 != 0
+slurmctld: debug4: not the right user 201 != 3248
+slurmctld: debug4: not the right user 201 != 3382
+slurmctld: debug4: not the right user 201 != 7505
+slurmctld: debug4: not the right user 201 != 7042
+slurmctld: debug4: not the right user 201 != 3383
+slurmctld: debug4: not the right user 201 != 3524
+slurmctld: debug4: not the right user 201 != 7503
+slurmctld: debug4: not the right user 201 != 3533
+slurmctld: debug4: not the right user 201 != 3469
+slurmctld: debug4: not the right user 201 != 3526
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 7309
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3328
+slurmctld: debug4: not the right user 201 != 2086
+slurmctld: debug4: not the right user 201 != 7198
+slurmctld: debug4: not the right user 201 != 3564
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 2109
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3162
+slurmctld: debug4: not the right user 201 != 3103
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3375
+slurmctld: debug4: not the right user 201 != 3113
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 1315
+slurmctld: debug4: not the right user 201 != 1315
+slurmctld: debug4: not the right user 201 != 1301
+slurmctld: debug4: not the right user 201 != 1302
+slurmctld: debug4: not the right user 201 != 1305
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 2103
+slurmctld: debug4: not the right user 201 != 2103
+slurmctld: debug4: not the right user 201 != 3536
+slurmctld: debug4: not the right user 201 != 3638
+slurmctld: debug4: not the right user 201 != 2278
+slurmctld: debug4: not the right user 201 != 2278
+slurmctld: debug4: not the right user 201 != 2260
+slurmctld: debug4: not the right user 201 != 2260
+slurmctld: debug4: not the right user 201 != 2247
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3303
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3396
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3570
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3461
+slurmctld: debug4: not the right user 201 != 7265
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 3625
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 2085
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 10415
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 508
+slurmctld: debug4: not the right user 201 != 3202
+slurmctld: debug4: not the right user 201 != 501
+slurmctld: debug4: not the right user 201 != 7374
+slurmctld: debug4: not the right user 201 != 506
+slurmctld: debug4: not the right user 201 != 2279
+slurmctld: debug4: not the right user 201 != 7154
+slurmctld: debug4: not the right user 201 != 3232
+slurmctld: debug4: not the right user 201 != 3400
+slurmctld: debug4: not the right user 201 != 7751
+slurmctld: debug4: not the right user 201 != 300
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 246
+slurmctld: debug4: not the right user 201 != 247
+slurmctld: debug4: not the right user 201 != 248
+slurmctld: debug4: not the right user 201 != 249
+slurmctld: debug4: not the right user 201 != 250
+slurmctld: debug4: not the right user 201 != 251
+slurmctld: debug4: not the right user 201 != 252
+slurmctld: debug4: not the right user 201 != 253
+slurmctld: debug4: not the right user 201 != 254
+slurmctld: debug4: not the right user 201 != 255
+slurmctld: debug4: not the right user 201 != 256
+slurmctld: debug4: not the right user 201 != 257
+slurmctld: debug4: not the right user 201 != 258
+slurmctld: debug4: not the right user 201 != 259
+slurmctld: debug4: not the right user 201 != 260
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 4294967294
+slurmctld: debug4: not the right user 201 != 200
+slurmctld: debug3: found association for no partition
+slurmctld: debug4: not the right user 201 != 202
+slurmctld: debug4: not the right user 201 != 203
+slurmctld: debug4: not the right user 201 != 204
+slurmctld: debug4: not the right user 201 != 205
+slurmctld: debug4: not the right user 201 != 206
+slurmctld: debug4: not the right user 201 != 207
+slurmctld: debug4: not the right user 201 != 208
+slurmctld: debug4: not the right user 201 != 209
+slurmctld: debug4: not the right user 201 != 210
+slurmctld: debug4: not the right user 201 != 211
+slurmctld: debug4: not the right user 201 != 212
+slurmctld: debug4: not the right user 201 != 213
+slurmctld: debug4: not the right user 201 != 214
+slurmctld: debug4: not the right user 201 != 215
+slurmctld: debug4: not the right user 201 != 216
+slurmctld: debug4: not the right user 201 != 217
+slurmctld: debug4: not the right user 201 != 218
+slurmctld: debug4: not the right user 201 != 219
+slurmctld: debug4: not the right user 201 != 220
+slurmctld: debug4: not the right user 201 != 221
+slurmctld: debug4: not the right user 201 != 222
+slurmctld: debug4: not the right user 201 != 223
+slurmctld: debug4: not the right user 201 != 224
+slurmctld: debug4: not the right user 201 != 225
+slurmctld: debug4: not the right user 201 != 226
+slurmctld: debug4: not the right user 201 != 227
+slurmctld: debug4: not the right user 201 != 228
+slurmctld: debug4: not the right user 201 != 229
+slurmctld: debug4: not the right user 201 != 230
+slurmctld: debug4: not the right user 201 != 231
+slurmctld: debug4: not the right user 201 != 232
+slurmctld: debug4: not the right user 201 != 233
+slurmctld: debug4: not the right user 201 != 234
+slurmctld: debug4: not the right user 201 != 235
+slurmctld: debug4: not the right user 201 != 236
+slurmctld: debug4: not the right user 201 != 237
+slurmctld: debug4: not the right user 201 != 238
+slurmctld: debug4: not the right user 201 != 239
+slurmctld: debug4: not the right user 201 != 240
+slurmctld: debug4: not the right user 201 != 241
+slurmctld: debug4: not the right user 201 != 242
+slurmctld: debug4: not the right user 201 != 243
+slurmctld: debug4: not the right user 201 != 244
+slurmctld: debug4: not the right user 201 != 245
+slurmctld: debug3: found correct association
+slurmctld: debug3: found correct qos
+slurmctld: debug2: initial priority for job 1001 is 10000
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1001 idle_nodes 1 share_nodes 1
+slurmctld: debug2: sched: JobId=1001 allocated resources: NodeList=(null)
+slurmctld: _slurm_rpc_submit_batch_job JobId=1001 usec=300
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1001 idle_nodes 1 share_nodes 1
+slurmctld: debug3: dist_task: best_fit : using node[0]:socket[1] : 8 cores available
+slurmctld: debug3: cons_res: _add_job_to_res: job 1001 act 0 
+slurmctld: debug3: cons_res: adding job 1001 to part projects row 0
+slurmctld: debug4: acct_policy_job_begin: after adding job 1001, assoc par11 grp_used_cpu_run_secs is 187200
+slurmctld: debug4: acct_policy_job_begin: after adding job 1001, assoc par11 grp_used_cpu_run_secs is 187200
+slurmctld: debug4: acct_policy_job_begin: after adding job 1001, assoc root grp_used_cpu_run_secs is 187200
+slurmctld: debug3: sched: JobId=1001 initiated
+slurmctld: sched: Allocate JobId=1001 NodeList=merlot1 #CPUs=4
+slurmctld: SIM: sending message type REQUEST_BATCH_JOB_LAUNCH to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Processing RPC: REQUEST_SUBMIT_BATCH_JOB from uid=0
+slurmctld: debug3: JobDesc: user_id=217 job_id=-1 partition=projects name=test
+slurmctld: debug3:    cpus=8-4294967294 pn_min_cpus=1
+slurmctld: debug3:    -N min-[max]: 1-[4294967294]:65534:65534:65534
+slurmctld: debug3:    pn_min_memory_job=-1 pn_min_tmp_disk=-1
+slurmctld: debug3:    immediate=0 features=(null) reservation=(null)
+slurmctld: debug3:    req_nodes=(null) exc_nodes=(null) gres=(null)
+slurmctld: debug3:    time_limit=78-78 priority=-1 contiguous=0 shared=-1
+slurmctld: debug3:    kill_on_node_fail=-1 script=#!/bin/bash
+# @ class = class_a
+# @ job_...
+slurmctld: debug3:    argv="/home/tpatki/local/src/slurm-test/sim_test_dir/test_command.cmd"
+slurmctld: debug3:    environment=LD_PRELOAD=libslurm_sim.so,LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm,HOSTNAME=merlot,...
+slurmctld: debug3:    stdin=/dev/null stdout=/tmp/dumb stderr=/tmp/dumb
+slurmctld: debug3:    work_dir=/tmp alloc_node:sid=merlot:1778
+slurmctld: debug3:    resp_host=(null) alloc_resp_port=0  other_port=0
+slurmctld: debug3:    dependency=(null) account=par11 qos=normal comment=using_normal_resources
+slurmctld: debug3:    mail_type=0 mail_user=(null) nice=55534 num_tasks=8 open_mode=0 overcommit=-1 acctg_freq=-1
+slurmctld: debug3:    network=(null) begin=Unknown cpus_per_task=1 requeue=0 licenses=(null)
+slurmctld: debug3:    end_time=Unknown signal=0@0 wait_all_nodes=-1
+slurmctld: debug3:    ntasks_per_node=-1 ntasks_per_socket=-1 ntasks_per_core=-1
+slurmctld: debug3:    cpus_bind=65534:(null) mem_bind=65534:(null) plane_size:65534
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 0
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 1002
+slurmctld: debug4: not the right user 217 != 1005
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3487
+slurmctld: debug4: not the right user 217 != 3600
+slurmctld: debug4: not the right user 217 != 2335
+slurmctld: debug4: not the right user 217 != 3250
+slurmctld: debug4: not the right user 217 != 3156
+slurmctld: debug4: not the right user 217 != 3305
+slurmctld: debug4: not the right user 217 != 2299
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 2003
+slurmctld: debug4: not the right user 217 != 3005
+slurmctld: debug4: not the right user 217 != 3515
+slurmctld: debug4: not the right user 217 != 7041
+slurmctld: debug4: not the right user 217 != 3173
+slurmctld: debug4: not the right user 217 != 2271
+slurmctld: debug4: not the right user 217 != 3003
+slurmctld: debug4: not the right user 217 != 3588
+slurmctld: debug4: not the right user 217 != 3001
+slurmctld: debug4: not the right user 217 != 3439
+slurmctld: debug4: not the right user 217 != 3159
+slurmctld: debug4: not the right user 217 != 3637
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 7474
+slurmctld: debug4: not the right user 217 != 7474
+slurmctld: debug4: not the right user 217 != 2255
+slurmctld: debug4: not the right user 217 != 3392
+slurmctld: debug4: not the right user 217 != 3416
+slurmctld: debug4: not the right user 217 != 3510
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3585
+slurmctld: debug4: not the right user 217 != 3481
+slurmctld: debug4: not the right user 217 != 2091
+slurmctld: debug4: not the right user 217 != 7363
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 2905
+slurmctld: debug4: not the right user 217 != 3429
+slurmctld: debug4: not the right user 217 != 3417
+slurmctld: debug4: not the right user 217 != 3286
+slurmctld: debug4: not the right user 217 != 7241
+slurmctld: debug4: not the right user 217 != 0
+slurmctld: debug4: not the right user 217 != 3248
+slurmctld: debug4: not the right user 217 != 3382
+slurmctld: debug4: not the right user 217 != 7505
+slurmctld: debug4: not the right user 217 != 7042
+slurmctld: debug4: not the right user 217 != 3383
+slurmctld: debug4: not the right user 217 != 3524
+slurmctld: debug4: not the right user 217 != 7503
+slurmctld: debug4: not the right user 217 != 3533
+slurmctld: debug4: not the right user 217 != 3469
+slurmctld: debug4: not the right user 217 != 3526
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 7309
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3328
+slurmctld: debug4: not the right user 217 != 2086
+slurmctld: debug4: not the right user 217 != 7198
+slurmctld: debug4: not the right user 217 != 3564
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 2109
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3162
+slurmctld: debug4: not the right user 217 != 3103
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3375
+slurmctld: debug4: not the right user 217 != 3113
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 1315
+slurmctld: debug4: not the right user 217 != 1315
+slurmctld: debug4: not the right user 217 != 1301
+slurmctld: debug4: not the right user 217 != 1302
+slurmctld: debug4: not the right user 217 != 1305
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 2103
+slurmctld: debug4: not the right user 217 != 2103
+slurmctld: debug4: not the right user 217 != 3536
+slurmctld: debug4: not the right user 217 != 3638
+slurmctld: debug4: not the right user 217 != 2278
+slurmctld: debug4: not the right user 217 != 2278
+slurmctld: debug4: not the right user 217 != 2260
+slurmctld: debug4: not the right user 217 != 2260
+slurmctld: debug4: not the right user 217 != 2247
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3303
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3396
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3570
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3461
+slurmctld: debug4: not the right user 217 != 7265
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 3625
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 2085
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 10415
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 508
+slurmctld: debug4: not the right user 217 != 3202
+slurmctld: debug4: not the right user 217 != 501
+slurmctld: debug4: not the right user 217 != 7374
+slurmctld: debug4: not the right user 217 != 506
+slurmctld: debug4: not the right user 217 != 2279
+slurmctld: debug4: not the right user 217 != 7154
+slurmctld: debug4: not the right user 217 != 3232
+slurmctld: debug4: not the right user 217 != 3400
+slurmctld: debug4: not the right user 217 != 7751
+slurmctld: debug4: not the right user 217 != 300
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 246
+slurmctld: debug4: not the right user 217 != 247
+slurmctld: debug4: not the right user 217 != 248
+slurmctld: debug4: not the right user 217 != 249
+slurmctld: debug4: not the right user 217 != 250
+slurmctld: debug4: not the right user 217 != 251
+slurmctld: debug4: not the right user 217 != 252
+slurmctld: debug4: not the right user 217 != 253
+slurmctld: debug4: not the right user 217 != 254
+slurmctld: debug4: not the right user 217 != 255
+slurmctld: debug4: not the right user 217 != 256
+slurmctld: debug4: not the right user 217 != 257
+slurmctld: debug4: not the right user 217 != 258
+slurmctld: debug4: not the right user 217 != 259
+slurmctld: debug4: not the right user 217 != 260
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 4294967294
+slurmctld: debug4: not the right user 217 != 200
+slurmctld: debug4: not the right user 217 != 201
+slurmctld: debug4: not the right user 217 != 202
+slurmctld: debug4: not the right user 217 != 203
+slurmctld: debug4: not the right user 217 != 204
+slurmctld: debug4: not the right user 217 != 205
+slurmctld: debug4: not the right user 217 != 206
+slurmctld: debug4: not the right user 217 != 207
+slurmctld: debug4: not the right user 217 != 208
+slurmctld: debug4: not the right user 217 != 209
+slurmctld: debug4: not the right user 217 != 210
+slurmctld: debug4: not the right user 217 != 211
+slurmctld: debug4: not the right user 217 != 212
+slurmctld: debug4: not the right user 217 != 213
+slurmctld: debug4: not the right user 217 != 214
+slurmctld: debug4: not the right user 217 != 215
+slurmctld: debug4: not the right user 217 != 216
+slurmctld: debug3: found association for no partition
+slurmctld: debug4: not the right user 217 != 218
+slurmctld: debug4: not the right user 217 != 219
+slurmctld: debug4: not the right user 217 != 220
+slurmctld: debug4: not the right user 217 != 221
+slurmctld: debug4: not the right user 217 != 222
+slurmctld: debug4: not the right user 217 != 223
+slurmctld: debug4: not the right user 217 != 224
+slurmctld: debug4: not the right user 217 != 225
+slurmctld: debug4: not the right user 217 != 226
+slurmctld: debug4: not the right user 217 != 227
+slurmctld: debug4: not the right user 217 != 228
+slurmctld: debug4: not the right user 217 != 229
+slurmctld: debug4: not the right user 217 != 230
+slurmctld: debug4: not the right user 217 != 231
+slurmctld: debug4: not the right user 217 != 232
+slurmctld: debug4: not the right user 217 != 233
+slurmctld: debug4: not the right user 217 != 234
+slurmctld: debug4: not the right user 217 != 235
+slurmctld: debug4: not the right user 217 != 236
+slurmctld: debug4: not the right user 217 != 237
+slurmctld: debug4: not the right user 217 != 238
+slurmctld: debug4: not the right user 217 != 239
+slurmctld: debug4: not the right user 217 != 240
+slurmctld: debug4: not the right user 217 != 241
+slurmctld: debug4: not the right user 217 != 242
+slurmctld: debug4: not the right user 217 != 243
+slurmctld: debug4: not the right user 217 != 244
+slurmctld: debug4: not the right user 217 != 245
+slurmctld: debug3: found correct association
+slurmctld: debug3: found correct qos
+slurmctld: debug2: initial priority for job 1002 is 10000
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1002 idle_nodes 0 share_nodes 1
+slurmctld: debug2: sched: JobId=1002 allocated resources: NodeList=(null)
+slurmctld: _slurm_rpc_submit_batch_job JobId=1002 usec=300
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1002 idle_nodes 0 share_nodes 1
+slurmctld: debug3: dist_task: best_fit : using node[0]:socket[0] : 8 cores available
+slurmctld: debug3: cons_res: _add_job_to_res: job 1002 act 0 
+slurmctld: debug3: cons_res: adding job 1002 to part projects row 0
+slurmctld: debug4: acct_policy_job_begin: after adding job 1002, assoc par11 grp_used_cpu_run_secs is 37440
+slurmctld: debug4: acct_policy_job_begin: after adding job 1002, assoc par11 grp_used_cpu_run_secs is 224640
+slurmctld: debug4: acct_policy_job_begin: after adding job 1002, assoc root grp_used_cpu_run_secs is 224640
+slurmctld: debug3: sched: JobId=1002 initiated
+slurmctld: sched: Allocate JobId=1002 NodeList=merlot1 #CPUs=8
+slurmctld: SIM: sending message type REQUEST_BATCH_JOB_LAUNCH to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Processing RPC: REQUEST_SUBMIT_BATCH_JOB from uid=0
+slurmctld: debug3: JobDesc: user_id=233 job_id=-1 partition=projects name=test
+slurmctld: debug3:    cpus=8-4294967294 pn_min_cpus=1
+slurmctld: debug3:    -N min-[max]: 1-[4294967294]:65534:65534:65534
+slurmctld: debug3:    pn_min_memory_job=-1 pn_min_tmp_disk=-1
+slurmctld: debug3:    immediate=0 features=(null) reservation=(null)
+slurmctld: debug3:    req_nodes=(null) exc_nodes=(null) gres=(null)
+slurmctld: debug3:    time_limit=780-780 priority=-1 contiguous=0 shared=-1
+slurmctld: debug3:    kill_on_node_fail=-1 script=#!/bin/bash
+# @ class = class_a
+# @ job_...
+slurmctld: debug3:    argv="/home/tpatki/local/src/slurm-test/sim_test_dir/test_command.cmd"
+slurmctld: debug3:    environment=LD_PRELOAD=libslurm_sim.so,LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm,HOSTNAME=merlot,...
+slurmctld: debug3:    stdin=/dev/null stdout=/tmp/dumb stderr=/tmp/dumb
+slurmctld: debug3:    work_dir=/tmp alloc_node:sid=merlot:1778
+slurmctld: debug3:    resp_host=(null) alloc_resp_port=0  other_port=0
+slurmctld: debug3:    dependency=(null) account=par11 qos=normal comment=using_normal_resources
+slurmctld: debug3:    mail_type=0 mail_user=(null) nice=55534 num_tasks=8 open_mode=0 overcommit=-1 acctg_freq=-1
+slurmctld: debug3:    network=(null) begin=Unknown cpus_per_task=1 requeue=0 licenses=(null)
+slurmctld: debug3:    end_time=Unknown signal=0@0 wait_all_nodes=-1
+slurmctld: debug3:    ntasks_per_node=-1 ntasks_per_socket=-1 ntasks_per_core=-1
+slurmctld: debug3:    cpus_bind=65534:(null) mem_bind=65534:(null) plane_size:65534
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 0
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 1002
+slurmctld: debug4: not the right user 233 != 1005
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3487
+slurmctld: debug4: not the right user 233 != 3600
+slurmctld: debug4: not the right user 233 != 2335
+slurmctld: debug4: not the right user 233 != 3250
+slurmctld: debug4: not the right user 233 != 3156
+slurmctld: debug4: not the right user 233 != 3305
+slurmctld: debug4: not the right user 233 != 2299
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 2003
+slurmctld: debug4: not the right user 233 != 3005
+slurmctld: debug4: not the right user 233 != 3515
+slurmctld: debug4: not the right user 233 != 7041
+slurmctld: debug4: not the right user 233 != 3173
+slurmctld: debug4: not the right user 233 != 2271
+slurmctld: debug4: not the right user 233 != 3003
+slurmctld: debug4: not the right user 233 != 3588
+slurmctld: debug4: not the right user 233 != 3001
+slurmctld: debug4: not the right user 233 != 3439
+slurmctld: debug4: not the right user 233 != 3159
+slurmctld: debug4: not the right user 233 != 3637
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 7474
+slurmctld: debug4: not the right user 233 != 7474
+slurmctld: debug4: not the right user 233 != 2255
+slurmctld: debug4: not the right user 233 != 3392
+slurmctld: debug4: not the right user 233 != 3416
+slurmctld: debug4: not the right user 233 != 3510
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3585
+slurmctld: debug4: not the right user 233 != 3481
+slurmctld: debug4: not the right user 233 != 2091
+slurmctld: debug4: not the right user 233 != 7363
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 2905
+slurmctld: debug4: not the right user 233 != 3429
+slurmctld: debug4: not the right user 233 != 3417
+slurmctld: debug4: not the right user 233 != 3286
+slurmctld: debug4: not the right user 233 != 7241
+slurmctld: debug4: not the right user 233 != 0
+slurmctld: debug4: not the right user 233 != 3248
+slurmctld: debug4: not the right user 233 != 3382
+slurmctld: debug4: not the right user 233 != 7505
+slurmctld: debug4: not the right user 233 != 7042
+slurmctld: debug4: not the right user 233 != 3383
+slurmctld: debug4: not the right user 233 != 3524
+slurmctld: debug4: not the right user 233 != 7503
+slurmctld: debug4: not the right user 233 != 3533
+slurmctld: debug4: not the right user 233 != 3469
+slurmctld: debug4: not the right user 233 != 3526
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 7309
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3328
+slurmctld: debug4: not the right user 233 != 2086
+slurmctld: debug4: not the right user 233 != 7198
+slurmctld: debug4: not the right user 233 != 3564
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 2109
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3162
+slurmctld: debug4: not the right user 233 != 3103
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3375
+slurmctld: debug4: not the right user 233 != 3113
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 1315
+slurmctld: debug4: not the right user 233 != 1315
+slurmctld: debug4: not the right user 233 != 1301
+slurmctld: debug4: not the right user 233 != 1302
+slurmctld: debug4: not the right user 233 != 1305
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 2103
+slurmctld: debug4: not the right user 233 != 2103
+slurmctld: debug4: not the right user 233 != 3536
+slurmctld: debug4: not the right user 233 != 3638
+slurmctld: debug4: not the right user 233 != 2278
+slurmctld: debug4: not the right user 233 != 2278
+slurmctld: debug4: not the right user 233 != 2260
+slurmctld: debug4: not the right user 233 != 2260
+slurmctld: debug4: not the right user 233 != 2247
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3303
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3396
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3570
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3461
+slurmctld: debug4: not the right user 233 != 7265
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 3625
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 2085
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 10415
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 508
+slurmctld: debug4: not the right user 233 != 3202
+slurmctld: debug4: not the right user 233 != 501
+slurmctld: debug4: not the right user 233 != 7374
+slurmctld: debug4: not the right user 233 != 506
+slurmctld: debug4: not the right user 233 != 2279
+slurmctld: debug4: not the right user 233 != 7154
+slurmctld: debug4: not the right user 233 != 3232
+slurmctld: debug4: not the right user 233 != 3400
+slurmctld: debug4: not the right user 233 != 7751
+slurmctld: debug4: not the right user 233 != 300
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 246
+slurmctld: debug4: not the right user 233 != 247
+slurmctld: debug4: not the right user 233 != 248
+slurmctld: debug4: not the right user 233 != 249
+slurmctld: debug4: not the right user 233 != 250
+slurmctld: debug4: not the right user 233 != 251
+slurmctld: debug4: not the right user 233 != 252
+slurmctld: debug4: not the right user 233 != 253
+slurmctld: debug4: not the right user 233 != 254
+slurmctld: debug4: not the right user 233 != 255
+slurmctld: debug4: not the right user 233 != 256
+slurmctld: debug4: not the right user 233 != 257
+slurmctld: debug4: not the right user 233 != 258
+slurmctld: debug4: not the right user 233 != 259
+slurmctld: debug4: not the right user 233 != 260
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 4294967294
+slurmctld: debug4: not the right user 233 != 200
+slurmctld: debug4: not the right user 233 != 201
+slurmctld: debug4: not the right user 233 != 202
+slurmctld: debug4: not the right user 233 != 203
+slurmctld: debug4: not the right user 233 != 204
+slurmctld: debug4: not the right user 233 != 205
+slurmctld: debug4: not the right user 233 != 206
+slurmctld: debug4: not the right user 233 != 207
+slurmctld: debug4: not the right user 233 != 208
+slurmctld: debug4: not the right user 233 != 209
+slurmctld: debug4: not the right user 233 != 210
+slurmctld: debug4: not the right user 233 != 211
+slurmctld: debug4: not the right user 233 != 212
+slurmctld: debug4: not the right user 233 != 213
+slurmctld: debug4: not the right user 233 != 214
+slurmctld: debug4: not the right user 233 != 215
+slurmctld: debug4: not the right user 233 != 216
+slurmctld: debug4: not the right user 233 != 217
+slurmctld: debug4: not the right user 233 != 218
+slurmctld: debug4: not the right user 233 != 219
+slurmctld: debug4: not the right user 233 != 220
+slurmctld: debug4: not the right user 233 != 221
+slurmctld: debug4: not the right user 233 != 222
+slurmctld: debug4: not the right user 233 != 223
+slurmctld: debug4: not the right user 233 != 224
+slurmctld: debug4: not the right user 233 != 225
+slurmctld: debug4: not the right user 233 != 226
+slurmctld: debug4: not the right user 233 != 227
+slurmctld: debug4: not the right user 233 != 228
+slurmctld: debug4: not the right user 233 != 229
+slurmctld: debug4: not the right user 233 != 230
+slurmctld: debug4: not the right user 233 != 231
+slurmctld: debug4: not the right user 233 != 232
+slurmctld: debug3: found association for no partition
+slurmctld: debug4: not the right user 233 != 234
+slurmctld: debug4: not the right user 233 != 235
+slurmctld: debug4: not the right user 233 != 236
+slurmctld: debug4: not the right user 233 != 237
+slurmctld: debug4: not the right user 233 != 238
+slurmctld: debug4: not the right user 233 != 239
+slurmctld: debug4: not the right user 233 != 240
+slurmctld: debug4: not the right user 233 != 241
+slurmctld: debug4: not the right user 233 != 242
+slurmctld: debug4: not the right user 233 != 243
+slurmctld: debug4: not the right user 233 != 244
+slurmctld: debug4: not the right user 233 != 245
+slurmctld: debug3: found correct association
+slurmctld: debug3: found correct qos
+slurmctld: debug2: initial priority for job 1003 is 10000
+slurmctld: debug2: job 1003 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: _slurm_rpc_submit_batch_job JobId=1003 usec=300
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1003 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Processing RPC: REQUEST_COMPLETE_BATCH_SCRIPT from uid=0 JobId=1002
+slurmctld: completing job 1002
+Found name par11017 for uid 217
+slurmctld: debug4: acct_policy_job_fini: job 1002. Removed 36960 unused seconds from assoc par11 grp_used_cpu_run_secs = 480
+slurmctld: debug4: acct_policy_job_fini: job 1002. Removed 36960 unused seconds from assoc par11 grp_used_cpu_run_secs = 187680
+slurmctld: debug4: acct_policy_job_fini: job 1002. Removed 36960 unused seconds from assoc root grp_used_cpu_run_secs = 187680
+slurmctld: debug3: cons_res: _rm_job_from_res: job 1002 action 0
+slurmctld: debug3: cons_res: removed job 1002 from part projects row 0
+slurmctld: SIM: sending message type REQUEST_TERMINATE_JOB (1002) to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: SIM: REQUEST_TERMINATE_JOB (1002) to merlot WAS SENT
+
+slurmctld: sched: job_complete for JobId=1002 successful
+slurmctld: debug2: _slurm_rpc_complete_batch_script JobId=1002 usec=2300
+slurmctld: SIM: Processing RPC: MESSAGE_EPILOG_COMPLETE for jobid 1002
+slurmctld: debug2: Processing RPC: MESSAGE_EPILOG_COMPLETE uid=0
+slurmctld: debug2: _slurm_rpc_epilog_complete JobId=1002 Node=merlot1 usec=700
+slurmctld: Processing RPC: MESSAGE_SIM_HELPER_CYCLE for 1 jobs
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1003 idle_nodes 0 share_nodes 1
+slurmctld: debug3: dist_task: best_fit : using node[0]:socket[0] : 8 cores available
+slurmctld: debug3: cons_res: _add_job_to_res: job 1003 act 0 
+slurmctld: debug3: cons_res: adding job 1003 to part projects row 0
+slurmctld: debug4: acct_policy_job_begin: after adding job 1003, assoc par11 grp_used_cpu_run_secs is 374400
+slurmctld: debug4: acct_policy_job_begin: after adding job 1003, assoc par11 grp_used_cpu_run_secs is 562080
+slurmctld: debug4: acct_policy_job_begin: after adding job 1003, assoc root grp_used_cpu_run_secs is 562080
+slurmctld: debug3: sched: JobId=1003 initiated
+slurmctld: sched: Allocate JobId=1003 NodeList=merlot1 #CPUs=8
+slurmctld: SIM: sending message type REQUEST_BATCH_JOB_LAUNCH to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Processing RPC: REQUEST_SUBMIT_BATCH_JOB from uid=0
+slurmctld: debug3: JobDesc: user_id=241 job_id=-1 partition=projects name=test
+slurmctld: debug3:    cpus=4-4294967294 pn_min_cpus=1
+slurmctld: debug3:    -N min-[max]: 1-[4294967294]:65534:65534:65534
+slurmctld: debug3:    pn_min_memory_job=-1 pn_min_tmp_disk=-1
+slurmctld: debug3:    immediate=0 features=(null) reservation=(null)
+slurmctld: debug3:    req_nodes=(null) exc_nodes=(null) gres=(null)
+slurmctld: debug3:    time_limit=780-780 priority=-1 contiguous=0 shared=-1
+slurmctld: debug3:    kill_on_node_fail=-1 script=#!/bin/bash
+# @ class = class_a
+# @ job_...
+slurmctld: debug3:    argv="/home/tpatki/local/src/slurm-test/sim_test_dir/test_command.cmd"
+slurmctld: debug3:    environment=LD_PRELOAD=libslurm_sim.so,LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm,HOSTNAME=merlot,...
+slurmctld: debug3:    stdin=/dev/null stdout=/tmp/dumb stderr=/tmp/dumb
+slurmctld: debug3:    work_dir=/tmp alloc_node:sid=merlot:1778
+slurmctld: debug3:    resp_host=(null) alloc_resp_port=0  other_port=0
+slurmctld: debug3:    dependency=(null) account=par11 qos=normal comment=using_normal_resources
+slurmctld: debug3:    mail_type=0 mail_user=(null) nice=55534 num_tasks=4 open_mode=0 overcommit=-1 acctg_freq=-1
+slurmctld: debug3:    network=(null) begin=Unknown cpus_per_task=1 requeue=0 licenses=(null)
+slurmctld: debug3:    end_time=Unknown signal=0@0 wait_all_nodes=-1
+slurmctld: debug3:    ntasks_per_node=-1 ntasks_per_socket=-1 ntasks_per_core=-1
+slurmctld: debug3:    cpus_bind=65534:(null) mem_bind=65534:(null) plane_size:65534
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 0
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 1002
+slurmctld: debug4: not the right user 241 != 1005
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3487
+slurmctld: debug4: not the right user 241 != 3600
+slurmctld: debug4: not the right user 241 != 2335
+slurmctld: debug4: not the right user 241 != 3250
+slurmctld: debug4: not the right user 241 != 3156
+slurmctld: debug4: not the right user 241 != 3305
+slurmctld: debug4: not the right user 241 != 2299
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 2003
+slurmctld: debug4: not the right user 241 != 3005
+slurmctld: debug4: not the right user 241 != 3515
+slurmctld: debug4: not the right user 241 != 7041
+slurmctld: debug4: not the right user 241 != 3173
+slurmctld: debug4: not the right user 241 != 2271
+slurmctld: debug4: not the right user 241 != 3003
+slurmctld: debug4: not the right user 241 != 3588
+slurmctld: debug4: not the right user 241 != 3001
+slurmctld: debug4: not the right user 241 != 3439
+slurmctld: debug4: not the right user 241 != 3159
+slurmctld: debug4: not the right user 241 != 3637
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 7474
+slurmctld: debug4: not the right user 241 != 7474
+slurmctld: debug4: not the right user 241 != 2255
+slurmctld: debug4: not the right user 241 != 3392
+slurmctld: debug4: not the right user 241 != 3416
+slurmctld: debug4: not the right user 241 != 3510
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3585
+slurmctld: debug4: not the right user 241 != 3481
+slurmctld: debug4: not the right user 241 != 2091
+slurmctld: debug4: not the right user 241 != 7363
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 2905
+slurmctld: debug4: not the right user 241 != 3429
+slurmctld: debug4: not the right user 241 != 3417
+slurmctld: debug4: not the right user 241 != 3286
+slurmctld: debug4: not the right user 241 != 7241
+slurmctld: debug4: not the right user 241 != 0
+slurmctld: debug4: not the right user 241 != 3248
+slurmctld: debug4: not the right user 241 != 3382
+slurmctld: debug4: not the right user 241 != 7505
+slurmctld: debug4: not the right user 241 != 7042
+slurmctld: debug4: not the right user 241 != 3383
+slurmctld: debug4: not the right user 241 != 3524
+slurmctld: debug4: not the right user 241 != 7503
+slurmctld: debug4: not the right user 241 != 3533
+slurmctld: debug4: not the right user 241 != 3469
+slurmctld: debug4: not the right user 241 != 3526
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 7309
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3328
+slurmctld: debug4: not the right user 241 != 2086
+slurmctld: debug4: not the right user 241 != 7198
+slurmctld: debug4: not the right user 241 != 3564
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 2109
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3162
+slurmctld: debug4: not the right user 241 != 3103
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3375
+slurmctld: debug4: not the right user 241 != 3113
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 1315
+slurmctld: debug4: not the right user 241 != 1315
+slurmctld: debug4: not the right user 241 != 1301
+slurmctld: debug4: not the right user 241 != 1302
+slurmctld: debug4: not the right user 241 != 1305
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 2103
+slurmctld: debug4: not the right user 241 != 2103
+slurmctld: debug4: not the right user 241 != 3536
+slurmctld: debug4: not the right user 241 != 3638
+slurmctld: debug4: not the right user 241 != 2278
+slurmctld: debug4: not the right user 241 != 2278
+slurmctld: debug4: not the right user 241 != 2260
+slurmctld: debug4: not the right user 241 != 2260
+slurmctld: debug4: not the right user 241 != 2247
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3303
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3396
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3570
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3461
+slurmctld: debug4: not the right user 241 != 7265
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 3625
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 2085
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 10415
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 508
+slurmctld: debug4: not the right user 241 != 3202
+slurmctld: debug4: not the right user 241 != 501
+slurmctld: debug4: not the right user 241 != 7374
+slurmctld: debug4: not the right user 241 != 506
+slurmctld: debug4: not the right user 241 != 2279
+slurmctld: debug4: not the right user 241 != 7154
+slurmctld: debug4: not the right user 241 != 3232
+slurmctld: debug4: not the right user 241 != 3400
+slurmctld: debug4: not the right user 241 != 7751
+slurmctld: debug4: not the right user 241 != 300
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 246
+slurmctld: debug4: not the right user 241 != 247
+slurmctld: debug4: not the right user 241 != 248
+slurmctld: debug4: not the right user 241 != 249
+slurmctld: debug4: not the right user 241 != 250
+slurmctld: debug4: not the right user 241 != 251
+slurmctld: debug4: not the right user 241 != 252
+slurmctld: debug4: not the right user 241 != 253
+slurmctld: debug4: not the right user 241 != 254
+slurmctld: debug4: not the right user 241 != 255
+slurmctld: debug4: not the right user 241 != 256
+slurmctld: debug4: not the right user 241 != 257
+slurmctld: debug4: not the right user 241 != 258
+slurmctld: debug4: not the right user 241 != 259
+slurmctld: debug4: not the right user 241 != 260
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 4294967294
+slurmctld: debug4: not the right user 241 != 200
+slurmctld: debug4: not the right user 241 != 201
+slurmctld: debug4: not the right user 241 != 202
+slurmctld: debug4: not the right user 241 != 203
+slurmctld: debug4: not the right user 241 != 204
+slurmctld: debug4: not the right user 241 != 205
+slurmctld: debug4: not the right user 241 != 206
+slurmctld: debug4: not the right user 241 != 207
+slurmctld: debug4: not the right user 241 != 208
+slurmctld: debug4: not the right user 241 != 209
+slurmctld: debug4: not the right user 241 != 210
+slurmctld: debug4: not the right user 241 != 211
+slurmctld: debug4: not the right user 241 != 212
+slurmctld: debug4: not the right user 241 != 213
+slurmctld: debug4: not the right user 241 != 214
+slurmctld: debug4: not the right user 241 != 215
+slurmctld: debug4: not the right user 241 != 216
+slurmctld: debug4: not the right user 241 != 217
+slurmctld: debug4: not the right user 241 != 218
+slurmctld: debug4: not the right user 241 != 219
+slurmctld: debug4: not the right user 241 != 220
+slurmctld: debug4: not the right user 241 != 221
+slurmctld: debug4: not the right user 241 != 222
+slurmctld: debug4: not the right user 241 != 223
+slurmctld: debug4: not the right user 241 != 224
+slurmctld: debug4: not the right user 241 != 225
+slurmctld: debug4: not the right user 241 != 226
+slurmctld: debug4: not the right user 241 != 227
+slurmctld: debug4: not the right user 241 != 228
+slurmctld: debug4: not the right user 241 != 229
+slurmctld: debug4: not the right user 241 != 230
+slurmctld: debug4: not the right user 241 != 231
+slurmctld: debug4: not the right user 241 != 232
+slurmctld: debug4: not the right user 241 != 233
+slurmctld: debug4: not the right user 241 != 234
+slurmctld: debug4: not the right user 241 != 235
+slurmctld: debug4: not the right user 241 != 236
+slurmctld: debug4: not the right user 241 != 237
+slurmctld: debug4: not the right user 241 != 238
+slurmctld: debug4: not the right user 241 != 239
+slurmctld: debug4: not the right user 241 != 240
+slurmctld: debug3: found association for no partition
+slurmctld: debug4: not the right user 241 != 242
+slurmctld: debug4: not the right user 241 != 243
+slurmctld: debug4: not the right user 241 != 244
+slurmctld: debug4: not the right user 241 != 245
+slurmctld: debug3: found correct association
+slurmctld: debug3: found correct qos
+slurmctld: debug2: initial priority for job 1004 is 10000
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: _slurm_rpc_submit_batch_job JobId=1004 usec=300
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Processing RPC: REQUEST_SUBMIT_BATCH_JOB from uid=0
+slurmctld: debug3: JobDesc: user_id=244 job_id=-1 partition=projects name=test
+slurmctld: debug3:    cpus=4-4294967294 pn_min_cpus=1
+slurmctld: debug3:    -N min-[max]: 1-[4294967294]:65534:65534:65534
+slurmctld: debug3:    pn_min_memory_job=-1 pn_min_tmp_disk=-1
+slurmctld: debug3:    immediate=0 features=(null) reservation=(null)
+slurmctld: debug3:    req_nodes=(null) exc_nodes=(null) gres=(null)
+slurmctld: debug3:    time_limit=78-78 priority=-1 contiguous=0 shared=-1
+slurmctld: debug3:    kill_on_node_fail=-1 script=#!/bin/bash
+# @ class = class_a
+# @ job_...
+slurmctld: debug3:    argv="/home/tpatki/local/src/slurm-test/sim_test_dir/test_command.cmd"
+slurmctld: debug3:    environment=LD_PRELOAD=libslurm_sim.so,LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm,HOSTNAME=merlot,...
+slurmctld: debug3:    stdin=/dev/null stdout=/tmp/dumb stderr=/tmp/dumb
+slurmctld: debug3:    work_dir=/tmp alloc_node:sid=merlot:1778
+slurmctld: debug3:    resp_host=(null) alloc_resp_port=0  other_port=0
+slurmctld: debug3:    dependency=(null) account=par11 qos=normal comment=using_normal_resources
+slurmctld: debug3:    mail_type=0 mail_user=(null) nice=55534 num_tasks=4 open_mode=0 overcommit=-1 acctg_freq=-1
+slurmctld: debug3:    network=(null) begin=Unknown cpus_per_task=1 requeue=0 licenses=(null)
+slurmctld: debug3:    end_time=Unknown signal=0@0 wait_all_nodes=-1
+slurmctld: debug3:    ntasks_per_node=-1 ntasks_per_socket=-1 ntasks_per_core=-1
+slurmctld: debug3:    cpus_bind=65534:(null) mem_bind=65534:(null) plane_size:65534
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 0
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 1002
+slurmctld: debug4: not the right user 244 != 1005
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3487
+slurmctld: debug4: not the right user 244 != 3600
+slurmctld: debug4: not the right user 244 != 2335
+slurmctld: debug4: not the right user 244 != 3250
+slurmctld: debug4: not the right user 244 != 3156
+slurmctld: debug4: not the right user 244 != 3305
+slurmctld: debug4: not the right user 244 != 2299
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 2003
+slurmctld: debug4: not the right user 244 != 3005
+slurmctld: debug4: not the right user 244 != 3515
+slurmctld: debug4: not the right user 244 != 7041
+slurmctld: debug4: not the right user 244 != 3173
+slurmctld: debug4: not the right user 244 != 2271
+slurmctld: debug4: not the right user 244 != 3003
+slurmctld: debug4: not the right user 244 != 3588
+slurmctld: debug4: not the right user 244 != 3001
+slurmctld: debug4: not the right user 244 != 3439
+slurmctld: debug4: not the right user 244 != 3159
+slurmctld: debug4: not the right user 244 != 3637
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 7474
+slurmctld: debug4: not the right user 244 != 7474
+slurmctld: debug4: not the right user 244 != 2255
+slurmctld: debug4: not the right user 244 != 3392
+slurmctld: debug4: not the right user 244 != 3416
+slurmctld: debug4: not the right user 244 != 3510
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3585
+slurmctld: debug4: not the right user 244 != 3481
+slurmctld: debug4: not the right user 244 != 2091
+slurmctld: debug4: not the right user 244 != 7363
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 2905
+slurmctld: debug4: not the right user 244 != 3429
+slurmctld: debug4: not the right user 244 != 3417
+slurmctld: debug4: not the right user 244 != 3286
+slurmctld: debug4: not the right user 244 != 7241
+slurmctld: debug4: not the right user 244 != 0
+slurmctld: debug4: not the right user 244 != 3248
+slurmctld: debug4: not the right user 244 != 3382
+slurmctld: debug4: not the right user 244 != 7505
+slurmctld: debug4: not the right user 244 != 7042
+slurmctld: debug4: not the right user 244 != 3383
+slurmctld: debug4: not the right user 244 != 3524
+slurmctld: debug4: not the right user 244 != 7503
+slurmctld: debug4: not the right user 244 != 3533
+slurmctld: debug4: not the right user 244 != 3469
+slurmctld: debug4: not the right user 244 != 3526
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 7309
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3328
+slurmctld: debug4: not the right user 244 != 2086
+slurmctld: debug4: not the right user 244 != 7198
+slurmctld: debug4: not the right user 244 != 3564
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 2109
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3162
+slurmctld: debug4: not the right user 244 != 3103
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3375
+slurmctld: debug4: not the right user 244 != 3113
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 1315
+slurmctld: debug4: not the right user 244 != 1315
+slurmctld: debug4: not the right user 244 != 1301
+slurmctld: debug4: not the right user 244 != 1302
+slurmctld: debug4: not the right user 244 != 1305
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 2103
+slurmctld: debug4: not the right user 244 != 2103
+slurmctld: debug4: not the right user 244 != 3536
+slurmctld: debug4: not the right user 244 != 3638
+slurmctld: debug4: not the right user 244 != 2278
+slurmctld: debug4: not the right user 244 != 2278
+slurmctld: debug4: not the right user 244 != 2260
+slurmctld: debug4: not the right user 244 != 2260
+slurmctld: debug4: not the right user 244 != 2247
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3303
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3396
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3570
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3461
+slurmctld: debug4: not the right user 244 != 7265
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 3625
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 2085
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 10415
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 508
+slurmctld: debug4: not the right user 244 != 3202
+slurmctld: debug4: not the right user 244 != 501
+slurmctld: debug4: not the right user 244 != 7374
+slurmctld: debug4: not the right user 244 != 506
+slurmctld: debug4: not the right user 244 != 2279
+slurmctld: debug4: not the right user 244 != 7154
+slurmctld: debug4: not the right user 244 != 3232
+slurmctld: debug4: not the right user 244 != 3400
+slurmctld: debug4: not the right user 244 != 7751
+slurmctld: debug4: not the right user 244 != 300
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 246
+slurmctld: debug4: not the right user 244 != 247
+slurmctld: debug4: not the right user 244 != 248
+slurmctld: debug4: not the right user 244 != 249
+slurmctld: debug4: not the right user 244 != 250
+slurmctld: debug4: not the right user 244 != 251
+slurmctld: debug4: not the right user 244 != 252
+slurmctld: debug4: not the right user 244 != 253
+slurmctld: debug4: not the right user 244 != 254
+slurmctld: debug4: not the right user 244 != 255
+slurmctld: debug4: not the right user 244 != 256
+slurmctld: debug4: not the right user 244 != 257
+slurmctld: debug4: not the right user 244 != 258
+slurmctld: debug4: not the right user 244 != 259
+slurmctld: debug4: not the right user 244 != 260
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 4294967294
+slurmctld: debug4: not the right user 244 != 200
+slurmctld: debug4: not the right user 244 != 201
+slurmctld: debug4: not the right user 244 != 202
+slurmctld: debug4: not the right user 244 != 203
+slurmctld: debug4: not the right user 244 != 204
+slurmctld: debug4: not the right user 244 != 205
+slurmctld: debug4: not the right user 244 != 206
+slurmctld: debug4: not the right user 244 != 207
+slurmctld: debug4: not the right user 244 != 208
+slurmctld: debug4: not the right user 244 != 209
+slurmctld: debug4: not the right user 244 != 210
+slurmctld: debug4: not the right user 244 != 211
+slurmctld: debug4: not the right user 244 != 212
+slurmctld: debug4: not the right user 244 != 213
+slurmctld: debug4: not the right user 244 != 214
+slurmctld: debug4: not the right user 244 != 215
+slurmctld: debug4: not the right user 244 != 216
+slurmctld: debug4: not the right user 244 != 217
+slurmctld: debug4: not the right user 244 != 218
+slurmctld: debug4: not the right user 244 != 219
+slurmctld: debug4: not the right user 244 != 220
+slurmctld: debug4: not the right user 244 != 221
+slurmctld: debug4: not the right user 244 != 222
+slurmctld: debug4: not the right user 244 != 223
+slurmctld: debug4: not the right user 244 != 224
+slurmctld: debug4: not the right user 244 != 225
+slurmctld: debug4: not the right user 244 != 226
+slurmctld: debug4: not the right user 244 != 227
+slurmctld: debug4: not the right user 244 != 228
+slurmctld: debug4: not the right user 244 != 229
+slurmctld: debug4: not the right user 244 != 230
+slurmctld: debug4: not the right user 244 != 231
+slurmctld: debug4: not the right user 244 != 232
+slurmctld: debug4: not the right user 244 != 233
+slurmctld: debug4: not the right user 244 != 234
+slurmctld: debug4: not the right user 244 != 235
+slurmctld: debug4: not the right user 244 != 236
+slurmctld: debug4: not the right user 244 != 237
+slurmctld: debug4: not the right user 244 != 238
+slurmctld: debug4: not the right user 244 != 239
+slurmctld: debug4: not the right user 244 != 240
+slurmctld: debug4: not the right user 244 != 241
+slurmctld: debug4: not the right user 244 != 242
+slurmctld: debug4: not the right user 244 != 243
+slurmctld: debug3: found association for no partition
+slurmctld: debug4: not the right user 244 != 245
+slurmctld: debug3: found correct association
+slurmctld: debug3: found correct qos
+slurmctld: debug2: initial priority for job 1005 is 10000
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: _slurm_rpc_submit_batch_job JobId=1005 usec=300
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug2: backfill: job 1004 is not allowed to run now. Skipping it. State=PENDING. Reason=AssociationJobLimit. Priority=10000
+slurmctld: debug2: backfill: job 1005 is not allowed to run now. Skipping it. State=PENDING. Reason=AssociationJobLimit. Priority=10000
+slurmctld: debug2: priority for job 1004 is now 10000
+slurmctld: debug2: priority for job 1005 is now 10000
+slurmctld: debug4: done writing time 1316242865
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug2: purge_old_job: purged 1 old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1004 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Processing RPC: REQUEST_COMPLETE_BATCH_SCRIPT from uid=0 JobId=1001
+slurmctld: completing job 1001
+Found name par11001 for uid 201
+slurmctld: debug4: acct_policy_job_fini: job 1001. Removed 184800 unused seconds from assoc par11 grp_used_cpu_run_secs = 1200
+slurmctld: debug4: acct_policy_job_fini: job 1001. Removed 184800 unused seconds from assoc par11 grp_used_cpu_run_secs = 373920
+slurmctld: debug4: acct_policy_job_fini: job 1001. Removed 184800 unused seconds from assoc root grp_used_cpu_run_secs = 373920
+slurmctld: debug3: cons_res: _rm_job_from_res: job 1001 action 0
+slurmctld: debug3: cons_res: removed job 1001 from part projects row 0
+slurmctld: SIM: sending message type REQUEST_TERMINATE_JOB (1001) to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: SIM: REQUEST_TERMINATE_JOB (1001) to merlot WAS SENT
+
+slurmctld: sched: job_complete for JobId=1001 successful
+slurmctld: debug2: _slurm_rpc_complete_batch_script JobId=1001 usec=2500
+slurmctld: SIM: Processing RPC: MESSAGE_EPILOG_COMPLETE for jobid 1001
+slurmctld: debug2: Processing RPC: MESSAGE_EPILOG_COMPLETE uid=0
+slurmctld: debug2: _slurm_rpc_epilog_complete JobId=1001 Node=merlot1 usec=700
+slurmctld: Processing RPC: MESSAGE_SIM_HELPER_CYCLE for 1 jobs
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1004 idle_nodes 0 share_nodes 1
+slurmctld: debug3: dist_task: best_fit : using node[0]:socket[1] : 8 cores available
+slurmctld: debug3: cons_res: _add_job_to_res: job 1004 act 0 
+slurmctld: debug3: cons_res: adding job 1004 to part projects row 0
+slurmctld: debug4: acct_policy_job_begin: after adding job 1004, assoc par11 grp_used_cpu_run_secs is 187200
+slurmctld: debug4: acct_policy_job_begin: after adding job 1004, assoc par11 grp_used_cpu_run_secs is 561120
+slurmctld: debug4: acct_policy_job_begin: after adding job 1004, assoc root grp_used_cpu_run_secs is 561120
+slurmctld: debug3: sched: JobId=1004 initiated
+slurmctld: sched: Allocate JobId=1004 NodeList=merlot1 #CPUs=4
+slurmctld: SIM: sending message type REQUEST_BATCH_JOB_LAUNCH to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug:  backfill: no jobs to backfill
+slurmctld: debug2: priority for job 1005 is now 625
+slurmctld: debug4: done writing time 1316243165
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: job 1005 being held, assoc 98 is at or exceeds group max jobs limit 2 with 2 for account par11
+slurmctld: debug2: Processing RPC: REQUEST_COMPLETE_BATCH_SCRIPT from uid=0 JobId=1003
+slurmctld: completing job 1003
+Found name par11033 for uid 233
+slurmctld: debug4: acct_policy_job_fini: job 1003. Removed 369600 unused seconds from assoc par11 grp_used_cpu_run_secs = 720
+slurmctld: debug4: acct_policy_job_fini: job 1003. Removed 369600 unused seconds from assoc par11 grp_used_cpu_run_secs = 187920
+slurmctld: debug4: acct_policy_job_fini: job 1003. Removed 369600 unused seconds from assoc root grp_used_cpu_run_secs = 187920
+slurmctld: debug3: cons_res: _rm_job_from_res: job 1003 action 0
+slurmctld: debug3: cons_res: removed job 1003 from part projects row 0
+slurmctld: SIM: sending message type REQUEST_TERMINATE_JOB (1003) to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: SIM: REQUEST_TERMINATE_JOB (1003) to merlot WAS SENT
+
+slurmctld: sched: job_complete for JobId=1003 successful
+slurmctld: debug2: _slurm_rpc_complete_batch_script JobId=1003 usec=1700
+slurmctld: SIM: Processing RPC: MESSAGE_EPILOG_COMPLETE for jobid 1003
+slurmctld: debug2: Processing RPC: MESSAGE_EPILOG_COMPLETE uid=0
+slurmctld: debug2: _slurm_rpc_epilog_complete JobId=1003 Node=merlot1 usec=700
+slurmctld: Processing RPC: MESSAGE_SIM_HELPER_CYCLE for 1 jobs
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: found 1 usable nodes from config containing merlot[1]
+slurmctld: debug3: _pick_best_nodes: job 1005 idle_nodes 0 share_nodes 1
+slurmctld: debug3: dist_task: best_fit : using node[0]:socket[1] : 4 cores available
+slurmctld: debug3: cons_res: _add_job_to_res: job 1005 act 0 
+slurmctld: debug3: cons_res: adding job 1005 to part projects row 0
+slurmctld: debug4: acct_policy_job_begin: after adding job 1005, assoc par11 grp_used_cpu_run_secs is 18720
+slurmctld: debug4: acct_policy_job_begin: after adding job 1005, assoc par11 grp_used_cpu_run_secs is 206640
+slurmctld: debug4: acct_policy_job_begin: after adding job 1005, assoc root grp_used_cpu_run_secs is 206640
+slurmctld: debug3: sched: JobId=1005 initiated
+slurmctld: sched: Allocate JobId=1005 NodeList=merlot1 #CPUs=4
+slurmctld: SIM: sending message type REQUEST_BATCH_JOB_LAUNCH to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Processing RPC: REQUEST_COMPLETE_BATCH_SCRIPT from uid=0 JobId=1005
+slurmctld: completing job 1005
+Found name par11044 for uid 244
+slurmctld: debug4: acct_policy_job_fini: job 1005. Removed 18480 unused seconds from assoc par11 grp_used_cpu_run_secs = 240
+slurmctld: debug4: acct_policy_job_fini: job 1005. Removed 18480 unused seconds from assoc par11 grp_used_cpu_run_secs = 188160
+slurmctld: debug4: acct_policy_job_fini: job 1005. Removed 18480 unused seconds from assoc root grp_used_cpu_run_secs = 188160
+slurmctld: debug3: cons_res: _rm_job_from_res: job 1005 action 0
+slurmctld: debug3: cons_res: removed job 1005 from part projects row 0
+slurmctld: SIM: sending message type REQUEST_TERMINATE_JOB (1005) to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: SIM: REQUEST_TERMINATE_JOB (1005) to merlot WAS SENT
+
+slurmctld: sched: job_complete for JobId=1005 successful
+slurmctld: debug2: _slurm_rpc_complete_batch_script JobId=1005 usec=1900
+slurmctld: SIM: Processing RPC: MESSAGE_EPILOG_COMPLETE for jobid 1005
+slurmctld: debug2: Processing RPC: MESSAGE_EPILOG_COMPLETE uid=0
+slurmctld: debug2: _slurm_rpc_epilog_complete JobId=1005 Node=merlot1 usec=900
+slurmctld: Processing RPC: MESSAGE_SIM_HELPER_CYCLE for 1 jobs
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug2: purge_old_job: purged 1 old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug:  backfill: no jobs to backfill
+slurmctld: debug4: done writing time 1316243465
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug2: purge_old_job: purged 1 old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug2: purge_old_job: purged 1 old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Processing RPC: REQUEST_COMPLETE_BATCH_SCRIPT from uid=0 JobId=1004
+slurmctld: completing job 1004
+Found name par11041 for uid 241
+slurmctld: debug4: acct_policy_job_fini: job 1004. Removed 184800 unused seconds from assoc par11 grp_used_cpu_run_secs = 1200
+slurmctld: debug4: acct_policy_job_fini: job 1004. Removed 184800 unused seconds from assoc par11 grp_used_cpu_run_secs = 1200
+slurmctld: debug4: acct_policy_job_fini: job 1004. Removed 184800 unused seconds from assoc root grp_used_cpu_run_secs = 1200
+slurmctld: debug3: cons_res: _rm_job_from_res: job 1004 action 0
+slurmctld: debug3: cons_res: removed job 1004 from part projects row 0
+slurmctld: SIM: sending message type REQUEST_TERMINATE_JOB (1004) to merlot
+
+slurmctld: debug:  You are receiving a message with very long timeout of 5000 seconds
+slurmctld: SIM: REQUEST_TERMINATE_JOB (1004) to merlot WAS SENT
+
+slurmctld: sched: job_complete for JobId=1004 successful
+slurmctld: debug2: _slurm_rpc_complete_batch_script JobId=1004 usec=1700
+slurmctld: SIM: Processing RPC: MESSAGE_EPILOG_COMPLETE for jobid 1004
+slurmctld: debug2: Processing RPC: MESSAGE_EPILOG_COMPLETE uid=0
+slurmctld: debug2: _slurm_rpc_epilog_complete JobId=1004 Node=merlot1 usec=700
+slurmctld: Processing RPC: MESSAGE_SIM_HELPER_CYCLE for 1 jobs
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug:  backfill: no jobs to backfill
+slurmctld: debug4: done writing time 1316243765
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug2: purge_old_job: purged 1 old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug:  backfill: no jobs to backfill
+slurmctld: debug4: done writing time 1316244065
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug:  backfill: no jobs to backfill
+slurmctld: debug4: done writing time 1316244365
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316244665
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316244965
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316245265
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316245565
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316245865
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316246165
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316246465
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316246765
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316247065
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316247365
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316247665
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316247965
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316248265
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316248565
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316248865
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316249165
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316249465
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316249765
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316250065
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316250365
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316250665
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316250965
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316251265
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316251565
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316251865
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316252165
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316252465
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316252765
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316253065
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316253365
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316253665
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316253965
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316254265
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316254565
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316254865
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316255165
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316255465
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316255765
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316256065
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316256365
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316256665
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316256965
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316257265
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316257565
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316257865
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316258165
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316258465
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316258765
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316259065
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316259365
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316259665
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316259965
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316260265
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Performing full system state save
+slurmctld: debug2: Sending cpu count of 16 for cluster
+slurmctld: debug4: done writing time 1316260565
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug4: No backup slurmctld to ping
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Testing job time limits and checkpoints
+slurmctld: debug2: Performing purge of old job records
+slurmctld: debug:  sched: Running job scheduler

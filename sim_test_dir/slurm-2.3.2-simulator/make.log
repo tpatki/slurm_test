@@ -1,0 +1,964 @@
+make  all-recursive
+make[1]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator'
+Making all in auxdir
+make[2]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/auxdir'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/auxdir'
+Making all in src
+make[2]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src'
+Making all in common
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+/bin/sh ../../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../.. -I../../slurm -I../..   -DGRES_CONFIG_FILE=\"/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_conf/gres.conf\"  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -MT global_defaults.lo -MD -MP -MF .deps/global_defaults.Tpo -c -o global_defaults.lo global_defaults.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../slurm -I../.. -DGRES_CONFIG_FILE=\"/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_conf/gres.conf\" -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -MT global_defaults.lo -MD -MP -MF .deps/global_defaults.Tpo -c global_defaults.c  -fPIC -DPIC -o .libs/global_defaults.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../slurm -I../.. -DGRES_CONFIG_FILE=\"/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_conf/gres.conf\" -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -MT global_defaults.lo -MD -MP -MF .deps/global_defaults.Tpo -c global_defaults.c -o global_defaults.o >/dev/null 2>&1
+mv -f .deps/global_defaults.Tpo .deps/global_defaults.Plo
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse  -module --export-dynamic  -o libcommon.la  xcgroup_read_config.lo xcgroup.lo xcpuinfo.lo assoc_mgr.lo xmalloc.lo xassert.lo xstring.lo xsignal.lo forward.lo strlcpy.lo list.lo net.lo log.lo cbuf.lo safeopen.lo bitstring.lo mpi.lo pack.lo parse_config.lo parse_spec.lo plugin.lo plugrack.lo print_fields.lo read_config.lo node_select.lo env.lo fd.lo slurm_cred.lo slurm_errno.lo slurm_priority.lo slurm_protocol_api.lo slurm_protocol_pack.lo slurm_protocol_util.lo slurm_protocol_socket_implementation.lo slurm_protocol_defs.lo slurm_rlimits_info.lo slurmdb_defs.lo slurmdb_pack.lo slurmdbd_defs.lo working_cluster.lo uid.lo util-net.lo slurm_auth.lo jobacct_common.lo slurm_accounting_storage.lo slurm_jobacct_gather.lo slurm_jobcomp.lo slurm_topology.lo switch.lo arg_desc.lo malloc.lo getopt.lo getopt1.lo  slurm_selecttype_info.lo slurm_resource_info.lo hostlist.lo slurm_step_layout.lo checkpoint.lo job_resources.lo parse_time.lo job_options.lo global_defaults.lo timers.lo stepd_api.lo write_labelled_message.lo proc_args.lo slurm_strcasestr.lo node_conf.lo gres.lo -ldl 
+libtool: link: rm -fr  .libs/libcommon.a .libs/libcommon.la
+libtool: link: ar cru .libs/libcommon.a .libs/xcgroup_read_config.o .libs/xcgroup.o .libs/xcpuinfo.o .libs/assoc_mgr.o .libs/xmalloc.o .libs/xassert.o .libs/xstring.o .libs/xsignal.o .libs/forward.o .libs/strlcpy.o .libs/list.o .libs/net.o .libs/log.o .libs/cbuf.o .libs/safeopen.o .libs/bitstring.o .libs/mpi.o .libs/pack.o .libs/parse_config.o .libs/parse_spec.o .libs/plugin.o .libs/plugrack.o .libs/print_fields.o .libs/read_config.o .libs/node_select.o .libs/env.o .libs/fd.o .libs/slurm_cred.o .libs/slurm_errno.o .libs/slurm_priority.o .libs/slurm_protocol_api.o .libs/slurm_protocol_pack.o .libs/slurm_protocol_util.o .libs/slurm_protocol_socket_implementation.o .libs/slurm_protocol_defs.o .libs/slurm_rlimits_info.o .libs/slurmdb_defs.o .libs/slurmdb_pack.o .libs/slurmdbd_defs.o .libs/working_cluster.o .libs/uid.o .libs/util-net.o .libs/slurm_auth.o .libs/jobacct_common.o .libs/slurm_accounting_storage.o .libs/slurm_jobacct_gather.o .libs/slurm_jobcomp.o .libs/slurm_topology.o .libs/switch.o .libs/arg_desc.o .libs/malloc.o .libs/getopt.o .libs/getopt1.o .libs/slurm_selecttype_info.o .libs/slurm_resource_info.o .libs/hostlist.o .libs/slurm_step_layout.o .libs/checkpoint.o .libs/job_resources.o .libs/parse_time.o .libs/job_options.o .libs/global_defaults.o .libs/timers.o .libs/stepd_api.o .libs/write_labelled_message.o .libs/proc_args.o .libs/slurm_strcasestr.o .libs/node_conf.o .libs/gres.o 
+libtool: link: ranlib .libs/libcommon.a
+libtool: link: ( cd ".libs" && rm -f "libcommon.la" && ln -s "../libcommon.la" "libcommon.la" )
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse   -o libcommon.o  xcgroup_read_config.lo xcgroup.lo xcpuinfo.lo assoc_mgr.lo xmalloc.lo xassert.lo xstring.lo xsignal.lo forward.lo strlcpy.lo list.lo net.lo log.lo cbuf.lo safeopen.lo bitstring.lo mpi.lo pack.lo parse_config.lo parse_spec.lo plugin.lo plugrack.lo print_fields.lo read_config.lo node_select.lo env.lo fd.lo slurm_cred.lo slurm_errno.lo slurm_priority.lo slurm_protocol_api.lo slurm_protocol_pack.lo slurm_protocol_util.lo slurm_protocol_socket_implementation.lo slurm_protocol_defs.lo slurm_rlimits_info.lo slurmdb_defs.lo slurmdb_pack.lo slurmdbd_defs.lo working_cluster.lo uid.lo util-net.lo slurm_auth.lo jobacct_common.lo slurm_accounting_storage.lo slurm_jobacct_gather.lo slurm_jobcomp.lo slurm_topology.lo switch.lo arg_desc.lo malloc.lo getopt.lo getopt1.lo  slurm_selecttype_info.lo slurm_resource_info.lo hostlist.lo slurm_step_layout.lo checkpoint.lo job_resources.lo parse_time.lo job_options.lo global_defaults.lo timers.lo stepd_api.lo write_labelled_message.lo proc_args.lo slurm_strcasestr.lo node_conf.lo gres.lo
+libtool: link: /usr/bin/ld -m elf_x86_64 -r -o libcommon.o  .libs/xcgroup_read_config.o .libs/xcgroup.o .libs/xcpuinfo.o .libs/assoc_mgr.o .libs/xmalloc.o .libs/xassert.o .libs/xstring.o .libs/xsignal.o .libs/forward.o .libs/strlcpy.o .libs/list.o .libs/net.o .libs/log.o .libs/cbuf.o .libs/safeopen.o .libs/bitstring.o .libs/mpi.o .libs/pack.o .libs/parse_config.o .libs/parse_spec.o .libs/plugin.o .libs/plugrack.o .libs/print_fields.o .libs/read_config.o .libs/node_select.o .libs/env.o .libs/fd.o .libs/slurm_cred.o .libs/slurm_errno.o .libs/slurm_priority.o .libs/slurm_protocol_api.o .libs/slurm_protocol_pack.o .libs/slurm_protocol_util.o .libs/slurm_protocol_socket_implementation.o .libs/slurm_protocol_defs.o .libs/slurm_rlimits_info.o .libs/slurmdb_defs.o .libs/slurmdb_pack.o .libs/slurmdbd_defs.o .libs/working_cluster.o .libs/uid.o .libs/util-net.o .libs/slurm_auth.o .libs/jobacct_common.o .libs/slurm_accounting_storage.o .libs/slurm_jobacct_gather.o .libs/slurm_jobcomp.o .libs/slurm_topology.o .libs/switch.o .libs/arg_desc.o .libs/malloc.o .libs/getopt.o .libs/getopt1.o .libs/slurm_selecttype_info.o .libs/slurm_resource_info.o .libs/hostlist.o .libs/slurm_step_layout.o .libs/checkpoint.o .libs/job_resources.o .libs/parse_time.o .libs/job_options.o .libs/global_defaults.o .libs/timers.o .libs/stepd_api.o .libs/write_labelled_message.o .libs/proc_args.o .libs/slurm_strcasestr.o .libs/node_conf.o .libs/gres.o  
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+Making all in api
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse   -o libslurmhelper.la  allocate.lo allocate_msg.lo block_info.lo cancel.lo checkpoint.lo complete.lo config_info.lo front_end_info.lo init_msg.lo job_info.lo job_step_info.lo node_info.lo partition_info.lo reservation_info.lo signal.lo slurm_hostlist.lo slurm_pmi.lo step_ctx.lo step_io.lo step_launch.lo pmi_server.lo submit.lo suspend.lo topo_info.lo triggers.lo reconfigure.lo update_config.lo ../../src/common/libcommon.la ../../src/common/libspank.la ../../src/common/libeio.la -lpthread 
+libtool: link: rm -fr  .libs/libslurmhelper.a .libs/libslurmhelper.la
+libtool: link: (cd .libs/libslurmhelper.lax/libcommon.a && ar x "/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api/../../src/common/.libs/libcommon.a")
+libtool: link: (cd .libs/libslurmhelper.lax/libspank.a && ar x "/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api/../../src/common/.libs/libspank.a")
+libtool: link: (cd .libs/libslurmhelper.lax/libeio.a && ar x "/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api/../../src/common/.libs/libeio.a")
+copying selected object files to avoid basename conflicts...
+libtool: link: ln .libs/libslurmhelper.lax/libcommon.a/checkpoint.o .libs/libslurmhelper.lax/lt1-checkpoint.o || cp .libs/libslurmhelper.lax/libcommon.a/checkpoint.o .libs/libslurmhelper.lax/lt1-checkpoint.o
+libtool: link: ar cru .libs/libslurmhelper.a .libs/allocate.o .libs/allocate_msg.o .libs/block_info.o .libs/cancel.o .libs/checkpoint.o .libs/complete.o .libs/config_info.o .libs/front_end_info.o .libs/init_msg.o .libs/job_info.o .libs/job_step_info.o .libs/node_info.o .libs/partition_info.o .libs/reservation_info.o .libs/signal.o .libs/slurm_hostlist.o .libs/slurm_pmi.o .libs/step_ctx.o .libs/step_io.o .libs/step_launch.o .libs/pmi_server.o .libs/submit.o .libs/suspend.o .libs/topo_info.o .libs/triggers.o .libs/reconfigure.o .libs/update_config.o .libs/libslurmhelper.lax/libcommon.a/xsignal.o .libs/libslurmhelper.lax/libcommon.a/slurm_strcasestr.o .libs/libslurmhelper.lax/libcommon.a/jobacct_common.o .libs/libslurmhelper.lax/libcommon.a/slurm_errno.o .libs/libslurmhelper.lax/libcommon.a/getopt1.o .libs/libslurmhelper.lax/libcommon.a/mpi.o .libs/libslurmhelper.lax/libcommon.a/job_options.o .libs/libslurmhelper.lax/libcommon.a/slurm_step_layout.o .libs/libslurmhelper.lax/libcommon.a/parse_time.o .libs/libslurmhelper.lax/libcommon.a/forward.o .libs/libslurmhelper.lax/libcommon.a/xmalloc.o .libs/libslurmhelper.lax/libcommon.a/xassert.o .libs/libslurmhelper.lax/libcommon.a/net.o .libs/libslurmhelper.lax/libcommon.a/gres.o .libs/libslurmhelper.lax/libcommon.a/getopt.o .libs/libslurmhelper.lax/lt1-checkpoint.o .libs/libslurmhelper.lax/libcommon.a/slurmdb_pack.o .libs/libslurmhelper.lax/libcommon.a/slurmdbd_defs.o .libs/libslurmhelper.lax/libcommon.a/slurm_accounting_storage.o .libs/libslurmhelper.lax/libcommon.a/fd.o .libs/libslurmhelper.lax/libcommon.a/slurm_protocol_api.o .libs/libslurmhelper.lax/libcommon.a/slurm_rlimits_info.o .libs/libslurmhelper.lax/libcommon.a/print_fields.o .libs/libslurmhelper.lax/libcommon.a/timers.o .libs/libslurmhelper.lax/libcommon.a/malloc.o .libs/libslurmhelper.lax/libcommon.a/safeopen.o .libs/libslurmhelper.lax/libcommon.a/node_conf.o .libs/libslurmhelper.lax/libcommon.a/list.o .libs/libslurmhelper.lax/libcommon.a/slurm_resource_info.o .libs/libslurmhelper.lax/libcommon.a/plugrack.o .libs/libslurmhelper.lax/libcommon.a/switch.o .libs/libslurmhelper.lax/libcommon.a/slurm_auth.o .libs/libslurmhelper.lax/libcommon.a/hostlist.o .libs/libslurmhelper.lax/libcommon.a/parse_config.o .libs/libslurmhelper.lax/libcommon.a/slurm_priority.o .libs/libslurmhelper.lax/libcommon.a/uid.o .libs/libslurmhelper.lax/libcommon.a/slurm_cred.o .libs/libslurmhelper.lax/libcommon.a/slurm_protocol_util.o .libs/libslurmhelper.lax/libcommon.a/xstring.o .libs/libslurmhelper.lax/libcommon.a/read_config.o .libs/libslurmhelper.lax/libcommon.a/util-net.o .libs/libslurmhelper.lax/libcommon.a/working_cluster.o .libs/libslurmhelper.lax/libcommon.a/xcgroup.o .libs/libslurmhelper.lax/libcommon.a/node_select.o .libs/libslurmhelper.lax/libcommon.a/job_resources.o .libs/libslurmhelper.lax/libcommon.a/bitstring.o .libs/libslurmhelper.lax/libcommon.a/proc_args.o .libs/libslurmhelper.lax/libcommon.a/slurm_selecttype_info.o .libs/libslurmhelper.lax/libcommon.a/arg_desc.o .libs/libslurmhelper.lax/libcommon.a/global_defaults.o .libs/libslurmhelper.lax/libcommon.a/xcpuinfo.o .libs/libslurmhelper.lax/libcommon.a/slurm_protocol_pack.o .libs/libslurmhelper.lax/libcommon.a/xcgroup_read_config.o .libs/libslurmhelper.lax/libcommon.a/env.o .libs/libslurmhelper.lax/libcommon.a/slurmdb_defs.o .libs/libslurmhelper.lax/libcommon.a/parse_spec.o .libs/libslurmhelper.lax/libcommon.a/slurm_jobacct_gather.o .libs/libslurmhelper.lax/libcommon.a/cbuf.o .libs/libslurmhelper.lax/libcommon.a/plugin.o .libs/libslurmhelper.lax/libcommon.a/slurm_protocol_socket_implementation.o .libs/libslurmhelper.lax/libcommon.a/log.o .libs/libslurmhelper.lax/libcommon.a/stepd_api.o .libs/libslurmhelper.lax/libcommon.a/assoc_mgr.o .libs/libslurmhelper.lax/libcommon.a/slurm_jobcomp.o .libs/libslurmhelper.lax/libcommon.a/slurm_topology.o .libs/libslurmhelper.lax/libcommon.a/slurm_protocol_defs.o .libs/libslurmhelper.lax/libcommon.a/pack.o .libs/libslurmhelper.lax/libcommon.a/write_labelled_message.o .libs/libslurmhelper.lax/libcommon.a/strlcpy.o .libs/libslurmhelper.lax/libspank.a/optz.o .libs/libslurmhelper.lax/libspank.a/plugstack.o .libs/libslurmhelper.lax/libeio.a/eio.o .libs/libslurmhelper.lax/libeio.a/io_hdr.o
+libtool: link: ranlib .libs/libslurmhelper.a
+libtool: link: rm -fr .libs/libslurmhelper.lax .libs/libslurmhelper.lax
+libtool: link: ( cd ".libs" && rm -f "libslurmhelper.la" && ln -s "../libslurmhelper.la" "libslurmhelper.la" )
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse  -version-info 23:0:0 -Wl,--version-script=version.map  -o libslurm.la -rpath /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib  ../../src/api/libslurmhelper.la 
+libtool: link: rm -fr  .libs/libslurm.a .libs/libslurm.la .libs/libslurm.lai .libs/libslurm.so .libs/libslurm.so.23 .libs/libslurm.so.23.0.0
+libtool: link: gcc -shared  -Wl,--whole-archive ../../src/api/.libs/libslurmhelper.a -Wl,--no-whole-archive  -ldl -lpthread  -pthread -Wl,--version-script=version.map   -pthread -Wl,-soname -Wl,libslurm.so.23 -o .libs/libslurm.so.23.0.0
+libtool: link: (cd ".libs" && rm -f "libslurm.so.23" && ln -s "libslurm.so.23.0.0" "libslurm.so.23")
+libtool: link: (cd ".libs" && rm -f "libslurm.so" && ln -s "libslurm.so.23.0.0" "libslurm.so")
+libtool: link: (cd .libs/libslurm.lax/libslurmhelper.a && ar x "/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api/../../src/api/.libs/libslurmhelper.a")
+libtool: link: ar cru .libs/libslurm.a   .libs/libslurm.lax/libslurmhelper.a/triggers.o .libs/libslurm.lax/libslurmhelper.a/xsignal.o .libs/libslurm.lax/libslurmhelper.a/reconfigure.o .libs/libslurm.lax/libslurmhelper.a/suspend.o .libs/libslurm.lax/libslurmhelper.a/slurm_strcasestr.o .libs/libslurm.lax/libslurmhelper.a/complete.o .libs/libslurm.lax/libslurmhelper.a/jobacct_common.o .libs/libslurm.lax/libslurmhelper.a/slurm_errno.o .libs/libslurm.lax/libslurmhelper.a/getopt1.o .libs/libslurm.lax/libslurmhelper.a/mpi.o .libs/libslurm.lax/libslurmhelper.a/job_options.o .libs/libslurm.lax/libslurmhelper.a/topo_info.o .libs/libslurm.lax/libslurmhelper.a/slurm_step_layout.o .libs/libslurm.lax/libslurmhelper.a/slurm_pmi.o .libs/libslurm.lax/libslurmhelper.a/optz.o .libs/libslurm.lax/libslurmhelper.a/parse_time.o .libs/libslurm.lax/libslurmhelper.a/signal.o .libs/libslurm.lax/libslurmhelper.a/eio.o .libs/libslurm.lax/libslurmhelper.a/front_end_info.o .libs/libslurm.lax/libslurmhelper.a/block_info.o .libs/libslurm.lax/libslurmhelper.a/submit.o .libs/libslurm.lax/libslurmhelper.a/forward.o .libs/libslurm.lax/libslurmhelper.a/xmalloc.o .libs/libslurm.lax/libslurmhelper.a/allocate_msg.o .libs/libslurm.lax/libslurmhelper.a/xassert.o .libs/libslurm.lax/libslurmhelper.a/net.o .libs/libslurm.lax/libslurmhelper.a/gres.o .libs/libslurm.lax/libslurmhelper.a/getopt.o .libs/libslurm.lax/libslurmhelper.a/job_info.o .libs/libslurm.lax/libslurmhelper.a/checkpoint.o .libs/libslurm.lax/libslurmhelper.a/slurmdb_pack.o .libs/libslurm.lax/libslurmhelper.a/slurmdbd_defs.o .libs/libslurm.lax/libslurmhelper.a/update_config.o .libs/libslurm.lax/libslurmhelper.a/slurm_accounting_storage.o .libs/libslurm.lax/libslurmhelper.a/fd.o .libs/libslurm.lax/libslurmhelper.a/slurm_protocol_api.o .libs/libslurm.lax/libslurmhelper.a/lt1-checkpoint.o .libs/libslurm.lax/libslurmhelper.a/slurm_rlimits_info.o .libs/libslurm.lax/libslurmhelper.a/allocate.o .libs/libslurm.lax/libslurmhelper.a/print_fields.o .libs/libslurm.lax/libslurmhelper.a/job_step_info.o .libs/libslurm.lax/libslurmhelper.a/timers.o .libs/libslurm.lax/libslurmhelper.a/malloc.o .libs/libslurm.lax/libslurmhelper.a/safeopen.o .libs/libslurm.lax/libslurmhelper.a/node_conf.o .libs/libslurm.lax/libslurmhelper.a/list.o .libs/libslurm.lax/libslurmhelper.a/slurm_resource_info.o .libs/libslurm.lax/libslurmhelper.a/plugrack.o .libs/libslurm.lax/libslurmhelper.a/switch.o .libs/libslurm.lax/libslurmhelper.a/slurm_auth.o .libs/libslurm.lax/libslurmhelper.a/pmi_server.o .libs/libslurm.lax/libslurmhelper.a/slurm_hostlist.o .libs/libslurm.lax/libslurmhelper.a/hostlist.o .libs/libslurm.lax/libslurmhelper.a/parse_config.o .libs/libslurm.lax/libslurmhelper.a/slurm_priority.o .libs/libslurm.lax/libslurmhelper.a/uid.o .libs/libslurm.lax/libslurmhelper.a/partition_info.o .libs/libslurm.lax/libslurmhelper.a/slurm_cred.o .libs/libslurm.lax/libslurmhelper.a/slurm_protocol_util.o .libs/libslurm.lax/libslurmhelper.a/xstring.o .libs/libslurm.lax/libslurmhelper.a/init_msg.o .libs/libslurm.lax/libslurmhelper.a/read_config.o .libs/libslurm.lax/libslurmhelper.a/util-net.o .libs/libslurm.lax/libslurmhelper.a/step_io.o .libs/libslurm.lax/libslurmhelper.a/working_cluster.o .libs/libslurm.lax/libslurmhelper.a/xcgroup.o .libs/libslurm.lax/libslurmhelper.a/node_select.o .libs/libslurm.lax/libslurmhelper.a/step_launch.o .libs/libslurm.lax/libslurmhelper.a/job_resources.o .libs/libslurm.lax/libslurmhelper.a/bitstring.o .libs/libslurm.lax/libslurmhelper.a/proc_args.o .libs/libslurm.lax/libslurmhelper.a/slurm_selecttype_info.o .libs/libslurm.lax/libslurmhelper.a/arg_desc.o .libs/libslurm.lax/libslurmhelper.a/global_defaults.o .libs/libslurm.lax/libslurmhelper.a/io_hdr.o .libs/libslurm.lax/libslurmhelper.a/xcpuinfo.o .libs/libslurm.lax/libslurmhelper.a/slurm_protocol_pack.o .libs/libslurm.lax/libslurmhelper.a/xcgroup_read_config.o .libs/libslurm.lax/libslurmhelper.a/config_info.o .libs/libslurm.lax/libslurmhelper.a/env.o .libs/libslurm.lax/libslurmhelper.a/slurmdb_defs.o .libs/libslurm.lax/libslurmhelper.a/parse_spec.o .libs/libslurm.lax/libslurmhelper.a/slurm_jobacct_gather.o .libs/libslurm.lax/libslurmhelper.a/cbuf.o .libs/libslurm.lax/libslurmhelper.a/plugin.o .libs/libslurm.lax/libslurmhelper.a/slurm_protocol_socket_implementation.o .libs/libslurm.lax/libslurmhelper.a/log.o .libs/libslurm.lax/libslurmhelper.a/stepd_api.o .libs/libslurm.lax/libslurmhelper.a/reservation_info.o .libs/libslurm.lax/libslurmhelper.a/node_info.o .libs/libslurm.lax/libslurmhelper.a/assoc_mgr.o .libs/libslurm.lax/libslurmhelper.a/slurm_jobcomp.o .libs/libslurm.lax/libslurmhelper.a/slurm_topology.o .libs/libslurm.lax/libslurmhelper.a/slurm_protocol_defs.o .libs/libslurm.lax/libslurmhelper.a/pack.o .libs/libslurm.lax/libslurmhelper.a/step_ctx.o .libs/libslurm.lax/libslurmhelper.a/plugstack.o .libs/libslurm.lax/libslurmhelper.a/write_labelled_message.o .libs/libslurm.lax/libslurmhelper.a/cancel.o .libs/libslurm.lax/libslurmhelper.a/strlcpy.o 
+libtool: link: ranlib .libs/libslurm.a
+libtool: link: rm -fr .libs/libslurm.lax
+libtool: link: ( cd ".libs" && rm -f "libslurm.la" && ln -s "../libslurm.la" "libslurm.la" )
+make  all-am
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse  -version-info 0:0:0 -Wl,--version-script=pmi_version.map  -o libpmi.la -rpath /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib pmi.lo ../../src/api/libslurm.la 
+libtool: link: rm -fr  .libs/libpmi.a .libs/libpmi.la .libs/libpmi.lai .libs/libpmi.so .libs/libpmi.so.0 .libs/libpmi.so.0.0.0 .libs/libpmi.so.0.0.0T
+libtool: link: gcc -shared  .libs/pmi.o   -Wl,-rpath -Wl,/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api/.libs -Wl,-rpath -Wl,/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib ../../src/api/.libs/libslurm.so -ldl -lpthread  -pthread -Wl,--version-script=pmi_version.map   -pthread -Wl,-soname -Wl,libpmi.so.0 -o .libs/libpmi.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libpmi.so.0" && ln -s "libpmi.so.0.0.0" "libpmi.so.0")
+libtool: link: (cd ".libs" && rm -f "libpmi.so" && ln -s "libpmi.so.0.0.0" "libpmi.so")
+libtool: link: ar cru .libs/libpmi.a  pmi.o
+libtool: link: ranlib .libs/libpmi.a
+libtool: link: ( cd ".libs" && rm -f "libpmi.la" && ln -s "../libpmi.la" "libpmi.la" )
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse   -o libslurm.o allocate.lo allocate_msg.lo block_info.lo cancel.lo checkpoint.lo complete.lo config_info.lo front_end_info.lo init_msg.lo job_info.lo job_step_info.lo node_info.lo partition_info.lo reservation_info.lo signal.lo slurm_hostlist.lo slurm_pmi.lo step_ctx.lo step_io.lo step_launch.lo pmi_server.lo submit.lo suspend.lo topo_info.lo triggers.lo reconfigure.lo update_config.lo ../../src/common/libeio.o ../../src/common/libspank.o ../../src/common/libcommon.o
+libtool: link: /usr/bin/ld -m elf_x86_64 -r -o libslurm.o ../../src/common/libeio.o ../../src/common/libspank.o ../../src/common/libcommon.o  .libs/allocate.o .libs/allocate_msg.o .libs/block_info.o .libs/cancel.o .libs/checkpoint.o .libs/complete.o .libs/config_info.o .libs/front_end_info.o .libs/init_msg.o .libs/job_info.o .libs/job_step_info.o .libs/node_info.o .libs/partition_info.o .libs/reservation_info.o .libs/signal.o .libs/slurm_hostlist.o .libs/slurm_pmi.o .libs/step_ctx.o .libs/step_io.o .libs/step_launch.o .libs/pmi_server.o .libs/submit.o .libs/suspend.o .libs/topo_info.o .libs/triggers.o .libs/reconfigure.o .libs/update_config.o  
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+Making all in db_api
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse  -version-info 23:0:0 -Wl,--version-script=version.map  -o libslurmdb.la -rpath /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib account_functions.lo archive_functions.lo assoc_functions.lo cluster_functions.lo cluster_report_functions.lo coord_functions.lo connection_functions.lo extra_get_functions.lo job_report_functions.lo qos_functions.lo resv_report_functions.lo usage_functions.lo user_functions.lo user_report_functions.lo wckey_functions.lo ../../src/api/libslurmhelper.la 
+libtool: link: rm -fr  .libs/libslurmdb.a .libs/libslurmdb.la .libs/libslurmdb.lai .libs/libslurmdb.so .libs/libslurmdb.so.23 .libs/libslurmdb.so.23.0.0
+libtool: link: gcc -shared  .libs/account_functions.o .libs/archive_functions.o .libs/assoc_functions.o .libs/cluster_functions.o .libs/cluster_report_functions.o .libs/coord_functions.o .libs/connection_functions.o .libs/extra_get_functions.o .libs/job_report_functions.o .libs/qos_functions.o .libs/resv_report_functions.o .libs/usage_functions.o .libs/user_functions.o .libs/user_report_functions.o .libs/wckey_functions.o  -Wl,--whole-archive ../../src/api/.libs/libslurmhelper.a -Wl,--no-whole-archive  -ldl -lpthread  -pthread -Wl,--version-script=version.map   -pthread -Wl,-soname -Wl,libslurmdb.so.23 -o .libs/libslurmdb.so.23.0.0
+libtool: link: (cd ".libs" && rm -f "libslurmdb.so.23" && ln -s "libslurmdb.so.23.0.0" "libslurmdb.so.23")
+libtool: link: (cd ".libs" && rm -f "libslurmdb.so" && ln -s "libslurmdb.so.23.0.0" "libslurmdb.so")
+libtool: link: (cd .libs/libslurmdb.lax/libslurmhelper.a && ar x "/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api/../../src/api/.libs/libslurmhelper.a")
+libtool: link: ar cru .libs/libslurmdb.a  account_functions.o archive_functions.o assoc_functions.o cluster_functions.o cluster_report_functions.o coord_functions.o connection_functions.o extra_get_functions.o job_report_functions.o qos_functions.o resv_report_functions.o usage_functions.o user_functions.o user_report_functions.o wckey_functions.o  .libs/libslurmdb.lax/libslurmhelper.a/triggers.o .libs/libslurmdb.lax/libslurmhelper.a/xsignal.o .libs/libslurmdb.lax/libslurmhelper.a/reconfigure.o .libs/libslurmdb.lax/libslurmhelper.a/suspend.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_strcasestr.o .libs/libslurmdb.lax/libslurmhelper.a/complete.o .libs/libslurmdb.lax/libslurmhelper.a/jobacct_common.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_errno.o .libs/libslurmdb.lax/libslurmhelper.a/getopt1.o .libs/libslurmdb.lax/libslurmhelper.a/mpi.o .libs/libslurmdb.lax/libslurmhelper.a/job_options.o .libs/libslurmdb.lax/libslurmhelper.a/topo_info.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_step_layout.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_pmi.o .libs/libslurmdb.lax/libslurmhelper.a/optz.o .libs/libslurmdb.lax/libslurmhelper.a/parse_time.o .libs/libslurmdb.lax/libslurmhelper.a/signal.o .libs/libslurmdb.lax/libslurmhelper.a/eio.o .libs/libslurmdb.lax/libslurmhelper.a/front_end_info.o .libs/libslurmdb.lax/libslurmhelper.a/block_info.o .libs/libslurmdb.lax/libslurmhelper.a/submit.o .libs/libslurmdb.lax/libslurmhelper.a/forward.o .libs/libslurmdb.lax/libslurmhelper.a/xmalloc.o .libs/libslurmdb.lax/libslurmhelper.a/allocate_msg.o .libs/libslurmdb.lax/libslurmhelper.a/xassert.o .libs/libslurmdb.lax/libslurmhelper.a/net.o .libs/libslurmdb.lax/libslurmhelper.a/gres.o .libs/libslurmdb.lax/libslurmhelper.a/getopt.o .libs/libslurmdb.lax/libslurmhelper.a/job_info.o .libs/libslurmdb.lax/libslurmhelper.a/checkpoint.o .libs/libslurmdb.lax/libslurmhelper.a/slurmdb_pack.o .libs/libslurmdb.lax/libslurmhelper.a/slurmdbd_defs.o .libs/libslurmdb.lax/libslurmhelper.a/update_config.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_accounting_storage.o .libs/libslurmdb.lax/libslurmhelper.a/fd.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_protocol_api.o .libs/libslurmdb.lax/libslurmhelper.a/lt1-checkpoint.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_rlimits_info.o .libs/libslurmdb.lax/libslurmhelper.a/allocate.o .libs/libslurmdb.lax/libslurmhelper.a/print_fields.o .libs/libslurmdb.lax/libslurmhelper.a/job_step_info.o .libs/libslurmdb.lax/libslurmhelper.a/timers.o .libs/libslurmdb.lax/libslurmhelper.a/malloc.o .libs/libslurmdb.lax/libslurmhelper.a/safeopen.o .libs/libslurmdb.lax/libslurmhelper.a/node_conf.o .libs/libslurmdb.lax/libslurmhelper.a/list.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_resource_info.o .libs/libslurmdb.lax/libslurmhelper.a/plugrack.o .libs/libslurmdb.lax/libslurmhelper.a/switch.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_auth.o .libs/libslurmdb.lax/libslurmhelper.a/pmi_server.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_hostlist.o .libs/libslurmdb.lax/libslurmhelper.a/hostlist.o .libs/libslurmdb.lax/libslurmhelper.a/parse_config.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_priority.o .libs/libslurmdb.lax/libslurmhelper.a/uid.o .libs/libslurmdb.lax/libslurmhelper.a/partition_info.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_cred.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_protocol_util.o .libs/libslurmdb.lax/libslurmhelper.a/xstring.o .libs/libslurmdb.lax/libslurmhelper.a/init_msg.o .libs/libslurmdb.lax/libslurmhelper.a/read_config.o .libs/libslurmdb.lax/libslurmhelper.a/util-net.o .libs/libslurmdb.lax/libslurmhelper.a/step_io.o .libs/libslurmdb.lax/libslurmhelper.a/working_cluster.o .libs/libslurmdb.lax/libslurmhelper.a/xcgroup.o .libs/libslurmdb.lax/libslurmhelper.a/node_select.o .libs/libslurmdb.lax/libslurmhelper.a/step_launch.o .libs/libslurmdb.lax/libslurmhelper.a/job_resources.o .libs/libslurmdb.lax/libslurmhelper.a/bitstring.o .libs/libslurmdb.lax/libslurmhelper.a/proc_args.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_selecttype_info.o .libs/libslurmdb.lax/libslurmhelper.a/arg_desc.o .libs/libslurmdb.lax/libslurmhelper.a/global_defaults.o .libs/libslurmdb.lax/libslurmhelper.a/io_hdr.o .libs/libslurmdb.lax/libslurmhelper.a/xcpuinfo.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_protocol_pack.o .libs/libslurmdb.lax/libslurmhelper.a/xcgroup_read_config.o .libs/libslurmdb.lax/libslurmhelper.a/config_info.o .libs/libslurmdb.lax/libslurmhelper.a/env.o .libs/libslurmdb.lax/libslurmhelper.a/slurmdb_defs.o .libs/libslurmdb.lax/libslurmhelper.a/parse_spec.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_jobacct_gather.o .libs/libslurmdb.lax/libslurmhelper.a/cbuf.o .libs/libslurmdb.lax/libslurmhelper.a/plugin.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_protocol_socket_implementation.o .libs/libslurmdb.lax/libslurmhelper.a/log.o .libs/libslurmdb.lax/libslurmhelper.a/stepd_api.o .libs/libslurmdb.lax/libslurmhelper.a/reservation_info.o .libs/libslurmdb.lax/libslurmhelper.a/node_info.o .libs/libslurmdb.lax/libslurmhelper.a/assoc_mgr.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_jobcomp.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_topology.o .libs/libslurmdb.lax/libslurmhelper.a/slurm_protocol_defs.o .libs/libslurmdb.lax/libslurmhelper.a/pack.o .libs/libslurmdb.lax/libslurmhelper.a/step_ctx.o .libs/libslurmdb.lax/libslurmhelper.a/plugstack.o .libs/libslurmdb.lax/libslurmhelper.a/write_labelled_message.o .libs/libslurmdb.lax/libslurmhelper.a/cancel.o .libs/libslurmdb.lax/libslurmhelper.a/strlcpy.o 
+libtool: link: ranlib .libs/libslurmdb.a
+libtool: link: rm -fr .libs/libslurmdb.lax
+libtool: link: ( cd ".libs" && rm -f "libslurmdb.la" && ln -s "../libslurmdb.la" "libslurmdb.la" )
+make  all-am
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse   -o libslurmdb.o account_functions.lo archive_functions.lo assoc_functions.lo cluster_functions.lo cluster_report_functions.lo coord_functions.lo connection_functions.lo extra_get_functions.lo job_report_functions.lo qos_functions.lo resv_report_functions.lo usage_functions.lo user_functions.lo user_report_functions.lo wckey_functions.lo ../../src/api/libslurm.o
+libtool: link: /usr/bin/ld -m elf_x86_64 -r -o libslurmdb.o ../../src/api/libslurm.o  .libs/account_functions.o .libs/archive_functions.o .libs/assoc_functions.o .libs/cluster_functions.o .libs/cluster_report_functions.o .libs/coord_functions.o .libs/connection_functions.o .libs/extra_get_functions.o .libs/job_report_functions.o .libs/qos_functions.o .libs/resv_report_functions.o .libs/usage_functions.o .libs/user_functions.o .libs/user_report_functions.o .libs/wckey_functions.o  
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+Making all in database
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/database'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/database'
+Making all in slurmctld
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmctld'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: `libdaemonize.la' is up to date.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o slurmctld acct_policy.o agent.o backup.o controller.o front_end.o gang.o groups.o job_mgr.o job_scheduler.o job_submit.o licenses.o locks.o node_mgr.o node_scheduler.o partition_mgr.o ping_nodes.o port_mgr.o power_save.o preempt.o proc_req.o read_config.o reservation.o sched_plugin.o srun_comm.o state_save.o step_mgr.o trigger_mgr.o ../../src/common/libdaemonize.la ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o slurmctld acct_policy.o agent.o backup.o controller.o front_end.o gang.o groups.o job_mgr.o job_scheduler.o job_submit.o licenses.o locks.o node_mgr.o node_scheduler.o partition_mgr.o ping_nodes.o port_mgr.o power_save.o preempt.o proc_req.o read_config.o reservation.o sched_plugin.o srun_comm.o state_save.o step_mgr.o trigger_mgr.o ../../src/api/libslurm.o -Wl,--export-dynamic  ../../src/common/.libs/libdaemonize.a -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmctld'
+Making all in slurmd
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd'
+Making all in common
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/common'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/common'
+Making all in slurmd
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/slurmd'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libdaemonize.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/common'
+make[5]: `libslurmd_common.la' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/common'
+/bin/sh ../../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o slurmd slurmd.o req.o get_mach_stat.o read_proc.o reverse_tree_math.o xcpu.o ../../../src/common/libdaemonize.la ../../../src/api/libslurm.o -ldl  ../common/libslurmd_common.la 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o slurmd slurmd.o req.o get_mach_stat.o read_proc.o reverse_tree_math.o xcpu.o ../../../src/api/libslurm.o -Wl,--export-dynamic  ../../../src/common/.libs/libdaemonize.a -ldl ../common/.libs/libslurmd_common.a -pthread
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/slurmd'
+Making all in slurmstepd
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/slurmstepd'
+/bin/sh ../../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o slurmstepd slurmstepd.o mgr.o task.o slurmstepd_job.o io.o fname.o ulimits.o pdebug.o pam_ses.o req.o multi_prog.o step_terminate_monitor.o ../../../src/common/libdaemonize.la ../../../src/api/libslurm.o -ldl   -lutil ../common/libslurmd_common.la 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o slurmstepd slurmstepd.o mgr.o task.o slurmstepd_job.o io.o fname.o ulimits.o pdebug.o pam_ses.o req.o multi_prog.o step_terminate_monitor.o ../../../src/api/libslurm.o -Wl,--export-dynamic  ../../../src/common/.libs/libdaemonize.a -ldl -lutil ../common/.libs/libslurmd_common.a -pthread
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd/slurmstepd'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd'
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmd'
+Making all in slurmdbd
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmdbd'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: `libdaemonize.la' is up to date.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o slurmdbd agent.o backup.o proc_req.o read_config.o rpc_mgr.o slurmdbd.o ../../src/common/libdaemonize.la ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o slurmdbd agent.o backup.o proc_req.o read_config.o rpc_mgr.o slurmdbd.o ../../src/api/libslurm.o -Wl,--export-dynamic  ../../src/common/.libs/libdaemonize.a -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/slurmdbd'
+Making all in plugins
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins'
+Making all in accounting_storage
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage'
+Making all in filetxt
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/filetxt'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/filetxt'
+Making all in mysql
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/mysql'
+Makefile:845: target `-lpthread' given more than once in the same rule.
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/database'
+make[6]: `libslurm_mysql.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/database'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/common'
+make[6]: `libaccounting_storage_common.la' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/mysql'
+Making all in pgsql
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/pgsql'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/pgsql'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/none'
+Making all in slurmdbd
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/slurmdbd'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage/slurmdbd'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/accounting_storage'
+Making all in auth
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth'
+Making all in authd
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth/authd'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth/authd'
+Making all in munge
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth/munge'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth/munge'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth/none'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/auth'
+Making all in checkpoint
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint'
+Making all in aix
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/aix'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/aix'
+Making all in blcr
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/blcr'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/blcr'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/none'
+Making all in ompi
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/ompi'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint/ompi'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/checkpoint'
+Making all in crypto
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto'
+Making all in munge
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto/munge'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto/munge'
+Making all in openssl
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto/openssl'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto/openssl'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/crypto'
+Making all in gres
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres'
+Making all in gpu
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres/gpu'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres/gpu'
+Making all in nic
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres/nic'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres/nic'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/gres'
+Making all in jobacct_gather
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather'
+Making all in linux
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather/linux'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather/linux'
+Making all in aix
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather/aix'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather/aix'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather/none'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobacct_gather'
+Making all in jobcomp
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp'
+Making all in filetxt
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/filetxt'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/filetxt'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/none'
+Making all in script
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/script'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/script'
+Making all in mysql
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/mysql'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/mysql'
+Making all in pgsql
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/pgsql'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp/pgsql'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/jobcomp'
+Making all in job_submit
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit'
+Making all in cnode
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/cnode'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/cnode'
+Making all in defaults
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/defaults'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/defaults'
+Making all in logging
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/logging'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/logging'
+Making all in partition
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/partition'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit/partition'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/job_submit'
+Making all in mpi
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi'
+Making all in mpich1_p4
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpich1_p4'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpich1_p4'
+Making all in mpich1_shmem
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpich1_shmem'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpich1_shmem'
+Making all in mpichgm
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpichgm'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpichgm'
+Making all in mpichmx
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpichmx'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mpichmx'
+Making all in mvapich
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mvapich'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/mvapich'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/none'
+Making all in lam
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/lam'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/lam'
+Making all in openmpi
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/openmpi'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi/openmpi'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/mpi'
+Making all in preempt
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt/none'
+Making all in partition_prio
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt/partition_prio'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt/partition_prio'
+Making all in qos
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt/qos'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt/qos'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/preempt'
+Making all in priority
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority'
+Making all in basic
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority/basic'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority/basic'
+Making all in multifactor
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority/multifactor'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority/multifactor'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/priority'
+Making all in proctrack
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack'
+Making all in pgid
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/pgid'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/pgid'
+Making all in linuxproc
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/linuxproc'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/linuxproc'
+Making all in rms
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/rms'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/rms'
+Making all in cgroup
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/cgroup'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack/cgroup'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/proctrack'
+Making all in sched
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched'
+Making all in backfill
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/backfill'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/backfill'
+Making all in builtin
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/builtin'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/builtin'
+Making all in hold
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/hold'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/hold'
+Making all in wiki
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/wiki'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/wiki'
+Making all in wiki2
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/wiki2'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched/wiki2'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/sched'
+Making all in select
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select'
+Making all in bluegene
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/bluegene'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/bluegene'
+make[6]: Nothing to be done for `all-am'.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/bluegene'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/bluegene'
+Making all in cons_res
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/cons_res'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/cons_res'
+Making all in cray
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/cray'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/cray'
+make[6]: Nothing to be done for `all-am'.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/cray'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/cray'
+Making all in linear
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/linear'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select/linear'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/select'
+Making all in switch
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch'
+Making all in elan
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch/elan'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch/elan'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch/none'
+Making all in federation
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch/federation'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch/federation'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/switch'
+Making all in task
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task'
+Making all in affinity
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task/affinity'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task/affinity'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task/none'
+Making all in cgroup
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task/cgroup'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task/cgroup'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/task'
+Making all in topology
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology'
+Making all in 3d_torus
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/3d_torus'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/3d_torus'
+Making all in node_rank
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/node_rank'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/node_rank'
+Making all in none
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/none'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/none'
+Making all in tree
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/tree'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology/tree'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins/topology'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins'
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/plugins'
+Making all in sbcast
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sbcast'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sbcast agent.o sbcast.o opts.o ../../src/api/libslurm.o -ldl -lm 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sbcast agent.o sbcast.o opts.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lm -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sbcast'
+Making all in scontrol
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/scontrol'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o scontrol create_res.o info_block.o info_job.o info_node.o info_part.o info_res.o scontrol.o update_job.o update_node.o update_part.o update_step.o ../../src/api/libslurm.o -ldl -lm -lreadline -lhistory -lncurses 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o scontrol create_res.o info_block.o info_job.o info_node.o info_part.o info_res.o scontrol.o update_job.o update_node.o update_part.o update_step.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lm -lreadline -lhistory -lncurses -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/scontrol'
+Making all in scancel
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/scancel'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o scancel scancel.o opt.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o scancel scancel.o opt.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/scancel'
+Making all in squeue
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/squeue'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o squeue squeue.o print.o opts.o sort.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o squeue squeue.o print.o opts.o sort.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/squeue'
+Making all in sinfo
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sinfo'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sinfo sinfo.o opts.o print.o sort.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sinfo sinfo.o opts.o print.o sort.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sinfo'
+Making all in smap
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/smap'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o smap smap.o job_functions.o partition_functions.o grid_functions.o reservation_functions.o opts.o  ../../src/api/libslurm.o -ldl  -lncurses
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o smap smap.o job_functions.o partition_functions.o grid_functions.o reservation_functions.o opts.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lncurses -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/smap'
+Making all in sview
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sview'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sview'
+Making all in salloc
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/salloc'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o salloc salloc.o opt.o ../../src/api/libslurm.o -ldl  
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o salloc salloc.o opt.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/salloc'
+Making all in sbatch
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sbatch'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sbatch sbatch.o mult_cluster.o opt.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sbatch sbatch.o mult_cluster.o opt.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sbatch'
+Making all in sattach
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sattach'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sattach attach.o opt.o sattach.o sattach.wrapper.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sattach attach.o opt.o sattach.o sattach.wrapper.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sattach'
+Making all in strigger
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/strigger'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o strigger strigger.o opts.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o strigger strigger.o opts.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/strigger'
+Making all in sacct
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sacct'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sacct sacct.o process.o print.o options.o ../../src/db_api/libslurmdb.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sacct sacct.o process.o print.o options.o ../../src/db_api/libslurmdb.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sacct'
+Making all in sacctmgr
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sacctmgr'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sacctmgr account_functions.o archive_functions.o association_functions.o config_functions.o cluster_functions.o common.o event_functions.o file_functions.o job_functions.o sacctmgr.o qos_functions.o txn_functions.o user_functions.o wckey_functions.o problem_functions.o ../../src/db_api/libslurmdb.o -ldl -lreadline -lhistory -lncurses 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sacctmgr account_functions.o archive_functions.o association_functions.o config_functions.o cluster_functions.o common.o event_functions.o file_functions.o job_functions.o sacctmgr.o qos_functions.o txn_functions.o user_functions.o wckey_functions.o problem_functions.o ../../src/db_api/libslurmdb.o -Wl,--export-dynamic  -ldl -lreadline -lhistory -lncurses -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sacctmgr'
+Making all in sreport
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sreport'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libeio.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libspank.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[6]: `libcommon.o' is up to date.
+make[6]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/db_api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sreport sreport.o cluster_reports.o assoc_reports.o job_reports.o user_reports.o resv_reports.o common.o ../../src/db_api/libslurmdb.o -ldl -lreadline -lhistory -lncurses 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sreport sreport.o cluster_reports.o assoc_reports.o job_reports.o user_reports.o resv_reports.o common.o ../../src/db_api/libslurmdb.o -Wl,--export-dynamic  -ldl -lreadline -lhistory -lncurses -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sreport'
+Making all in sstat
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sstat'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sstat sstat.o process.o print.o options.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sstat sstat.o process.o print.o options.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sstat'
+Making all in sshare
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sshare'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sshare process.o sshare.o ../../src/api/libslurm.o -ldl -lm -lreadline -lhistory -lncurses 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sshare process.o sshare.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lm -lreadline -lhistory -lncurses -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sshare'
+Making all in sprio
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sprio'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o sprio sprio.o print.o opts.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sprio sprio.o print.o opts.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/sprio'
+Making all in simulation_lib
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/simulation_lib'
+gcc -DHAVE_CONFIG_H -I. -I../.. -I../../slurm -I../..    -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -MT sim_mgr.o -MD -MP -MF .deps/sim_mgr.Tpo -c -o sim_mgr.o sim_mgr.c
+mv -f .deps/sim_mgr.Tpo .deps/sim_mgr.Po
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic  -ldl -lrt -lpthread  -o sim_mgr sim_mgr.o ../../src/api/libslurm.o  
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sim_mgr sim_mgr.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lrt -lpthread -pthread
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic  -ldl -lrt -lpthread  -o list_trace list_trace.o ../../src/api/libslurm.o  
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o list_trace list_trace.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lrt -lpthread -pthread
+gcc -DHAVE_CONFIG_H -I. -I../.. -I../../slurm -I../..    -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -MT trace_builder.o -MD -MP -MF .deps/trace_builder.Tpo -c -o trace_builder.o trace_builder.c
+mv -f .deps/trace_builder.Tpo .deps/trace_builder.Po
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic  -ldl -lrt -lpthread  -o trace_builder trace_builder.o ../../src/api/libslurm.o  
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o trace_builder trace_builder.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lrt -lpthread -pthread
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic  -ldl -lrt -lpthread  -o sim_ctlr sim_ctlr.o ../../src/api/libslurm.o  
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o sim_ctlr sim_ctlr.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lrt -lpthread -pthread
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic  -ldl -lrt -lpthread  -o update_trace update_trace.o ../../src/api/libslurm.o  
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o update_trace update_trace.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -lrt -lpthread -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/simulation_lib'
+Making all in srun
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/srun'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libeio.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libspank.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[5]: `libcommon.o' is up to date.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/common'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/api'
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -export-dynamic   -o srun srun.o opt.o srun_job.o srun_pty.o debugger.o fname.o allocate.o multi_prog.o task_state.o srun.wrapper.o ../../src/api/libslurm.o -ldl 
+libtool: link: gcc -DNUMA_VERSION1_COMPATIBILITY -g -O2 -pthread -fno-gcse -o srun srun.o opt.o srun_job.o srun_pty.o debugger.o fname.o allocate.o multi_prog.o task_state.o srun.wrapper.o ../../src/api/libslurm.o -Wl,--export-dynamic  -ldl -pthread
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src/srun'
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src'
+make[2]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/src'
+Making all in testsuite
+make[2]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite'
+Making all in expect
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/expect'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/expect'
+Making all in slurm_unit
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit'
+Making all in api
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/api'
+Making all in manual
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/api/manual'
+make[5]: Nothing to be done for `all'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/api/manual'
+make[5]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/api'
+make[5]: Nothing to be done for `all-am'.
+make[5]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/api'
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/api'
+Making all in common
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/common'
+make[4]: Nothing to be done for `all'.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit/common'
+make[4]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit'
+make[4]: Nothing to be done for `all-am'.
+make[4]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit'
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite/slurm_unit'
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite'
+make[2]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/testsuite'
+Making all in doc
+make[2]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc'
+Making all in man
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc/man'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc/man'
+Making all in html
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc/html'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc/html'
+make[3]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc'
+make[2]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator/doc'
+make[2]: Entering directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator'
+make[2]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator'
+make[1]: Leaving directory `/home/tpatki/local/src/slurm-test/sim_test_dir/slurm-2.3.2-simulator'

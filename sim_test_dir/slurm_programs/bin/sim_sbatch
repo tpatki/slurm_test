@@ -1,0 +1,6 @@
+#!/bin/bash
+PARAMS=`echo $@`
+DATE=`date +%s`
+# Just for debug
+echo "LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm LD_PRELOAD=libslurm_sim.so /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_programs/bin/sbatch" $PARAMS > /tmp/sim_sbatch-$DATE
+RES=`LD_LIBRARY_PATH=/home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm LD_PRELOAD=libslurm_sim.so /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_programs/bin/sbatch $PARAMS > /tmp/sbatch.out`

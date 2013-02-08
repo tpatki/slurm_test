@@ -1,0 +1,5 @@
+{ global:
+   slurm_*;
+   slurmdb_*;
+  local: *;
+};

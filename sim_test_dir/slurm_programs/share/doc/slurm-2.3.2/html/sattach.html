@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>sattach</H1>
+Section: SLURM Commands (1)<BR>Updated: SLURM 2.2<BR><A HREF="#index">Index</A>
+
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+<P>
+
+sattach - Attach to a SLURM job step.
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_SYNOPSIS"></a>
+<H2>SYNOPSIS</H2>
+
+<P>
+
+sattach [<I>options</I>] &lt;jobid.stepid&gt;
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<P>
+
+sattach attaches to a running SLURM job step.  By attaching, it makes available
+the IO streams of all of the tasks of a running SLURM job step.  It also
+suitable for use with a parallel debugger like TotalView.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_OPTIONS"></a>
+<H2>OPTIONS</H2>
+
+<P>
+
+<P>
+<DL COMPACT>
+<a id="OPT_help"></a>
+<DT><B>-h</B>, <B>--help</B><DD>
+Display help information and exit.
+<P>
+<a id="OPT_input-filter"></a>
+<DT><B>--input-filter</B>[=]&lt;<I>task number</I>&gt;<DD>
+
+<a id="OPT_output-filter"></a>
+<DT><B>--output-filter</B>[=]&lt;<I>task number</I>&gt;<DD>
+
+<a id="OPT_error-filter"></a>
+<DT><B>--error-filter</B>[=]&lt;<I>task number</I>&gt;<DD>
+
+Only transmit standard input to a single task, or print the standard output
+or standard error from a single task.  The filtering is performed locally in
+sattach.
+<P>
+<a id="OPT_label"></a>
+<DT><B>-l</B>, <B>--label</B><DD>
+Prepend each line of task standard output or standard error with the task
+number of its origin.
+<P>
+<a id="OPT_layout"></a>
+<DT><B>--layout</B><DD>
+Contacts the slurmctld to obtain the task layout information for the job step,
+prints the task layout information, and then exits without attaching to the
+job step.
+<P>
+<a id="OPT_pty"></a>
+<DT><B>--pty</B><DD>
+Execute task zero in pseudo terminal.
+Not compatible with the <B>--input-filter</B>, <B>--output-filter</B>, or
+<B>--error-filter</B> options.
+Notes: The terminal size and resize events are ignored by sattach.
+Proper operation requires that the job step be initiated by srun using the
+--pty option.
+Not currently supported on AIX platforms.
+<P>
+<a id="OPT_quiet"></a>
+<DT><B>-Q</B>, <B>--quiet</B><DD>
+Suppress informational messages from sattach. Errors will still be displayed.
+<P>
+<a id="OPT_usage"></a>
+<DT><B>-u</B>, <B>--usage</B><DD>
+Display brief usage message and exit.
+<P>
+<a id="OPT_version"></a>
+<DT><B>-V</B>, <B>--version</B><DD>
+Display SLURM version number and exit.
+<P>
+<a id="OPT_verbose"></a>
+<DT><B>-v</B>, <B>--verbose</B><DD>
+Increase the verbosity of sattach's informational messages.  Multiple <B>-v</B>'s
+will further increase sattach's verbosity.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_INPUT ENVIRONMENT VARIABLES"></a>
+<H2>INPUT ENVIRONMENT VARIABLES</H2>
+
+<P>
+
+Upon startup, salloc will read and handle the options set in the following
+environment variables.  Note: Command line options always override environment
+variables settings.
+<P>
+<DL COMPACT>
+<a id="OPT_SLURM_EXIT_ERROR"></a>
+<DT><B>SLURM_EXIT_ERROR</B><DD>
+Specifies the exit code generated when a SLURM error occurs
+(e.g. invalid options).
+This can be used by a script to distinguish application exit codes from
+various SLURM error conditions.
+<P>
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_EXAMPLES"></a>
+<H2>EXAMPLES</H2>
+
+<P>
+
+sattach 15.0
+<P>
+sattach --output-filter 5 65386.15
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2006-2007 The Regents of the University of California.
+Copyright (C) 2008-2009 Lawrence Livermore National Security.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<P>
+
+<B><A HREF="sinfo.html">sinfo</A></B>(1), <B><A HREF="salloc.html">salloc</A></B>(1), <B><A HREF="sbatch.html">sbatch</A></B>(1), <B><A HREF="squeue.html">squeue</A></B>(1),
+<B><A HREF="scancel.html">scancel</A></B>(1), <B><A HREF="scontrol.html">scontrol</A></B>(1),
+<B><A HREF="slurm.conf.html">slurm.conf</A></B>(5), <B>sched_setaffinity</B> (2), <B>numa</B> (3)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">INPUT ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbAG">EXAMPLES</A><DD>
+<DT><A HREF="#lbAH">COPYING</A><DD>
+<DT><A HREF="#lbAI">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:42 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

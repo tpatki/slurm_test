@@ -1,0 +1,474 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>bluegene.conf</H1>
+Section: SLURM configuration file (5)<BR>Updated: August 2011<BR><A HREF="#index">Index</A>
+
+<P>
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+bluegene.conf - SLURM configuration file for BlueGene systems
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>bluegene.conf</B> is an ASCII file which describes IBM BlueGene specific
+SLURM configuration information. This includes specifications for bgblock
+layout, configuration, logging, etc.
+The file location can be modified at system build time using the
+DEFAULT_SLURM_CONF parameter or at execution time by setting the SLURM_CONF
+environment variable. The file will always be located in the
+same directory as the <B>slurm.conf</B> file.
+<P>
+
+Parameter names are case insensitive.
+Any text following a &quot;#&quot; in the configuration file is treated
+as a comment through the end of that line.
+The size of each line in the file is limited to 1024 characters.
+Changes to the configuration file take only effect upon restart of
+the slurmctld daemon.  &quot;scontrol reconfigure&quot; does nothing with this file.
+Changes will only take place after a restart of the controller.
+<P>
+
+There are some differences between BlueGene/L, BlueGene/P and  BlueGene/Q
+systems with respects to the contents of the bluegene.conf file.
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_The BlueGene/L specific options are:"></a>
+<H2>The BlueGene/L specific options are:</H2>
+
+<DL COMPACT>
+<a id="OPT_AltBlrtsImage"></a>
+<DT><B>AltBlrtsImage</B><DD>
+Alternative BlrtsImage.  This is an optional field only used for multiple
+images on a system and should be followed by a Groups option indicating
+the user groups allowed to use this image (i.e. Groups=da,jette). If
+Groups is not specified then this image will be usable by all
+groups. You can put as many alternative images as you want in the
+bluegene.conf file.
+<P>
+<a id="OPT_AltLinuxImage"></a>
+<DT><B>AltLinuxImage</B><DD>
+Alternative LinuxImage.  This is an optional field only used for multiple
+images on a system and should be followed by a Groups option indicating
+the user groups allowed to use this image (i.e. Groups=da,jette). If
+Groups is not specified then this image will be usable by all
+groups. You can put as many alternative images as you want in the
+bluegene.conf file.
+<P>
+<a id="OPT_AltRamDiskImage"></a>
+<DT><B>AltRamDiskImage</B><DD>
+Alternative RamDiskImage.  This is an optional field only used for multiple
+images on a system and should be followed by a Groups option indicating
+the user groups allowed to use this image (i.e. Groups=da,jette). If
+Groups is not specified then this image will be usable by all
+groups. You can put as many alternative images as you want in the
+bluegene.conf file.
+<P>
+<a id="OPT_BlrtsImage"></a>
+<DT><B>BlrtsImage</B><DD>
+BlrtsImage used for creation of all bgblocks.
+There is no default value and this must be specified.
+<P>
+<a id="OPT_LinuxImage"></a>
+<DT><B>LinuxImage</B><DD>
+LinuxImage used for creation of all bgblocks.
+There is no default value and this must be specified.
+<P>
+<a id="OPT_RamDiskImage"></a>
+<DT><B>RamDiskImage</B><DD>
+RamDiskImage used for creation of all bgblocks.
+There is no default value and this must be specified.
+<P>
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_The BlueGene/P specific options are:"></a>
+<H2>The BlueGene/P specific options are:</H2>
+
+<DL COMPACT>
+<a id="OPT_AltCnloadImage"></a>
+<DT><B>AltCnloadImage</B><DD>
+Alternative CnloadImage.  This is an optional field only used for multiple
+images on a system and should be followed by a Groups option indicating
+the user groups allowed to use this image (i.e. Groups=da,jette). If
+Groups is not specified then this image will be usable by all
+groups. You can put as many alternative images as you want in the conf file.
+<P>
+<a id="OPT_AltIoloadImage"></a>
+<DT><B>AltIoloadImage</B><DD>
+Alternative IoloadImage.  This is an optional field only used for multiple
+images on a system and should be followed by a Groups option indicating
+the user groups allowed to use this image (i.e. Groups=da,jette). If
+Groups is not specified then this image will be usable by all
+groups. You can put as many alternative images as you want in the conf file.
+<P>
+<a id="OPT_CnloadImage"></a>
+<DT><B>CnloadImage</B><DD>
+CnloadImage used for creation of all bgblocks.
+There is no default value and this must be specified.
+<P>
+<a id="OPT_IoloadImage"></a>
+<DT><B>IoloadImage</B><DD>
+IoloadImage used for creation of all bgblocks.
+There is no default value and this must be specified.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_All options below are common on all BlueGene systems:"></a>
+<H2>All options below are common on all BlueGene systems:</H2>
+
+<DL COMPACT>
+<a id="OPT_AltMloaderImage"></a>
+<DT><B>AltMloaderImage</B><DD>
+Alternative MloaderImage.  This is an optional field only used for multiple
+images on a system and should be followed by a Groups option indicating
+the user groups allowed to use this image (i.e. Groups=da,jette). If
+Groups is not specified then this image will be usable by all
+groups. You can put as many alternative images as you want in the conf file.
+<P>
+<a id="OPT_BasePartitionNodeCount"></a>
+<DT><B>BasePartitionNodeCount</B><DD>
+The number of c-nodes (compute nodes) per base partition.
+There is no default value and this must be specified (usually 512).
+<P>
+<a id="OPT_BridgeAPILogFile"></a>
+<DT><B>BridgeAPILogFile</B><DD>
+Fully qualified pathname of a into which the Bridge API logs are
+to be written.
+There is no default value.
+<P>
+<a id="OPT_BridgeAPIVerbose"></a>
+<DT><B>BridgeAPIVerbose</B><DD>
+Specify how verbose the Bridge API logs should be.
+The default value is 0.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_0"></a>
+<DT><B>0</B>: Log only error and warning messages<DD>
+<a id="OPT_1"></a>
+<DT><B>1</B>: Log level 0 plus information messages<DD>
+<a id="OPT_2"></a>
+<DT><B>2</B>: Log level 1 plus basic debug messages<DD>
+<a id="OPT_3"></a>
+<DT><B>3</B>: Log level 2 plus more debug message<DD>
+<a id="OPT_4"></a>
+<DT><B>4</B>: Log all messages<DD>
+</DL>
+</DL>
+
+<P>
+<a id="OPT_DenyPassthrough"></a>
+<DT><B>DenyPassthrough</B><DD>
+Specify which dimensions you do not want to allow pass-throughs.
+Valid options are A, X, Y, Z or all (&quot;A&quot; applies only to BlueGene/Q systems).
+For example, to prevent pass-throughs in the X and Y dimensions you would
+specify &quot;DenyPassthrough=X,Y&quot;.
+By default, pass-throughs are enabled in every dimension.
+<P>
+<a id="OPT_LayoutMode"></a>
+<DT><B>LayoutMode</B><DD>
+Describes how SLURM should create bgblocks.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_STATIC"></a>
+<DT><B>STATIC</B>:<DD>
+Create and use the defined non-overlapping bgblocks.
+<a id="OPT_OVERLAP"></a>
+<DT><B>OVERLAP</B>:<DD>
+Create and use the defined bgblocks, which may overlap.
+It is highly recommended that none of the bgblocks have any passthroughs
+in the X-dimension.
+<B>Use this mode with extreme caution.</B>
+<a id="OPT_DYNAMIC"></a>
+<DT><B>DYNAMIC</B>:<DD>
+Create and use bgblocks as needed for each job.
+Bgblocks will not be defined in the bluegene.conf file.
+Dynamic partitioning may introduce fragmentation of resources
+and starvation of larger jobs.
+<B>Use this mode with caution.</B>
+</DL>
+</DL>
+
+<P>
+<a id="OPT_MloaderImage"></a>
+<DT><B>MloaderImage</B><DD>
+MloaderImage used for creation of all bgblocks.
+There is no default value and this must be specified.
+<P>
+<a id="OPT_NodeCardNodeCount"></a>
+<DT><B>NodeCardNodeCount</B><DD>
+Number of c-nodes per node card.
+There is no default value and this must be specified. For BlueGene/L systems
+this is usually 32.
+<P>
+<a id="OPT_NumPsets"></a>
+<DT><B>NumPsets</B><DD>
+The Numpsets used for creation of all bgblocks.  This value really means the
+number of IO nodes on a base partition.  This number must be the smallest
+number if you have a heterogeneous system.
+There is no default value and this must be specified.  The typical settings
+for BlueGene/L systems are as follows: For IO rich systems, 64 is the value that
+should be used to create small blocks.  For systems that are not IO rich, or
+for which small blocks are not desirable, 8 is usually the number to use.
+For BlueGene/P IO rich systems, 32 is the value that should be used to create
+small blocks since there are only 2 IO nodes per nodecard instead of 4 as on
+BlueGene/L.
+<P>
+</DL>
+<P>
+
+Each bgblock is defined by the base partitions used to construct it.
+Ordering is very important for laying out switch wires.  Please use the smap
+tool to define blocks and do not change the order of blocks created.
+A bgblock is implicitly created containing all resources on the system.
+Bgblocks must not overlap in static mode (except for implicitly
+created bgblock). This will be the case when smap is used to create
+a configuration file
+All Nodes defined here must also be defined in the slurm.conf file.
+Define only the numeric coordinates of the bgblocks here. The prefix
+will be based upon the NodeName defined in slurm.conf
+<P>
+<DL COMPACT>
+<a id="OPT_BPs"></a>
+<DT><B>BPs</B><DD>
+Define the coordinates of the bgblock end points.
+For BlueGene/L and BlueGene/P systems there will be three coordinates (X, Y, and Z).
+For BlueGene/Q systems there will be for coordinates (A, X, Y, and Z).
+<P>
+<a id="OPT_Type"></a>
+<DT><B>Type</B><DD>
+Define the network connection type for the bgblock.
+The default value is TORUS.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_MESH"></a>
+<DT><B>MESH</B>:<DD>
+Communication occur over a mesh.
+<a id="OPT_SMALL"></a>
+<DT><B>SMALL</B>:<DD>
+The base partition is divided into more than one bgblock.
+The administrator should define the number of single node cards and
+quarter base partition blocks using the options <B>32CNBlocks</B> and
+<B>128CNBlocks</B> respectively for a BlueGene/L system.  <B>16CNBlocks</B>,
+<B>64CNBlocks</B>, and <B>256CNBlocks</B> are also available for
+BlueGene/P systems.  Keep in mind you
+must have enough IO nodes to make all these configurations possible.
+<P>
+The total number of c-nodes in defined blocks must not exceed
+<B>BasePartitionNodeCnt</B>.
+If not specified, the base partition will be divided into four
+blocks.
+See example below.
+<a id="OPT_TORUS"></a>
+<DT><B>TORUS</B>:<DD>
+Communications occur over a torus (end-points of network directly connect.
+</DL>
+</DL>
+
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_EXAMPLE"></a>
+<H2>EXAMPLE</H2>
+
+<P>
+
+<BR>
+
+##################################################################
+<BR>
+
+# bluegene.conf
+<BR>
+
+# build by smap on 03/06/2006
+<BR>
+
+##################################################################
+<BR>
+
+BridgeAPILogFile=/var/log/slurm/bridgeapi.log
+<BR>
+
+BridgeAPIVerbose=2
+<BR>
+
+BlrtsImage=/bgl/BlueLight/ppcfloor/bglsys/bin/rts_hw.rts
+<BR>
+
+LinuxImage=/bgl/BlueLight/ppcfloor/bglsys/bin/zImage.elf
+<BR>
+
+MloaderImage=/bgl/BlueLight/ppcfloor/bglsys/bin/mmcs-mloader.rts
+<BR>
+
+RamDiskImage=/bgl/BlueLight/ppcfloor/bglsys/bin/ramdisk.elf
+<BR>
+
+BasePartitionNodeCnt=512
+<BR>
+
+NodeCardNodeCnt=32
+<BR>
+
+NumPsets=64<TT>&nbsp;&nbsp;&nbsp;&nbsp;</TT># An I/O rich environment<BR>
+<BR>
+
+LayoutMode=STATIC
+<BR>
+
+##################################################################
+<BR>
+
+# LEAVE AS COMMENT, Full-system bgblock, implicitly created
+<BR>
+
+# BPs=[000x333] Type=TORUS        # 4x4x4 = 64 midplanes
+<BR>
+
+##################################################################
+<BR>
+
+BPs=[000x133] Type=TORUS          # 2x4x4 = 32
+<BR>
+
+BPs=[200x233] Type=TORUS          # 1x4x4 = 16
+<BR>
+
+BPs=[300x313] Type=TORUS          # 1x2x4 =  8
+<BR>
+
+BPs=[320x323] Type=TORUS          # 1x1x4 =  4
+<BR>
+
+BPs=[330x331] Type=TORUS          # 1x1x2 =  2
+<BR>
+
+BPs=[332] Type=TORUS          # 1x1x1 =  1
+<BR>
+
+BPs=[333] Type=SMALL 32CNBlocks=4 128CNBlocks=3 # 1/16 * 4 + 1/4 * 3
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2006-2010 The Regents of the University of California.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<A NAME="lbAI">&nbsp;</A>
+<a id="SECTION_FILES"></a>
+<H2>FILES</H2>
+
+/etc/bluegene.conf
+<A NAME="lbAJ">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<P>
+
+<B><A HREF="smap.html">smap</A></B>(1), <B><A HREF="slurm.conf.html">slurm.conf</A></B>(5)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAD">The BlueGene/L specific options are:</A><DD>
+<DT><A HREF="#lbAE">The BlueGene/P specific options are:</A><DD>
+<DT><A HREF="#lbAF">All options below are common on all BlueGene systems:</A><DD>
+<DT><A HREF="#lbAG">EXAMPLE</A><DD>
+<DT><A HREF="#lbAH">COPYING</A><DD>
+<DT><A HREF="#lbAI">FILES</A><DD>
+<DT><A HREF="#lbAJ">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

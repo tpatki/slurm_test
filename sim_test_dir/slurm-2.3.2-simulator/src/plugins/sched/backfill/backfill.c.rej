@@ -1,0 +1,109 @@
+--- src/plugins/sched/backfill/backfill.c	2011-05-27 20:25:06.000000000 +0200
++++ src/plugins/sched/backfill/backfill.c	2011-09-30 11:27:25.317400020 +0200
+@@ -480,8 +486,11 @@
+ 	node_space_map_t *node_space;
+ 	static int sched_timeout = 0;
+ 	int this_sched_timeout = 0, rc = 0;
++	int local_loops = 0;
++
+ 
+ 	sched_start = now;
++
+ 	if (sched_timeout == 0) {
+ 		sched_timeout = slurm_get_msg_timeout() / 2;
+ 		sched_timeout = MAX(sched_timeout, 1);
+@@ -511,6 +520,9 @@
+ 
+ 	while ((job_queue_rec = (job_queue_rec_t *)
+ 				list_pop_bottom(job_queue, sort_job_queue2))) {
++
++		slurmdb_qos_rec_t *sim_qos_ptr;
++
+ 		job_ptr  = job_queue_rec->job_ptr;
+ 		part_ptr = job_queue_rec->part_ptr;
+ 		xfree(job_queue_rec);
+@@ -518,12 +530,16 @@
+ 			continue;	/* started in other partition */
+ 		job_ptr->part_ptr = part_ptr;
+ 
++		sim_qos_ptr = (slurmdb_qos_rec_t *)job_ptr->qos_ptr;
++
+ 		if (debug_flags & DEBUG_FLAG_BACKFILL)
+ 			info("backfill test for job %u", job_ptr->job_id);
+ 
+ 		if ((job_ptr->state_reason == WAIT_ASSOC_JOB_LIMIT) ||
+ 		    (job_ptr->state_reason == WAIT_ASSOC_RESOURCE_LIMIT) ||
+-		    (job_ptr->state_reason == WAIT_ASSOC_TIME_LIMIT)) {
++		    (job_ptr->state_reason == WAIT_ASSOC_TIME_LIMIT)){ 
++		    /*(job_ptr->state_reason == WAIT_ASSOC_TIME_LIMIT) ||
++		    !acct_policy_job_runnable(job_ptr)) */
+ 			debug2("backfill: job %u is not allowed to run now. "
+ 			       "Skipping it. State=%s. Reason=%s. Priority=%u",
+ 			       job_ptr->job_id,
+@@ -576,8 +592,11 @@
+ 		}
+ 		comp_time_limit = time_limit;
+ 		orig_time_limit = job_ptr->time_limit;
+-		if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE))
++		qos_ptr = job_ptr->qos_ptr;
++		if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE)){
++			debug2("backfilling: Updating time_limit for jobid %u to 60 secs\n", job_ptr->job_id);
+ 			time_limit = job_ptr->time_limit = 1;
++		}
+ 		else if (job_ptr->time_min && (job_ptr->time_min < time_limit))
+ 			time_limit = job_ptr->time_limit = job_ptr->time_min;
+ 
+@@ -642,24 +661,28 @@
+ 		resv_bitmap = bit_copy(avail_bitmap);
+ 		bit_not(resv_bitmap);
+ 
+-		if ((time(NULL) - sched_start) >= this_sched_timeout) {
++		if (local_loops == 20){
++			int save_time_limit;
+ 			debug("backfill: loop taking too long, yielding locks");
++			save_time_limit = job_ptr->time_limit;
++		       	job_ptr->time_limit = orig_time_limit;
+ 			if (_yield_locks()) {
+ 				debug("backfill: system state changed, "
+ 				      "breaking out");
+ 				rc = 1;
++				job_ptr->time_limit = orig_time_limit;
+ 				break;
+ 			} else {
+ 				this_sched_timeout += sched_timeout;
+ 			}
++		       	job_ptr->time_limit = save_time_limit;
++			local_loops = 0;
+ 		}
++		local_loops++;
+ 		/* this is the time consuming operation */
+-		debug2("backfill: entering _try_sched for job %u.",
+-		       job_ptr->job_id);
+ 		j = _try_sched(job_ptr, &avail_bitmap,
+ 			       min_nodes, max_nodes, req_nodes);
+-		debug2("backfill: finished _try_sched for job %u.",
+-		       job_ptr->job_id);
++
+ 		now = time(NULL);
+ 		if (j != SLURM_SUCCESS) {
+ 			job_ptr->time_limit = orig_time_limit;
+@@ -673,8 +696,10 @@
+ 		}
+ 		if (job_ptr->start_time <= now) {
+ 			int rc = _start_job(job_ptr, resv_bitmap);
+-			if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE))
++			if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE)){
+ 				job_ptr->time_limit = orig_time_limit;
++				job_ptr->end_time = job_ptr->start_time + (orig_time_limit * 60);
++			}
+ 			else if ((rc == SLURM_SUCCESS) && job_ptr->time_min) {
+ 				/* Set time limit as high as possible */
+ 				job_ptr->time_limit = comp_time_limit;
+@@ -734,7 +760,6 @@
+ 		/*
+ 		 * Add reservation to scheduling table if appropriate
+ 		 */
+-		qos_ptr = job_ptr->qos_ptr;
+ 		if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE))
+ 			continue;
+ 		bit_not(avail_bitmap);

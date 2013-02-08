@@ -1,0 +1,3567 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>slurm.conf</H1>
+Section: Slurm configuration file (5)<BR>Updated: September 2011<BR><A HREF="#index">Index</A>
+
+<P>
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+slurm.conf - Slurm configuration file
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>slurm.conf</B> is an ASCII file which describes general SLURM
+configuration information, the nodes to be managed, information about
+how those nodes are grouped into partitions, and various scheduling
+parameters associated with those partitions. This file should be
+consistent across all nodes in the cluster.
+<P>
+
+The file location can be modified at system build time using the
+DEFAULT_SLURM_CONF parameter or at execution time by setting the SLURM_CONF
+environment variable. The SLURM daemons also allow you to override
+both the built-in and environment-provided location using the &quot;-f&quot;
+option on the command line.
+<P>
+
+The contents of the file are case insensitive except for the names of nodes
+and partitions. Any text following a &quot;#&quot; in the configuration file is treated
+as a comment through the end of that line.
+The size of each line in the file is limited to 1024 characters.
+Changes to the configuration file take effect upon restart of
+SLURM daemons, daemon receipt of the SIGHUP signal, or execution
+of the command &quot;scontrol reconfigure&quot; unless otherwise noted.
+<P>
+
+If a line begins with the word &quot;Include&quot; followed by whitespace
+and then a file name, that file will be included inline with the current
+configuration file.
+<P>
+
+Note on file permissions:
+<P>
+
+The <I>slurm.conf</I> file must be readable by all users of SLURM, since it
+is used by many of the SLURM commands.  Other files that are defined
+in the <I>slurm.conf</I> file, such as log files and job accounting files,
+may need to be created/owned by the user &quot;SlurmUser&quot; to be successfully
+accessed.  Use the &quot;chown&quot; and &quot;chmod&quot; commands to set the ownership
+and permissions appropriately.
+See the section <B>FILE AND DIRECTORY PERMISSIONS</B> for information
+about the various files and directories used by SLURM.
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_PARAMETERS"></a>
+<H2>PARAMETERS</H2>
+
+<P>
+
+The overall configuration parameters available include:
+<P>
+<DL COMPACT>
+<a id="OPT_AccountingStorageBackupHost"></a>
+<DT><B>AccountingStorageBackupHost</B><DD>
+The name of the backup machine hosting the accounting storage database.
+If used with the accounting_storage/slurmdbd plugin, this is where the backup
+slurmdbd would be running.
+Only used for database type storage plugins, ignored otherwise.
+<P>
+<a id="OPT_AccountingStorageEnforce"></a>
+<DT><B>AccountingStorageEnforce</B><DD>
+This controls what level of association-based enforcement to impose
+on job submissions.  Valid options are any combination of
+<I>associations</I>, <I>limits</I>, <I>qos</I>, and <I>wckeys</I>, or
+<I>all</I> for all things.  If limits, qos, or wckeys are set,
+associations will automatically be set.  In addition, if wckeys is
+set, TrackWCKey will automatically be set.  By enforcing Associations
+no new job is allowed to run unless a corresponding association exists
+in the system.  If limits are enforced users can be limited by
+association to whatever job size or run time limits are defined.  With
+qos and/or wckeys enforced jobs will not be scheduled unless a valid
+qos and/or workload characterization key is specified.  When
+<B>AccountingStorageEnforce</B> is changed, a restart of the slurmctld
+daemon is required (not just a &quot;scontrol reconfig&quot;).
+<P>
+<a id="OPT_AccountingStorageHost"></a>
+<DT><B>AccountingStorageHost</B><DD>
+The name of the machine hosting the accounting storage database.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStorageHost</B>.
+<P>
+<a id="OPT_AccountingStorageLoc"></a>
+<DT><B>AccountingStorageLoc</B><DD>
+The fully qualified file name where accounting records are written
+when the <B>AccountingStorageType</B> is &quot;accounting_storage/filetxt&quot;
+or else the name of the database where accounting records are stored when the
+<B>AccountingStorageType</B> is a database.
+Also see <B>DefaultStorageLoc</B>.
+<P>
+<a id="OPT_AccountingStoragePass"></a>
+<DT><B>AccountingStoragePass</B><DD>
+The password used to gain access to the database to store the
+accounting data.  Only used for database type storage plugins, ignored
+otherwise.  In the case of SLURM DBD (Database Daemon) with MUNGE
+authentication this can be configured to use a MUNGE daemon
+specifically configured to provide authentication between clusters
+while the default MUNGE daemon provides authentication within a
+cluster.  In that case, <B>AccountingStoragePass</B> should specify the
+named port to be used for communications with the alternate MUNGE
+daemon (e.g.  &quot;/var/run/munge/global.socket.2&quot;). The default value is
+NULL.  Also see <B>DefaultStoragePass</B>.
+<P>
+<a id="OPT_AccountingStoragePort"></a>
+<DT><B>AccountingStoragePort</B><DD>
+The listening port of the accounting storage database server.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStoragePort</B>.
+<P>
+<a id="OPT_AccountingStorageType"></a>
+<DT><B>AccountingStorageType</B><DD>
+The accounting storage mechanism type.  Acceptable values at
+present include &quot;accounting_storage/filetxt&quot;,
+&quot;accounting_storage/mysql&quot;, &quot;accounting_storage/none&quot;,
+&quot;accounting_storage/pgsql&quot;, and &quot;accounting_storage/slurmdbd&quot;.  The
+&quot;accounting_storage/filetxt&quot; value indicates that accounting records
+will be written to the file specified by the
+<B>AccountingStorageLoc</B> parameter.  The &quot;accounting_storage/mysql&quot;
+value indicates that accounting records will be written to a MySQL
+database specified by the <B>AccountingStorageLoc</B> parameter.  The
+&quot;accounting_storage/pgsql&quot; value indicates that accounting records
+will be written to a PostgreSQL database specified by the
+<B>AccountingStorageLoc</B> parameter.  The
+&quot;accounting_storage/slurmdbd&quot; value indicates that accounting records
+will be written to the SLURM DBD, which manages an underlying MySQL or
+PostgreSQL database. See &quot;man slurmdbd&quot; for more information.  The
+default value is &quot;accounting_storage/none&quot; and indicates that account
+records are not maintained.  Note: the PostgreSQL plugin is not
+complete and should not be used if wanting to use associations.  It
+will however work with basic accounting of jobs and job steps.  If
+interested in completing, please email <A HREF="mailto:slurm-dev@lists.llnl.gov">slurm-dev@lists.llnl.gov</A>.  Also
+see <B>DefaultStorageType</B>.
+<P>
+<a id="OPT_AccountingStorageUser"></a>
+<DT><B>AccountingStorageUser</B><DD>
+The user account for accessing the accounting storage database.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStorageUser</B>.
+<P>
+<a id="OPT_AccountingStoreJobComment"></a>
+<DT><B>AccountingStoreJobComment</B><DD>
+If set to &quot;YES&quot; then include the job's comment field in the job
+complete message sent to the Accounting Storage database.  The default
+is &quot;YES&quot;.
+<P>
+<a id="OPT_AuthType"></a>
+<DT><B>AuthType</B><DD>
+The authentication method for communications between SLURM
+components.
+Acceptable values at present include &quot;auth/none&quot;, &quot;auth/authd&quot;,
+and &quot;auth/munge&quot;.
+The default value is &quot;auth/munge&quot;.
+&quot;auth/none&quot; includes the UID in each communication, but it is not verified.
+This may be fine for testing purposes, but
+<B>do not use &quot;auth/none&quot; if you desire any security</B>.
+&quot;auth/authd&quot; indicates that Brett Chun's authd is to be used (see
+&quot;<A HREF="http://www.theether.org/authd/">http://www.theether.org/authd/</A>&quot; for more information. Note that
+authd is no longer actively supported).
+&quot;auth/munge&quot; indicates that LLNL's MUNGE is to be used
+(this is the best supported authentication mechanism for SLURM,
+see &quot;<A HREF="http://munge.googlecode.com/">http://munge.googlecode.com/</A>&quot; for more information).
+All SLURM daemons and commands must be terminated prior to changing
+the value of <B>AuthType</B> and later restarted (SLURM jobs can be
+preserved).
+<P>
+<a id="OPT_BackupAddr"></a>
+<DT><B>BackupAddr</B><DD>
+The name that <B>BackupController</B> should be referred to in
+establishing a communications path. This name will
+be used as an argument to the gethostbyname() function for
+identification. For example, &quot;elx0000&quot; might be used to designate
+the Ethernet address for node &quot;lx0000&quot;.
+By default the <B>BackupAddr</B> will be identical in value to
+<B>BackupController</B>.
+<P>
+<a id="OPT_BackupController"></a>
+<DT><B>BackupController</B><DD>
+The name of the machine where SLURM control functions are to be
+executed in the event that <B>ControlMachine</B> fails. This node
+may also be used as a compute server if so desired. It will come into service
+as a controller only upon the failure of ControlMachine and will revert
+to a &quot;standby&quot; mode when the ControlMachine becomes available once again.
+This should be a node name without the full domain name.   I.e., the hostname
+returned by the <I>gethostname()</I> function cut at the first dot (e.g. use
+&quot;tux001&quot; rather than &quot;tux001.my.com&quot;).
+While not essential, it is recommended that you specify a backup controller.
+See  the <B>RELOCATING CONTROLLERS</B> section if you change this.
+<P>
+<a id="OPT_BatchStartTimeout"></a>
+<DT><B>BatchStartTimeout</B><DD>
+The maximum time (in seconds) that a batch job is permitted for
+launching before being considered missing and releasing the
+allocation. The default value is 10 (seconds). Larger values may be
+required if more time is required to execute the <B>Prolog</B>, load
+user environment variables (for Moab spawned jobs), or if the slurmd
+daemon gets paged from memory.
+<P>
+<a id="OPT_CacheGroups"></a>
+<DT><B>CacheGroups</B><DD>
+If set to 1, the slurmd daemon will cache /etc/groups entries.
+This can improve performance for highly parallel jobs if NIS servers
+are used and unable to respond very quickly.
+The default value is 0 to disable caching group data.
+<P>
+<a id="OPT_CheckpointType"></a>
+<DT><B>CheckpointType</B><DD>
+The system-initiated checkpoint method to be used for user jobs.
+The slurmctld daemon must be restarted for a change in <B>CheckpointType</B>
+to take effect.
+Supported values presently include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_checkpoint/aix"></a>
+<DT><B>checkpoint/aix</B><DD>
+for AIX systems only
+<a id="OPT_checkpoint/blcr"></a>
+<DT><B>checkpoint/blcr</B><DD>
+Berkeley Lab Checkpoint Restart (BLCR).
+NOTE: If a file is found at sbin/scch (relative to the SLURM installation
+location), it will be executed upon completion of the checkpoint. This can
+be a script used for managing the checkpoint files.
+<a id="OPT_checkpoint/none"></a>
+<DT><B>checkpoint/none</B><DD>
+no checkpoint support (default)
+<a id="OPT_checkpoint/ompi"></a>
+<DT><B>checkpoint/ompi</B><DD>
+OpenMPI (version 1.3 or higher)
+</DL>
+</DL>
+
+<P>
+<a id="OPT_ClusterName"></a>
+<DT><B>ClusterName</B><DD>
+The name by which this SLURM managed cluster is known in the
+accounting database.  This is needed distinguish accounting records
+when multiple clusters report to the same database.
+<P>
+<a id="OPT_CompleteWait"></a>
+<DT><B>CompleteWait</B><DD>
+The time, in seconds, given for a job to remain in COMPLETING state
+before any additional jobs are scheduled.
+If set to zero, pending jobs will be started as soon as possible.
+Since a COMPLETING job's resources are released for use by other
+jobs as soon as the <B>Epilog</B> completes on each individual node,
+this can result in very fragmented resource allocations.
+To provide jobs with the minimum response time, a value of zero is
+recommended (no waiting).
+To minimize fragmentation of resources, a value equal to <B>KillWait</B>
+plus two is recommended.
+In that case, setting <B>KillWait</B> to a small value may be beneficial.
+The default value of <B>CompleteWait</B> is zero seconds.
+The value may not exceed 65533.
+<P>
+<a id="OPT_ControlAddr"></a>
+<DT><B>ControlAddr</B><DD>
+Name that <B>ControlMachine</B> should be referred to in
+establishing a communications path. This name will
+be used as an argument to the gethostbyname() function for
+identification. For example, &quot;elx0000&quot; might be used to designate
+the Ethernet address for node &quot;lx0000&quot;.
+By default the <B>ControlAddr</B> will be identical in value to
+<B>ControlMachine</B>.
+<P>
+<a id="OPT_ControlMachine"></a>
+<DT><B>ControlMachine</B><DD>
+The short hostname of the machine where SLURM control functions are
+executed (i.e. the name returned by the command &quot;hostname -s&quot;, use
+&quot;tux001&quot; rather than &quot;tux001.my.com&quot;).
+This value must be specified.
+In order to support some high availability architectures, multiple
+hostnames may be listed with comma separators and one <B>ControlAddr</B>
+must be specified. The high availability system must insure that the
+slurmctld daemon is running on only one of these hosts at a time.
+See the <B>RELOCATING CONTROLLERS</B> section if you change this.
+<P>
+<a id="OPT_CryptoType"></a>
+<DT><B>CryptoType</B><DD>
+The cryptographic signature tool to be used in the creation of
+job step credentials.
+The slurmctld daemon must be restarted for a change in <B>CryptoType</B>
+to take effect.
+Acceptable values at present include &quot;crypto/munge&quot; and &quot;crypto/openssl&quot;.
+The default value is &quot;crypto/munge&quot;.
+<P>
+<a id="OPT_DebugFlags"></a>
+<DT><B>DebugFlags</B><DD>
+Defines specific subsystems which should provide more detailed event logging.
+Multiple subsystems can be specified with comma separators.
+Valid subsystems available today (with more to come) include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_Backfill"></a>
+<DT><B>Backfill</B><DD>
+Backfill scheduler details
+<a id="OPT_BGBlockAlgo"></a>
+<DT><B>BGBlockAlgo</B><DD>
+BlueGene block selection details
+<a id="OPT_BGBlockAlgoDeep"></a>
+<DT><B>BGBlockAlgoDeep</B><DD>
+BlueGene block selection, more details
+<a id="OPT_BGBlockPick"></a>
+<DT><B>BGBlockPick</B><DD>
+BlueGene block selection for jobs
+<a id="OPT_BGBlockWires"></a>
+<DT><B>BGBlockWires</B><DD>
+BlueGene block wiring (switch state details)
+<a id="OPT_CPU_Bind"></a>
+<DT><B>CPU_Bind</B><DD>
+CPU binding details for jobs and steps
+<a id="OPT_FrontEnd"></a>
+<DT><B>FrontEnd</B><DD>
+Front end node details
+<a id="OPT_Gres"></a>
+<DT><B>Gres</B><DD>
+Generic resource details
+<a id="OPT_Gang"></a>
+<DT><B>Gang</B><DD>
+Gang scheduling details
+<a id="OPT_NO_CONF_HASH"></a>
+<DT><B>NO_CONF_HASH</B><DD>
+Do not log when the slurm.conf files differs between SLURM daemons
+<DT><B>Priority<DD>
+Job prioritization
+<DT>Reservation<DD>
+Advanced reservations
+<DT>SelectType</B><DD>
+Resource selection plugin
+<a id="OPT_Steps"></a>
+<DT><B>Steps</B><DD>
+Slurmctld resource allocation for job steps
+<a id="OPT_Triggers"></a>
+<DT><B>Triggers</B><DD>
+Slurmctld triggers
+<a id="OPT_Wiki"></a>
+<DT><B>Wiki</B><DD>
+Sched/wiki and wiki2 communications
+</DL>
+</DL>
+
+<P>
+<a id="OPT_DefMemPerCPU"></a>
+<DT><B>DefMemPerCPU</B><DD>
+Default real memory size available per allocated CPU in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>DefMemPerCPU</B> would generally be used if individual processors
+are allocated to jobs (<B>SelectType=select/cons_res</B>).
+The default value is 0 (unlimited).
+Also see <B>DefMemPerNode</B> and <B>MaxMemPerCPU</B>.
+<B>DefMemPerCPU</B> and <B>DefMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_DefMemPerNode"></a>
+<DT><B>DefMemPerNode</B><DD>
+Default real memory size available per allocated node in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>DefMemPerNode</B> would generally be used if whole nodes
+are allocated to jobs (<B>SelectType=select/linear</B>) and
+resources are shared (<B>Shared=yes</B> or <B>Shared=force</B>).
+The default value is 0 (unlimited).
+Also see <B>DefMemPerCPU</B> and <B>MaxMemPerNode</B>.
+<B>DefMemPerCPU</B> and <B>DefMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_DefaultStorageHost"></a>
+<DT><B>DefaultStorageHost</B><DD>
+The default name of the machine hosting the accounting storage and
+job completion databases.
+Only used for database type storage plugins and when the
+<B>AccountingStorageHost</B> and <B>JobCompHost</B> have not been
+defined.
+<P>
+<a id="OPT_DefaultStorageLoc"></a>
+<DT><B>DefaultStorageLoc</B><DD>
+The fully qualified file name where accounting records and/or job
+completion records are written when the <B>DefaultStorageType</B> is
+&quot;filetxt&quot; or the name of the database where accounting records and/or job
+completion records are stored when the <B>DefaultStorageType</B> is a
+database.
+Also see <B>AccountingStorageLoc</B> and <B>JobCompLoc</B>.
+<P>
+<a id="OPT_DefaultStoragePass"></a>
+<DT><B>DefaultStoragePass</B><DD>
+The password used to gain access to the database to store the
+accounting and job completion data.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>AccountingStoragePass</B> and <B>JobCompPass</B>.
+<P>
+<a id="OPT_DefaultStoragePort"></a>
+<DT><B>DefaultStoragePort</B><DD>
+The listening port of the accounting storage and/or job completion
+database server.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>AccountingStoragePort</B> and <B>JobCompPort</B>.
+<P>
+<a id="OPT_DefaultStorageType"></a>
+<DT><B>DefaultStorageType</B><DD>
+The accounting and job completion storage mechanism type.  Acceptable
+values at present include &quot;filetxt&quot;, &quot;mysql&quot;, &quot;none&quot;, &quot;pgsql&quot;, and
+&quot;slurmdbd&quot;.  The value &quot;filetxt&quot; indicates that records will be
+written to a file.  The value &quot;mysql&quot; indicates that accounting
+records will be written to a mysql database.  The default value is
+&quot;none&quot;, which means that records are not maintained.  The value
+&quot;pgsql&quot; indicates that records will be written to a PostgreSQL
+database.  The value &quot;slurmdbd&quot; indicates that records will be written
+to the SLURM DBD, which maintains its own database. See &quot;man slurmdbd&quot;
+for more information.
+Also see <B>AccountingStorageType</B> and <B>JobCompType</B>.
+<P>
+<a id="OPT_DefaultStorageUser"></a>
+<DT><B>DefaultStorageUser</B><DD>
+The user account for accessing the accounting storage and/or job
+completion database.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>AccountingStorageUser</B> and <B>JobCompUser</B>.
+<P>
+<a id="OPT_DisableRootJobs"></a>
+<DT><B>DisableRootJobs</B><DD>
+If set to &quot;YES&quot; then user root will be prevented from running any jobs.
+The default value is &quot;NO&quot;, meaning user root will be able to execute jobs.
+<B>DisableRootJobs</B> may also be set by partition.
+<P>
+<a id="OPT_EnforcePartLimits"></a>
+<DT><B>EnforcePartLimits</B><DD>
+If set to &quot;YES&quot; then jobs which exceed a partition's size and/or time limits
+will be rejected at submission time. If set to &quot;NO&quot; then the job will be
+accepted and remain queued until the partition limits are altered.
+The default value is &quot;NO&quot;.
+NOTE: If set, then a job's QOS can not be used to exceed partition limits.
+<P>
+<a id="OPT_Epilog"></a>
+<DT><B>Epilog</B><DD>
+Fully qualified pathname of a script to execute as user root on every
+node when a user's job completes (e.g. &quot;/usr/local/slurm/epilog&quot;). This may
+be used to purge files, disable user login, etc.
+By default there is no epilog.
+See <B>Prolog and Epilog Scripts</B> for more information.
+<P>
+<a id="OPT_EpilogMsgTime"></a>
+<DT><B>EpilogMsgTime</B><DD>
+The number of microseconds that the slurmctld daemon requires to process
+an epilog completion message from the slurmd dameons. This parameter can
+be used to prevent a burst of epilog completion messages from being sent
+at the same time which should help prevent lost messages and improve
+throughput for large jobs.
+The default value is 2000 microseconds.
+For a 1000 node job, this spreads the epilog completion messages out over
+two seconds.
+<P>
+<a id="OPT_EpilogSlurmctld"></a>
+<DT><B>EpilogSlurmctld</B><DD>
+Fully qualified pathname of a program for the slurmctld to execute
+upon termination of a job allocation (e.g.
+&quot;/usr/local/slurm/epilog_controller&quot;).
+The program executes as SlurmUser, which gives it permission to drain
+nodes and requeue the job if a failure occurs or cancel the job if appropriate.
+The program can be used to reboot nodes or perform other work to prepare
+resources for use.
+See <B>Prolog and Epilog Scripts</B> for more information.
+<P>
+<a id="OPT_FastSchedule"></a>
+<DT><B>FastSchedule</B><DD>
+Controls how a node's configuration specifications in slurm.conf are used.
+If the number of node configuration entries in the configuration file
+is significantly lower than the number of nodes, setting FastSchedule to
+1 will permit much faster scheduling decisions to be made.
+(The scheduler can just check the values in a few configuration records
+instead of possibly thousands of node records.)
+Note that on systems with hyper-threading, the processor count
+reported by the node will be twice the actual processor count.
+Consider which value you want to be used for scheduling purposes.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_1"></a>
+<DT><B>1</B> (default)<DD>
+Consider the configuration of each node to be that specified in the
+slurm.conf configuration file and any node with less than the
+configured resources will be set DOWN.
+<a id="OPT_0"></a>
+<DT><B>0</B><DD>
+Base scheduling decisions upon the actual configuration of each individual
+node except that the node's processor count in SLURM's configuration must
+match the actual hardware configuration if <B>SchedulerType=sched/gang</B>
+or <B>SelectType=select/cons_res</B> are configured (both of those plugins
+maintain resource allocation information using bitmaps for the cores in the
+system and must remain static, while the node's memory and disk space can
+be established later).
+<a id="OPT_2"></a>
+<DT><B>2</B><DD>
+Consider the configuration of each node to be that specified in the
+slurm.conf configuration file and any node with less than the
+configured resources will <B>not</B> be set DOWN.
+This can be useful for testing purposes.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_FirstJobId"></a>
+<DT><B>FirstJobId</B><DD>
+The job id to be used for the first submitted to SLURM without a
+specific requested value. Job id values generated will incremented by 1
+for each subsequent job. This may be used to provide a meta-scheduler
+with a job id space which is disjoint from the interactive jobs.
+The default value is 1.
+Also see <B>MaxJobId</B>
+<P>
+<a id="OPT_GetEnvTimeout"></a>
+<DT><B>GetEnvTimeout</B><DD>
+Used for Moab scheduled jobs only. Controls how long job should wait
+in seconds for loading the user's environment before attempting to
+load it from a cache file. Applies when the srun or sbatch
+<I>--get-user-env</I> option is used. If set to 0 then always load
+the user's environment from the cache file.
+The default value is 2 seconds.
+<P>
+<a id="OPT_GresTypes"></a>
+<DT><B>GresTypes</B><DD>
+A comma delimited list of generic resources to be managed.
+These generic resources may have an associated plugin available to provide
+additional functionality.
+No generic resources are managed by default.
+Insure this parameter is consistent across all nodes in the cluster for
+proper operation.
+The slurmctld daemon must be restarted for changes to this parameter to become
+effective.
+<P>
+<a id="OPT_GroupUpdateForce"></a>
+<DT><B>GroupUpdateForce</B><DD>
+If set to a non-zero value, then information about which users are members
+of groups allowed to use a partition will be updated periodically, even when
+there have been no changes to the /etc/group file.
+Otherwise group member information will be updated periodically only after the
+/etc/group file is updated
+The default vaue is 0.
+Also see the <B>GroupUpdateTime</B> parameter.
+<P>
+<a id="OPT_GroupUpdateTime"></a>
+<DT><B>GroupUpdateTime</B><DD>
+Controls how frequently information about which users are members of groups
+allowed to use a partition will be updated.
+The time interval is given in seconds with a default value of 600 seconds and
+a maximum value of 4095 seconds.
+A value of zero will prevent periodic updating of group membership information.
+Also see the <B>GroupUpdateForce</B> parameter.
+<P>
+<a id="OPT_HealthCheckInterval"></a>
+<DT><B>HealthCheckInterval</B><DD>
+The interval in seconds between executions of <B>HealthCheckProgram</B>.
+The default value is zero, which disables execution.
+<P>
+<a id="OPT_HealthCheckProgram"></a>
+<DT><B>HealthCheckProgram</B><DD>
+Fully qualified pathname of a script to execute as user root periodically
+on all compute nodes that are not in the NOT_RESPONDING state. This may be
+used to verify the node is fully operational and DRAIN the node or send email
+if a problem is detected.
+Any action to be taken must be explicitly performed by the program
+(e.g. execute
+&quot;scontrol update NodeName=foo State=drain Reason=tmp_file_system_full&quot;
+to drain a node).
+The interval is controlled using the <B>HealthCheckInterval</B> parameter.
+Note that the <B>HealthCheckProgram</B> will be executed at the same time
+on all nodes to minimize its impact upon parallel programs.
+This program is will be killed if it does not terminate normally within
+60 seconds.
+By default, no program will be executed.
+<P>
+<a id="OPT_InactiveLimit"></a>
+<DT><B>InactiveLimit</B><DD>
+The interval, in seconds, after which a non-responsive job allocation
+command (e.g. <B>srun</B> or <B>salloc</B>) will result in the job being
+terminated. If the node on which the command is executed fails or the
+command abnormally terminates, this will terminate its job allocation.
+This option has no effect upon batch jobs.
+When setting a value, take into consideration that a debugger using <B>srun</B>
+to launch an application may leave the <B>srun</B> command in a stopped state
+for extended periods of time.
+This limit is ignored for jobs running in partitions with the
+<B>RootOnly</B> flag set (the scheduler running as root will be
+responsible for the job).
+The default value is unlimited (zero) and may not exceed 65533 seconds.
+<P>
+<a id="OPT_JobAcctGatherType"></a>
+<DT><B>JobAcctGatherType</B><DD>
+The job accounting mechanism type.
+Acceptable values at present include &quot;jobacct_gather/aix&quot; (for AIX operating
+system), &quot;jobacct_gather/linux&quot; (for Linux operating system) and &quot;jobacct_gather/none&quot;
+(no accounting data collected).
+The default value is &quot;jobacct_gather/none&quot;.
+In order to use the <B>sstat</B> tool, &quot;jobacct_gather/aix&quot; or &quot;jobacct_gather/linux&quot;
+must be configured.
+<P>
+<a id="OPT_JobAcctGatherFrequency"></a>
+<DT><B>JobAcctGatherFrequency</B><DD>
+The job accounting sampling interval.
+For jobacct_gather/none this parameter is ignored.
+For  jobacct_gather/aix and jobacct_gather/linux the parameter is a number is
+seconds between sampling job state.
+The default value is 30 seconds.
+A value of zero disables real the periodic job sampling and provides accounting
+information only on job termination (reducing SLURM interference with the job).
+Smaller (non-zero) values have a greater impact upon job performance, but
+a value of 30 seconds is not likely to be noticeable for applications having
+less than 10,000 tasks.
+Users can override this value on a per job basis using the <B>--acctg-freq</B>
+option when submitting the job.
+<P>
+<a id="OPT_JobCheckpointDir"></a>
+<DT><B>JobCheckpointDir</B><DD>
+Specifies the default directory for storing or reading job checkpoint
+information. The data stored here is only a few thousand bytes per job
+and includes information needed to resubmit the job request, not job's
+memory image. The directory must be readable and writable by
+<B>SlurmUser</B>, but not writable by regular users. The job memory images
+may be in a different location as specified by <B>--checkpoint-dir</B>
+option at job submit time or scontrol's <B>ImageDir</B> option.
+<P>
+<a id="OPT_JobCompHost"></a>
+<DT><B>JobCompHost</B><DD>
+The name of the machine hosting the job completion database.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStorageHost</B>.
+<P>
+<a id="OPT_JobCompLoc"></a>
+<DT><B>JobCompLoc</B><DD>
+The fully qualified file name where job completion records are written
+when the <B>JobCompType</B> is &quot;jobcomp/filetxt&quot; or the database where
+job completion records are stored when the <B>JobCompType</B> is a
+database.
+Also see <B>DefaultStorageLoc</B>.
+<P>
+<a id="OPT_JobCompPass"></a>
+<DT><B>JobCompPass</B><DD>
+The password used to gain access to the database to store the job
+completion data.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStoragePass</B>.
+<P>
+<a id="OPT_JobCompPort"></a>
+<DT><B>JobCompPort</B><DD>
+The listening port of the job completion database server.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStoragePort</B>.
+<P>
+<a id="OPT_JobCompType"></a>
+<DT><B>JobCompType</B><DD>
+The job completion logging mechanism type.
+Acceptable values at present include &quot;jobcomp/none&quot;, &quot;jobcomp/filetxt&quot;,
+&quot;jobcomp/mysql&quot;, &quot;jobcomp/pgsql&quot;, and &quot;jobcomp/script&quot;&quot;.
+The default value is &quot;jobcomp/none&quot;, which means that upon job completion
+the record of the job is purged from the system.  If using the accounting
+infrastructure this plugin may not be of interest since the information
+here is redundant.
+The value &quot;jobcomp/filetxt&quot; indicates that a record of the job should be
+written to a text file specified by the <B>JobCompLoc</B> parameter.
+The value &quot;jobcomp/mysql&quot; indicates that a record of the job should be
+written to a mysql database specified by the <B>JobCompLoc</B> parameter.
+The value &quot;jobcomp/pgsql&quot; indicates that a record of the job should be
+written to a PostgreSQL database specified by the <B>JobCompLoc</B> parameter.
+The value &quot;jobcomp/script&quot; indicates that a script specified by the
+<B>JobCompLoc</B> parameter is to be executed with environment variables
+indicating the job information.
+<P>
+<a id="OPT_JobCompUser"></a>
+<DT><B>JobCompUser</B><DD>
+The user account for accessing the job completion database.
+Only used for database type storage plugins, ignored otherwise.
+Also see <B>DefaultStorageUser</B>.
+<P>
+<a id="OPT_JobCredentialPrivateKey"></a>
+<DT><B>JobCredentialPrivateKey</B><DD>
+Fully qualified pathname of a file containing a private key used for
+authentication by SLURM daemons.
+This parameter is ignored if <B>CryptoType=crypto/munge</B>.
+<P>
+<a id="OPT_JobCredentialPublicCertificate"></a>
+<DT><B>JobCredentialPublicCertificate</B><DD>
+Fully qualified pathname of a file containing a public key used for
+authentication by SLURM daemons.
+This parameter is ignored if <B>CryptoType=crypto/munge</B>.
+<P>
+<a id="OPT_JobFileAppend"></a>
+<DT><B>JobFileAppend</B><DD>
+This option controls what to do if a job's output or error file
+exist when the job is started.
+If <B>JobFileAppend</B> is set to a value of 1, then append to
+the existing file.
+By default, any existing file is truncated.
+<P>
+<a id="OPT_JobRequeue"></a>
+<DT><B>JobRequeue</B><DD>
+This option controls what to do by default after a node failure.
+If <B>JobRequeue</B> is set to a value of 1, then any batch job running
+on the failed node will be requeued for execution on different nodes.
+If <B>JobRequeue</B> is set to a value of 0, then any job running
+on the failed node will be terminated.
+Use the <B>sbatch</B> <I>--no-requeue</I> or <I>--requeue</I>
+option to change the default behavior for individual jobs.
+The default value is 1.
+<P>
+<a id="OPT_JobSubmitPlugins"></a>
+<DT><B>JobSubmitPlugins</B><DD>
+A comma delimited list of job submission plugins to be used.
+The specified plugins will be executed in the order listed.
+These are intended to be site-specific plugins which can be used to set
+default job parameters and/or logging events.
+Sample plugins available in the distribution include &quot;cnode&quot;, &quot;defaults&quot;,
+&quot;logging&quot;, &quot;lua&quot;, and &quot;partition&quot;.
+For examples of use, see the SLURM code in &quot;src/plugins/job_submit&quot; and
+&quot;contribs/lua/job_submit*.lua&quot; then modify the code to satisfy your needs.
+No job submission plugins are used by default.
+<P>
+<a id="OPT_KillOnBadExit"></a>
+<DT><B>KillOnBadExit</B><DD>
+If set to 1, the job will be terminated immediately when one of the
+processes is crashed or aborted. With the default value of 0, if one of
+the processes is crashed or aborted the other processes will continue
+to run. The user can override this configuration parameter by using srun's
+<B>-K</B>, <B>--kill-on-bad-exit</B>.
+<P>
+<a id="OPT_KillWait"></a>
+<DT><B>KillWait</B><DD>
+The interval, in seconds, given to a job's processes between the
+SIGTERM and SIGKILL signals upon reaching its time limit.
+If the job fails to terminate gracefully in the interval specified,
+it will be forcibly terminated.
+The default value is 30 seconds.
+The value may not exceed 65533.
+<P>
+<a id="OPT_Licenses"></a>
+<DT><B>Licenses</B><DD>
+Specification of licenses (or other resources available on all
+nodes of the cluster) which can be allocated to jobs.
+License names can optionally be followed by an asterisk
+and count with a default count of one.
+Multiple license names should be comma separated (e.g.
+&quot;Licenses=foo*4,bar&quot;).
+Note that SLURM prevents jobs from being scheduled if their
+required license specification is not available.
+SLURM does not prevent jobs from using licenses that are
+not explicitly listed in the job submission specification.
+<P>
+<a id="OPT_MailProg"></a>
+<DT><B>MailProg</B><DD>
+Fully qualified pathname to the program used to send email per user request.
+The default value is &quot;/bin/mail&quot;.
+<P>
+<a id="OPT_MaxJobCount"></a>
+<DT><B>MaxJobCount</B><DD>
+The maximum number of jobs SLURM can have in its active database
+at one time. Set the values of <B>MaxJobCount</B> and <B>MinJobAge</B>
+to insure the slurmctld daemon does not exhaust its memory or other
+resources. Once this limit is reached, requests to submit additional
+jobs will fail. The default value is 10000 jobs. This value may not
+be reset via &quot;scontrol reconfig&quot;. It only takes effect upon restart
+of the slurmctld daemon.
+<P>
+<a id="OPT_MaxJobId"></a>
+<DT><B>MaxJobId</B><DD>
+The maximum job id to be used for jobs submitted to SLURM without a
+specific requested value. Job id values generated will incremented by 1
+for each subsequent job. This may be used to provide a meta-scheduler
+with a job id space which is disjoint from the interactive jobs.
+Once <B>MaxJobId</B> is reached, the next job will be assigned <B>FirstJobId</B>.
+The default value is 4294901760 (0xffff0000).
+Also see <B>FirstJobId</B>.
+<P>
+<a id="OPT_MaxMemPerCPU"></a>
+<DT><B>MaxMemPerCPU</B><DD>
+Maximum real memory size available per allocated CPU in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>MaxMemPerCPU</B> would generally be used if individual processors
+are allocated to jobs (<B>SelectType=select/cons_res</B>).
+The default value is 0 (unlimited).
+Also see <B>DefMemPerCPU</B> and <B>MaxMemPerNode</B>.
+<B>MaxMemPerCPU</B> and <B>MaxMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_MaxMemPerNode"></a>
+<DT><B>MaxMemPerNode</B><DD>
+Maximum real memory size available per allocated node in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>MaxMemPerNode</B> would generally be used if whole nodes
+are allocated to jobs (<B>SelectType=select/linear</B>) and
+resources are shared (<B>Shared=yes</B> or <B>Shared=force</B>).
+The default value is 0 (unlimited).
+Also see <B>DefMemPerNode</B> and <B>MaxMemPerCPU</B>.
+<B>MaxMemPerCPU</B> and <B>MaxMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_MaxStepCount"></a>
+<DT><B>MaxStepCount</B><DD>
+The maximum number of steps that any job can initiate. This parameter
+is intended to limit the effect of bad batch scripts.
+The default value is 40000 steps.
+<P>
+<a id="OPT_MaxTasksPerNode"></a>
+<DT><B>MaxTasksPerNode</B><DD>
+Maximum number of tasks SLURM will allow a job step to spawn
+on a single node. The default <B>MaxTasksPerNode</B> is 128.
+<P>
+<a id="OPT_MessageTimeout"></a>
+<DT><B>MessageTimeout</B><DD>
+Time permitted for a round-trip communication to complete
+in seconds. Default value is 10 seconds. For systems with
+shared nodes, the slurmd daemon could be paged out and
+necessitate higher values.
+<P>
+<a id="OPT_MinJobAge"></a>
+<DT><B>MinJobAge</B><DD>
+The minimum age of a completed job before its record is purged from
+SLURM's active database. Set the values of <B>MaxJobCount</B> and
+<B>MinJobAge</B> to insure the slurmctld daemon does not exhaust
+its memory or other resources. The default value is 300 seconds.
+A value of zero prevents any job record purging.
+May not exceed 65533.
+<P>
+<a id="OPT_MpiDefault"></a>
+<DT><B>MpiDefault</B><DD>
+Identifies the default type of MPI to be used.
+Srun may override this configuration parameter in any case.
+Currently supported versions include:
+<B>lam</B>,
+<B>mpich1_p4</B>,
+<B>mpich1_shmem</B>,
+<B>mpichgm</B>,
+<B>mpichmx</B>,
+<B>mvapich</B>,
+<B>none</B> (default, which works for many other versions of MPI) and
+<B>openmpi</B>.
+More information about MPI use is available here
+<a href="mpi_guide.html">mpi_guide</a>.
+<P>
+<a id="OPT_MpiParams"></a>
+<DT><B>MpiParams</B><DD>
+MPI parameters.
+Used to identify ports used by OpenMPI only and the input format is
+&quot;ports=12000-12999&quot; to identify a range of communication ports to be used.
+<P>
+<a id="OPT_OverTimeLimit"></a>
+<DT><B>OverTimeLimit</B><DD>
+Number of minutes by which a job can exceed its time limit before
+being canceled.
+The configured job time limit is treated as a <I>soft</I> limit.
+Adding <B>OverTimeLimit</B> to the <I>soft</I> limit provides a <I>hard</I>
+limit, at which point the job is canceled.
+This is particularly useful for backfill scheduling, which bases upon
+each job's soft time limit.
+The default value is zero.
+May not exceed exceed 65533 minutes.
+A value of &quot;UNLIMITED&quot; is also supported.
+<P>
+<a id="OPT_PluginDir"></a>
+<DT><B>PluginDir</B><DD>
+Identifies the places in which to look for SLURM plugins.
+This is a colon-separated list of directories, like the PATH
+environment variable.
+The default value is &quot;/usr/local/lib/slurm&quot;.
+<P>
+<a id="OPT_PlugStackConfig"></a>
+<DT><B>PlugStackConfig</B><DD>
+Location of the config file for SLURM stackable plugins that use
+the Stackable Plugin Architecture for Node job (K)control (SPANK).
+This provides support for a highly configurable set of plugins to
+be called before and/or after execution of each task spawned as
+part of a user's job step.  Default location is &quot;plugstack.conf&quot;
+in the same directory as the system slurm.conf. For more information
+on SPANK plugins, see the <B><A HREF="spank.html">spank</A></B>(8) manual.
+<P>
+<a id="OPT_PreemptMode"></a>
+<DT><B>PreemptMode</B><DD>
+Enables gang scheduling and/or controls the mechanism used to preempt
+jobs.  When the <B>PreemptType</B> parameter is set to enable
+preemption, the <B>PreemptMode</B> selects the mechanism used to
+preempt the lower priority jobs.  The <B>GANG</B> option is used to
+enable gang scheduling independent of whether preemption is enabled
+(the <B>PreemptType</B> setting).  The <B>GANG</B> option can be
+specified in addition to a <B>PreemptMode</B> setting with the two
+options comma separated.  The <B>SUSPEND</B> option requires that gang
+scheduling be enabled (i.e, &quot;PreemptMode=SUSPEND,GANG&quot;).
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_OFF"></a>
+<DT><B>OFF</B><DD>
+is the default value and disables job preemption and gang scheduling.
+This is the only option compatible with <B>SchedulerType=sched/wiki</B>
+or <B>SchedulerType=sched/wiki2</B> (used by Maui and Moab respectively,
+which provide their own job preemption functionality).
+<a id="OPT_CANCEL"></a>
+<DT><B>CANCEL</B><DD>
+always cancel the job.
+<a id="OPT_CHECKPOINT"></a>
+<DT><B>CHECKPOINT</B><DD>
+preempts jobs by checkpointing them (if possible) or canceling them.
+<a id="OPT_GANG"></a>
+<DT><B>GANG</B><DD>
+enables gang scheduling (time slicing) of jobs in the same partition.
+NOTE: Gang scheduling is performed independently for each partition, so
+configuring partitions with overlapping nodes and gang scheduling is generally
+not recommended.
+<a id="OPT_REQUEUE"></a>
+<DT><B>REQUEUE</B><DD>
+preempts jobs by requeuing them (if possible) or canceling them.
+<a id="OPT_SUSPEND"></a>
+<DT><B>SUSPEND</B><DD>
+preempts jobs by suspending them.
+A suspended job will resume execution once the high priority job
+preempting it completes.
+The <B>SUSPEND</B> may only be used with the <B>GANG</B> option
+(the gang scheduler module performs the job resume operation)
+and with <B>PreemptType=preempt/partition_prio</B> (the logic to 
+suspend and resume jobs current only has the data structures to 
+support partitions).
+</DL>
+</DL>
+
+<P>
+<a id="OPT_PreemptType"></a>
+<DT><B>PreemptType</B><DD>
+This specifies the plugin used to identify which jobs can be
+preempted in order to start a pending job.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_preempt/none"></a>
+<DT><B>preempt/none</B><DD>
+Job preemption is disabled.
+This is the default.
+<a id="OPT_preempt/partition_prio"></a>
+<DT><B>preempt/partition_prio</B><DD>
+Job preemption is based upon partition priority.
+Jobs in higher priority partitions (queues) may preempt jobs from lower
+priority partitions.
+<a id="OPT_preempt/qos"></a>
+<DT><B>preempt/qos</B><DD>
+Job preemption rules are specified by Quality Of Service (QOS) specifications
+in the SLURM database a database.
+This is not compatible with <B>PreemptMode=OFF</B> or <B>PreemptMode=SUSPEND</B>
+(i.e. preempted jobs must be removed from the resources).
+</DL>
+</DL>
+
+<P>
+<a id="OPT_PriorityDecayHalfLife"></a>
+<DT><B>PriorityDecayHalfLife</B><DD>
+This controls how long prior resource use is considered in determining
+how over- or under-serviced an association is (user, bank account and
+cluster) in determining job priority.  If set to 0 no decay will be applied.
+This is helpful if you want to enforce hard time limits per association.  If
+set to 0 <B>PriorityUsageResetPeriod</B> must be set to some interval.
+Applicable only if PriorityType=priority/multifactor.
+The unit is a time string (i.e. min, hr:min:00, days-hr:min:00,
+or days-hr).  The default value is 7-0 (7 days).
+<P>
+<a id="OPT_PriorityCalcPeriod"></a>
+<DT><B>PriorityCalcPeriod</B><DD>
+The period of time in minutes in which the half-life decay will be
+re-calculated.
+Applicable only if PriorityType=priority/multifactor.
+The default value is 5 (minutes).
+<P>
+<a id="OPT_PriorityFavorSmall"></a>
+<DT><B>PriorityFavorSmall</B><DD>
+Specifies that small jobs should be given preferential scheduling priority.
+Applicable only if PriorityType=priority/multifactor.
+Supported values are &quot;YES&quot; and &quot;NO&quot;.  The default value is &quot;NO&quot;.
+<P>
+<a id="OPT_PriorityMaxAge"></a>
+<DT><B>PriorityMaxAge</B><DD>
+Specifies the job age which will be given the maximum age factor in computing
+priority. For example, a value of 30 minutes would result in all jobs over
+30 minutes old would get the same age-based priority.
+Applicable only if PriorityType=priority/multifactor.
+The unit is a time string (i.e. min, hr:min:00, days-hr:min:00,
+or days-hr).  The default value is 7-0 (7 days).
+<P>
+<a id="OPT_PriorityUsageResetPeriod"></a>
+<DT><B>PriorityUsageResetPeriod</B><DD>
+At this interval the usage of associations will be reset to 0.  This is used
+if you want to enforce hard limits of time usage per association.  If
+PriorityDecayHalfLife is set to be 0 no decay will happen and this is the
+only way to reset the usage accumulated by running jobs.  By default this is
+turned off and it is advised to use the PriorityDecayHalfLife option to avoid
+not having anything running on your cluster, but if your schema is set up to
+only allow certain amounts of time on your system this is the way to do it.
+Applicable only if PriorityType=priority/multifactor.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_NONE"></a>
+<DT><B>NONE</B><DD>
+Never clear historic usage. The default value.
+<a id="OPT_NOW"></a>
+<DT><B>NOW</B><DD>
+Clear the historic usage now.
+Executed at startup and reconfiguration time.
+<a id="OPT_DAILY"></a>
+<DT><B>DAILY</B><DD>
+Cleared every day at midnight.
+<a id="OPT_WEEKLY"></a>
+<DT><B>WEEKLY</B><DD>
+Cleared every week on Sunday at time 00:00.
+<a id="OPT_MONTHLY"></a>
+<DT><B>MONTHLY</B><DD>
+Cleared on the first day of each month at time 00:00.
+<a id="OPT_QUARTERLY"></a>
+<DT><B>QUARTERLY</B><DD>
+Cleared on the first day of each quarter at time 00:00.
+<a id="OPT_YEARLY"></a>
+<DT><B>YEARLY</B><DD>
+Cleared on the first day of each year at time 00:00.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_PriorityType"></a>
+<DT><B>PriorityType</B><DD>
+This specifies the plugin to be used in establishing a job's scheduling
+priority. Supported values are &quot;priority/basic&quot; (jobs are prioritized
+by order of arrival, also suitable for sched/wiki and sched/wiki2) and
+&quot;priority/multifactor&quot; (jobs are prioritized based upon size, age,
+fair-share of allocation, etc).
+The default value is &quot;priority/basic&quot;.
+<P>
+<a id="OPT_PriorityWeightAge"></a>
+<DT><B>PriorityWeightAge</B><DD>
+An integer value that sets the degree to which the queue wait time
+component contributes to the job's priority.
+Applicable only if PriorityType=priority/multifactor.
+The default value is 0.
+<P>
+<a id="OPT_PriorityWeightFairshare"></a>
+<DT><B>PriorityWeightFairshare</B><DD>
+An integer value that sets the degree to which the fair-share
+component contributes to the job's priority.
+Applicable only if PriorityType=priority/multifactor.
+The default value is 0.
+<P>
+<a id="OPT_PriorityWeightJobSize"></a>
+<DT><B>PriorityWeightJobSize</B><DD>
+An integer value that sets the degree to which the job size
+component contributes to the job's priority.
+Applicable only if PriorityType=priority/multifactor.
+The default value is 0.
+<P>
+<a id="OPT_PriorityWeightPartition"></a>
+<DT><B>PriorityWeightPartition</B><DD>
+An integer value that sets the degree to which the node partition
+component contributes to the job's priority.
+Applicable only if PriorityType=priority/multifactor.
+The default value is 0.
+<P>
+<a id="OPT_PriorityWeightQOS"></a>
+<DT><B>PriorityWeightQOS</B><DD>
+An integer value that sets the degree to which the Quality Of Service
+component contributes to the job's priority.
+Applicable only if PriorityType=priority/multifactor.
+The default value is 0.
+<P>
+<a id="OPT_PrivateData"></a>
+<DT><B>PrivateData</B><DD>
+This controls what type of information is hidden from regular users.
+By default, all information is visible to all users.
+User <B>SlurmUser</B> and <B>root</B> can always view all information.
+Multiple values may be specified with a comma separator.
+Acceptable values include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_accounts"></a>
+<DT><B>accounts</B><DD>
+(NON-SLURMDBD ACCOUNTING ONLY) prevents users from viewing any account
+definitions unless they are coordinators of them.
+<a id="OPT_jobs"></a>
+<DT><B>jobs</B><DD>
+prevents users from viewing jobs or job steps belonging
+to other users. (NON-SLURMDBD ACCOUNTING ONLY) prevents users from viewing
+job records belonging to other users unless they are coordinators of
+the association running the job when using sacct.
+<a id="OPT_nodes"></a>
+<DT><B>nodes</B><DD>
+prevents users from viewing node state information.
+<a id="OPT_partitions"></a>
+<DT><B>partitions</B><DD>
+prevents users from viewing partition state information.
+<a id="OPT_reservations"></a>
+<DT><B>reservations</B><DD>
+prevents regular users from viewing reservations.
+<a id="OPT_usage"></a>
+<DT><B>usage</B><DD>
+(NON-SLURMDBD ACCOUNTING ONLY) prevents users from viewing
+usage of any other user.  This applies to sreport.
+<a id="OPT_users"></a>
+<DT><B>users</B><DD>
+(NON-SLURMDBD ACCOUNTING ONLY) prevents users from viewing
+information of any user other than themselves, this also makes it so users can
+only see associations they deal with.
+Coordinators can see associations of all users they are coordinator of,
+but can only see themselves when listing users.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_ProctrackType"></a>
+<DT><B>ProctrackType</B><DD>
+Identifies the plugin to be used for process tracking.
+The slurmd daemon uses this mechanism to identify all processes
+which are children of processes it spawns for a user job.
+The slurmd daemon must be restarted for a change in ProctrackType
+to take effect.
+NOTE: &quot;proctrack/linuxproc&quot; and &quot;proctrack/pgid&quot; can fail to
+identify all processes associated with a job since processes
+can become a child of the init process (when the parent process
+terminates) or change their process group.
+To reliably track all processes, one of the other mechanisms
+utilizing kernel modifications is preferable.
+NOTE: &quot;proctrack/linuxproc&quot; is not compatible with &quot;switch/elan.&quot;
+Acceptable values at present include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_proctrack/aix"></a>
+<DT><B>proctrack/aix</B><DD>
+which uses an AIX kernel extension and is the default for AIX systems
+<a id="OPT_proctrack/cgroup"></a>
+<DT><B>proctrack/cgroup</B><DD>
+which uses linux cgroups to constrain and track processes.
+NOTE: see &quot;man cgroup.conf&quot; for configuration details
+<a id="OPT_proctrack/linuxproc"></a>
+<DT><B>proctrack/linuxproc</B><DD>
+which uses linux process tree using parent process IDs
+<a id="OPT_proctrack/lua"></a>
+<DT><B>proctrack/lua</B><DD>
+which uses a site-specific LUA script to track processes
+<a id="OPT_proctrack/rms"></a>
+<DT><B>proctrack/rms</B><DD>
+which uses Quadrics kernel patch and is the default if &quot;SwitchType=switch/elan&quot;
+<a id="OPT_proctrack/sgi_job"></a>
+<DT><B>proctrack/sgi_job</B><DD>
+which uses SGI's Process Aggregates (PAGG) kernel module, 
+see <I><A HREF="http://oss.sgi.com/projects/pagg/">http://oss.sgi.com/projects/pagg/</A></I> for more information
+<a id="OPT_proctrack/pgid"></a>
+<DT><B>proctrack/pgid</B><DD>
+which uses process group IDs and is the default for all other systems
+</DL>
+</DL>
+
+<P>
+<a id="OPT_Prolog"></a>
+<DT><B>Prolog</B><DD>
+Fully qualified pathname of a program for the slurmd to execute
+whenever it is asked to run a job step from a new job allocation (e.g.
+&quot;/usr/local/slurm/prolog&quot;).  The slurmd executes the script before starting
+the first job step.  This may be used to purge files, enable user login, etc.
+By default there is no prolog. Any configured script is expected to
+complete execution quickly (in less time than <B>MessageTimeout</B>).
+See <B>Prolog and Epilog Scripts</B> for more information.
+<P>
+<a id="OPT_PrologSlurmctld"></a>
+<DT><B>PrologSlurmctld</B><DD>
+Fully qualified pathname of a program for the slurmctld to execute
+before granting a new job allocation (e.g.
+&quot;/usr/local/slurm/prolog_controller&quot;).
+The program executes as SlurmUser, which gives it permission to drain
+nodes and requeue the job if a failure occurs or cancel the job if appropriate.
+The program can be used to reboot nodes or perform other work to prepare
+resources for use.
+While this program is running, the nodes associated with the job will be
+have a POWER_UP/CONFIGURING flag set in their state, which can be readily
+viewed.
+A non-zero exit code will result in the job being requeued (where possible)
+or killed.
+See <B>Prolog and Epilog Scripts</B> for more information.
+<P>
+<a id="OPT_PropagatePrioProcess"></a>
+<DT><B>PropagatePrioProcess</B><DD>
+Controls the scheduling priority (nice value) of user spawned tasks.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_0"></a>
+<DT><B>0</B><DD>
+The tasks will inherit the scheduling priority from the slurm daemon.
+This is the default value.
+<a id="OPT_1"></a>
+<DT><B>1</B><DD>
+The tasks will inherit the scheduling priority of the command used to
+submit them (e.g. <B>srun</B> or <B>sbatch</B>).
+Unless the job is submitted by user root, the tasks will have a scheduling
+priority no higher than the slurm daemon spawning them.
+<a id="OPT_2"></a>
+<DT><B>2</B><DD>
+The tasks will inherit the scheduling priority of the command used to
+submit them (e.g. <B>srun</B> or <B>sbatch</B>) with the restriction that
+their nice value will always be one higher than the slurm daemon (i.e.
+the tasks scheduling priority will be lower than the slurm daemon).
+</DL>
+</DL>
+
+<P>
+<a id="OPT_PropagateResourceLimits"></a>
+<DT><B>PropagateResourceLimits</B><DD>
+A list of comma separated resource limit names.
+The slurmd daemon uses these names to obtain the associated (soft) limit
+values from the users process environment on the submit node.
+These limits are then propagated and applied to the jobs that
+will run on the compute nodes.
+This parameter can be useful when system limits vary among nodes.
+Any resource limits that do not appear in the list are not propagated.
+However, the user can override this by specifying which resource limits
+to propagate with the srun commands &quot;--propagate&quot; option.
+If neither of the 'propagate resource limit' parameters are specified, then
+the default action is to propagate all limits.
+Only one of the parameters, either
+<B>PropagateResourceLimits</B> or <B>PropagateResourceLimitsExcept</B>,
+may be specified.
+The following limit names are supported by SLURM (although some
+options may not be supported on some systems):
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_ALL"></a>
+<DT><B>ALL</B><DD>
+All limits listed below
+<a id="OPT_NONE"></a>
+<DT><B>NONE</B><DD>
+No limits listed below
+<a id="OPT_AS"></a>
+<DT><B>AS</B><DD>
+The maximum address space for a process
+<a id="OPT_CORE"></a>
+<DT><B>CORE</B><DD>
+The maximum size of core file
+<a id="OPT_CPU"></a>
+<DT><B>CPU</B><DD>
+The maximum amount of CPU time
+<a id="OPT_DATA"></a>
+<DT><B>DATA</B><DD>
+The maximum size of a process's data segment
+<a id="OPT_FSIZE"></a>
+<DT><B>FSIZE</B><DD>
+The maximum size of files created. Note that if the user sets FSIZE to less
+than the current size of the slurmd.log, job launches will fail with 
+a 'File size limit exceeded' error.
+<a id="OPT_MEMLOCK"></a>
+<DT><B>MEMLOCK</B><DD>
+The maximum size that may be locked into memory
+<a id="OPT_NOFILE"></a>
+<DT><B>NOFILE</B><DD>
+The maximum number of open files
+<a id="OPT_NPROC"></a>
+<DT><B>NPROC</B><DD>
+The maximum number of processes available
+<a id="OPT_RSS"></a>
+<DT><B>RSS</B><DD>
+The maximum resident set size
+<a id="OPT_STACK"></a>
+<DT><B>STACK</B><DD>
+The maximum stack size
+</DL>
+</DL>
+
+<P>
+<a id="OPT_PropagateResourceLimitsExcept"></a>
+<DT><B>PropagateResourceLimitsExcept</B><DD>
+A list of comma separated resource limit names.
+By default, all resource limits will be propagated, (as described by
+the <B>PropagateResourceLimits</B> parameter), except for the limits
+appearing in this list.   The user can override this by specifying which
+resource limits to propagate with the srun commands &quot;--propagate&quot; option.
+See <B>PropagateResourceLimits</B> above for a list of valid limit names.
+<P>
+<a id="OPT_ResumeProgram"></a>
+<DT><B>ResumeProgram</B><DD>
+SLURM supports a mechanism to reduce power consumption on nodes that
+remain idle for an extended period of time.
+This is typically accomplished by reducing voltage and frequency or powering
+the node down.
+<B>ResumeProgram</B> is the program that will be executed when a node
+in power save mode is assigned work to perform.
+For reasons of reliability, <B>ResumeProgram</B> may execute more than once
+for a node when the <B>slurmctld</B> daemon crashes and is restarted.
+If <B>ResumeProgram</B> is unable to restore a node to service, it should
+requeue any node associated with the node and set the node state to DRAIN.
+The program executes as <B>SlurmUser</B>.
+The argument to the program will be the names of nodes to
+be removed from power savings mode (using SLURM's hostlist
+expression format).
+By default no program is run.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeRate</B>,
+<B>SuspendRate</B>, <B>SuspendTime</B>, <B>SuspendTimeout</B>, <B>SuspendProgram</B>,
+<B>SuspendExcNodes</B>, and <B>SuspendExcParts</B>.
+More information is available at the SLURM web site
+( <A HREF="http://www.schedmd.com/slurmdocs/power_save.html">http://www.schedmd.com/slurmdocs/power_save.html</A> ).
+<P>
+<a id="OPT_ResumeRate"></a>
+<DT><B>ResumeRate</B><DD>
+The rate at which nodes in power save mode are returned to normal
+operation by <B>ResumeProgram</B>.
+The value is number of nodes per minute and it can be used to prevent
+power surges if a large number of nodes in power save mode are
+assigned work at the same time (e.g. a large job starts).
+A value of zero results in no limits being imposed.
+The default value is 300 nodes per minute.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeProgram</B>,
+<B>SuspendRate</B>, <B>SuspendTime</B>, <B>SuspendTimeout</B>, <B>SuspendProgram</B>,
+<B>SuspendExcNodes</B>, and <B>SuspendExcParts</B>.
+<P>
+<a id="OPT_ResumeTimeout"></a>
+<DT><B>ResumeTimeout</B><DD>
+Maximum time permitted (in second) between when a node is resume request
+is issued and when the node is actually available for use.
+Nodes which fail to respond in this time frame may be marked DOWN and
+the jobs scheduled on the node requeued.
+The default value is 60 seconds.
+Related configuration options include <B>ResumeProgram</B>, <B>ResumeRate</B>,
+<B>SuspendRate</B>, <B>SuspendTime</B>, <B>SuspendTimeout</B>, <B>SuspendProgram</B>,
+<B>SuspendExcNodes</B> and <B>SuspendExcParts</B>.
+More information is available at the SLURM web site
+( <A HREF="http://www.schedmd.com/slurmdocs/power_save.html">http://www.schedmd.com/slurmdocs/power_save.html</A> ).
+<P>
+<a id="OPT_ResvOverRun"></a>
+<DT><B>ResvOverRun</B><DD>
+Describes how long a job already running in a reservation should be
+permitted to execute after the end time of the reservation has been
+reached.
+The time period is specified in minutes and the default value is 0
+(kill the job immediately).
+The value may not exceed 65533 minutes, although a value of &quot;UNLIMITED&quot;
+is supported to permit a job to run indefinitely after its reservation
+is terminated.
+<P>
+<a id="OPT_ReturnToService"></a>
+<DT><B>ReturnToService</B><DD>
+Controls when a DOWN node will be returned to service.
+The default value is 0.
+Supported values include
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_0"></a>
+<DT><B>0</B><DD>
+A node will remain in the DOWN state until a system administrator
+explicitly changes its state (even if the slurmd daemon registers
+and resumes communications).
+<a id="OPT_1"></a>
+<DT><B>1</B><DD>
+A DOWN node will become available for use upon registration with a
+valid configuration only if it was set DOWN due to being non-responsive.
+If the node was set DOWN for any other reason (low memory, prolog failure,
+epilog failure, unexpected reboot, etc.), its state will not automatically
+be changed.
+<a id="OPT_2"></a>
+<DT><B>2</B><DD>
+A DOWN node will become available for use upon registration with a
+valid configuration.  The node could have been set DOWN for any reason.
+(Disabled on Cray systems.)
+</DL>
+</DL>
+
+<P>
+<a id="OPT_SallocDefaultCommand"></a>
+<DT><B>SallocDefaultCommand</B><DD>
+Normally, <B><A HREF="salloc.html">salloc</A></B>(1) will run the user's default shell when
+a command to execute is not specified on the <B>salloc</B> command line.
+If <B>SallocDefaultCommand</B> is specified, <B>salloc</B> will instead
+run the configured command. The command is passed to '/bin/sh -c', so
+shell metacharacters are allowed, and commands with multiple arguments
+should be quoted. For instance:
+<P>
+<PRE>
+    SallocDefaultCommand = &quot;$SHELL&quot;
+</PRE>
+
+<P>
+would run the shell in the user's $SHELL environment variable.
+and
+<P>
+<PRE>
+    SallocDefaultCommand = &quot;xterm -T Job_$SLURM_JOB_ID&quot;
+</PRE>
+
+<P>
+would run <B>xterm</B> with the title set to the SLURM jobid.
+<P>
+<a id="OPT_SchedulerParameters"></a>
+<DT><B>SchedulerParameters</B><DD>
+The interpretation of this parameter varies by <B>SchedulerType</B>.
+Multiple options may be comma separated.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_default_queue_depth=#"></a>
+<DT><B>default_queue_depth=#</B><DD>
+The default number of jobs to attempt scheduling (i.e. the queue depth) when a
+running job completes or other routine actions occur. The full queue will be
+tested on a less frequent basis. The default value is 100.
+In the case of large clusters (more than 1000 nodes), configuring a relatively
+small value may be desirable.
+<a id="OPT_defer"></a>
+<DT><B>defer</B><DD>
+Setting this option will avoid attempting to schedule each job
+individually at job submit time, but defer it until a later time when
+scheduling multiple jobs simultaneously may be possible.
+This option may improve system responsiveness when large numbers of jobs
+(many hundreds) are submitted at the same time, but it will delay the
+initiation time of individual jobs. Also see <B>default_queue_depth</B> above.
+<a id="OPT_bf_interval=#"></a>
+<DT><B>bf_interval=#</B><DD>
+The number of seconds between iterations.
+Higher values result in less overhead and better responsiveness.
+The default value is 30 seconds.
+This option applies only to <B>SchedulerType=sched/backfill</B>.
+<a id="OPT_bf_resolution=#"></a>
+<DT><B>bf_resolution=#</B><DD>
+The number of seconds in the resolution of data maintained about when jobs
+begin and end.
+Higher values result in less overhead and better responsiveness.
+The default value is 60 seconds.
+This option applies only to <B>SchedulerType=sched/backfill</B>.
+<a id="OPT_bf_window=#"></a>
+<DT><B>bf_window=#</B><DD>
+The number of minutes into the future to look when considering jobs to schedule.
+Higher values result in more overhead and less responsiveness.
+The default value is 1440 minutes (one day).
+This option applies only to <B>SchedulerType=sched/backfill</B>.
+<a id="OPT_max_job_bf=#"></a>
+<DT><B>max_job_bf=#</B><DD>
+The maximum number of jobs to attempt backfill scheduling for
+(i.e. the queue depth).
+Higher values result in more overhead and less responsiveness.
+Until an attempt is made to backfill schedule a job, its expected
+initiation time value will not be set.
+The default value is 50.
+In the case of large clusters (more than 1000 nodes) configured with
+<B>SelectType=select/cons_res</B>, configuring a relatively small value may be
+desirable.
+This option applies only to <B>SchedulerType=sched/backfill</B>.
+<a id="OPT_max_switch_wait=#"></a>
+<DT><B>max_switch_wait=#</B><DD>
+Maximum number of seconds that a job can delay execution waiting for the
+specified desired switch count. The default value is 60 seconds.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_SchedulerPort"></a>
+<DT><B>SchedulerPort</B><DD>
+The port number on which slurmctld should listen for connection requests.
+This value is only used by the Maui Scheduler (see <B>SchedulerType</B>).
+The default value is 7321.
+<P>
+<a id="OPT_SchedulerRootFilter"></a>
+<DT><B>SchedulerRootFilter</B><DD>
+Identifies whether or not <B>RootOnly</B> partitions should be filtered from
+any external scheduling activities. If set to 0, then <B>RootOnly</B> partitions
+are treated like any other partition. If set to 1, then <B>RootOnly</B>
+partitions are exempt from any external scheduling activities. The
+default value is 1. Currently only used by the built-in backfill
+scheduling module &quot;sched/backfill&quot; (see <B>SchedulerType</B>).
+<P>
+<a id="OPT_SchedulerTimeSlice"></a>
+<DT><B>SchedulerTimeSlice</B><DD>
+Number of seconds in each time slice when gang scheduling is enabled
+(<B>PreemptMode=GANG</B>).
+The value must be between 5 seconds and 65533 seconds.
+The default value is 30 seconds.
+<P>
+<a id="OPT_SchedulerType"></a>
+<DT><B>SchedulerType</B><DD>
+Identifies the type of scheduler to be used.
+Note the <B>slurmctld</B> daemon must be restarted for a change in
+scheduler type to become effective (reconfiguring a running daemon has
+no effect for this parameter).
+The <B>scontrol</B> command can be used to manually change job priorities
+if desired.
+Acceptable values include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_sched/builtin"></a>
+<DT><B>sched/builtin</B><DD>
+for the built-in FIFO (First In First Out) scheduler.
+This is the default.
+<a id="OPT_sched/backfill"></a>
+<DT><B>sched/backfill</B><DD>
+for a backfill scheduling module to augment the default FIFO scheduling.
+Backfill scheduling will initiate lower-priority jobs if doing
+so does not delay the expected initiation time of any higher
+priority job.
+Effectiveness of backfill scheduling is dependent upon users specifying
+job time limits, otherwise all jobs will have the same time limit and
+backfilling is impossible.
+Note documentation for the <B>SchedulerParameters</B> option above.
+<a id="OPT_sched/gang"></a>
+<DT><B>sched/gang</B><DD>
+Defunct option. See <B>PreemptType</B> and <B>PreemptMode</B> options.
+<a id="OPT_sched/hold"></a>
+<DT><B>sched/hold</B><DD>
+to hold all newly arriving jobs if a file &quot;/etc/slurm.hold&quot;
+exists otherwise use the built-in FIFO scheduler
+<a id="OPT_sched/wiki"></a>
+<DT><B>sched/wiki</B><DD>
+for the Wiki interface to the Maui Scheduler
+<a id="OPT_sched/wiki2"></a>
+<DT><B>sched/wiki2</B><DD>
+for the Wiki interface to the Moab Cluster Suite
+</DL>
+</DL>
+
+<P>
+<a id="OPT_SelectType"></a>
+<DT><B>SelectType</B><DD>
+Identifies the type of resource selection algorithm to be used.
+Changing this value can only be done by restarting the slurmctld daemon
+and will result in the loss of all job information (running and pending) 
+since the job state save format used by each plugin is different. 
+Acceptable values include
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_select/linear"></a>
+<DT><B>select/linear</B><DD>
+for allocation of entire nodes assuming a
+one-dimensional array of nodes in which sequentially ordered
+nodes are preferable.
+This is the default value for non-BlueGene systems.
+<a id="OPT_select/cons_res"></a>
+<DT><B>select/cons_res</B><DD>
+The resources within a node are individually allocated as
+consumable resources.
+Note that whole nodes can be allocated to jobs for selected
+partitions by using the <I>Shared=Exclusive</I> option.
+See the partition <B>Shared</B> parameter for more information.
+<a id="OPT_select/bluegene"></a>
+<DT><B>select/bluegene</B><DD>
+for a three-dimensional BlueGene system.
+The default value is &quot;select/bluegene&quot; for BlueGene systems.
+<a id="OPT_select/cray"></a>
+<DT><B>select/cray</B><DD>
+for a Cray system.
+The default value is &quot;select/cray&quot; for all Cray systems.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_SelectTypeParameters"></a>
+<DT><B>SelectTypeParameters</B><DD>
+The permitted values of <B>SelectTypeParameters</B> depend upon the
+configured value of <B>SelectType</B>.
+<B>SelectType=select/bluegene</B> supports no <B>SelectTypeParameters</B>.
+The only supported option for <B>SelectType=select/linear</B> are
+<B>CR_ONE_TASK_PER_CORE</B> and 
+<B>CR_Memory</B>, which treats memory as a consumable resource and
+prevents memory over subscription with job preemption or gang scheduling.
+The following values are supported for <B>SelectType=select/cons_res</B>:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_CR_CPU"></a>
+<DT><B>CR_CPU</B><DD>
+CPUs are consumable resources.
+There is no notion of sockets, cores or threads;
+do not define those values in the node specification.  If these
+are defined, unexpected results will happen when hyper-threading
+is enabled CPUs= should be used instead.
+On a multi-core system, each core will be considered a CPU.
+On a multi-core and hyper-threaded system, each thread will be
+considered a CPU.
+On single-core systems, each CPUs will be considered a CPU.
+<a id="OPT_CR_CPU_Memory"></a>
+<DT><B>CR_CPU_Memory</B><DD>
+CPUs and memory are consumable resources.
+There is no notion of sockets, cores or threads;
+do not define those values in the node specification.  If these
+are defined, unexpected results will happen when hyper-threading
+is enabled CPUs= should be used instead.
+Setting a value for <B>DefMemPerCPU</B> is strongly recommended.
+<a id="OPT_CR_Core"></a>
+<DT><B>CR_Core</B><DD>
+Cores are consumable resources.
+On nodes with hyper-threads, each thread is counted as a CPU to
+satisfy a job's resource requirement, but multiple jobs are not
+allocated threads on the same core.
+<a id="OPT_CR_Core_Memory"></a>
+<DT><B>CR_Core_Memory</B><DD>
+Cores and memory are consumable resources.
+On nodes with hyper-threads, each thread is counted as a CPU to
+satisfy a job's resource requirement, but multiple jobs are not
+allocated threads on the same core.
+Setting a value for <B>DefMemPerCPU</B> is strongly recommended.
+<a id="OPT_CR_ONE_TASK_PER_CORE"></a>
+<DT><B>CR_ONE_TASK_PER_CORE</B><DD>
+Allocate one task per core by default.
+Without this option, by default one task will be allocated per 
+thread on nodes with more than one <B>ThreadsPerCore</B> configured.
+<a id="OPT_CR_CORE_DEFAULT_DIST_BLOCK"></a>
+<DT><B>CR_CORE_DEFAULT_DIST_BLOCK</B><DD>
+Allocate cores using block distribution by default.
+This default behavior can be overridden specifying a particular 
+&quot;-m&quot; parameter with srun/salloc/sbatch.
+Without this option, cores will be allocated cyclicly across the sockets.
+<a id="OPT_CR_Socket"></a>
+<DT><B>CR_Socket</B><DD>
+Sockets are consumable resources.
+On nodes with multiple cores, each core or thread is counted as a CPU
+to satisfy a job's resource requirement, but multiple jobs are not
+allocated resources on the same socket.
+Note that jobs requesting one CPU will only be allocated
+that one CPU, but no other job will share the socket.
+<a id="OPT_CR_Socket_Memory"></a>
+<DT><B>CR_Socket_Memory</B><DD>
+Memory and sockets are consumable resources.
+On nodes with multiple cores, each core or thread is counted as a CPU
+to satisfy a job's resource requirement, but multiple jobs are not
+allocated resources on the same socket.
+Note that jobs requesting one CPU will only be allocated
+that one CPU, but no other job will share the socket.
+Setting a value for <B>DefMemPerCPU</B> is strongly recommended.
+<a id="OPT_CR_Memory"></a>
+<DT><B>CR_Memory</B><DD>
+Memory is a consumable resource.
+NOTE: This implies <I>Shared=YES</I> or <I>Shared=FORCE</I> for all partitions.
+Setting a value for <B>DefMemPerCPU</B> is strongly recommended.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_SlurmUser"></a>
+<DT><B>SlurmUser</B><DD>
+The name of the user that the <B>slurmctld</B> daemon executes as.
+For security purposes, a user other than &quot;root&quot; is recommended.
+This user must exist on all nodes of the cluster for authentication
+of communications between SLURM components.
+The default value is &quot;root&quot;.
+<P>
+<a id="OPT_SlurmdUser"></a>
+<DT><B>SlurmdUser</B><DD>
+The name of the user that the <B>slurmd</B> daemon executes as.
+This user must exist on all nodes of the cluster for authentication
+of communications between SLURM components.
+The default value is &quot;root&quot;.
+<P>
+<a id="OPT_SlurmctldDebug"></a>
+<DT><B>SlurmctldDebug</B><DD>
+The level of detail to provide <B>slurmctld</B> daemon's logs.
+Values from 0 to 9 are legal, with `0' being &quot;quiet&quot; operation and `9'
+being insanely verbose.
+The default value is 3.
+<P>
+<a id="OPT_SlurmctldLogFile"></a>
+<DT><B>SlurmctldLogFile</B><DD>
+Fully qualified pathname of a file into which the <B>slurmctld</B> daemon's
+logs are written.
+The default value is none (performs logging via syslog).
+<BR>
+
+See the section <B>LOGGING</B> if a pathname is specified.
+<a id="OPT_SlurmctldPidFile"></a>
+<DT><B>SlurmctldPidFile</B><DD>
+Fully qualified pathname of a file into which the  <B>slurmctld</B> daemon
+may write its process id. This may be used for automated signal processing.
+The default value is &quot;/var/run/slurmctld.pid&quot;.
+<P>
+<a id="OPT_SlurmctldPort"></a>
+<DT><B>SlurmctldPort</B><DD>
+The port number that the SLURM controller, <B>slurmctld</B>, listens
+to for work. The default value is SLURMCTLD_PORT as established at system
+build time. If none is explicitly specified, it will be set to 6817.
+<B>SlurmctldPort</B> may also be configured to support a range of port
+numbers in order to accept larger bursts of incoming messages by specifying
+two numbers separated by a dash (e.g. <B>SlurmctldPort=6817-6818</B>).
+NOTE: Either <B>slurmctld</B> and <B>slurmd</B> daemons must not
+execute on the same nodes or the values of <B>SlurmctldPort</B> and
+<B>SlurmdPort</B> must be different.
+<P>
+<a id="OPT_SlurmctldTimeout"></a>
+<DT><B>SlurmctldTimeout</B><DD>
+The interval, in seconds, that the backup controller waits for the
+primary controller to respond before assuming control.
+The default value is 120 seconds.
+May not exceed 65533.
+<P>
+<a id="OPT_SlurmdDebug"></a>
+<DT><B>SlurmdDebug</B><DD>
+The level of detail to provide <B>slurmd</B> daemon's logs.
+Values from 0 to 9 are legal, with `0' being &quot;quiet&quot; operation and `9' being
+insanely verbose.
+The default value is 3.
+<P>
+<a id="OPT_SlurmdLogFile"></a>
+<DT><B>SlurmdLogFile</B><DD>
+Fully qualified pathname of a file into which the  <B>slurmd</B> daemon's
+logs are written.
+The default value is none (performs logging via syslog).
+Any &quot;%h&quot; within the name is replaced with the hostname on which the
+<B>slurmd</B> is running.
+<BR>
+
+See the section <B>LOGGING</B> if a pathname is specified.
+<P>
+<a id="OPT_SlurmdPidFile"></a>
+<DT><B>SlurmdPidFile</B><DD>
+Fully qualified pathname of a file into which the  <B>slurmd</B> daemon may write
+its process id. This may be used for automated signal processing.
+The default value is &quot;/var/run/slurmd.pid&quot;.
+<P>
+<a id="OPT_SlurmdPort"></a>
+<DT><B>SlurmdPort</B><DD>
+The port number that the SLURM compute node daemon, <B>slurmd</B>, listens
+to for work. The default value is SLURMD_PORT as established at system
+build time. If none is explicitly specified, its value will be 6818.
+NOTE: Either slurmctld and slurmd daemons must not execute
+on the same nodes or the values of <B>SlurmctldPort</B> and <B>SlurmdPort</B>
+must be different.
+<P>
+<a id="OPT_SlurmdSpoolDir"></a>
+<DT><B>SlurmdSpoolDir</B><DD>
+Fully qualified pathname of a directory into which the <B>slurmd</B>
+daemon's state information and batch job script information are written. This
+must be a common pathname for all nodes, but should represent a directory which
+is local to each node (reference a local file system). The default value
+is &quot;/var/spool/slurmd.&quot; <B>NOTE</B>: This directory is also used to store
+<B>slurmd</B>'s
+shared memory lockfile, and <B>should not be changed</B> unless the system
+is being cleanly restarted. If the location of <B>SlurmdSpoolDir</B> is
+changed and <B>slurmd</B> is restarted, the new daemon will attach to a
+different shared memory region and lose track of any running jobs.
+<P>
+<a id="OPT_SlurmdTimeout"></a>
+<DT><B>SlurmdTimeout</B><DD>
+The interval, in seconds, that the SLURM controller waits for <B>slurmd</B>
+to respond before configuring that node's state to DOWN.
+A value of zero indicates the node will not be tested by <B>slurmctld</B> to
+confirm the state of <B>slurmd</B>, the node will not be automatically set to
+a DOWN state indicating a non-responsive <B>slurmd</B>, and some other tool
+will take responsibility for monitoring the state of each compute node
+and its <B>slurmd</B> daemon.
+SLURM's hierarchical communication mechanism is used to ping the <B>slurmd</B>
+daemons in order to minimize system noise and overhead.
+The default value is 300 seconds.
+The value may not exceed 65533 seconds.
+<P>
+<a id="OPT_SlurmSchedLogFile"></a>
+<DT><B>SlurmSchedLogFile</B><DD>
+Fully qualified pathname of the scheduling event logging file. 
+The syntax of this parameter is the same as for <B>SlurmctldLogFile</B>. 
+In order to configure scheduler logging, set both the <B>SlurmSchedLogFile</B>
+and <B>SlurmSchedLogLevel</B> parameters.
+<P>
+<a id="OPT_SlurmSchedLogLevel"></a>
+<DT><B>SlurmSchedLogLevel</B><DD>
+The initial level of scheduling event logging, similar to the 
+<B>SlurmctlDebug</B> parameter used to control the initial level of 
+<B>slurmctld</B> logging.  
+Valid values for <B>SlurmSchedLogLevel</B> are &quot;0&quot; (scheduler logging 
+disabled) and &quot;1&quot; (scheduler logging enabled).  
+If this parameter is omitted, the value defaults to &quot;0&quot; (disabled). 
+In order to configure scheduler logging, set both the <B>SlurmSchedLogFile</B>
+and <B>SlurmSchedLogLevel</B> parameters.
+The scheduler logging level can be changed dynamically using <B>scontrol</B>.
+<P>
+<a id="OPT_SrunEpilog"></a>
+<DT><B>SrunEpilog</B><DD>
+Fully qualified pathname of an executable to be run by srun following
+the completion of a job step.  The command line arguments for the
+executable will be the command and arguments of the job step.  This
+configuration parameter may be overridden by srun's <B>--epilog</B>
+parameter. Note that while the other &quot;Epilog&quot; executables (e.g.,
+TaskEpilog) are run by slurmd on the compute nodes where the tasks are
+executed, the <B>SrunEpilog</B> runs on the node where the &quot;srun&quot; is
+executing.
+<P>
+<a id="OPT_SrunProlog"></a>
+<DT><B>SrunProlog</B><DD>
+Fully qualified pathname of an executable to be run by srun prior to
+the launch of a job step.  The command line arguments for the
+executable will be the command and arguments of the job step.  This
+configuration parameter may be overridden by srun's <B>--prolog</B>
+parameter. Note that while the other &quot;Prolog&quot; executables (e.g.,
+TaskProlog) are run by slurmd on the compute nodes where the tasks are
+executed, the <B>SrunProlog</B> runs on the node where the &quot;srun&quot; is
+executing.
+<P>
+<a id="OPT_StateSaveLocation"></a>
+<DT><B>StateSaveLocation</B><DD>
+Fully qualified pathname of a directory into which the SLURM controller,
+<B>slurmctld</B>, saves its state (e.g. &quot;/usr/local/slurm/checkpoint&quot;).
+SLURM state will saved here to recover from system failures.
+<B>SlurmUser</B> must be able to create files in this directory.
+If you have a <B>BackupController</B> configured, this location should be
+readable and writable by both systems.
+Since all running and pending job information is stored here, the use of
+a reliable file system (e.g. RAID) is recommended.
+The default value is &quot;/tmp&quot;.
+If any slurm daemons terminate abnormally, their core files will also be written
+into this directory.
+<P>
+<a id="OPT_SuspendExcNodes"></a>
+<DT><B>SuspendExcNodes</B><DD>
+Specifies the nodes which are to not be placed in power save mode, even
+if the node remains idle for an extended period of time.
+Use SLURM's hostlist expression to identify nodes.
+By default no nodes are excluded.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeProgram</B>,
+<B>ResumeRate</B>, <B>SuspendProgram</B>, <B>SuspendRate</B>, <B>SuspendTime</B>,
+<B>SuspendTimeout</B>, and <B>SuspendExcParts</B>.
+<P>
+<a id="OPT_SuspendExcParts"></a>
+<DT><B>SuspendExcParts</B><DD>
+Specifies the partitions whose nodes are to not be placed in power save
+mode, even if the node remains idle for an extended period of time.
+Multiple partitions can be identified and separated by commas.
+By default no nodes are excluded.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeProgram</B>,
+<B>ResumeRate</B>, <B>SuspendProgram</B>, <B>SuspendRate</B>, <B>SuspendTime</B>
+<B>SuspendTimeout</B>, and <B>SuspendExcNodes</B>.
+<P>
+<a id="OPT_SuspendProgram"></a>
+<DT><B>SuspendProgram</B><DD>
+<B>SuspendProgram</B> is the program that will be executed when a node
+remains idle for an extended period of time.
+This program is expected to place the node into some power save mode.
+This can be used to reduce the frequency and voltage of a node or
+completely power the node off.
+The program executes as <B>SlurmUser</B>.
+The argument to the program will be the names of nodes to
+be placed into power savings mode (using SLURM's hostlist
+expression format).
+By default, no program is run.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeProgram</B>,
+<B>ResumeRate</B>, <B>SuspendRate</B>, <B>SuspendTime</B>, <B>SuspendTimeout</B>,
+<B>SuspendExcNodes</B>, and <B>SuspendExcParts</B>.
+<P>
+<a id="OPT_SuspendRate"></a>
+<DT><B>SuspendRate</B><DD>
+The rate at which nodes are place into power save mode by <B>SuspendProgram</B>.
+The value is number of nodes per minute and it can be used to prevent
+a large drop in power power consumption (e.g. after a large job completes).
+A value of zero results in no limits being imposed.
+The default value is 60 nodes per minute.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeProgram</B>,
+<B>ResumeRate</B>, <B>SuspendProgram</B>, <B>SuspendTime</B>, <B>SuspendTimeout</B>,
+<B>SuspendExcNodes</B>, and <B>SuspendExcParts</B>.
+<P>
+<a id="OPT_SuspendTime"></a>
+<DT><B>SuspendTime</B><DD>
+Nodes which remain idle for this number of seconds will be placed into
+power save mode by <B>SuspendProgram</B>.
+A value of -1 disables power save mode and is the default.
+Related configuration options include <B>ResumeTimeout</B>, <B>ResumeProgram</B>,
+<B>ResumeRate</B>, <B>SuspendProgram</B>, <B>SuspendRate</B>, <B>SuspendTimeout</B>,
+<B>SuspendExcNodes</B>, and <B>SuspendExcParts</B>.
+<P>
+<a id="OPT_SuspendTimeout"></a>
+<DT><B>SuspendTimeout</B><DD>
+Maximum time permitted (in second) between when a node suspend request
+is issued and when the node shutdown.
+At that time the node must ready for a resume request to be issued
+as needed for new work.
+The default value is 30 seconds.
+Related configuration options include <B>ResumeProgram</B>, <B>ResumeRate</B>,
+<B>ResumeTimeout</B>, <B>SuspendRate</B>, <B>SuspendTime</B>, <B>SuspendProgram</B>,
+<B>SuspendExcNodes</B> and <B>SuspendExcParts</B>.
+More information is available at the SLURM web site
+( <A HREF="http://www.schedmd.com/slurmdocs/power_save.html">http://www.schedmd.com/slurmdocs/power_save.html</A> ).
+<P>
+<a id="OPT_SwitchType"></a>
+<DT><B>SwitchType</B><DD>
+Identifies the type of switch or interconnect used for application
+communications.
+Acceptable values include
+&quot;switch/none&quot; for switches not requiring special processing for job launch
+or termination (Myrinet, Ethernet, and InfiniBand),
+&quot;switch/elan&quot; for Quadrics Elan 3 or Elan 4 interconnect.
+The default value is &quot;switch/none&quot;.
+All SLURM daemons, commands and running jobs must be restarted for a
+change in <B>SwitchType</B> to take effect.
+If running jobs exist at the time <B>slurmctld</B> is restarted with a new
+value of <B>SwitchType</B>, records of all jobs in any state may be lost.
+<P>
+<a id="OPT_TaskEpilog"></a>
+<DT><B>TaskEpilog</B><DD>
+Fully qualified pathname of a program to be execute as the slurm job's
+owner after termination of each task.
+See <B>TaskProlog</B> for execution order details.
+<P>
+<a id="OPT_TaskPlugin"></a>
+<DT><B>TaskPlugin</B><DD>
+Identifies the type of task launch plugin, typically used to provide
+resource management within a node (e.g. pinning tasks to specific
+processors). More than one task plugin can be specified in a comma separated
+list. The prefix of &quot;task/&quot; is optional. Acceptable values include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_task/affinity"></a>
+<DT><B>task/affinity</B><DD>
+enables resource containment using CPUSETs.
+This enables the --cpu_bind and/or --mem_bind srun options.
+If you use &quot;task/affinity&quot; and encounter problems, it may be due to
+the variety of system calls used to implement task affinity on
+different operating systems.
+If that is the case, you may want to install Portable Linux
+Process Affinity (PLPA, see <A HREF="http://www.open-mpi.org/software/plpa),">http://www.open-mpi.org/software/plpa),</A>
+which is supported by SLURM.
+<a id="OPT_task/cgroup"></a>
+<DT><B>task/cgroup</B><DD>
+enables resource containment using Linux control cgroups.
+This enables the --cpu_bind and/or --mem_bind srun options.
+NOTE: see &quot;man cgroup.conf&quot; for configuration details.
+<a id="OPT_task/none"></a>
+<DT><B>task/none</B><DD>
+for systems requiring no special handling of user tasks.
+Lacks support for the --cpu_bind and/or --mem_bind srun options.
+The default value is &quot;task/none&quot;.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_TaskPluginParam"></a>
+<DT><B>TaskPluginParam</B><DD>
+Optional parameters for the task plugin.
+Multiple options should be comma separated
+If <B>None</B>, <B>Sockets</B>, <B>Cores</B>, <B>Threads</B>,
+and/or <B>Verbose</B> are specified, they will override
+the <B>--cpu_bind</B> option specified by the user
+in the <B>srun</B> command.
+<B>None</B>, <B>Sockets</B>, <B>Cores</B> and <B>Threads</B> are mutually
+exclusive and since they decrease scheduling flexibility are not generally
+recommended (select no more than one of them).
+<B>Cpusets</B> and <B>Sched</B>
+are mutually exclusive (select only one of them).
+<P>
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_Cores"></a>
+<DT><B>Cores</B><DD>
+Always bind to cores.
+Overrides user options or automatic binding.
+<a id="OPT_Cpusets"></a>
+<DT><B>Cpusets</B><DD>
+Use cpusets to perform task affinity functions.
+By default, <B>Sched</B> task binding is performed.
+<a id="OPT_None"></a>
+<DT><B>None</B><DD>
+Perform no task binding.
+Overrides user options or automatic binding.
+<a id="OPT_Sched"></a>
+<DT><B>Sched</B><DD>
+Use <I>sched_setaffinity</I> or <I>plpa_sched_setaffinity</I>
+(if available) to bind tasks to processors.
+<a id="OPT_Sockets"></a>
+<DT><B>Sockets</B><DD>
+Always bind to sockets.
+Overrides user options or automatic binding.
+<a id="OPT_Threads"></a>
+<DT><B>Threads</B><DD>
+Always bind to threads.
+Overrides user options or automatic binding.
+<a id="OPT_Verbose"></a>
+<DT><B>Verbose</B><DD>
+Verbosely report binding before tasks run.
+Overrides user options.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_TaskProlog"></a>
+<DT><B>TaskProlog</B><DD>
+Fully qualified pathname of a program to be execute as the slurm job's
+owner prior to initiation of each task.
+Besides the normal environment variables, this has SLURM_TASK_PID
+available to identify the process ID of the task being started.
+Standard output from this program can be used to control the environment
+variables and output for the user program.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_export NAME=value"></a>
+<DT><B>export NAME=value</B><DD>
+Will set environment variables for the task being spawned. 
+Everything after the equal sign to the end of the
+line will be used as the value for the environment variable.
+Exporting of functions is not currently supported.
+<a id="OPT_print ..."></a>
+<DT><B>print ...</B><DD>
+Will cause that line (without the leading &quot;print &quot;)
+to be printed to the job's standard output.
+<a id="OPT_unset NAME"></a>
+<DT><B>unset NAME</B><DD>
+Will clear environment variables for the task being spawned. 
+<DT>The order of task prolog/epilog execution is as follows:<DD>
+<a id="OPT_1. pre_launch()"></a>
+<DT><B>1. pre_launch()</B><DD>
+Function in TaskPlugin
+<a id="OPT_2. TaskProlog"></a>
+<DT><B>2. TaskProlog</B><DD>
+System-wide per task program defined in slurm.conf
+<a id="OPT_3. user prolog"></a>
+<DT><B>3. user prolog</B><DD>
+Job step specific task program defined using
+<B>srun</B>'s <B>--task-prolog</B> option or <B>SLURM_TASK_PROLOG</B>
+environment variable
+<a id="OPT_4."></a>
+<DT><B>4.</B> Execute the job step's task<DD>
+<a id="OPT_5. user epilog"></a>
+<DT><B>5. user epilog</B><DD>
+Job step specific task program defined using
+<B>srun</B>'s <B>--task-epilog</B> option or <B>SLURM_TASK_EPILOG</B>
+environment variable
+<a id="OPT_6. TaskEpilog"></a>
+<DT><B>6. TaskEpilog</B><DD>
+System-wide per task program defined in slurm.conf
+<a id="OPT_7. post_term()"></a>
+<DT><B>7. post_term()</B><DD>
+Function in TaskPlugin
+</DL>
+</DL>
+
+<P>
+<a id="OPT_TmpFS"></a>
+<DT><B>TmpFS</B><DD>
+Fully qualified pathname of the file system available to user jobs for
+temporary storage. This parameter is used in establishing a node's <B>TmpDisk</B>
+space.
+The default value is &quot;/tmp&quot;.
+<P>
+<a id="OPT_TopologyPlugin"></a>
+<DT><B>TopologyPlugin</B><DD>
+Identifies the plugin to be used for determining the network topology
+and optimizing job allocations to minimize network contention.
+See <B>NETWORK TOPOLOGY</B> below for details.
+Additional plugins may be provided in the future which gather topology
+information directly from the network.
+Acceptable values include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_topology/3d_torus"></a>
+<DT><B>topology/3d_torus</B><DD>
+default for Sun Constellation
+systems, best-fit logic over three-dimensional topology
+<a id="OPT_topology/node_rank"></a>
+<DT><B>topology/node_rank</B><DD>
+orders nodes based upon information a node_rank field in the node record
+as generated by a select plugin. SLURM performs a best-fit algorithm over
+those ordered nodes
+<a id="OPT_topology/none"></a>
+<DT><B>topology/none</B><DD>
+default for other systems, best-fit logic over one-dimensional topology
+<a id="OPT_topology/tree"></a>
+<DT><B>topology/tree</B><DD>
+used for a hierarchical network as described in a <I>topology.conf</I> file
+</DL>
+</DL>
+
+<P>
+<a id="OPT_TrackWCKey"></a>
+<DT><B>TrackWCKey</B><DD>
+Boolean yes or no.  Used to set display and track of the Workload
+Characterization Key.  Must be set to track wckey usage.
+<P>
+<a id="OPT_TreeWidth"></a>
+<DT><B>TreeWidth</B><DD>
+<B>Slurmd</B> daemons use a virtual tree network for communications.
+<B>TreeWidth</B> specifies the width of the tree (i.e. the fanout).
+On architectures with a front end node running the slurmd daemon, the value
+must always be equal to or greater than the number of front end nodes which
+eliminates the need for message forwarding between the slurmd daemons.
+On other architectures the default value is 50, meaning each slurmd daemon can
+communicate with up to 50 other slurmd daemons and over 2500 nodes can be
+contacted with two message hops.
+The default value will work well for most clusters.
+Optimal system performance can typically be achieved if <B>TreeWidth</B>
+is set to the square root of the number of nodes in the cluster for
+systems having no more than 2500 nodes or the cube root for larger
+systems.
+<P>
+<a id="OPT_UnkillableStepProgram"></a>
+<DT><B>UnkillableStepProgram</B><DD>
+If the processes in a job step are determined to be unkillable for a period
+of time specified by the <B>UnkillableStepTimeout</B> variable, the program
+specified by <B>UnkillableStepProgram</B> will be executed.
+This program can be used to take special actions to clean up the unkillable
+processes and/or notify computer administrators.
+The program will be run <B>SlurmdUser</B> (usually &quot;root&quot;).
+By default no program is run.
+<P>
+<a id="OPT_UnkillableStepTimeout"></a>
+<DT><B>UnkillableStepTimeout</B><DD>
+The length of time, in seconds, that SLURM will wait before deciding that
+processes in a job step are unkillable (after they have been signaled with
+SIGKILL) and execute <B>UnkillableStepProgram</B> as described above.
+The default timeout value is 60 seconds.
+<P>
+<a id="OPT_UsePAM"></a>
+<DT><B>UsePAM</B><DD>
+If set to 1, PAM (Pluggable Authentication Modules for Linux) will be enabled.
+PAM is used to establish the upper bounds for resource limits. With PAM support
+enabled, local system administrators can dynamically configure system resource
+limits. Changing the upper bound of a resource limit will not alter the limits
+of running jobs, only jobs started after a change has been made will pick up
+the new limits.
+The default value is 0 (not to enable PAM support).
+Remember that PAM also needs to be configured to support SLURM as a service.
+For sites using PAM's directory based configuration option, a configuration
+file named <B>slurm</B> should be created. The module-type, control-flags, and
+module-path names that should be included in the file are:
+<BR>
+
+auth        required      pam_localuser.so
+<BR>
+
+auth        required      pam_shells.so
+<BR>
+
+account     required      pam_unix.so
+<BR>
+
+account     required      pam_access.so
+<BR>
+
+session     required      pam_unix.so
+<BR>
+
+For sites configuring PAM with a general configuration file, the appropriate
+lines (see above), where <B>slurm</B> is the service-name, should be added.
+<P>
+<a id="OPT_VSizeFactor"></a>
+<DT><B>VSizeFactor</B><DD>
+Memory specifications in job requests apply to real memory size (also known 
+as resident set size). It is possible to enforce virtual memory limits for 
+both jobs and job steps by limiting their virtual memory to some percentage
+of their real memory allocation. The <B>VSizeFactor</B> parameter specifies 
+the job's or job step's virtual memory limit as a percentage of its real 
+memory limit. For example, if a job's real memory limit is 500MB and 
+VSizeFactor is set to 101 then the job will be killed if its real memory
+exceeds 500MB or its virtual memory exceeds 505MB (101 percent of the 
+real memory limit).
+The default valus is 0, which disables enforcement of virtual memory limits.
+The value may not exceed 65533 percent.
+<P>
+<a id="OPT_WaitTime"></a>
+<DT><B>WaitTime</B><DD>
+Specifies how many seconds the srun command should by default wait after
+the first task terminates before terminating all remaining tasks. The
+&quot;--wait&quot; option on the srun command line overrides this value.
+If set to 0, this feature is disabled.
+May not exceed 65533 seconds.
+<P>
+</DL>
+<P>
+
+The configuration of nodes (or machines) to be managed by SLURM is
+also specified in <B>/etc/slurm.conf</B>.
+Changes in node configuration (e.g. adding nodes, changing their
+processor count, etc.) require restarting the slurmctld daemon.
+Only the NodeName must be supplied in the configuration file.
+All other node configuration information is optional.
+It is advisable to establish baseline node configurations,
+especially if the cluster is heterogeneous.
+Nodes which register to the system with less than the configured resources
+(e.g. too little memory), will be placed in the &quot;DOWN&quot; state to
+avoid scheduling jobs on them.
+Establishing baseline configurations will also speed SLURM's
+scheduling process by permitting it to compare job requirements
+against these (relatively few) configuration parameters and
+possibly avoid having to check job requirements
+against every individual node's configuration.
+The resources checked at node registration time are: CPUs,
+RealMemory and TmpDisk.
+While baseline values for each of these can be established
+in the configuration file, the actual values upon node
+registration are recorded and these actual values may be
+used for scheduling purposes (depending upon the value of
+<B>FastSchedule</B> in the configuration file.
+<P>
+
+Default values can be specified with a record in which
+&quot;NodeName&quot; is &quot;DEFAULT&quot;.
+The default entry values will apply only to lines following it in the
+configuration file and the default values can be reset multiple times
+in the configuration file with multiple entries where &quot;NodeName=DEFAULT&quot;.
+The &quot;NodeName=&quot; specification must be placed on every line
+describing the configuration of nodes.
+In fact, it is generally possible and desirable to define the
+configurations of all nodes in only a few lines.
+This convention permits significant optimization in the scheduling
+of larger clusters.
+In order to support the concept of jobs requiring consecutive nodes
+on some architectures,
+node specifications should be place in this file in consecutive order.
+No single node name may be listed more than once in the configuration
+file.
+Use &quot;DownNodes=&quot; to record the state of nodes which are temporarily
+in a DOWN, DRAIN or FAILING state without altering permanent
+configuration information.
+A job step's tasks are allocated to nodes in order the nodes appear
+in the configuration file. There is presently no capability within
+SLURM to arbitrarily order a job step's tasks.
+<P>
+
+Multiple node names may be comma separated (e.g. &quot;alpha,beta,gamma&quot;)
+and/or a simple node range expression may optionally be used to
+specify numeric ranges of nodes to avoid building a configuration
+file with large numbers of entries.
+The node range expression can contain one  pair of square brackets
+with a sequence of comma separated numbers and/or ranges of numbers
+separated by a &quot;-&quot; (e.g. &quot;linux[0-64,128]&quot;, or &quot;lx[15,18,32-33]&quot;).
+Note that the numeric ranges can include one or more leading
+zeros to indicate the numeric portion has a fixed number of digits
+(e.g. &quot;linux[0000-1023]&quot;).
+Up to two numeric ranges can be included in the expression
+(e.g. &quot;rack[0-63]_blade[0-41]&quot;).
+If one or more numeric expressions are included, one of them
+must be at the end of the name (e.g. &quot;unit[0-31]rack&quot; is invalid),
+but arbitrary names can always be used in a comma separated list.
+<P>
+
+On BlueGene systems only, the square brackets should contain
+pairs of three digit numbers separated by a &quot;x&quot;.
+These numbers indicate the boundaries of a rectangular prism
+(e.g. &quot;bgl[000x144,400x544]&quot;).
+See BlueGene documentation for more details.
+The node configuration specified the following information:
+<P>
+<DL COMPACT>
+<a id="OPT_NodeName"></a>
+<DT><B>NodeName</B><DD>
+Name that SLURM uses to refer to a node (or base partition for
+BlueGene systems).
+Typically this would be the string that &quot;/bin/hostname -s&quot; returns.
+It may also be the fully qualified domain name as returned by &quot;/bin/hostname -f&quot;
+(e.g. &quot;foo1.bar.com&quot;), or any valid domain name associated with the host
+through the host database (/etc/hosts) or DNS, depending on the resolver
+settings.  Note that if the short form of the hostname is not used, it
+may prevent use of hostlist expressions (the numeric portion in brackets
+must be at the end of the string).
+Only short hostname forms are compatible with the
+switch/elan and switch/federation plugins at this time.
+It may also be an arbitrary string if <B>NodeHostname</B> is specified.
+If the <B>NodeName</B> is &quot;DEFAULT&quot;, the values specified
+with that record will apply to subsequent node specifications
+unless explicitly set to other values in that node record or
+replaced with a different set of default values.
+For architectures in which the node order is significant,
+nodes will be considered consecutive in the order defined.
+For example, if the configuration for &quot;NodeName=charlie&quot; immediately
+follows the configuration for &quot;NodeName=baker&quot; they will be
+considered adjacent in the computer.
+<P>
+<a id="OPT_NodeHostname"></a>
+<DT><B>NodeHostname</B><DD>
+Typically this would be the string that &quot;/bin/hostname -s&quot; returns.
+It may also be the fully qualified domain name as returned by &quot;/bin/hostname -f&quot;
+(e.g. &quot;foo1.bar.com&quot;), or any valid domain name associated with the host
+through the host database (/etc/hosts) or DNS, depending on the resolver
+settings.  Note that if the short form of the hostname is not used, it
+may prevent use of hostlist expressions (the numeric portion in brackets
+must be at the end of the string).
+Only short hostname forms are compatible with the
+switch/elan and switch/federation plugins at this time.
+A node range expression can be used to specify a set of nodes.
+If an expression is used, the number of nodes identified by
+<B>NodeHostname</B> on a line in the configuration file must
+be identical to the number of nodes identified by <B>NodeName</B>.
+By default, the <B>NodeHostname</B> will be identical in value to
+<B>NodeName</B>.
+<P>
+<a id="OPT_NodeAddr"></a>
+<DT><B>NodeAddr</B><DD>
+Name that a node should be referred to in establishing
+a communications path.
+This name will be used as an
+argument to the gethostbyname() function for identification.
+If a node range expression is used to designate multiple nodes,
+they must exactly match the entries in the <B>NodeName</B>
+(e.g. &quot;NodeName=lx[0-7] NodeAddr=&quot;elx[0-7]&quot;).
+<B>NodeAddr</B> may also contain IP addresses.
+By default, the <B>NodeAddr</B> will be identical in value to
+<B>NodeName</B>.
+<P>
+<a id="OPT_CoresPerSocket"></a>
+<DT><B>CoresPerSocket</B><DD>
+Number of cores in a single physical processor socket (e.g. &quot;2&quot;).
+The CoresPerSocket value describes physical cores, not the
+logical number of processors per socket.
+<B>NOTE</B>: If you have multi-core processors, you will likely
+need to specify this parameter in order to optimize scheduling.
+The default value is 1.
+<P>
+<a id="OPT_CPUs"></a>
+<DT><B>CPUs</B><DD>
+Number of logical processors on the node (e.g. &quot;2&quot;).
+If <B>CPUs</B> is omitted, it will set equal to the product of
+<B>Sockets</B>, <B>CoresPerSocket</B>, and <B>ThreadsPerCore</B>.
+The default value is 1.
+<P>
+<a id="OPT_Feature"></a>
+<DT><B>Feature</B><DD>
+A comma delimited list of arbitrary strings indicative of some
+characteristic associated with the node.
+There is no value associated with a feature at this time, a node
+either has a feature or it does not.
+If desired a feature may contain a numeric component indicating,
+for example, processor speed.
+By default a node has no features.
+Also see <B>Gres</B>.
+<P>
+<a id="OPT_Gres"></a>
+<DT><B>Gres</B><DD>
+A comma delimited list of generic resources specifications for a node.
+Each resource specification consists of a name followed by an optional
+colon with a numeric value (default value is one)
+(e.g. &quot;Gres=bandwidth:10000,gpu:2&quot;).
+A suffix of &quot;K&quot;, &quot;M&quot; or &quot;G&quot; may be used to mulitply the number by 1024,
+1048576 or 1073741824 respectively (e.g. &quot;Gres=bandwidth:4G,gpu:4&quot;)..
+By default a node has no generic resources.
+Also see <B>Feature</B>.
+<P>
+<a id="OPT_Port"></a>
+<DT><B>Port</B><DD>
+The port number that the SLURM compute node daemon, <B>slurmd</B>, listens
+to for work on this particular node. By default there is a single port number
+for all <B>slurmd</B> daemons on all compute nodes as defined by the 
+<B>SlurmdPort</B> configuration parameter. Use of this option is not generally
+recommended except for development or testing purposes.
+<P>
+<a id="OPT_Procs"></a>
+<DT><B>Procs</B><DD>
+See <B>CPUs</B>.
+<P>
+<a id="OPT_RealMemory"></a>
+<DT><B>RealMemory</B><DD>
+Size of real memory on the node in MegaBytes (e.g. &quot;2048&quot;).
+The default value is 1.
+<P>
+<a id="OPT_Reason"></a>
+<DT><B>Reason</B><DD>
+Identifies the reason for a node being in state &quot;DOWN&quot;, &quot;DRAINED&quot;
+&quot;DRAINING&quot;, &quot;FAIL&quot; or &quot;FAILING&quot;.
+Use quotes to enclose a reason having more than one word.
+<P>
+<a id="OPT_Sockets"></a>
+<DT><B>Sockets</B><DD>
+Number of physical processor sockets/chips on the node (e.g. &quot;2&quot;).
+If Sockets is omitted, it will be inferred from
+<B>CPUs</B>, <B>CoresPerSocket</B>, and <B>ThreadsPerCore</B>.
+<B>NOTE</B>: If you have multi-core processors, you will likely
+need to specify these parameters.
+The default value is 1.
+<P>
+<a id="OPT_State"></a>
+<DT><B>State</B><DD>
+State of the node with respect to the initiation of user jobs.
+Acceptable values are &quot;DOWN&quot;, &quot;DRAIN&quot;, &quot;FAIL&quot;, &quot;FAILING&quot; and &quot;UNKNOWN&quot;.
+&quot;DOWN&quot; indicates the node failed and is unavailable to be allocated work.
+&quot;DRAIN&quot; indicates the node is unavailable to be allocated work.
+&quot;FAIL&quot; indicates the node is expected to fail soon, has
+no jobs allocated to it, and will not be allocated
+to any new jobs.
+&quot;FAILING&quot; indicates the node is expected to fail soon, has
+one or more jobs allocated to it, but will not be allocated
+to any new jobs.
+&quot;UNKNOWN&quot; indicates the node's state is undefined (BUSY or IDLE),
+but will be established when the <B>slurmd</B> daemon on that node
+registers.
+The default value is &quot;UNKNOWN&quot;.
+Also see the <B>DownNodes</B> parameter below.
+<P>
+<a id="OPT_ThreadsPerCore"></a>
+<DT><B>ThreadsPerCore</B><DD>
+Number of logical threads in a single physical core (e.g. &quot;2&quot;).
+Note that the SLURM can allocate resources to jobs down to the
+resolution of a core. If your system is configured with more than
+one thread per core, execution of a different job on each thread
+is not supported unless you configure <B>SelectTypeParameters=CR_CPU</B>
+plus <B>CPUs</B>; do not configure <B>Sockets</B>, <B>CoresPerSocket</B> or
+<B>ThreadsPerCore</B>.
+A job can execute a one task per thread from within one job step or
+execute a distinct job step on each of the threads.
+Note also if you are running with more than 1 thread per core and running
+the select/cons_res plugin you will want to set the SelectTypeParameters
+variable to something other than CR_CPU to avoid unexpected results.
+The default value is 1.
+<P>
+<a id="OPT_TmpDisk"></a>
+<DT><B>TmpDisk</B><DD>
+Total size of temporary disk storage in <B>TmpFS</B> in MegaBytes
+(e.g. &quot;16384&quot;). <B>TmpFS</B> (for &quot;Temporary File System&quot;)
+identifies the location which jobs should use for temporary storage.
+Note this does not indicate the amount of free
+space available to the user on the node, only the total file
+system size. The system administration should insure this file
+system is purged as needed so that user jobs have access to
+most of this space.
+The Prolog and/or Epilog programs (specified in the configuration file)
+might be used to insure the file system is kept clean.
+The default value is 0.
+<P>
+<a id="OPT_Weight"></a>
+<DT><B>Weight</B><DD>
+The priority of the node for scheduling purposes.
+All things being equal, jobs will be allocated the nodes with
+the lowest weight which satisfies their requirements.
+For example, a heterogeneous collection of nodes might
+be placed into a single partition for greater system
+utilization, responsiveness and capability. It would be
+preferable to allocate smaller memory nodes rather than larger
+memory nodes if either will satisfy a job's requirements.
+The units of weight are arbitrary, but larger weights
+should be assigned to nodes with more processors, memory,
+disk space, higher processor speed, etc.
+Note that if a job allocation request can not be satisfied
+using the nodes with the lowest weight, the set of nodes
+with the next lowest weight is added to the set of nodes
+under consideration for use (repeat as needed for higher
+weight values). If you absolutely want to minimize the number
+of higher weight nodes allocated to a job (at a cost of higher
+scheduling overhead), give each node a distinct <B>Weight</B>
+value and they will be added to the pool of nodes being
+considered for scheduling individually.
+The default value is 1.
+<P>
+</DL>
+<P>
+
+The &quot;DownNodes=&quot; configuration permits you to mark certain nodes as in a
+DOWN, DRAIN, FAIL, or FAILING state without altering the permanent
+configuration information listed under a &quot;NodeName=&quot; specification.
+<P>
+<DL COMPACT>
+<a id="OPT_DownNodes"></a>
+<DT><B>DownNodes</B><DD>
+Any node name, or list of node names, from the &quot;NodeName=&quot; specifications.
+<P>
+<a id="OPT_Reason"></a>
+<DT><B>Reason</B><DD>
+Identifies the reason for a node being in state &quot;DOWN&quot;, &quot;DRAIN&quot;,
+&quot;FAIL&quot; or &quot;FAILING.
+Use quotes to enclose a reason having more than one word.
+<P>
+<a id="OPT_State"></a>
+<DT><B>State</B><DD>
+State of the node with respect to the initiation of user jobs.
+Acceptable values are &quot;BUSY&quot;, &quot;DOWN&quot;, &quot;DRAIN&quot;, &quot;FAIL&quot;,
+&quot;FAILING, &quot;IDLE&quot;, and &quot;UNKNOWN&quot;.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_DOWN"></a>
+<DT><B>DOWN</B><DD>
+Indicates the node failed and is unavailable to be allocated work.
+<a id="OPT_DRAIN"></a>
+<DT><B>DRAIN</B><DD>
+Indicates the node is unavailable to be allocated work.on.
+<a id="OPT_FAIL"></a>
+<DT><B>FAIL</B><DD>
+Indicates the node is expected to fail soon, has
+no jobs allocated to it, and will not be allocated
+to any new jobs.
+<a id="OPT_FAILING"></a>
+<DT><B>FAILING</B><DD>
+Indicates the node is expected to fail soon, has
+one or more jobs allocated to it, but will not be allocated
+to any new jobs.
+<a id="OPT_FUTURE"></a>
+<DT><B>FUTURE</B><DD>
+Indicates the node is defined for future use and need not
+exist when the SLURM daemons are started. These nodes can be made available
+for use simply by updating the node state using the scontrol command rather
+than restarting the slurmctld daemon. After these nodes are made available,
+change their State in the slurm.conf file. Until these nodes are made
+available, they will not be seen using any SLURM commands or Is nor will
+any attempt be made to contact them.
+<a id="OPT_UNKNOWN"></a>
+<DT><B>UNKNOWN</B><DD>
+Indicates the node's state is undefined (BUSY or IDLE),
+but will be established when the <B>slurmd</B> daemon on that node
+registers.
+The default value is &quot;UNKNOWN&quot;.
+</DL>
+</DL>
+
+<P>
+</DL>
+<P>
+
+On computers where frontend nodes are used to execute batch scripts
+rather than compute nodes (BlueGene or Cray systems), one may
+configure one or more frontend nodes using the configuration parameters
+defined below. These options are very similar to those used in configuring
+compute nodes. These options may only be used on systems configured and built
+with the appropriate parameters (--have-front-end,
+--enable-bluegene-emulation) or a system determined to have the
+appropriate architecture by the configure script (BlueGene or Cray systems).
+The front end configuration specifies the following information:
+<P>
+<DL COMPACT>
+<a id="OPT_FrontendName"></a>
+<DT><B>FrontendName</B><DD>
+Name that SLURM uses to refer to a frontend node.
+Typically this would be the string that &quot;/bin/hostname -s&quot; returns.
+It may also be the fully qualified domain name as returned by &quot;/bin/hostname -f&quot;
+(e.g. &quot;foo1.bar.com&quot;), or any valid domain name associated with the host
+through the host database (/etc/hosts) or DNS, depending on the resolver
+settings.  Note that if the short form of the hostname is not used, it
+may prevent use of hostlist expressions (the numeric portion in brackets
+must be at the end of the string).
+If the <B>FrontendName</B> is &quot;DEFAULT&quot;, the values specified
+with that record will apply to subsequent node specifications
+unless explicitly set to other values in that frontend node record or
+replaced with a different set of default values.
+Note that since the naming of front end nodes would typically not follow that
+of the compute nodes (e.g. lacking X, Y and Z coordinates found in the compute
+node naming scheme), each front end node name should be listed separately and
+without a hostlist expression (i.e. frontend00,frontend01&quot; rather than
+&quot;frontend[00-01]&quot;).&lt;/p&gt;
+<P>
+<a id="OPT_FrontendAddr"></a>
+<DT><B>FrontendAddr</B><DD>
+Name that a frontend node should be referred to in establishing
+a communications path. This name will be used as an
+argument to the gethostbyname() function for identification.
+As with <B>FrontendName</B>, list the individual node addresses rather than
+using a hostlist expression.
+The number of <B>FrontendAddr</B> records per line must equal the number of
+<B>FrontendName</B> records per line (i.e. you can't map to node names to
+one address).
+<B>FrontendAddr</B> may also contain IP addresses.
+By default, the <B>FrontendAddr</B> will be identical in value to
+<B>FrontendName</B>.
+<P>
+<a id="OPT_Port"></a>
+<DT><B>Port</B><DD>
+The port number that the SLURM compute node daemon, <B>slurmd</B>, listens
+to for work on this particular frontend node. By default there is a single port
+number for all <B>slurmd</B> daemons on all frontend nodes as defined by the
+<B>SlurmdPort</B> configuration parameter. Use of this option is not generally
+recommended except for development or testing purposes.
+<P>
+<a id="OPT_Reason"></a>
+<DT><B>Reason</B><DD>
+Identifies the reason for a frontend node being in state &quot;DOWN&quot;, &quot;DRAINED&quot;
+&quot;DRAINING&quot;, &quot;FAIL&quot; or &quot;FAILING&quot;.
+Use quotes to enclose a reason having more than one word.
+<P>
+<a id="OPT_State"></a>
+<DT><B>State</B><DD>
+State of the frontend node with respect to the initiation of user jobs.
+Acceptable values are &quot;DOWN&quot;, &quot;DRAIN&quot;, &quot;FAIL&quot;, &quot;FAILING&quot; and &quot;UNKNOWN&quot;.
+&quot;DOWN&quot; indicates the frontend node has failed and is unavailable to be
+allocated work.
+&quot;DRAIN&quot; indicates the frontend node is unavailable to be allocated work.
+&quot;FAIL&quot; indicates the frontend node is expected to fail soon, has
+no jobs allocated to it, and will not be allocated to any new jobs.
+&quot;FAILING&quot; indicates the frontend node is expected to fail soon, has
+one or more jobs allocated to it, but will not be allocated to any new jobs.
+&quot;UNKNOWN&quot; indicates the frontend node's state is undefined (BUSY or IDLE),
+but will be established when the <B>slurmd</B> daemon on that node registers.
+The default value is &quot;UNKNOWN&quot;.
+Also see the <B>DownNodes</B> parameter below.
+<P>
+</DL>
+<P>
+
+The partition configuration permits you to establish different job
+limits or access controls for various groups (or partitions) of nodes.
+Nodes may be in more than one partition, making partitions serve
+as general purpose queues.
+For example one may put the same set of nodes into two different
+partitions, each with different constraints (time limit, job sizes,
+groups allowed to use the partition, etc.).
+Jobs are allocated resources within a single partition.
+Default values can be specified with a record in which
+&quot;PartitionName&quot; is &quot;DEFAULT&quot;.
+The default entry values will apply only to lines following it in the
+configuration file and the default values can be reset multiple times
+in the configuration file with multiple entries where &quot;PartitionName=DEFAULT&quot;.
+The &quot;PartitionName=&quot; specification must be placed on every line
+describing the configuration of partitions.
+If a partition that is in use is deleted from the configuration and slurm
+is restarted or reconfigured (scontrol reconfigure), jobs using the partition
+are canceled.
+<B>NOTE:</B> Put all parameters for each partition on a single line.
+Each line of partition configuration information should
+represent a different partition.
+The partition configuration file contains the following information:
+<P>
+<DL COMPACT>
+<a id="OPT_AllocNodes"></a>
+<DT><B>AllocNodes</B><DD>
+Comma separated list of nodes from which users can execute jobs in the
+partition.
+Node names may be specified using the node range expression syntax
+described above.
+The default value is &quot;ALL&quot;.
+<P>
+<a id="OPT_AllowGroups"></a>
+<DT><B>AllowGroups</B><DD>
+Comma separated list of group names which may execute jobs in the partition.
+If at least one group associated with the user attempting to execute the
+job is in AllowGroups, he will be permitted to use this partition.
+Jobs executed as user root can use any partition without regard to
+the value of AllowGroups.
+If user root attempts to execute a job as another user (e.g. using
+srun's --uid option), this other user must be in one of groups
+identified by AllowGroups for the job to successfully execute.
+The default value is &quot;ALL&quot;.
+<B>NOTE:</B> For performance reasons, SLURM maintains a list of user IDs
+allowed to use each partition and this is checked at job submission time.
+This list of user IDs is updated when the <B>slurmctld</B> daemon is restarted,
+reconfigured (e.g. &quot;scontrol reconfig&quot;) or the partition's <B>AllowGroups</B>
+value is reset, even if is value is unchanged
+(e.g. &quot;scontrol update PartitionName=name AllowGroups=group&quot;).
+For a user's access to a partition to change, both his group membership must
+change and SLURM's internal user ID list must change using one of the methods
+described above.
+<P>
+<a id="OPT_Alternate"></a>
+<DT><B>Alternate</B><DD>
+Partition name of alternate partition to be used if the state of this partition
+is &quot;DRAIN&quot; or &quot;INACTIVE.&quot;
+<P>
+<a id="OPT_Default"></a>
+<DT><B>Default</B><DD>
+If this keyword is set, jobs submitted without a partition
+specification will utilize this partition.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+The default value is &quot;NO&quot;.
+<P>
+<a id="OPT_DefMemPerCPU"></a>
+<DT><B>DefMemPerCPU</B><DD>
+Default real memory size available per allocated CPU in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>DefMemPerCPU</B> would generally be used if individual processors
+are allocated to jobs (<B>SelectType=select/cons_res</B>).
+If not set, the <B>DefMemPerCPU</B> value for the entire cluster will be used.
+Also see <B>DefMemPerNode</B> and <B>MaxMemPerCPU</B>.
+<B>DefMemPerCPU</B> and <B>DefMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_DefMemPerNode"></a>
+<DT><B>DefMemPerNode</B><DD>
+Default real memory size available per allocated node in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>DefMemPerNode</B> would generally be used if whole nodes
+are allocated to jobs (<B>SelectType=select/linear</B>) and
+resources are shared (<B>Shared=yes</B> or <B>Shared=force</B>).
+If not set, the <B>DefMemPerNode</B> value for the entire cluster will be used.
+Also see <B>DefMemPerCPU</B> and <B>MaxMemPerNode</B>.
+<B>DefMemPerCPU</B> and <B>DefMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_DefaultTime"></a>
+<DT><B>DefaultTime</B><DD>
+Run time limit used for jobs that don't specify a value. If not set
+then MaxTime will be used.
+Format is the same as for MaxTime.
+<P>
+<a id="OPT_DisableRootJobs"></a>
+<DT><B>DisableRootJobs</B><DD>
+If set to &quot;YES&quot; then user root will be prevented from running any jobs
+on this partition.
+The default value will be the value of <B>DisableRootJobs</B> set
+outside of a partition specification (which is &quot;NO&quot;, allowing user
+root to execute jobs).
+<P>
+<DT><I>GraceTime</I><DD>
+Specifies, in units of seconds, the preemption grace time
+to be extended to a job which has been selected for preemption.
+The default value is zero, no preemption grace time is allowed on
+this partition.
+(Meaningful only for PreemptMode=CANCEL)
+<P>
+<a id="OPT_Hidden"></a>
+<DT><B>Hidden</B><DD>
+Specifies if the partition and its jobs are to be hidden by default.
+Hidden partitions will by default not be reported by the SLURM APIs or commands.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+The default value is &quot;NO&quot;.
+Note that partitions that a user lacks access to by virtue of the
+<B>AllowGroups</B> parameter will also be hidden by default.
+<P>
+<a id="OPT_MaxMemPerCPU"></a>
+<DT><B>MaxMemPerCPU</B><DD>
+Maximum real memory size available per allocated CPU in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>MaxMemPerCPU</B> would generally be used if individual processors
+are allocated to jobs (<B>SelectType=select/cons_res</B>).
+If not set, the <B>MaxMemPerCPU</B> value for the entire cluster will be used.
+Also see <B>DefMemPerCPU</B> and <B>MaxMemPerNode</B>.
+<B>MaxMemPerCPU</B> and <B>MaxMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_MaxMemPerNode"></a>
+<DT><B>MaxMemPerNode</B><DD>
+Maximum real memory size available per allocated node in MegaBytes.
+Used to avoid over-subscribing memory and causing paging.
+<B>MaxMemPerNode</B> would generally be used if whole nodes
+are allocated to jobs (<B>SelectType=select/linear</B>) and
+resources are shared (<B>Shared=yes</B> or <B>Shared=force</B>).
+If not set, the <B>MaxMemPerNode</B> value for the entire cluster will be used.
+Also see <B>DefMemPerNode</B> and <B>MaxMemPerCPU</B>.
+<B>MaxMemPerCPU</B> and <B>MaxMemPerNode</B> are mutually exclusive.
+NOTE: Enforcement of memory limits currently requires enabling of
+accounting, which samples memory use on a periodic basis (data need
+not be stored, just collected).
+<P>
+<a id="OPT_MaxNodes"></a>
+<DT><B>MaxNodes</B><DD>
+Maximum count of nodes which may be allocated to any single job.
+For BlueGene systems this will be a  c-nodes count and will be converted
+to a midplane count with a reduction in resolution.
+The default value is &quot;UNLIMITED&quot;, which is represented internally as -1.
+This limit does not apply to jobs executed by SlurmUser or user root.
+<P>
+<a id="OPT_MaxTime"></a>
+<DT><B>MaxTime</B><DD>
+Maximum run time limit for jobs.
+Format is minutes, minutes:seconds, hours:minutes:seconds,
+days-hours, days-hours:minutes, days-hours:minutes:seconds or
+&quot;UNLIMITED&quot;.
+Time resolution is one minute and second values are rounded up to
+the next minute.
+This limit does not apply to jobs executed by SlurmUser or user root.
+<P>
+<a id="OPT_MinNodes"></a>
+<DT><B>MinNodes</B><DD>
+Minimum count of nodes which may be allocated to any single job.
+For BlueGene systems this will be a  c-nodes count and will be converted
+to a midplane count with a reduction in resolution.
+The default value is 1.
+This limit does not apply to jobs executed by SlurmUser or user root.
+<P>
+<a id="OPT_Nodes"></a>
+<DT><B>Nodes</B><DD>
+Comma separated list of nodes (or base partitions for BlueGene systems)
+which are associated with this partition.
+Node names may be specified using the node range expression syntax
+described above. A blank list of nodes
+(i.e. &quot;Nodes= &quot;) can be used if one wants a partition to exist,
+but have no resources (possibly on a temporary basis).
+<P>
+<a id="OPT_PartitionName"></a>
+<DT><B>PartitionName</B><DD>
+Name by which the partition may be referenced (e.g. &quot;Interactive&quot;).
+This name can be specified by users when submitting jobs.
+If the <B>PartitionName</B> is &quot;DEFAULT&quot;, the values specified
+with that record will apply to subsequent partition specifications
+unless explicitly set to other values in that partition record or
+replaced with a different set of default values.
+<P>
+<a id="OPT_PreemptMode"></a>
+<DT><B>PreemptMode</B><DD>
+Mechanism used to preempt jobs from this partition when
+<B>PreemptType=preempt/partition_prio</B> is configured.
+This partition specific <B>PreemptMode</B> configuration parameter will override
+the <B>PreemptMode</B> configuration parameter set for the cluster as a whole.
+The cluster-level <B>PreemptMode</B> must include the GANG option if
+<B>PreemptMode</B> is configured to SUSPEND for any partition.
+The cluster-level <B>PreemptMode</B> must not be OFF if <B>PreemptMode</B>
+is enabled for any  partition.
+See the description of the cluster-level <B>PreemptMode</B> configuration
+parameter above for further information.
+<P>
+<a id="OPT_Priority"></a>
+<DT><B>Priority</B><DD>
+Jobs submitted to a higher priority partition will be dispatched
+before pending jobs in lower priority partitions and if possible
+they will preempt running jobs from lower priority partitions.
+Note that a partition's priority takes precedence over a job's
+priority.
+The value may not exceed 65533.
+<P>
+<P>
+<a id="OPT_RootOnly"></a>
+<DT><B>RootOnly</B><DD>
+Specifies if only user ID zero (i.e. user <I>root</I>) may allocate resources
+in this partition. User root may allocate resources for any other user,
+but the request must be initiated by user root.
+This option can be useful for a partition to be managed by some
+external entity (e.g. a higher-level job manager) and prevents
+users from directly using those resources.
+Possible values are &quot;YES&quot; and &quot;NO&quot;.
+The default value is &quot;NO&quot;.
+<P>
+<a id="OPT_Shared"></a>
+<DT><B>Shared</B><DD>
+Controls the ability of the partition to execute more than one job at a
+time on each resource (node, socket or core depending upon the value
+of <B>SelectTypeParameters</B>).
+If resources are to be shared, avoiding memory over-subscription
+is very important.
+<B>SelectTypeParameters</B> should be configured to treat
+memory as a consumable resource and the <B>--mem</B> option
+should be used for job allocations.
+Sharing of resources is typically useful only when using gang scheduling
+(<B>PreemptMode=suspend</B> or <B>PreemptMode=kill</B>).
+Possible values for <B>Shared</B> are &quot;EXCLUSIVE&quot;, &quot;FORCE&quot;, &quot;YES&quot;, and &quot;NO&quot;.
+The default value is &quot;NO&quot;.
+For more information see the following web pages:
+<BR>
+
+
+<I><a href="cons_res.html">cons_res</a></I>,
+<BR>
+
+<I><a href="cons_res_share.html">cons_res_share</a></I>,
+<BR>
+
+<I><a href="gang_scheduling.html">gang_scheduling</a></I>, and
+<BR>
+
+<I><a href="preempt.html">preempt</a></I>.
+
+<P>
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_EXCLUSIVE"></a>
+<DT><B>EXCLUSIVE</B><DD>
+Allocates entire nodes to jobs even with select/cons_res configured.
+Jobs that run in partitions with &quot;Shared=EXCLUSIVE&quot; will have
+exclusive access to all allocated nodes.
+<a id="OPT_FORCE"></a>
+<DT><B>FORCE</B><DD>
+Makes all resources in the partition available for sharing
+without any means for users to disable it.
+May be followed with a colon and maximum number of jobs in
+running or suspended state.
+For example &quot;Shared=FORCE:4&quot; enables each node, socket or
+core to execute up to four jobs at once.
+Recommended only for BlueGene systems configured with
+small blocks or for systems running
+with gang scheduling (<B>SchedulerType=sched/gang</B>).
+<a id="OPT_YES"></a>
+<DT><B>YES</B><DD>
+Makes all resources in the partition available for sharing,
+but honors a user's request for dedicated resources.
+If <B>SelectType=select/cons_res</B>, then resources will be
+over-subscribed unless explicitly disabled in the job submit
+request using the &quot;--exclusive&quot; option.
+With <B>SelectType=select/bluegene</B> or <B>SelectType=select/linear</B>,
+resources will only be over-subscribed when explicitly requested
+by the user using the &quot;--share&quot; option on job submission.
+May be followed with a colon and maximum number of jobs in
+running or suspended state.
+For example &quot;Shared=YES:4&quot; enables each node, socket or
+core to execute up to four jobs at once.
+Recommended only for systems running with gang scheduling
+(<B>SchedulerType=sched/gang</B>).
+<a id="OPT_NO"></a>
+<DT><B>NO</B><DD>
+Selected resources are allocated to a single job. No resource will be
+allocated to more than one job.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_State"></a>
+<DT><B>State</B><DD>
+State of partition or availability for use.  Possible values
+are &quot;UP&quot;, &quot;DOWN&quot;, &quot;DRAIN&quot; and &quot;INACTIVE&quot;. The default value is &quot;UP&quot;.
+See also the related &quot;Alternate&quot; keyword.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_UP"></a>
+<DT><B>UP</B><DD>
+Designates that new jobs may queued on the partition, and that
+jobs may be allocated nodes and run from the partition.
+<a id="OPT_DOWN"></a>
+<DT><B>DOWN</B><DD>
+Designates that new jobs may be queued on the partition, but
+queued jobs may not be allocated nodes and run from the partition. Jobs
+already running on the partition continue to run. The jobs
+must be explicitly canceled to force their termination.
+<a id="OPT_DRAIN"></a>
+<DT><B>DRAIN</B><DD>
+Designates that no new jobs may be queued on the partition (job
+submission requests will be denied with an error message), but jobs
+already queued on the partition may be allocated nodes and run.
+See also the &quot;Alternate&quot; partition specification.
+<a id="OPT_INACTIVE"></a>
+<DT><B>INACTIVE</B><DD>
+Designates that no new jobs may be queued on the partition,
+and jobs already queued may not be allocated nodes and run.
+See also the &quot;Alternate&quot; partition specification.
+</DL>
+</DL>
+
+<P>
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_Prolog and Epilog Scripts"></a>
+<H2>Prolog and Epilog Scripts</H2>
+
+There are a variety of prolog and epilog program options that
+execute with various permissions and at various times.
+The four options most likely to be used are:
+<B>Prolog</B> and <B>Epilog</B> (executed once on each compute node
+for each job) plus <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B>
+(executed once on the <B>ControlMachine</B> for each job).
+<P>
+NOTE:  Standard output and error messages are normally not preserved.
+Explicitly write output and error messages to an appropriate location
+if you wish to preserve that information.
+<P>
+NOTE:  The Prolog script is ONLY run on any individual
+node when it first sees a job step from a new allocation; it does not
+run the Prolog immediately when an allocation is granted.  If no job steps
+from an allocation are run on a node, it will never run the Prolog for that
+allocation.  The Epilog, on the other hand, always runs on every node of an
+allocation when the allocation is released.
+<P>
+Information about the job is passed to the script using environment
+variables.
+Unless otherwise specified, these environment variables are available
+to all of the programs.
+<DL COMPACT>
+<a id="OPT_BASIL_RESERVATION_ID"></a>
+<DT><B>BASIL_RESERVATION_ID</B><DD>
+Basil reservation ID.
+Available on Cray XT/XE systems only.
+<a id="OPT_MPIRUN_PARTITION"></a>
+<DT><B>MPIRUN_PARTITION</B><DD>
+BlueGene partition name.
+Available on BlueGene systems only.
+<a id="OPT_SLURM_JOB_ACCOUNT"></a>
+<DT><B>SLURM_JOB_ACCOUNT</B><DD>
+Account name used for the job.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_CONSTRAINTS"></a>
+<DT><B>SLURM_JOB_CONSTRAINTS</B><DD>
+Features required to run the job.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_DERIVED_EC"></a>
+<DT><B>SLURM_JOB_DERIVED_EC</B><DD>
+The highest exit code of all of the job steps.
+Available in <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_EXIT_CODE"></a>
+<DT><B>SLURM_JOB_EXIT_CODE</B><DD>
+The exit code of the job script (or salloc).
+Available in <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_GID"></a>
+<DT><B>SLURM_JOB_GID</B><DD>
+Group ID of the job's owner.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_GROUP"></a>
+<DT><B>SLURM_JOB_GROUP</B><DD>
+Group name of the job's owner.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_ID"></a>
+<DT><B>SLURM_JOB_ID</B><DD>
+Job ID.
+<a id="OPT_SLURM_JOB_NAME"></a>
+<DT><B>SLURM_JOB_NAME</B><DD>
+Name of the job.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_NODELIST"></a>
+<DT><B>SLURM_JOB_NODELIST</B><DD>
+Nodes assigned to job. A SLURM hostlist expression.
+&quot;scontrol show hostnames&quot; can be used to convert this to a
+list of individual host names.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_PARTITION"></a>
+<DT><B>SLURM_JOB_PARTITION</B><DD>
+Partition that job runs in.
+Available in <B>PrologSlurmctld</B> and <B>EpilogSlurmctld</B> only.
+<a id="OPT_SLURM_JOB_UID"></a>
+<DT><B>SLURM_JOB_UID</B><DD>
+User ID of the job's owner.
+<a id="OPT_SLURM_JOB_USER"></a>
+<DT><B>SLURM_JOB_USER</B><DD>
+User name of the job's owner.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_NETWORK TOPOLOGY"></a>
+<H2>NETWORK TOPOLOGY</H2>
+
+SLURM is able to optimize job allocations to minimize network contention.
+Special SLURM logic is used to optimize allocations on systems with a
+three-dimensional interconnect (BlueGene, Sun Constellation, etc.)
+and information about configuring those systems are available on
+web pages available here: &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+For a hierarchical network, SLURM needs to have detailed information
+about how nodes are configured on the network switches.
+<P>
+
+Given network topology information, SLURM allocates all of a job's
+resources onto a single leaf of the network (if possible) using a best-fit
+algorithm.
+Otherwise it will allocate a job's resources onto multiple leaf switches
+so as to minimize the use of higher-level switches.
+The <B>TopologyPlugin</B> parameter controls which plugin is used to
+collect network topology information.
+The only values presently supported are
+&quot;topology/3d_torus&quot; (default for IBM BlueGene, Sun Constellation and
+Cray XT/XE systems, performs best-fit logic over three-dimensional topology),
+&quot;topology/none&quot; (default for other systems,
+best-fit logic over one-dimensional topology),
+&quot;topology/tree&quot; (determine the network topology based
+upon information contained in a topology.conf file,
+see &quot;man topology.conf&quot; for more information).
+Future plugins may gather topology information directly from the network.
+The topology information is optional.
+If not provided, SLURM will perform a best-fit algorithm assuming the
+nodes are in a one-dimensional array as configured and the communications
+cost is related to the node distance in this array.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_RELOCATING CONTROLLERS"></a>
+<H2>RELOCATING CONTROLLERS</H2>
+
+If the cluster's computers used for the primary or backup controller
+will be out of service for an extended period of time, it may be
+desirable to relocate them.
+In order to do so, follow this procedure:
+<P>
+
+1. Stop the SLURM daemons
+<BR>
+
+2. Modify the slurm.conf file appropriately
+<BR>
+
+3. Distribute the updated slurm.conf file to all nodes
+<BR>
+
+4. Restart the SLURM daemons
+<P>
+
+There should be no loss of any running or pending jobs.
+Insure that any nodes added to the cluster have the current
+slurm.conf file installed.
+<P>
+
+<B>CAUTION:</B> If two nodes are simultaneously configured as the
+primary controller (two nodes on which <B>ControlMachine</B> specify
+the local host and the <B>slurmctld</B> daemon is executing on each),
+system behavior will be destructive.
+If a compute node has an incorrect <B>ControlMachine</B> or
+<B>BackupController</B> parameter, that node may be rendered
+unusable, but no other harm will result.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_EXAMPLE"></a>
+<H2>EXAMPLE</H2>
+
+<P>
+
+#
+<BR>
+
+# Sample /etc/slurm.conf for dev[0-25].llnl.gov
+<BR>
+
+# Author: John Doe
+<BR>
+
+# Date: 11/06/2001
+<BR>
+
+#
+<BR>
+
+ControlMachine=dev0
+<BR>
+
+ControlAddr=edev0
+<BR>
+
+BackupController=dev1
+<BR>
+
+BackupAddr=edev1
+<BR>
+
+#
+<BR>
+
+AuthType=auth/munge
+<BR>
+
+Epilog=/usr/local/slurm/epilog
+<BR>
+
+Prolog=/usr/local/slurm/prolog
+<BR>
+
+FastSchedule=1
+<BR>
+
+FirstJobId=65536
+<BR>
+
+InactiveLimit=120
+<BR>
+
+JobCompType=jobcomp/filetxt
+<BR>
+
+JobCompLoc=/var/log/slurm/jobcomp
+<BR>
+
+KillWait=30
+<BR>
+
+MaxJobCount=10000
+<BR>
+
+MinJobAge=3600
+<BR>
+
+PluginDir=/usr/local/lib:/usr/local/slurm/lib
+<BR>
+
+ReturnToService=0
+<BR>
+
+SchedulerType=sched/backfill
+<BR>
+
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
+<BR>
+
+SlurmdLogFile=/var/log/slurm/slurmd.log
+<BR>
+
+SlurmctldPort=7002
+<BR>
+
+SlurmdPort=7003
+<BR>
+
+SlurmdSpoolDir=/usr/local/slurm/slurmd.spool
+<BR>
+
+StateSaveLocation=/usr/local/slurm/slurm.state
+<BR>
+
+SwitchType=switch/elan
+<BR>
+
+TmpFS=/tmp
+<BR>
+
+WaitTime=30
+<BR>
+
+JobCredentialPrivateKey=/usr/local/slurm/private.key
+<BR>
+
+
+JobCredentialPublicCertificate=/usr/local/slurm/public.cert
+
+<BR>
+
+#
+<BR>
+
+# Node Configurations
+<BR>
+
+#
+<BR>
+
+NodeName=DEFAULT CPUs=2 RealMemory=2000 TmpDisk=64000
+<BR>
+
+NodeName=DEFAULT State=UNKNOWN
+<BR>
+
+NodeName=dev[0-25] NodeAddr=edev[0-25] Weight=16
+<BR>
+
+# Update records for specific DOWN nodes
+<BR>
+
+DownNodes=dev20 State=DOWN Reason=&quot;power,ETA=Dec25&quot;
+<BR>
+
+#
+<BR>
+
+# Partition Configurations
+<BR>
+
+#
+<BR>
+
+PartitionName=DEFAULT MaxTime=30 MaxNodes=10 State=UP
+<BR>
+
+PartitionName=debug Nodes=dev[0-8,18-25] Default=YES
+<BR>
+
+PartitionName=batch Nodes=dev[9-17]  MinNodes=4
+<BR>
+
+PartitionName=long Nodes=dev[9-17] MaxTime=120 AllowGroups=admin
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<a id="SECTION_FILE AND DIRECTORY PERMISSIONS"></a>
+<H2>FILE AND DIRECTORY PERMISSIONS</H2>
+
+There are three classes of files:
+Files used by <B>slurmctld</B> must be accessible by user <B>SlurmUser</B>
+and accessible by the primary and backup control machines.
+Files used by <B>slurmd</B> must be accessible by user root and
+accessible from every compute node.
+A few files need to be accessible by normal users on all login and
+compute nodes.
+While many files and directories are listed below, most of them will
+not be used with most configurations.
+<DL COMPACT>
+<a id="OPT_AccountingStorageLoc"></a>
+<DT><B>AccountingStorageLoc</B><DD>
+If this specifies a file, it must be writable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+It is recommended that the file be readable by all users from login and
+compute nodes.
+<a id="OPT_Epilog"></a>
+<DT><B>Epilog</B><DD>
+Must be executable by user root.
+It is recommended that the file be readable by all users.
+The file must exist on every compute node.
+<a id="OPT_EpilogSlurmctld"></a>
+<DT><B>EpilogSlurmctld</B><DD>
+Must be executable by user <B>SlurmUser</B>.
+It is recommended that the file be readable by all users.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_HealthCheckProgram"></a>
+<DT><B>HealthCheckProgram</B><DD>
+Must be executable by user root.
+It is recommended that the file be readable by all users.
+The file must exist on every compute node.
+<a id="OPT_JobCheckpointDir"></a>
+<DT><B>JobCheckpointDir</B><DD>
+Must be writable by user <B>SlurmUser</B> and no other users.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_JobCompLoc"></a>
+<DT><B>JobCompLoc</B><DD>
+If this specifies a file, it must be writable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_JobCredentialPrivateKey"></a>
+<DT><B>JobCredentialPrivateKey</B><DD>
+Must be readable only by user <B>SlurmUser</B> and writable by no other users.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_JobCredentialPublicCertificate"></a>
+<DT><B>JobCredentialPublicCertificate</B><DD>
+Readable to all users on all nodes.
+Must not be writable by regular users.
+<a id="OPT_MailProg"></a>
+<DT><B>MailProg</B><DD>
+Must be executable by user <B>SlurmUser</B>.
+Must not be writable by regular users.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_Prolog"></a>
+<DT><B>Prolog</B><DD>
+Must be executable by user root.
+It is recommended that the file be readable by all users.
+The file must exist on every compute node.
+<a id="OPT_PrologSlurmctld"></a>
+<DT><B>PrologSlurmctld</B><DD>
+Must be executable by user <B>SlurmUser</B>.
+It is recommended that the file be readable by all users.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_ResumeProgram"></a>
+<DT><B>ResumeProgram</B><DD>
+Must be executable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_SallocDefaultCommand"></a>
+<DT><B>SallocDefaultCommand</B><DD>
+Must be executable by all users.
+The file must exist on every login and compute node.
+<a id="OPT_slurm.conf"></a>
+<DT><B>slurm.conf</B><DD>
+Readable to all users on all nodes.
+Must not be writable by regular users.
+<a id="OPT_SlurmctldLogFile"></a>
+<DT><B>SlurmctldLogFile</B><DD>
+Must be writable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_SlurmctldPidFile"></a>
+<DT><B>SlurmctldPidFile</B><DD>
+Must be writable by user root.
+Preferably writable and removable by <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_SlurmdLogFile"></a>
+<DT><B>SlurmdLogFile</B><DD>
+Must be writable by user root.
+A distinct file must exist on each compute node.
+<a id="OPT_SlurmdPidFile"></a>
+<DT><B>SlurmdPidFile</B><DD>
+Must be writable by user root.
+A distinct file must exist on each compute node.
+<a id="OPT_SlurmdSpoolDir"></a>
+<DT><B>SlurmdSpoolDir</B><DD>
+Must be writable by user root.
+A distinct file must exist on each compute node.
+<a id="OPT_SrunEpilog"></a>
+<DT><B>SrunEpilog</B><DD>
+Must be executable by all users.
+The file must exist on every login and compute node.
+<a id="OPT_SrunProlog"></a>
+<DT><B>SrunProlog</B><DD>
+Must be executable by all users.
+The file must exist on every login and compute node.
+<a id="OPT_StateSaveLocation"></a>
+<DT><B>StateSaveLocation</B><DD>
+Must be writable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_SuspendProgram"></a>
+<DT><B>SuspendProgram</B><DD>
+Must be executable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<a id="OPT_TaskEpilog"></a>
+<DT><B>TaskEpilog</B><DD>
+Must be executable by all users.
+The file must exist on every compute node.
+<a id="OPT_TaskProlog"></a>
+<DT><B>TaskProlog</B><DD>
+Must be executable by all users.
+The file must exist on every compute node.
+<a id="OPT_UnkillableStepProgram"></a>
+<DT><B>UnkillableStepProgram</B><DD>
+Must be executable by user <B>SlurmUser</B>.
+The file must be accessible by the primary and backup control machines.
+<P>
+</DL>
+<A NAME="lbAJ">&nbsp;</A>
+<a id="SECTION_LOGGING"></a>
+<H2>LOGGING</H2>
+
+<P>
+
+Note that while SLURM daemons create log files and other files as needed,
+it treats the lack of parent directories as a fatal error.
+This prevents the daemons from running if critical file systems are
+not mounted and will minimize the risk of cold-starting (starting
+without preserving jobs).
+<P>
+
+Log files and job accounting files,
+may need to be created/owned by the &quot;SlurmUser&quot; uid to be successfully
+accessed.  Use the &quot;chown&quot; and &quot;chmod&quot; commands to set the ownership
+and permissions appropriately.
+See the section <B>FILE AND DIRECTORY PERMISSIONS</B> for information
+about the various files and directories used by SLURM.
+<P>
+
+It is recommended that the logrotate utility be used to insure that
+various log files do not become too large. 
+This also applies to text files used for accounting,
+process tracking, and the slurmdbd log if they are used.
+<P>
+
+Here is a sample logrotate configuration. Make appropriate site modifications
+and save as /etc/logrotate.d/slurm on all nodes.
+See the <B>logrotate</B> man page for more details.
+<P>
+
+## 
+<BR>
+
+# SLURM Logrotate Configuration 
+<BR>
+
+## 
+<BR>
+
+/var/log/slurm/*log {
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;compress&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;missingok&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;nocopytruncate&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;nocreate&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;nodelaycompress&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;nomail&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;notifempty&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;noolddir&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;rotate&nbsp;5&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;sharedscripts&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;size=5M&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;create&nbsp;640&nbsp;slurm&nbsp;root&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;postrotate&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/etc/init.d/slurm&nbsp;reconfig&nbsp;
+<BR>
+
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;endscript&nbsp;
+<BR>
+
+}
+<BR>
+
+<P>
+<P>
+<A NAME="lbAK">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2002-2007 The Regents of the University of California.
+Copyright (C) 2008-2010 Lawrence Livermore National Security.
+Portions Copyright (C) 2010 SchedMD &lt;<A HREF="http://www.sched-md.com">http://www.sched-md.com</A>&gt;.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAL">&nbsp;</A>
+<a id="SECTION_FILES"></a>
+<H2>FILES</H2>
+
+/etc/slurm.conf
+<P>
+<A NAME="lbAM">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<P>
+
+<B><A HREF="bluegene.conf.html">bluegene.conf</A></B>(5), <B><A HREF="cgroup.conf.html">cgroup.conf</A></B>(5), <B>gethostbyname</B> (3),
+<B>getrlimit</B> (2), <B><A HREF="gres.conf.html">gres.conf</A></B>(5), <B>group</B> (5), <B>hostname</B> (1),
+<B><A HREF="scontrol.html">scontrol</A></B>(1), <B><A HREF="slurmctld.html">slurmctld</A></B>(8), <B><A HREF="slurmd.html">slurmd</A></B>(8),
+<B><A HREF="slurmdbd.html">slurmdbd</A></B>(8), <B><A HREF="slurmdbd.conf.html">slurmdbd.conf</A></B>(5), <B><A HREF="srun.html">srun</A>(1)</B>,
+<B><A HREF="spank.html">spank</A>(8)</B>, <B>syslog</B> (2), <B><A HREF="topology.conf.html">topology.conf</A></B>(5), <B><A HREF="wiki.conf.html">wiki.conf</A></B>(5)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAD">PARAMETERS</A><DD>
+<DT><A HREF="#lbAE">Prolog and Epilog Scripts</A><DD>
+<DT><A HREF="#lbAF">NETWORK TOPOLOGY</A><DD>
+<DT><A HREF="#lbAG">RELOCATING CONTROLLERS</A><DD>
+<DT><A HREF="#lbAH">EXAMPLE</A><DD>
+<DT><A HREF="#lbAI">FILE AND DIRECTORY PERMISSIONS</A><DD>
+<DT><A HREF="#lbAJ">LOGGING</A><DD>
+<DT><A HREF="#lbAK">COPYING</A><DD>
+<DT><A HREF="#lbAL">FILES</A><DD>
+<DT><A HREF="#lbAM">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

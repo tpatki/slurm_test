@@ -1,0 +1,550 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>slurmdbd.conf</H1>
+Section: Slurm configuration file (5)<BR>Updated: August 2010<BR><A HREF="#index">Index</A>
+
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+slurmdbd.conf - Slurm Database Daemon (SlurmDBD) configuration file
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>slurmdb.conf</B> is an ASCII file which describes Slurm Database
+Daemon (SlurmDBD) configuration information.
+The file location can be modified at system build time using the
+DEFAULT_SLURM_CONF parameter or at execution time by setting the SLURM_CONF
+environment variable.
+<P>
+
+The contents of the file are case insensitive except for the names of nodes
+and files. Any text following a &quot;#&quot; in the configuration file is treated
+as a comment through the end of that line.
+The size of each line in the file is limited to 1024 characters.
+Changes to the configuration file take effect upon restart of
+SlurmDbd or daemon receipt of the SIGHUP signal unless otherwise noted.
+<P>
+
+This file should be only on the computer where SlurmDBD executes and
+should only be readable by the user which executes SlurmDBD (e.g. &quot;slurm&quot;).
+This file should be protected from unauthorized access since it
+contains a database password.
+The overall configuration parameters available include:
+<P>
+<DL COMPACT>
+<a id="OPT_ArchiveDir"></a>
+<DT><B>ArchiveDir</B><DD>
+If ArchiveScript is not set the slurmdbd will generate a file that can be
+read in anytime with sacctmgr load filename.  This directory is where the
+file will be placed archive has ran.  Default is /tmp.  The format for this
+files name is
+
+$ArchiveDir/$ClusterName_$ArchiveObject_archive_$BeginTimeStamp_$endTimeStamp
+
+<P>
+<a id="OPT_ArchiveEvents"></a>
+<DT><B>ArchiveEvents</B><DD>
+When purging events also achive them.  Boolean, yes to archive event data,
+no other wise.  Default is no.
+<P>
+<a id="OPT_ArchiveJobs"></a>
+<DT><B>ArchiveJobs</B><DD>
+When purging jobs also achive them.  Boolean, yes to archive job data,
+no other wise.  Default is no.
+<P>
+<a id="OPT_ArchiveScript"></a>
+<DT><B>ArchiveScript</B><DD>
+This script can be executed every time a rollup happens (every hour,
+day and month), depending on the Purge*After options.  This script is used
+to transfer accounting records out of the database into an archive.  It is
+used in place of the internal process used to acrhive objects.
+The script is executed with a no arguments, The following environment
+variables are set.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_SLURM_ARCHIVE_EVENTS"></a>
+<DT><B>SLURM_ARCHIVE_EVENTS</B><DD>
+1 for archive events 0 otherwise.
+<a id="OPT_SLURM_ARCHIVE_LAST_EVENT"></a>
+<DT><B>SLURM_ARCHIVE_LAST_EVENT</B><DD>
+Time of last event start to archive.
+<a id="OPT_SLURM_ARCHIVE_JOBS"></a>
+<DT><B>SLURM_ARCHIVE_JOBS</B><DD>
+1 for achive jobs 0 otherwise.
+<a id="OPT_SLURM_ARCHIVE_LAST_JOB"></a>
+<DT><B>SLURM_ARCHIVE_LAST_JOB</B><DD>
+Time of last job submit to archive.
+<a id="OPT_SLURM_ARCHIVE_STEPS"></a>
+<DT><B>SLURM_ARCHIVE_STEPS</B><DD>
+1 for archive steps 0 otherwise.
+<a id="OPT_SLURM_ARCHIVE_LAST_STEP"></a>
+<DT><B>SLURM_ARCHIVE_LAST_STEP</B><DD>
+Time of last step start to archive.
+<a id="OPT_SLURM_ARCHIVE_SUSPEND"></a>
+<DT><B>SLURM_ARCHIVE_SUSPEND</B><DD>
+1 for archive suspend data 0 otherwise.
+<a id="OPT_SLURM_ARCHIVE_LAST_SUSPEND"></a>
+<DT><B>SLURM_ARCHIVE_LAST_SUSPEND</B><DD>
+Time of last suspend start to archive.
+<DT></DL>
+</DL>
+
+<DD>
+<P>
+<a id="OPT_ArchiveSteps"></a>
+<DT><B>ArchiveSteps</B><DD>
+When purging steps also achive them.  Boolean, yes to archive step data,
+no other wise.  Default is no.
+<P>
+<a id="OPT_ArchiveSuspend"></a>
+<DT><B>ArchiveSuspend</B><DD>
+When purging suspend data also achive it.  Boolean, yes to archive
+suspend data, no other wise.  Default is no.
+<P>
+<a id="OPT_AuthInfo"></a>
+<DT><B>AuthInfo</B><DD>
+Additional information to be used for authentication of communications
+with the Slurm control daemon (slurmctld) on each cluster.
+The interpretation of this option is specific to the configured <B>AuthType</B>.
+In the case of <I>auth/munge</I>, this can be configured to use a Munge daemon
+specifically configured to provide authentication between clusters while the
+default Munge daemon provides authentication within a cluster.
+In that case, this will specify the pathname of the socket to use. Per default
+this value is left unspecified, which results in the default authentication
+mechanism being used.
+<P>
+<a id="OPT_AuthType"></a>
+<DT><B>AuthType</B><DD>
+Define the authentication method for communications between SLURM
+components.
+Acceptable values at present include &quot;auth/none&quot;, &quot;auth/authd&quot;,
+and &quot;auth/munge&quot;.
+The default value is &quot;auth/none&quot;, which means the UID included in
+communication messages is not verified.
+This may be fine for testing purposes, but
+<B>do not use &quot;auth/none&quot; if you desire any security</B>.
+&quot;auth/authd&quot; indicates that Brett Chun's authd is to be used (see
+&quot;<A HREF="http://www.theether.org/authd/">http://www.theether.org/authd/</A>&quot; for more information).
+&quot;auth/munge&quot; indicates that LLNL's Munge system is to be used
+(this is the best supported authentication mechanism for SLURM,
+see &quot;<A HREF="http://home.gna.org/munge/">http://home.gna.org/munge/</A>&quot; for more information).
+SlurmDbd must be terminated prior to changing the value of <B>AuthType</B>
+and later restarted.
+<P>
+<a id="OPT_DbdBackupHost"></a>
+<DT><B>DbdBackupHost</B><DD>
+The name of the machine where the backup Slurm Database Daemon is executed.
+This host must have access to the same underlying database specified by
+the 'Storage' options mentioned below.
+This should be a node name without the full domain name.  I.e., the hostname
+returned by the <I>gethostname()</I> function cut at the first dot (e.g. use
+&quot;tux001&quot; rather than &quot;tux001.my.com&quot;).
+<P>
+<a id="OPT_DbdHost"></a>
+<DT><B>DbdHost</B><DD>
+The name of the machine where the Slurm Database Daemon is executed.
+This should be a node name without the full domain name.  I.e., the hostname
+returned by the <I>gethostname()</I> function cut at the first dot (e.g. use
+&quot;tux001&quot; rather than &quot;tux001.my.com&quot;).  This value must be specified.
+<P>
+<a id="OPT_DbdPort"></a>
+<DT><B>DbdPort</B><DD>
+The port number that the Slurm Database Daemon (slurmdbd) listens
+to for work. The default value is SLURMDBD_PORT as established at system
+build time. If none is explicitly specified, it will be set to 6819.
+This value must be equal to the <B>AccountingStoragePort</B> parameter in the
+slurm.conf file.
+<P>
+<a id="OPT_DebugLevel"></a>
+<DT><B>DebugLevel</B><DD>
+The level of detail to provide the Slurm Database Daemon's logs.
+Values from 0 to 9 are legal, with `0' being &quot;quiet&quot; operation and
+`9' being insanely verbose.
+The default value is 3.
+<P>
+<a id="OPT_DefaultQOS"></a>
+<DT><B>DefaultQOS</B><DD>
+When adding a new cluster this will be used as the qos for the cluster
+unless something is explicitly set by the admin with the create.
+<P>
+<a id="OPT_LogFile"></a>
+<DT><B>LogFile</B><DD>
+Fully qualified pathname of a file into which the Slurm Database Daemon's
+logs are written.
+The default value is none (performs logging via syslog).
+<BR>
+
+See the section <B>LOGGING</B> in the slurm.conf man page
+if a pathname is specified.
+<P>
+<a id="OPT_MessageTimeout"></a>
+<DT><B>MessageTimeout</B><DD>
+Time permitted for a round-trip communication to complete
+in seconds. Default value is 10 seconds.
+<P>
+<a id="OPT_PidFile"></a>
+<DT><B>PidFile</B><DD>
+Fully qualified pathname of a file into which the Slurm Database Daemon
+may write its process ID. This may be used for automated signal processing.
+The default value is &quot;/var/run/slurmdbd.pid&quot;.
+<P>
+<a id="OPT_PluginDir"></a>
+<DT><B>PluginDir</B><DD>
+Identifies the places in which to look for SLURM plugins.
+This is a colon-separated list of directories, like the PATH
+environment variable.
+The default value is &quot;/usr/local/lib/slurm&quot;.
+<P>
+<a id="OPT_PrivateData"></a>
+<DT><B>PrivateData</B><DD>
+This controls what type of information is hidden from regular users.
+By default, all information is visible to all users.
+User <B>SlurmUser</B>, <B>root</B>, and users with AdminLevel=Admin can always
+view all information.
+Multiple values may be specified with a comma separator.
+Acceptable values include:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<a id="OPT_accounts"></a>
+<DT><B>accounts</B><DD>
+prevents users from viewing any account definitions unless they are
+coordinators of them.
+<a id="OPT_jobs"></a>
+<DT><B>jobs</B><DD>
+prevents users from viewing job records belonging
+to other users unless they are coordinators of the association running the job
+when using sacct.
+<a id="OPT_reservations"></a>
+<DT><B>reservations</B><DD>
+restricts getting reservation information to users with operator status
+and above.
+<a id="OPT_usage"></a>
+<DT><B>usage</B><DD>
+prevents users from viewing usage of any other user.
+This applys to sreport.
+<a id="OPT_users"></a>
+<DT><B>users</B><DD>
+prevents users from viewing information of any user
+other than themselves, this also makes it so users can only see
+associations they deal with.
+Coordinators can see associations of all users they are coordinator of,
+but can only see themselves when listing users.
+</DL>
+</DL>
+
+<P>
+<a id="OPT_PurgeEventAfter"></a>
+<DT><B>PurgeEventAfter</B><DD>
+Events happening on the cluster over this age are purged from the database.
+This includes node down times and such.
+The time is a numeric value and is a number of months.  If you want to purge
+more often you can include hours, or days behind the numeric value to get
+those more frequent purges. (i.e. a value of '12hours' would purge
+everything older than 12 hours.)
+If not set (default), then job step records are never purged.
+<P>
+<a id="OPT_PurgeJobAfter"></a>
+<DT><B>PurgeJobAfter</B><DD>
+Individual job records over this age are purged from the database.
+Aggregated information will be preserved indefinitely.
+The time is a numeric value and is a number of months.  If you want to purge
+more often you can include hours, or days behind the numeric value to get
+those more frequent purges. (i.e. a value of '12hours' would purge
+everything older than 12 hours.)
+If not set (default), then job records are never purged.
+<P>
+<a id="OPT_PurgeStepAfter"></a>
+<DT><B>PurgeStepAfter</B><DD>
+Individual job step records over this age are purged from the database.
+Aggregated information will be preserved indefinitely.
+The time is a numeric value and is a number of months.  If you want to purge
+more often you can include hours, or days behind the numeric value to get
+those more frequent purges. (i.e. a value of '12hours' would purge
+everything older than 12 hours.)
+If not set (default), then job step records are never purged.
+<P>
+<a id="OPT_PurgeSuspendAfter"></a>
+<DT><B>PurgeSuspendAfter</B><DD>
+Records of individual suspend times for jobs over this age are purged from the
+database.
+Aggregated information will be preserved indefinitely.
+The time is a numeric value and is a number of months.  If you want to purge
+more often you can include hours, or days behind the numeric value to get
+those more frequent purges. (i.e. a value of '12hours' would purge
+everything older than 12 hours.)
+If not set (default), then job step records are never purged.
+<P>
+<a id="OPT_SlurmUser"></a>
+<DT><B>SlurmUser</B><DD>
+The name of the user that the <B>slurmctld</B> daemon executes as.
+This user must exist on the machine executing the Slurm Database Daemon
+and have the same user ID as the hosts on which <B>slurmctld</B> execute.
+For security purposes, a user other than &quot;root&quot; is recommended.
+The default value is &quot;root&quot;.
+<P>
+<a id="OPT_StorageHost"></a>
+<DT><B>StorageHost</B><DD>
+Define the name of the host the database is running where we are going
+to store the data.
+Ideally this should be the host on which slurmdbd executes.
+<P>
+<a id="OPT_StorageBackupHost"></a>
+<DT><B>StorageBackupHost</B><DD>
+Define the name of the backup host the database is running where we are going
+to store the data.  This can be viewed as a backup solution when the
+StorageHost is not responding.  It is up to the backup solution to enforce the
+coherency of the accounting information between the two hosts. With clustered
+database solutions (active/passive HA), you would not need to use this feature.
+Default is none.
+<P>
+<a id="OPT_StorageLoc"></a>
+<DT><B>StorageLoc</B><DD>
+Specify the name of the database as the location where accounting
+records are written.
+<P>
+<a id="OPT_StoragePass"></a>
+<DT><B>StoragePass</B><DD>
+Define the password used to gain access to the database to store
+the job accounting data.
+<P>
+<a id="OPT_StoragePort"></a>
+<DT><B>StoragePort</B><DD>
+The port number that the Slurm Database Daemon (slurmdbd) communicates
+with the database.
+<P>
+<a id="OPT_StorageType"></a>
+<DT><B>StorageType</B><DD>
+Define the accounting storage mechanism type.
+Acceptable values at present include
+&quot;accounting_storage/gold&quot;, &quot;accounting_storage/mysql&quot;, and
+&quot;accounting_storage/pgsql&quot;.
+The value &quot;accounting_storage/gold&quot; indicates that account records
+will be written to Gold
+
+(<A HREF="http://www.clusterresources.com/pages/products/gold-allocation-manager.php),">http://www.clusterresources.com/pages/products/gold-allocation-manager.php),</A>
+
+which maintains its own database.
+The value &quot;accounting_storage/mysql&quot; indicates that accounting records
+should be written to a MySQL database specified by the
+torageLoc parameter.
+The value &quot;accounting_storage/pgsql&quot; indicates that accounting records
+should be written to a PostgreSQL database specified by the
+<B>StorageLoc</B> parameter.  This plugin is not complete and
+should not be used if wanting to use associations.  It will however work with
+basic accounting of jobs and job steps.  If interested in
+completing please email <A HREF="mailto:slurm-dev@lists.llnl.gov">slurm-dev@lists.llnl.gov</A>.
+This value must be specified.
+<P>
+<a id="OPT_StorageUser"></a>
+<DT><B>StorageUser</B><DD>
+Define the name of the user we are going to connect to the database
+with to store the job accounting data.
+<P>
+<a id="OPT_TrackWCKey"></a>
+<DT><B>TrackWCKey</B><DD>
+Boolean yes or no.  Used to set display and track of the Workload
+Characterization Key. Must be set to track wckey usage.
+<P>
+<a id="OPT_TrackSlurmctldDown"></a>
+<DT><B>TrackSlurmctldDown</B><DD>
+Boolean yes or no.  If set the slurmdbd will mark all idle resources on the
+cluster as down when a slurmctld disconnects or is no longer reachable.  The
+default is no.
+<P>
+</DL>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_EXAMPLE"></a>
+<H2>EXAMPLE</H2>
+
+<P>
+
+#
+<BR>
+
+# Sample /etc/slurmdbd.conf
+<BR>
+
+#
+<BR>
+
+ArchiveEvents=yes
+<BR>
+
+ArchiveJobs=yes
+<BR>
+
+ArchiveSteps=no
+<BR>
+
+ArchiveSuspend=no
+<BR>
+
+#ArchiveScript=/usr/sbin/slurm.dbd.archive
+<BR>
+
+AuthInfo=/var/run/munge/munge.socket.2
+<BR>
+
+AuthType=auth/munge
+<BR>
+
+DbdHost=db_host
+<BR>
+
+DebugLevel=4
+<BR>
+
+PurgeEventAfter=1month
+<BR>
+
+PurgeJobAfter=12month
+<BR>
+
+PurgeStepAfter=1month
+<BR>
+
+PurgeSuspendAfter=1month
+<BR>
+
+LogFile=/var/log/slurmdbd.log
+<BR>
+
+PidFile=/var/tmp/jette/slurmdbd.pid
+<BR>
+
+SlurmUser=slurm_mgr
+<BR>
+
+StoragePass=shazaam
+<BR>
+
+StorageType=accounting_storage/mysql
+<BR>
+
+StorageUser=database_mgr
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2008-2010 Lawrence Livermore National Security.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_FILES"></a>
+<H2>FILES</H2>
+
+/etc/slurmdbd.conf
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<P>
+
+<B><A HREF="slurm.conf.html">slurm.conf</A></B>(5),
+<B><A HREF="slurmctld.html">slurmctld</A></B>(8), <B><A HREF="slurmdbd.html">slurmdbd</A></B>(8)
+<B>syslog</B> (2)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAD">EXAMPLE</A><DD>
+<DT><A HREF="#lbAE">COPYING</A><DD>
+<DT><A HREF="#lbAF">FILES</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

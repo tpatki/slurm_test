@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+                        "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="keywords" content="Simple Linux Utility for Resource Management, SLURM, resource management,
+Linux clusters, high-performance computing, Livermore Computing">
+<meta name="description" content="Simple Linux Utility for Resource Management">
+<title>Simple Linux Utility for Resource Management</title>
+<link href="linuxstyles.css" rel="stylesheet" type="text/css">
+<link href="slurmstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body><div id="container">
+
+<div id="banner">
+<img src="slurm_banner.gif" width="800" height="100" border="0" usemap="#Map">
+</div>
+
+<div id="navigation">
+
+<h2><a href="slurm.html" class="nav">Home</a></h2>
+
+<h2>About</h2>
+<ul>
+	  <li><a href="overview.html" class="nav">Overview</a></li>
+	  <li><a href="meetings.html" class="nav">Meetings</a></li>
+	  <li><a href="news.html" class="nav">What's New</a></li>
+	  <li><a href="publications.html" class="nav">Publications</a></li>
+	  <li><a href="testimonials.html" class="nav">Testimonials</a></li>
+	  <li><a href="team.html" class="nav">SLURM Team</a></li>
+</ul>
+<h2>Using</h2>
+<ul>
+	  <li><a href="documentation.html" class="nav">Documentation</a></li>
+	  <li><a href="faq.html" class="nav">FAQ</a></li>
+	  <li><a href="help.html" class="nav">Getting Help</a></li>
+	  <li><a href="mail.html"  class="nav">Mailing Lists</a></p>
+</ul>
+<h2>Installing</h2>
+<ul>
+	  <li><a href="platforms.html" class="nav">Platforms</a></li>
+	  <li><a href="download.html" class="nav">Download</a></li>
+	  <li><a href="download.html#related" class="nav">Related Software</a></li>
+	  <li><a href="quickstart_admin.html" class="nav">Guide</a></li>
+</ul>
+</div>
+
+<div id="content">
+
+
+<H1>SBCAST</H1>
+Section: Slurm components (1)<BR>Updated: April 2006<BR><A HREF="#index">Index</A>
+
+<P>
+<A NAME="lbAB">&nbsp;</A>
+<a id="SECTION_NAME"></a>
+<H2>NAME</H2>
+
+sbcast - transmit a file to the nodes allocated to a SLURM job.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<a id="SECTION_SYNOPSIS"></a>
+<H2>SYNOPSIS</H2>
+
+<B>sbcast</B> [-CfpstvV] SOURCE DEST
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<a id="SECTION_DESCRIPTION"></a>
+<H2>DESCRIPTION</H2>
+
+<B>sbcast</B> is used to transmit a file to all nodes allocated
+to the currenly active SLURM job.
+This command should only be executed from within a SLURM batch
+job or within the shell spawned after a SLURM job's resource
+allocation.
+<B>SOURCE</B> is the name of a file on the current node.
+<B>DEST</B> should be the fully qualified pathname for the
+file copy to be created on each node.
+<B>DEST</B> should be on a file system local to that node.
+Note that parallel file systems <I>may</I> provide better performance
+than <B>sbcast</B> can provide, although performance will vary
+by file size, degree of parallelism, and network type.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<a id="SECTION_OPTIONS"></a>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<a id="OPT_compress"></a>
+<DT><B>-C</B>, <B>--compress</B><DD>
+Compress the file being transmitted.
+<a id="OPT_force"></a>
+<DT><B>-f</B>, <B>--force</B><DD>
+If the destination file already exists, replace it.
+<a id="OPT_fanout"></a>
+<DT><B>-F</B> <I>number</I>, <B>--fanout</B>=<I>number</I><DD>
+Specify the fanout of messages used for file transfer.
+Maximum value is currently eight.
+<a id="OPT_preserve"></a>
+<DT><B>-p</B>, <B>--preserve</B><DD>
+Preserves modification times, access times, and modes from the
+original file.
+<a id="OPT_size"></a>
+<DT><B>-s</B> <I>size</I>, <B>--size</B>=<I>size</I><DD>
+Specify the block size used for file broadcast.
+The size can have a suffix of <I>k</I> or <I>m</I> for kilobytes
+or megabytes respecitively (defaults to bytes).
+This size subject to rounding and range limits to maintain
+good performance. This value may need to be set on systems
+with very limited memory.
+<DT><B>-t </B><I>seconds</I>, fB--timeout=<I>seconds</I><DD>
+Specify the message timeout in seconds.
+The default value is <I>MessageTimeout</I> as reported by
+&quot;scontrol show config&quot;.
+Setting a higher value may be necessitated by relatively slow
+I/O performance on the compute node disks.
+<a id="OPT_verbose"></a>
+<DT><B>-v</B>, <B>--verbose</B><DD>
+Provide detailed event logging through program execution.
+<a id="OPT_version"></a>
+<DT><B>-V</B>, <B>--version</B><DD>
+Print version information and exit.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<a id="SECTION_ENVIRONMENT VARIABLES"></a>
+<H2>ENVIRONMENT VARIABLES</H2>
+
+<P>
+
+Some <B>sbcast</B> options may be set via environment variables.
+These environment variables, along with their corresponding options,
+are listed below. (Note: Command line options will always override
+these settings.)
+<DL COMPACT>
+<a id="OPT_SBCAST_COMPRESS"></a>
+<DT><B>SBCAST_COMPRESS</B><DD>
+<B>-C, --compress</B>
+<a id="OPT_SBCAST_FANOUT"></a>
+<DT><B>SBCAST_FANOUT</B><DD>
+<B>-F </B><I>number</I>, fB--fanout=<I>number</I>
+<a id="OPT_SBCAST_FORCE"></a>
+<DT><B>SBCAST_FORCE</B><DD>
+<B>-f, --force</B>
+<a id="OPT_SBCAST_PRESERVE"></a>
+<DT><B>SBCAST_PRESERVE</B><DD>
+<B>-p, --preserve</B>
+<a id="OPT_SBCAST_SIZE"></a>
+<DT><B>SBCAST_SIZE</B><DD>
+<B>-s</B> <I>size</I>, <B>--size</B>=<I>size</I>
+<a id="OPT_SBCAST_TIMEOUT"></a>
+<DT><B>SBCAST_TIMEOUT</B><DD>
+<B>-t </B><I>seconds</I>, fB--timeout=<I>seconds</I>
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<a id="SECTION_AUTHORIZATION"></a>
+<H2>AUTHORIZATION</H2>
+
+<P>
+When using the SLURM db, users who have AdminLevel's defined (Operator
+or Admin) and users who are account coordinators are given the
+authority to invoke sbcast on other user's jobs.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<a id="SECTION_EXAMPLE"></a>
+<H2>EXAMPLE</H2>
+
+<P>
+Using a batch script, transmit local file <B>my.prog</B> to
+<B>/tmp/my.proc</B> on the local nodes and then execute it.
+<P>
+<PRE>
+&gt; cat my.job
+#!/bin/bash
+sbcast my.prog /tmp/my.prog
+srun /tmp/my.prog
+
+&gt; sbatch --nodes=8 my.job
+srun: jobid 12345 submitted
+</PRE>
+
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<a id="SECTION_COPYING"></a>
+<H2>COPYING</H2>
+
+Copyright (C) 2006 The Regents of the University of California.
+Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
+CODE-OCEC-09-009. All rights reserved.
+<P>
+
+This file is part of SLURM, a resource management program.
+For details, see &lt;<A HREF="http://www.schedmd.com/slurmdocs/">http://www.schedmd.com/slurmdocs/</A>&gt;.
+<P>
+
+SLURM is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2 of the License, or (at your option)
+any later version.
+<P>
+
+SLURM is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<a id="SECTION_SEE ALSO"></a>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="srun.html">srun</A></B>(1)
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbAG">AUTHORIZATION</A><DD>
+<DT><A HREF="#lbAH">EXAMPLE</A><DD>
+<DT><A HREF="#lbAI">COPYING</A><DD>
+<DT><A HREF="#lbAJ">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<i>man2html</i> using the manual pages.<BR>
+Time: 09:17:43 GMT, February 08, 2013
+</div> <!-- closes "content" -->
+
+<div id="footer">
+<div id="left">&nbsp;&nbsp;<a href="disclaimer.html" target="_blank" class="privacy">Legal Notices</a></div>
+<div id="right"><span class="ucrlnum">27 June 2011&nbsp;&nbsp;</span></div>
+</div>
+
+<div id="footer2">
+<div style="clear:both;"></div>
+</div>
+
+</div> <!-- closes "container" -->
+
+</body>
+</html>

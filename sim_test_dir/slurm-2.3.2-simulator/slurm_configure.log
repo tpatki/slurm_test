@@ -1,0 +1,465 @@
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking whether to include rpath in build... yes
+checking for style of include used by make... GNU
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking dependency style of gcc... gcc3
+checking for g++... g++
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+checking dependency style of g++... gcc3
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for gcc... (cached) gcc
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether gcc accepts -g... (cached) yes
+checking for gcc option to accept ISO C89... (cached) none needed
+checking dependency style of gcc... (cached) gcc3
+checking whether we are using the GNU C++ compiler... (cached) yes
+checking whether g++ accepts -g... (cached) yes
+checking dependency style of g++... (cached) gcc3
+checking whether make sets $(MAKE)... (cached) yes
+checking for a sed that does not truncate output... /bin/sed
+checking for fgrep... /bin/grep -F
+checking for ld used by gcc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking whether the shell understands some XSI constructs... yes
+checking whether the shell understands "+="... yes
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for ar... ar
+checking for strip... strip
+checking for ranlib... ranlib
+checking command to parse /usr/bin/nm -B output from gcc object... ok
+checking for dlfcn.h... yes
+checking whether we are using the GNU C++ compiler... (cached) yes
+checking whether g++ accepts -g... (cached) yes
+checking dependency style of g++... (cached) gcc3
+checking how to run the C++ preprocessor... g++ -E
+checking for objdir... .libs
+checking if gcc supports -fno-rtti -fno-exceptions... no
+checking for gcc option to produce PIC... -fPIC -DPIC
+checking if gcc PIC flag -fPIC -DPIC works... yes
+checking if gcc static flag -static works... no
+checking if gcc supports -c -o file.o... yes
+checking if gcc supports -c -o file.o... (cached) yes
+checking whether the gcc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... yes
+checking for ld used by g++... /usr/bin/ld -m elf_x86_64
+checking if the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking for g++ option to produce PIC... -fPIC -DPIC
+checking if g++ PIC flag -fPIC -DPIC works... yes
+checking if g++ static flag -static works... no
+checking if g++ supports -c -o file.o... yes
+checking if g++ supports -c -o file.o... (cached) yes
+checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for library containing socket... none required
+checking for library containing gethostbyname... none required
+checking for library containing hstrerror... none required
+checking for library containing kstat_open... no
+checking mcheck.h usability... yes
+checking mcheck.h presence... yes
+checking for mcheck.h... yes
+checking values.h usability... yes
+checking values.h presence... yes
+checking for values.h... yes
+checking socket.h usability... no
+checking socket.h presence... no
+checking for socket.h... no
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking stdbool.h usability... yes
+checking stdbool.h presence... yes
+checking for stdbool.h... yes
+checking sys/ipc.h usability... yes
+checking sys/ipc.h presence... yes
+checking for sys/ipc.h... yes
+checking sys/shm.h usability... yes
+checking sys/shm.h presence... yes
+checking for sys/shm.h... yes
+checking sys/sem.h usability... yes
+checking sys/sem.h presence... yes
+checking for sys/sem.h... yes
+checking errno.h usability... yes
+checking errno.h presence... yes
+checking for errno.h... yes
+checking for stdlib.h... (cached) yes
+checking dirent.h usability... yes
+checking dirent.h presence... yes
+checking for dirent.h... yes
+checking pthread.h usability... yes
+checking pthread.h presence... yes
+checking for pthread.h... yes
+checking sys/prctl.h usability... yes
+checking sys/prctl.h presence... yes
+checking for sys/prctl.h... yes
+checking sysint.h usability... no
+checking sysint.h presence... no
+checking for sysint.h... no
+checking for inttypes.h... (cached) yes
+checking termcap.h usability... yes
+checking termcap.h presence... yes
+checking for termcap.h... yes
+checking netdb.h usability... yes
+checking netdb.h presence... yes
+checking for netdb.h... yes
+checking for sys/socket.h... (cached) yes
+checking sys/systemcfg.h usability... no
+checking sys/systemcfg.h presence... no
+checking for sys/systemcfg.h... no
+checking ncurses.h usability... yes
+checking ncurses.h presence... yes
+checking for ncurses.h... yes
+checking curses.h usability... yes
+checking curses.h presence... yes
+checking for curses.h... yes
+checking sys/dr.h usability... no
+checking sys/dr.h presence... no
+checking for sys/dr.h... no
+checking sys/vfs.h usability... yes
+checking sys/vfs.h presence... yes
+checking for sys/vfs.h... yes
+checking pam/pam_appl.h usability... no
+checking pam/pam_appl.h presence... no
+checking for pam/pam_appl.h... no
+checking security/pam_appl.h usability... no
+checking security/pam_appl.h presence... no
+checking for security/pam_appl.h... no
+checking sys/sysctl.h usability... yes
+checking sys/sysctl.h presence... yes
+checking for sys/sysctl.h... yes
+checking pty.h usability... yes
+checking pty.h presence... yes
+checking for pty.h... yes
+checking utmp.h usability... yes
+checking utmp.h presence... yes
+checking for utmp.h... yes
+checking sys/syslog.h usability... yes
+checking sys/syslog.h presence... yes
+checking for sys/syslog.h... yes
+checking linux/sched.h usability... yes
+checking linux/sched.h presence... yes
+checking for linux/sched.h... yes
+checking kstat.h usability... no
+checking kstat.h presence... no
+checking for kstat.h... no
+checking paths.h usability... yes
+checking paths.h presence... yes
+checking for paths.h... yes
+checking limits.h usability... yes
+checking limits.h presence... yes
+checking for limits.h... yes
+checking sys/statfs.h usability... yes
+checking sys/statfs.h presence... yes
+checking for sys/statfs.h... yes
+checking sys/ptrace.h usability... yes
+checking sys/ptrace.h presence... yes
+checking for sys/ptrace.h... yes
+checking sys/termios.h usability... yes
+checking sys/termios.h presence... yes
+checking for sys/termios.h... yes
+checking for sys/wait.h that is POSIX.1 compatible... yes
+checking whether time.h and sys/time.h may both be included... yes
+checking for ANSI C header files... (cached) yes
+checking for program_invocation_name... yes
+checking for ptrace64... no
+checking for sched_setaffinity... yes
+checking for numa_available in -lnuma... yes
+checking whether to enable PAM support... yes
+checking for pam_get_user in -lpam... no
+checking for misc_conv in -lpam_misc... no
+configure: WARNING: Unable to locate PAM libraries
+checking whether to enable ISO 8601 time format support... yes
+checking whether sbatch --get-user-env option should load .login... no
+checking whether byte ordering is bigendian... no
+checking whether gcc needs -traditional... no
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... yes
+checking whether strerror_r is declared... yes
+checking for strerror_r... yes
+checking whether strerror_r returns char *... no
+checking for fdatasync... yes
+checking for hstrerror... yes
+checking for strerror... yes
+checking for mtrace... yes
+checking for strndup... yes
+checking for strlcpy... no
+checking for strsignal... yes
+checking for inet_aton... yes
+checking for inet_ntop... yes
+checking for inet_pton... yes
+checking for setproctitle... no
+checking for sysctlbyname... no
+checking for cfmakeraw... yes
+checking whether hstrerror is declared... no
+checking whether strsignal is declared... yes
+checking whether sys_siglist is declared... no
+checking for unsetenv... yes
+checking for the pthreads library -lpthreads... no
+checking whether pthreads work without any flags... no
+checking whether pthreads work with -Kthread... no
+checking whether pthreads work with -kthread... no
+checking for the pthreads library -llthread... no
+checking whether pthreads work with -pthread... yes
+checking for joinable pthread attribute... PTHREAD_CREATE_JOINABLE
+checking if more special flags are required for pthreads... no
+checking for cc_r... gcc
+checking for Sun Constellation system... no
+checking System dimensions... checking for hwloc installation... 
+configure: WARNING: unable to locate hwloc installation
+checking whether XCPU is enabled... no
+checking for sem_open in -lposix4... no
+checking for initscr in -lncurses... yes
+checking for initscr in -lcurses... yes
+NCURSES test program built properly.
+checking for pkg-config... /usr/bin/pkg-config
+checking for GTK+ - version >= 2.7.1... no
+*** Could not run GTK+ test program, checking why...
+*** The test program failed to compile or link. See the file config.log for the
+*** exact error that occured. This usually means GTK+ is incorrectly installed.
+checking for mysql_config... /usr/bin//mysql_config
+MySQL test program built properly.
+checking for pg_config... no
+configure: WARNING: *** pg_config not found. Evidently no PostgreSQL development libs installed on system.
+checking whether this is a native Cray XT or XE system or have ALPS simulator... no
+checking for __progname... yes
+checking whether debugging is enabled... no
+checking whether memory leak debugging is enabled... no
+checking whether to enable slurmd operation on a front-end... yes
+checking whether to enable slurm simulator... yes
+checking whether debugger partial attach enabled... no
+checking whether salloc should kill child processes at job termination... no
+checking whether to disable salloc execution in the background... no
+checking for slurmctld default port... 6817
+checking for slurmd default port... 6818
+checking for slurmdbd default port... 6819
+checking for slurmctld default port count... 1
+checking for slurm_sim.h file... configure: File src/simulation_lib/slurm_sim.h DOES exist!!!
+checking for rms_prgcreate in -lrmscall... no
+configure: Cannot support QsNet without librmscall
+checking for elan3_create in -lelan3... no
+checking for elanctrl_open in -lelanctrl... no
+configure: Cannot support QsNet without libelan3 or libelanctrl!
+checking whether to enable AIX Federation switch support... no
+configure: Cannot support Federation without libntbl
+checking for job_attachpid in -ljob... no
+checking for SGI job container support... no
+checking for lua... no
+checking whether man2html is available... checking for man2html... yes
+checking for support of printf("%s", NULL)... yes
+checking for whether to include readline suport... yes
+checking for OpenSSL directory... /usr
+checking for munge installation... /usr
+checking whether to enable multiple-slurmd support... no
+checking for auth_init_credentials in -lauth... no
+checking for openpty in -lutil... yes
+checking for blcr installation... 
+configure: WARNING: unable to locate blcr installation
+checking for whether to include srun-aprun wrapper rather than native SLURM srun... no
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating config.xml
+config.status: creating auxdir/Makefile
+config.status: creating contribs/Makefile
+config.status: creating contribs/arrayrun/Makefile
+config.status: creating contribs/cray/Makefile
+config.status: creating contribs/lua/Makefile
+config.status: creating contribs/pam/Makefile
+config.status: creating contribs/perlapi/Makefile
+config.status: creating contribs/perlapi/libslurm/Makefile
+config.status: creating contribs/perlapi/libslurm/perl/Makefile.PL
+config.status: creating contribs/perlapi/libslurmdb/Makefile
+config.status: creating contribs/perlapi/libslurmdb/perl/Makefile.PL
+config.status: creating contribs/torque/Makefile
+config.status: creating contribs/phpext/Makefile
+config.status: creating contribs/phpext/slurm_php/config.m4
+config.status: creating contribs/sjobexit/Makefile
+config.status: creating contribs/slurmdb-direct/Makefile
+config.status: creating src/Makefile
+config.status: creating src/api/Makefile
+config.status: creating src/common/Makefile
+config.status: creating src/db_api/Makefile
+config.status: creating src/database/Makefile
+config.status: creating src/sacct/Makefile
+config.status: creating src/sacctmgr/Makefile
+config.status: creating src/sreport/Makefile
+config.status: creating src/sstat/Makefile
+config.status: creating src/sshare/Makefile
+config.status: creating src/salloc/Makefile
+config.status: creating src/sbatch/Makefile
+config.status: creating src/sattach/Makefile
+config.status: creating src/sprio/Makefile
+config.status: creating src/srun/Makefile
+config.status: creating src/srun_cr/Makefile
+config.status: creating src/slurmd/Makefile
+config.status: creating src/slurmd/common/Makefile
+config.status: creating src/slurmd/slurmd/Makefile
+config.status: creating src/slurmd/slurmstepd/Makefile
+config.status: creating src/slurmdbd/Makefile
+config.status: creating src/slurmctld/Makefile
+config.status: creating src/simulation_lib/Makefile
+config.status: creating src/sbcast/Makefile
+config.status: creating src/scontrol/Makefile
+config.status: creating src/scancel/Makefile
+config.status: creating src/squeue/Makefile
+config.status: creating src/sinfo/Makefile
+config.status: creating src/smap/Makefile
+config.status: creating src/strigger/Makefile
+config.status: creating src/sview/Makefile
+config.status: creating src/plugins/Makefile
+config.status: creating src/plugins/accounting_storage/Makefile
+config.status: creating src/plugins/accounting_storage/common/Makefile
+config.status: creating src/plugins/accounting_storage/filetxt/Makefile
+config.status: creating src/plugins/accounting_storage/mysql/Makefile
+config.status: creating src/plugins/accounting_storage/pgsql/Makefile
+config.status: creating src/plugins/accounting_storage/none/Makefile
+config.status: creating src/plugins/accounting_storage/slurmdbd/Makefile
+config.status: creating src/plugins/auth/Makefile
+config.status: creating src/plugins/auth/authd/Makefile
+config.status: creating src/plugins/auth/munge/Makefile
+config.status: creating src/plugins/auth/none/Makefile
+config.status: creating src/plugins/checkpoint/Makefile
+config.status: creating src/plugins/checkpoint/aix/Makefile
+config.status: creating src/plugins/checkpoint/none/Makefile
+config.status: creating src/plugins/checkpoint/ompi/Makefile
+config.status: creating src/plugins/checkpoint/blcr/Makefile
+config.status: creating src/plugins/checkpoint/blcr/cr_checkpoint.sh
+config.status: creating src/plugins/checkpoint/blcr/cr_restart.sh
+config.status: creating src/plugins/crypto/Makefile
+config.status: creating src/plugins/crypto/munge/Makefile
+config.status: creating src/plugins/crypto/openssl/Makefile
+config.status: creating src/plugins/gres/Makefile
+config.status: creating src/plugins/gres/gpu/Makefile
+config.status: creating src/plugins/gres/nic/Makefile
+config.status: creating src/plugins/jobacct_gather/Makefile
+config.status: creating src/plugins/jobacct_gather/linux/Makefile
+config.status: creating src/plugins/jobacct_gather/aix/Makefile
+config.status: creating src/plugins/jobacct_gather/none/Makefile
+config.status: creating src/plugins/jobcomp/Makefile
+config.status: creating src/plugins/jobcomp/filetxt/Makefile
+config.status: creating src/plugins/jobcomp/none/Makefile
+config.status: creating src/plugins/jobcomp/script/Makefile
+config.status: creating src/plugins/jobcomp/mysql/Makefile
+config.status: creating src/plugins/jobcomp/pgsql/Makefile
+config.status: creating src/plugins/job_submit/Makefile
+config.status: creating src/plugins/job_submit/cnode/Makefile
+config.status: creating src/plugins/job_submit/defaults/Makefile
+config.status: creating src/plugins/job_submit/logging/Makefile
+config.status: creating src/plugins/job_submit/lua/Makefile
+config.status: creating src/plugins/job_submit/partition/Makefile
+config.status: creating src/plugins/preempt/Makefile
+config.status: creating src/plugins/preempt/none/Makefile
+config.status: creating src/plugins/preempt/partition_prio/Makefile
+config.status: creating src/plugins/preempt/qos/Makefile
+config.status: creating src/plugins/priority/Makefile
+config.status: creating src/plugins/priority/basic/Makefile
+config.status: creating src/plugins/priority/multifactor/Makefile
+config.status: creating src/plugins/proctrack/Makefile
+config.status: creating src/plugins/proctrack/aix/Makefile
+config.status: creating src/plugins/proctrack/cgroup/Makefile
+config.status: creating src/plugins/proctrack/pgid/Makefile
+config.status: creating src/plugins/proctrack/linuxproc/Makefile
+config.status: creating src/plugins/proctrack/rms/Makefile
+config.status: creating src/plugins/proctrack/sgi_job/Makefile
+config.status: creating src/plugins/proctrack/lua/Makefile
+config.status: creating src/plugins/sched/Makefile
+config.status: creating src/plugins/sched/backfill/Makefile
+config.status: creating src/plugins/sched/builtin/Makefile
+config.status: creating src/plugins/sched/hold/Makefile
+config.status: creating src/plugins/sched/wiki/Makefile
+config.status: creating src/plugins/sched/wiki2/Makefile
+config.status: creating src/plugins/select/Makefile
+config.status: creating src/plugins/select/bluegene/Makefile
+config.status: creating src/plugins/select/bluegene/ba/Makefile
+config.status: creating src/plugins/select/bluegene/ba_bgq/Makefile
+config.status: creating src/plugins/select/bluegene/bl/Makefile
+config.status: creating src/plugins/select/bluegene/bl_bgq/Makefile
+config.status: creating src/plugins/select/bluegene/sfree/Makefile
+config.status: creating src/plugins/select/cons_res/Makefile
+config.status: creating src/plugins/select/cray/Makefile
+config.status: creating src/plugins/select/cray/libalps/Makefile
+config.status: creating src/plugins/select/cray/libemulate/Makefile
+config.status: creating src/plugins/select/linear/Makefile
+config.status: creating src/plugins/switch/Makefile
+config.status: creating src/plugins/switch/elan/Makefile
+config.status: creating src/plugins/switch/none/Makefile
+config.status: creating src/plugins/switch/federation/Makefile
+config.status: creating src/plugins/mpi/Makefile
+config.status: creating src/plugins/mpi/mpich1_p4/Makefile
+config.status: creating src/plugins/mpi/mpich1_shmem/Makefile
+config.status: creating src/plugins/mpi/mpichgm/Makefile
+config.status: creating src/plugins/mpi/mpichmx/Makefile
+config.status: creating src/plugins/mpi/mvapich/Makefile
+config.status: creating src/plugins/mpi/lam/Makefile
+config.status: creating src/plugins/mpi/none/Makefile
+config.status: creating src/plugins/mpi/openmpi/Makefile
+config.status: creating src/plugins/task/Makefile
+config.status: creating src/plugins/task/affinity/Makefile
+config.status: creating src/plugins/task/cgroup/Makefile
+config.status: creating src/plugins/task/none/Makefile
+config.status: creating src/plugins/topology/Makefile
+config.status: creating src/plugins/topology/3d_torus/Makefile
+config.status: creating src/plugins/topology/node_rank/Makefile
+config.status: creating src/plugins/topology/none/Makefile
+config.status: creating src/plugins/topology/tree/Makefile
+config.status: creating doc/Makefile
+config.status: creating doc/man/Makefile
+config.status: creating doc/html/Makefile
+config.status: creating doc/html/configurator.html
+config.status: creating testsuite/Makefile
+config.status: creating testsuite/expect/Makefile
+config.status: creating testsuite/slurm_unit/Makefile
+config.status: creating testsuite/slurm_unit/api/Makefile
+config.status: creating testsuite/slurm_unit/api/manual/Makefile
+config.status: creating testsuite/slurm_unit/common/Makefile
+config.status: creating config.h
+config.status: config.h is unchanged
+config.status: creating slurm/slurm.h
+config.status: slurm/slurm.h is unchanged
+config.status: executing depfiles commands
+config.status: executing libtool commands

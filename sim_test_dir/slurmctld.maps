@@ -1,0 +1,158 @@
+00400000-00573000 r-xp 00000000 fd:03 35559                              /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_programs/sbin/slurmctld
+00773000-00778000 rw-p 00173000 fd:03 35559                              /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_programs/sbin/slurmctld
+00778000-04126000 rw-p 00000000 00:00 0 
+0590a000-05a8c000 rw-p 00000000 00:00 0                                  [heap]
+3235200000-3235220000 r-xp 00000000 fd:00 655407                         /lib64/ld-2.12.so
+323541f000-3235420000 r--p 0001f000 fd:00 655407                         /lib64/ld-2.12.so
+3235420000-3235421000 rw-p 00020000 fd:00 655407                         /lib64/ld-2.12.so
+3235421000-3235422000 rw-p 00000000 00:00 0 
+3235600000-3235789000 r-xp 00000000 fd:00 655413                         /lib64/libc-2.12.so
+3235789000-3235989000 ---p 00189000 fd:00 655413                         /lib64/libc-2.12.so
+3235989000-323598d000 r--p 00189000 fd:00 655413                         /lib64/libc-2.12.so
+323598d000-323598e000 rw-p 0018d000 fd:00 655413                         /lib64/libc-2.12.so
+323598e000-3235993000 rw-p 00000000 00:00 0 
+3235a00000-3235a83000 r-xp 00000000 fd:00 655169                         /lib64/libm-2.12.so
+3235a83000-3235c82000 ---p 00083000 fd:00 655169                         /lib64/libm-2.12.so
+3235c82000-3235c83000 r--p 00082000 fd:00 655169                         /lib64/libm-2.12.so
+3235c83000-3235c84000 rw-p 00083000 fd:00 655169                         /lib64/libm-2.12.so
+3235e00000-3235e02000 r-xp 00000000 fd:00 660419                         /lib64/libdl-2.12.so
+3235e02000-3236002000 ---p 00002000 fd:00 660419                         /lib64/libdl-2.12.so
+3236002000-3236003000 r--p 00002000 fd:00 660419                         /lib64/libdl-2.12.so
+3236003000-3236004000 rw-p 00003000 fd:00 660419                         /lib64/libdl-2.12.so
+3236200000-3236217000 r-xp 00000000 fd:00 655414                         /lib64/libpthread-2.12.so
+3236217000-3236417000 ---p 00017000 fd:00 655414                         /lib64/libpthread-2.12.so
+3236417000-3236418000 r--p 00017000 fd:00 655414                         /lib64/libpthread-2.12.so
+3236418000-3236419000 rw-p 00018000 fd:00 655414                         /lib64/libpthread-2.12.so
+3236419000-323641d000 rw-p 00000000 00:00 0 
+3236600000-3236615000 r-xp 00000000 fd:00 660357                         /lib64/libz.so.1.2.3
+3236615000-3236814000 ---p 00015000 fd:00 660357                         /lib64/libz.so.1.2.3
+3236814000-3236815000 r--p 00014000 fd:00 660357                         /lib64/libz.so.1.2.3
+3236815000-3236816000 rw-p 00015000 fd:00 660357                         /lib64/libz.so.1.2.3
+3236a00000-3236a07000 r-xp 00000000 fd:00 660422                         /lib64/librt-2.12.so
+3236a07000-3236c06000 ---p 00007000 fd:00 660422                         /lib64/librt-2.12.so
+3236c06000-3236c07000 r--p 00006000 fd:00 660422                         /lib64/librt-2.12.so
+3236c07000-3236c08000 rw-p 00007000 fd:00 660422                         /lib64/librt-2.12.so
+3237200000-323720c000 r-xp 00000000 fd:00 692942                         /lib64/libnss_files-2.12.so
+323720c000-323740c000 ---p 0000c000 fd:00 692942                         /lib64/libnss_files-2.12.so
+323740c000-323740d000 r--p 0000c000 fd:00 692942                         /lib64/libnss_files-2.12.so
+323740d000-323740e000 rw-p 0000d000 fd:00 692942                         /lib64/libnss_files-2.12.so
+3237600000-3237616000 r-xp 00000000 fd:00 677427                         /lib64/libresolv-2.12.so
+3237616000-3237816000 ---p 00016000 fd:00 677427                         /lib64/libresolv-2.12.so
+3237816000-3237817000 r--p 00016000 fd:00 677427                         /lib64/libresolv-2.12.so
+3237817000-3237818000 rw-p 00017000 fd:00 677427                         /lib64/libresolv-2.12.so
+3237818000-323781a000 rw-p 00000000 00:00 0 
+3237a00000-3237a16000 r-xp 00000000 fd:00 660443                         /lib64/libgcc_s-4.4.6-20120305.so.1
+3237a16000-3237c15000 ---p 00016000 fd:00 660443                         /lib64/libgcc_s-4.4.6-20120305.so.1
+3237c15000-3237c16000 rw-p 00015000 fd:00 660443                         /lib64/libgcc_s-4.4.6-20120305.so.1
+323a200000-323a373000 r-xp 00000000 fd:00 1061187                        /usr/lib64/libcrypto.so.1.0.0
+323a373000-323a573000 ---p 00173000 fd:00 1061187                        /usr/lib64/libcrypto.so.1.0.0
+323a573000-323a58c000 r--p 00173000 fd:00 1061187                        /usr/lib64/libcrypto.so.1.0.0
+323a58c000-323a596000 rw-p 0018c000 fd:00 1061187                        /usr/lib64/libcrypto.so.1.0.0
+323a596000-323a59a000 rw-p 00000000 00:00 0 
+7fcdf4000000-7fcdf4038000 rw-p 00000000 00:00 0 
+7fcdf4038000-7fcdf8000000 ---p 00000000 00:00 0 
+7fcdfc000000-7fcdfc021000 rw-p 00000000 00:00 0 
+7fcdfc021000-7fce00000000 ---p 00000000 00:00 0 
+7fce00000000-7fce00021000 rw-p 00000000 00:00 0 
+7fce00021000-7fce04000000 ---p 00000000 00:00 0 
+7fce04000000-7fce04021000 rw-p 00000000 00:00 0 
+7fce04021000-7fce08000000 ---p 00000000 00:00 0 
+7fce08000000-7fce08021000 rw-p 00000000 00:00 0 
+7fce08021000-7fce0c000000 ---p 00000000 00:00 0 
+7fce0c000000-7fce0c022000 rw-p 00000000 00:00 0 
+7fce0c022000-7fce10000000 ---p 00000000 00:00 0 
+7fce1032d000-7fce1032e000 ---p 00000000 00:00 0 
+7fce1032e000-7fce1042e000 rw-p 00000000 00:00 0 
+7fce1042e000-7fce1042f000 ---p 00000000 00:00 0 
+7fce1042f000-7fce1052f000 rw-p 00000000 00:00 0 
+7fce1052f000-7fce10530000 ---p 00000000 00:00 0 
+7fce10530000-7fce10630000 rw-p 00000000 00:00 0                          [stack:2506]
+7fce10630000-7fce10631000 ---p 00000000 00:00 0 
+7fce10631000-7fce10731000 rw-p 00000000 00:00 0                          [stack:2505]
+7fce10731000-7fce10732000 ---p 00000000 00:00 0 
+7fce10732000-7fce10832000 rw-p 00000000 00:00 0                          [stack:2504]
+7fce10832000-7fce10833000 ---p 00000000 00:00 0 
+7fce10833000-7fce10933000 rw-p 00000000 00:00 0                          [stack:2503]
+7fce10933000-7fce10939000 r-xp 00000000 fd:03 2147789                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/priority_multifactor.so
+7fce10939000-7fce10b38000 ---p 00006000 fd:03 2147789                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/priority_multifactor.so
+7fce10b38000-7fce10b39000 rw-p 00005000 fd:03 2147789                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/priority_multifactor.so
+7fce10b39000-7fce10b3a000 ---p 00000000 00:00 0 
+7fce10b3a000-7fce10c3a000 rw-p 00000000 00:00 0                          [stack:2502]
+7fce10c3a000-7fce10c3f000 r-xp 00000000 fd:03 2147821                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/sched_backfill.so
+7fce10c3f000-7fce10e3e000 ---p 00005000 fd:03 2147821                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/sched_backfill.so
+7fce10e3e000-7fce10e3f000 rw-p 00004000 fd:03 2147821                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/sched_backfill.so
+7fce10e3f000-7fce10e42000 r-xp 00000000 fd:03 2147853                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobcomp_filetxt.so
+7fce10e42000-7fce11041000 ---p 00003000 fd:03 2147853                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobcomp_filetxt.so
+7fce11041000-7fce11042000 rw-p 00002000 fd:03 2147853                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobcomp_filetxt.so
+7fce11042000-7fce11047000 r-xp 00000000 fd:00 654121                     /lib64/libnss_dns-2.12.so
+7fce11047000-7fce11246000 ---p 00005000 fd:00 654121                     /lib64/libnss_dns-2.12.so
+7fce11246000-7fce11247000 r--p 00004000 fd:00 654121                     /lib64/libnss_dns-2.12.so
+7fce11247000-7fce11248000 rw-p 00005000 fd:00 654121                     /lib64/libnss_dns-2.12.so
+7fce11251000-7fce11252000 rw-s 00000000 00:10 4063502                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_42
+7fce11252000-7fce11253000 rw-s 00000000 00:10 4063501                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_42
+7fce11253000-7fce11254000 rw-s 00000000 00:10 4063500                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_41
+7fce11254000-7fce11255000 rw-s 00000000 00:10 4063499                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_41
+7fce11255000-7fce11256000 rw-s 00000000 00:10 4063498                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_40
+7fce11256000-7fce11257000 rw-s 00000000 00:10 4063497                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_40
+7fce11257000-7fce11258000 rw-s 00000000 00:10 4063496                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_39
+7fce11258000-7fce11259000 rw-s 00000000 00:10 4063495                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_39
+7fce11259000-7fce1125a000 rw-s 00000000 00:10 4063494                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_38
+7fce1125a000-7fce1125b000 rw-s 00000000 00:10 4063493                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_38
+7fce1125b000-7fce1125c000 r-xp 00000000 fd:03 2147894                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/topology_none.so
+7fce1125c000-7fce1145b000 ---p 00001000 fd:03 2147894                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/topology_none.so
+7fce1145b000-7fce1145c000 rw-p 00000000 fd:03 2147894                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/topology_none.so
+7fce1145c000-7fce1145e000 r-xp 00000000 fd:03 2147920                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/switch_none.so
+7fce1145e000-7fce1165d000 ---p 00002000 fd:03 2147920                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/switch_none.so
+7fce1165d000-7fce1165e000 rw-p 00001000 fd:03 2147920                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/switch_none.so
+7fce1165e000-7fce11663000 r-xp 00000000 fd:03 2147860                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobacct_gather_linux.so
+7fce11663000-7fce11862000 ---p 00005000 fd:03 2147860                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobacct_gather_linux.so
+7fce11862000-7fce11863000 rw-p 00004000 fd:03 2147860                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/jobacct_gather_linux.so
+7fce11863000-7fce11864000 r-xp 00000000 fd:03 2147785                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/checkpoint_none.so
+7fce11864000-7fce11a63000 ---p 00001000 fd:03 2147785                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/checkpoint_none.so
+7fce11a63000-7fce11a64000 rw-p 00000000 fd:03 2147785                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/checkpoint_none.so
+7fce11a64000-7fce11a65000 r-xp 00000000 fd:03 2147814                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/preempt_none.so
+7fce11a65000-7fce11c64000 ---p 00001000 fd:03 2147814                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/preempt_none.so
+7fce11c64000-7fce11c65000 rw-p 00000000 fd:03 2147814                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/preempt_none.so
+7fce11c65000-7fce11c76000 r-xp 00000000 fd:03 2147915                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/select_cons_res.so
+7fce11c76000-7fce11e75000 ---p 00011000 fd:03 2147915                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/select_cons_res.so
+7fce11e75000-7fce11e76000 rw-p 00010000 fd:03 2147915                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/select_cons_res.so
+7fce11e76000-7fce11e78000 r-xp 00000000 fd:03 2147907                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/crypto_openssl.so
+7fce11e78000-7fce12077000 ---p 00002000 fd:03 2147907                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/crypto_openssl.so
+7fce12077000-7fce12078000 rw-p 00001000 fd:03 2147907                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/crypto_openssl.so
+7fce12078000-7fce12079000 ---p 00000000 00:00 0 
+7fce12079000-7fce12179000 rw-p 00000000 00:00 0                          [stack:2501]
+7fce12179000-7fce1217b000 r-xp 00000000 fd:03 2147909                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/auth_none.so
+7fce1217b000-7fce1237a000 ---p 00002000 fd:03 2147909                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/auth_none.so
+7fce1237a000-7fce1237b000 rw-p 00001000 fd:03 2147909                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/auth_none.so
+7fce1237b000-7fce1237c000 ---p 00000000 00:00 0 
+7fce1237c000-7fce1247c000 rw-p 00000000 00:00 0                          [stack:2496]
+7fce1247c000-7fce1247d000 ---p 00000000 00:00 0 
+7fce1247d000-7fce1257d000 rw-p 00000000 00:00 0                          [stack:2495]
+7fce1257d000-7fce12585000 r-xp 00000000 fd:03 2147873                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/accounting_storage_slurmdbd.so
+7fce12585000-7fce12784000 ---p 00008000 fd:03 2147873                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/accounting_storage_slurmdbd.so
+7fce12784000-7fce12785000 rw-p 00007000 fd:03 2147873                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/accounting_storage_slurmdbd.so
+7fce12785000-7fce1278a000 rw-p 00000000 00:00 0 
+7fce1278a000-7fce1278b000 rw-s 00000000 00:10 4063492                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_37
+7fce1278b000-7fce1278c000 rw-s 00000000 00:10 4063491                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_37
+7fce1278c000-7fce1278d000 rw-s 00000000 00:10 4063490                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_36
+7fce1278d000-7fce1278e000 rw-p 00000000 00:00 0 
+7fce1278e000-7fce1278f000 rw-s 00000000 00:10 4063488                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_35
+7fce1278f000-7fce12790000 rw-s 00000000 00:10 4063487                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_35
+7fce12790000-7fce12791000 rw-s 00000000 00:10 4063486                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_34
+7fce12791000-7fce12792000 rw-s 00000000 00:10 4063485                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_34
+7fce12792000-7fce12793000 rw-s 00000000 00:10 4063484                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_33
+7fce12793000-7fce12794000 rw-s 00000000 00:10 4063483                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_33
+7fce12794000-7fce12796000 rw-p 00000000 00:00 0 
+7fce12796000-7fce12797000 rw-s 00000000 00:10 4063489                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_36
+7fce12797000-7fce12798000 rw-s 00000000 00:10 4063482                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_back_32
+7fce12798000-7fce12799000 rw-s 00000000 00:10 4063481                    /dev/shm/sem.alucero_slurm_simulator_thread_sem_32
+7fce12799000-7fce1279a000 rw-s 00000000 00:10 4063416                    /dev/shm/sem.alucero_slurm_simulator
+7fce1279a000-7fce1279b000 rw-p 00000000 00:00 0 
+7fce1279b000-7fce1279d000 rw-s 00000000 00:10 4027442                    /dev/shm/alucero_slurm_sim.shm
+7fce1279d000-7fce127a2000 r-xp 00000000 fd:03 2147836                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/libslurm_sim.so.0.0.0
+7fce127a2000-7fce129a2000 ---p 00005000 fd:03 2147836                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/libslurm_sim.so.0.0.0
+7fce129a2000-7fce129a3000 rw-p 00005000 fd:03 2147836                    /home/tpatki/local/src/slurm-test/sim_test_dir/slurm_varios/lib/slurm/libslurm_sim.so.0.0.0
+7fce129a3000-7fce129a4000 rw-p 00000000 00:00 0 
+7fffec8e2000-7fffec977000 rw-p 00000000 00:00 0                          [stack]
+7fffec9ff000-7fffeca00000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]

@@ -1,0 +1,22 @@
+--- src/common/slurm_protocol_defs.c	2011-05-27 20:25:05.000000000 +0200
++++ src/common/slurm_protocol_defs.c	2011-06-30 13:26:01.683157402 +0200
+@@ -759,6 +759,19 @@
+ 	}
+ }
+ 
++
++void inline slurm_free_sim_job_msg(sim_job_msg_t *msg)
++{
++	xfree(msg);
++}
++
++void inline slurm_free_sim_helper_msg(sim_helper_msg_t *msg)
++{
++	xfree(msg);
++}
++
++
++
+ inline void slurm_free_srun_step_missing_msg(srun_step_missing_msg_t * msg)
+ {
+ 	if (msg) {

@@ -1,0 +1,5063 @@
+diff -Naur slurm-2.2.6.orig/auxdir/slurm.m4 slurm-2.2.6-simulator.copia/auxdir/slurm.m4
+--- slurm-2.2.6.orig/auxdir/slurm.m4	2011-05-27 20:24:36.000000000 +0200
++++ slurm-2.2.6-simulator.copia/auxdir/slurm.m4	2011-06-16 09:21:24.000000000 +0200
+@@ -108,6 +108,24 @@
+   fi
+ ])dnl AC_PROG_INVOCATION_NAME
+ 
++
++dnl 
++dnl dnl Check for slurm_sim.h
++dnl dnl
++AC_DEFUN([X_AC_SLURM_SIMULATION],
++[
++   AC_MSG_CHECKING(for slurm_sim.h file)
++      if test -e "src/simulation_lib/slurm_sim.h";then
++              AC_MSG_NOTICE([File src/simulation_lib/slurm_sim.h DOES exist!!!])
++       else
++              AC_MSG_NOTICE([Creating file src/simulation_lib/slurm_sim.h...])
++             `chmod 755 ./src/simulation_lib/slurm_sim.pl`
++             `./src/simulation_lib/slurm_sim.pl`
++       fi
++
++])dnl AC_SLURM_SIMULATION
++
++
+ dnl
+ dnl Check for Bigendian arch and set SLURM_BIGENDIAN acc'dngly
+ dnl
+diff -Naur slurm-2.2.6.orig/configure.ac slurm-2.2.6-simulator.copia/configure.ac
+--- slurm-2.2.6.orig/configure.ac	2011-05-27 20:25:04.000000000 +0200
++++ slurm-2.2.6-simulator.copia/configure.ac	2011-06-16 09:23:01.000000000 +0200
+@@ -248,6 +248,11 @@
+ fi
+ AC_SUBST(SLURM_PREFIX)
+ 
++
++dnl Check for file src/simulation_lib/slurm_sim.h
++dnl
++X_AC_SLURM_SIMULATION
++
+ dnl check for whether to include Elan support
+ dnl
+ X_AC_ELAN
+@@ -374,6 +379,7 @@
+ 		 src/slurmd/slurmstepd/Makefile
+ 		 src/slurmdbd/Makefile
+ 		 src/slurmctld/Makefile
++		 src/simulation_lib/Makefile
+ 		 src/sbcast/Makefile
+ 		 src/scontrol/Makefile
+ 		 src/scancel/Makefile
+diff -Naur slurm-2.2.6.orig/src/common/bitstring.c slurm-2.2.6-simulator.copia/src/common/bitstring.c
+--- slurm-2.2.6.orig/src/common/bitstring.c	2011-05-27 20:25:05.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/common/bitstring.c	2011-07-19 10:34:53.079048637 +0200
+@@ -258,6 +258,8 @@
+ bit_ffc(bitstr_t *b)
+ {
+ 	bitoff_t bit = 0, value = -1;
++	bitstr_t temp_bitstr;
++	bitoff_t fast_val;
+ 
+ 	_assert_bitstr_valid(b);
+ 
+@@ -268,6 +270,8 @@
+ 			bit += sizeof(bitstr_t)*8;
+ 			continue;
+ 		}
++		temp_bitstr = ~b[word];
++#if 0
+ 		while (bit < _bitstr_bits(b) && _bit_word(bit) == word) {
+ 			if (!bit_test(b, bit)) {
+ 				value = bit;
+@@ -275,6 +279,10 @@
+ 			}
+ 			bit++;
+ 		}
++#endif
++		fast_val = ffsll(temp_bitstr);
++		if(fast_val > 0)
++			value = (fast_val - 1) + bit;
+ 	}
+ 	return value;
+ }
+@@ -290,6 +298,8 @@
+ 	bitoff_t value = -1;
+ 	bitoff_t bit;
+ 	int cnt = 0;
++	bitstr_t temp_bitstr;
++	bitoff_t fast_val;
+ 
+ 	_assert_bitstr_valid(b);
+ 	assert(n > 0 && n < _bitstr_bits(b));
+@@ -397,6 +407,7 @@
+ bit_ffs(bitstr_t *b)
+ {
+ 	bitoff_t bit = 0, value = -1;
++	bitoff_t fast_val;
+ 
+ 	_assert_bitstr_valid(b);
+ 
+@@ -414,10 +425,23 @@
+ 			}
+ 			bit++;
+ 		}
++#if 0
++		fast_val = ffsll(b[word]);
++		       	value = (fast_val - 1) + bit;
++#endif
+ 	}
+ 	return value;
+ }
+ 
++int local_flsll(long long int i){
++
++	long bitops = -1;
++	asm ("bsrq %1, %0" : "+r" (bitops) : "rm" (i));
++       	return (int) bitops;
++}
++
++
++
+ /*
+  * Find last bit set in b.
+  *   b (IN)		bitstring to search
+@@ -428,6 +452,7 @@
+ {
+ 	bitoff_t bit, value = -1;
+ 	int word;
++	bitoff_t fast_val;
+ 
+ 	_assert_bitstr_valid(b);
+ 
+@@ -457,6 +482,11 @@
+ 			}
+ 			bit--;
+ 		}
++#if 0
++		bit -= sizeof(bitstr_t) * 8;
++		fast_val = local_flsll(b[word]);
++	       	value = (fast_val + 1) + bit;
++#endif
+ 	}
+ 	return value;
+ }
+diff -Naur slurm-2.2.6.orig/src/common/forward.c slurm-2.2.6-simulator.copia/src/common/forward.c
+--- slurm-2.2.6.orig/src/common/forward.c	2011-05-27 20:25:05.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/common/forward.c	2011-06-16 09:25:23.000000000 +0200
+@@ -384,6 +384,9 @@
+ 
+ 	_destroy_tree_fwd(fwd_tree);
+ 
++
++	pthread_exit(NULL);
++
+ 	return NULL;
+ }
+ 
+diff -Naur slurm-2.2.6.orig/src/common/slurm_protocol_api.c slurm-2.2.6-simulator.copia/src/common/slurm_protocol_api.c
+--- slurm-2.2.6.orig/src/common/slurm_protocol_api.c	2011-05-27 20:25:05.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/common/slurm_protocol_api.c	2011-06-16 09:29:14.000000000 +0200
+@@ -1949,7 +1949,7 @@
+ 
+ 	for (retry=0; retry<slurm_get_msg_timeout(); retry++) {
+ 		if (retry)
+-			sleep(1);
++			usleep(1000);
+ 		if (working_cluster_rec) {
+ 			if (working_cluster_rec->control_addr.sin_port == 0) {
+ 				slurm_set_addr(
+@@ -3207,6 +3207,7 @@
+ 	slurm_conf_unlock();
+ 
+ 	while (retry) {
++		struct timespec waiting;
+ 		/* If the backup controller is in the process of assuming
+ 		 * control, we sleep and retry later */
+ 		retry = 0;
+@@ -3227,7 +3228,11 @@
+ 			debug("Neither primary nor backup controller "
+ 			      "responding, sleep and retry");
+ 			slurm_free_return_code_msg(resp->data);
+-			sleep(30);
++
++			waiting.tv_sec = 0;
++			waiting.tv_nsec = 30000000;
++			nanosleep(&waiting, 0);
++
+ 			if ((fd = slurm_open_controller_conn(&ctrl_addr))
+ 			    < 0) {
+ 				rc = -1;
+diff -Naur slurm-2.2.6.orig/src/common/slurm_protocol_defs.c slurm-2.2.6-simulator.copia/src/common/slurm_protocol_defs.c
+--- slurm-2.2.6.orig/src/common/slurm_protocol_defs.c	2011-05-27 20:25:05.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/common/slurm_protocol_defs.c	2011-06-30 13:26:01.683157402 +0200
+@@ -759,6 +759,19 @@
+ 	}
+ }
+ 
++
++void inline slurm_free_sim_job_msg(sim_job_msg_t *msg)
++{
++	xfree(msg);
++}
++
++void inline slurm_free_sim_helper_msg(sim_helper_msg_t *msg)
++{
++	xfree(msg);
++}
++
++
++
+ inline void slurm_free_srun_step_missing_msg(srun_step_missing_msg_t * msg)
+ {
+ 	if (msg) {
+@@ -2173,6 +2186,12 @@
+ 	case REQUEST_SUSPEND:
+ 		slurm_free_suspend_msg(data);
+ 		break;
++	case REQUEST_SIM_JOB:
++		slurm_free_sim_job_msg(data);
++		break;
++	case MESSAGE_SIM_HELPER_CYCLE:
++		slurm_free_sim_helper_msg(data);
++		break;
+ 	case REQUEST_JOB_READY:
+ 	case REQUEST_JOB_REQUEUE:
+ 	case REQUEST_JOB_INFO_SINGLE:
+diff -Naur slurm-2.2.6.orig/src/common/slurm_protocol_defs.h slurm-2.2.6-simulator.copia/src/common/slurm_protocol_defs.h
+--- slurm-2.2.6.orig/src/common/slurm_protocol_defs.h	2011-05-27 20:25:05.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/common/slurm_protocol_defs.h	2011-06-30 13:25:43.072164973 +0200
+@@ -262,6 +262,9 @@
+ 	RESPONSE_CHECKPOINT_COMP,
+ 	REQUEST_SUSPEND,
+ 	RESPONSE_SUSPEND,
++	REQUEST_SIM_JOB,
++	RESPONSE_SIM_JOB,
++	MESSAGE_SIM_HELPER_CYCLE,
+ 	REQUEST_STEP_COMPLETE,
+ 	REQUEST_COMPLETE_JOB_ALLOCATION,
+ 	REQUEST_COMPLETE_BATCH_SCRIPT,
+@@ -833,6 +836,16 @@
+ 	char * hostname;	/* hostname to be sent the kvs data */
+ } kvs_get_msg_t;
+ 
++
++typedef struct sim_job_msg {
++	uint32_t job_id;
++	uint32_t duration;
++} sim_job_msg_t;
++
++typedef struct sim_helper_msg {
++	uint32_t total_jobs_ended;
++} sim_helper_msg_t;
++
+ typedef struct file_bcast_msg {
+ 	char *fname;		/* name of the destination file */
+ 	uint16_t block_no;	/* block number of this data */
+diff -Naur slurm-2.2.6.orig/src/common/slurm_protocol_pack.c slurm-2.2.6-simulator.copia/src/common/slurm_protocol_pack.c
+--- slurm-2.2.6.orig/src/common/slurm_protocol_pack.c	2011-05-27 20:25:05.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/common/slurm_protocol_pack.c	2011-06-30 13:26:14.598128746 +0200
+@@ -341,6 +341,11 @@
+ 	complete_batch_script_msg_t ** msg_ptr, Buf buffer,
+ 	uint16_t protocol_version);
+ 
++static void _pack_sim_job_msg(sim_job_msg_t *msg, Buf buffer);
++static void _pack_sim_helper_msg(sim_helper_msg_t *msg, Buf buffer);
++static int  _unpack_sim_job_msg(sim_job_msg_t **msg_ptr, Buf buffer);
++static int  _unpack_sim_helper_msg(sim_helper_msg_t **msg_ptr, Buf buffer);
++
+ static void _pack_job_step_stat(job_step_stat_t * msg, Buf buffer,
+ 				uint16_t protocol_version);
+ static int _unpack_job_step_stat(job_step_stat_t ** msg_ptr, Buf buffer,
+@@ -877,6 +882,14 @@
+ 		_pack_signal_job_msg((signal_job_msg_t *) msg->data, buffer,
+ 				     msg->protocol_version);
+ 		break;
++	case REQUEST_SIM_JOB:
++		_pack_sim_job_msg((sim_job_msg_t *)msg->data, buffer);
++		break;
++
++	case MESSAGE_SIM_HELPER_CYCLE:
++		_pack_sim_helper_msg((sim_helper_msg_t *)msg->data, buffer);
++		break;
++
+ 	case REQUEST_ABORT_JOB:
+ 	case REQUEST_KILL_TIMELIMIT:
+ 	case REQUEST_TERMINATE_JOB:
+@@ -1505,6 +1518,15 @@
+ 					 msg->protocol_version);
+ 		break;
+ 
++	case REQUEST_SIM_JOB:
++		_unpack_sim_job_msg((sim_job_msg_t **)&msg->data, buffer);
++		break;
++
++	case MESSAGE_SIM_HELPER_CYCLE:
++		_unpack_sim_helper_msg((sim_helper_msg_t **)&msg->data, buffer);
++		break;
++
++
+ 	case REQUEST_JOB_READY:
+ 	case REQUEST_JOB_REQUEUE:
+ 	case REQUEST_JOB_INFO_SINGLE:
+@@ -7357,6 +7379,21 @@
+ 	pack32((uint32_t)msg->job_id,  buffer ) ;
+ }
+ 
++static void _pack_sim_job_msg(sim_job_msg_t *msg, Buf buffer)
++{
++	xassert ( msg != NULL );
++
++	pack32((uint32_t)msg->duration, buffer ) ;
++	pack32((uint32_t)msg->job_id,  buffer ) ;
++}
++
++static void _pack_sim_helper_msg(sim_helper_msg_t *msg, Buf buffer)
++{
++	xassert ( msg != NULL );
++
++	pack32((uint32_t)msg->total_jobs_ended, buffer ) ;
++}
++
+ static int  _unpack_suspend_msg(suspend_msg_t **msg_ptr, Buf buffer,
+ 				uint16_t protocol_version)
+ {
+@@ -7376,6 +7413,42 @@
+ 	return SLURM_ERROR;
+ }
+ 
++static int  _unpack_sim_job_msg(sim_job_msg_t **msg_ptr, Buf buffer)
++{
++	sim_job_msg_t * msg;
++	xassert ( msg_ptr != NULL );
++
++	msg = xmalloc ( sizeof (sim_job_msg_t) );
++	*msg_ptr = msg ;
++
++	safe_unpack32(&msg->duration ,      buffer ) ;
++	safe_unpack32(&msg->job_id  , buffer ) ;
++	return SLURM_SUCCESS;
++
++unpack_error:
++    info("SIM: unpack_sim_job_msg error!\n");
++	*msg_ptr = NULL;
++	slurm_free_suspend_msg(msg);
++	return SLURM_ERROR;
++}
++
++static int  _unpack_sim_helper_msg(sim_helper_msg_t **msg_ptr, Buf buffer)
++{
++	sim_helper_msg_t * msg;
++	xassert ( msg_ptr != NULL );
++
++	msg = xmalloc ( sizeof (sim_helper_msg_t) );
++	*msg_ptr = msg ;
++
++	safe_unpack32(&msg->total_jobs_ended ,      buffer ) ;
++	return SLURM_SUCCESS;
++
++unpack_error:
++    info("SIM: unpack_sim_helper_msg error!\n");
++	*msg_ptr = NULL;
++	slurm_free_suspend_msg(msg);
++	return SLURM_ERROR;
++}
+ 
+ static void
+ _pack_checkpoint_msg(checkpoint_msg_t *msg, Buf buffer,
+diff -Naur slurm-2.2.6.orig/src/Makefile.am slurm-2.2.6-simulator.copia/src/Makefile.am
+--- slurm-2.2.6.orig/src/Makefile.am	2011-05-27 20:25:04.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/Makefile.am	2011-06-16 09:24:33.000000000 +0200
+@@ -8,7 +8,7 @@
+ 	slurmctld slurmd slurmdbd plugins srun sbcast \
+ 	scontrol scancel squeue sinfo smap sview salloc \
+ 	sbatch sattach strigger sacct sacctmgr sreport sstat \
+-	sshare sprio $(SRUN_CR)
++	sshare sprio $(SRUN_CR) simulation_lib
+ 
+ 
+ 
+diff -Naur slurm-2.2.6.orig/src/plugins/sched/backfill/backfill.c slurm-2.2.6-simulator.copia/src/plugins/sched/backfill/backfill.c
+--- slurm-2.2.6.orig/src/plugins/sched/backfill/backfill.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/plugins/sched/backfill/backfill.c	2011-09-30 11:27:25.317400020 +0200
+@@ -346,13 +346,19 @@
+ 
+ static void _my_sleep(int secs)
+ {
+-	struct timespec ts = {0, 0};
++	/*struct timespec ts = {0, 0};
+ 
+ 	ts.tv_sec = time(NULL) + secs;
+ 	pthread_mutex_lock(&term_lock);
+ 	if (!stop_backfill)
+ 		pthread_cond_timedwait(&term_cond, &term_lock, &ts);
+ 	pthread_mutex_unlock(&term_lock);
++	*/
++	
++	/* For simulation purposes such a polite termintarion process is not necessary although it could be 
++	   implemented as sleep wrapper does. By now just using a simple call to sleep here. */
++
++	sleep(secs);
+ }
+ 
+ static void _load_config(void)
+@@ -474,8 +480,11 @@
+ 	node_space_map_t *node_space;
+ 	static int sched_timeout = 0;
+ 	int this_sched_timeout = 0, rc = 0;
++	int local_loops = 0;
++
+ 
+ 	sched_start = now;
++
+ 	if (sched_timeout == 0) {
+ 		sched_timeout = slurm_get_msg_timeout() / 2;
+ 		sched_timeout = MAX(sched_timeout, 1);
+@@ -505,6 +514,9 @@
+ 
+ 	while ((job_queue_rec = (job_queue_rec_t *)
+ 				list_pop_bottom(job_queue, sort_job_queue2))) {
++
++		slurmdb_qos_rec_t *sim_qos_ptr;
++
+ 		job_ptr  = job_queue_rec->job_ptr;
+ 		part_ptr = job_queue_rec->part_ptr;
+ 		xfree(job_queue_rec);
+@@ -512,12 +524,16 @@
+ 			continue;	/* started in other partition */
+ 		job_ptr->part_ptr = part_ptr;
+ 
++		sim_qos_ptr = (slurmdb_qos_rec_t *)job_ptr->qos_ptr;
++
+ 		if (debug_flags & DEBUG_FLAG_BACKFILL)
+ 			info("backfill test for job %u", job_ptr->job_id);
+ 
+ 		if ((job_ptr->state_reason == WAIT_ASSOC_JOB_LIMIT) ||
+ 		    (job_ptr->state_reason == WAIT_ASSOC_RESOURCE_LIMIT) ||
+-		    (job_ptr->state_reason == WAIT_ASSOC_TIME_LIMIT)) {
++		    (job_ptr->state_reason == WAIT_ASSOC_TIME_LIMIT)){ 
++		    /*(job_ptr->state_reason == WAIT_ASSOC_TIME_LIMIT) ||
++		    !acct_policy_job_runnable(job_ptr)) */
+ 			debug2("backfill: job %u is not allowed to run now. "
+ 			       "Skipping it. State=%s. Reason=%s. Priority=%u",
+ 			       job_ptr->job_id,
+@@ -570,8 +586,11 @@
+ 		}
+ 		comp_time_limit = time_limit;
+ 		orig_time_limit = job_ptr->time_limit;
+-		if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE))
++		qos_ptr = job_ptr->qos_ptr;
++		if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE)){
++			debug2("backfilling: Updating time_limit for jobid %u to 60 secs\n", job_ptr->job_id);
+ 			time_limit = job_ptr->time_limit = 1;
++		}
+ 		else if (job_ptr->time_min && (job_ptr->time_min < time_limit))
+ 			time_limit = job_ptr->time_limit = job_ptr->time_min;
+ 
+@@ -636,24 +655,28 @@
+ 		resv_bitmap = bit_copy(avail_bitmap);
+ 		bit_not(resv_bitmap);
+ 
+-		if ((time(NULL) - sched_start) >= this_sched_timeout) {
++		if (local_loops == 20){
++			int save_time_limit;
+ 			debug("backfill: loop taking too long, yielding locks");
++			save_time_limit = job_ptr->time_limit;
++		       	job_ptr->time_limit = orig_time_limit;
+ 			if (_yield_locks()) {
+ 				debug("backfill: system state changed, "
+ 				      "breaking out");
+ 				rc = 1;
++				job_ptr->time_limit = orig_time_limit;
+ 				break;
+ 			} else {
+ 				this_sched_timeout += sched_timeout;
+ 			}
++		       	job_ptr->time_limit = save_time_limit;
++			local_loops = 0;
+ 		}
++		local_loops++;
+ 		/* this is the time consuming operation */
+-		debug2("backfill: entering _try_sched for job %u.",
+-		       job_ptr->job_id);
+ 		j = _try_sched(job_ptr, &avail_bitmap,
+ 			       min_nodes, max_nodes, req_nodes);
+-		debug2("backfill: finished _try_sched for job %u.",
+-		       job_ptr->job_id);
++
+ 		now = time(NULL);
+ 		if (j != SLURM_SUCCESS) {
+ 			job_ptr->time_limit = orig_time_limit;
+@@ -667,8 +690,10 @@
+ 		}
+ 		if (job_ptr->start_time <= now) {
+ 			int rc = _start_job(job_ptr, resv_bitmap);
+-			if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE))
++			if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE)){
+ 				job_ptr->time_limit = orig_time_limit;
++				job_ptr->end_time = job_ptr->start_time + (orig_time_limit * 60);
++			}
+ 			else if ((rc == SLURM_SUCCESS) && job_ptr->time_min) {
+ 				/* Set time limit as high as possible */
+ 				job_ptr->time_limit = comp_time_limit;
+@@ -696,6 +721,7 @@
+ 		} else
+ 			job_ptr->time_limit = orig_time_limit;
+ 
++
+ 		if (later_start && (job_ptr->start_time > later_start)) {
+ 			/* Try later when some nodes currently reserved for
+ 			 * pending jobs are free */
+@@ -727,7 +753,6 @@
+ 		/*
+ 		 * Add reservation to scheduling table if appropriate
+ 		 */
+-		qos_ptr = job_ptr->qos_ptr;
+ 		if (qos_ptr && (qos_ptr->flags & QOS_FLAG_NO_RESERVE))
+ 			continue;
+ 		bit_not(avail_bitmap);
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/comm_protocol.h slurm-2.2.6-simulator.copia/src/simulation_lib/comm_protocol.h
+--- slurm-2.2.6.orig/src/simulation_lib/comm_protocol.h	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/comm_protocol.h	2011-06-16 12:00:32.000000000 +0200
+@@ -0,0 +1,7 @@
++#define REQ_SYNC 			123
++
++typedef struct comm_data_struct {
++		int request_type;
++		long int data_long[5];
++} comm_data_t;
++
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/list_trace.c slurm-2.2.6-simulator.copia/src/simulation_lib/list_trace.c
+--- slurm-2.2.6.orig/src/simulation_lib/list_trace.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/list_trace.c	2011-10-03 16:48:44.523275489 +0200
+@@ -0,0 +1,37 @@
++#include <stdio.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <stdlib.h>
++
++#include "sim_trace.h"
++
++
++int main(int argc, char *argv[]){
++
++		int trace_file;
++		job_trace_t job_trace;
++
++		trace_file = open("test.trace", O_RDONLY);
++		if(trace_file < 0){
++				printf("Error opening test.trace\n");
++				return -1;
++		}
++
++		printf("JOBID  \tUSERNAME  \tPARTITION  \tACCOUNT  \tQOS     \tSUBMIT    \tDURATION  \tWCLIMIT  \tTASKS\n");
++		printf("=====  \t========  \t=========  \t=======  \t======  \t========  \t========  \t======== \t=====\n");
++
++		while(read(trace_file, &job_trace, sizeof(job_trace))){
++				printf("%5d  \t%8s  \t%9s  \t%7s  \t%6s  \t%8d  \t%8d  \t%7d  \t%5d(%d,%d)", job_trace.job_id, job_trace.username, job_trace.partition, job_trace.account, job_trace.qosname, job_trace.submit, job_trace.duration, job_trace.wclimit, job_trace.tasks, job_trace.tasks_per_node, job_trace.cpus_per_task);
++                if(strlen(job_trace.reservation) > 0)
++                    printf(" RES=%s", job_trace.reservation);
++                if(strlen(job_trace.dependency) > 0)
++                    printf(" DEP=%s", job_trace.dependency);
++
++                printf("\n");
++
++		}
++
++		return 0;
++}
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/Makefile.am slurm-2.2.6-simulator.copia/src/simulation_lib/Makefile.am
+--- slurm-2.2.6.orig/src/simulation_lib/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/Makefile.am	2011-10-03 16:48:17.589250056 +0200
+@@ -0,0 +1,38 @@
++#
++
++AUTOMAKE_OPTIONS = foreign
++CLEANFILES = core.*
++
++INCLUDES = -I$(top_srcdir)
++
++bin_PROGRAMS = sim_mgr list_trace trace_builder sim_ctlr update_trace
++
++sim_mgr_SOURCES = sim_mgr.c
++list_trace_SOURCES = list_trace.c
++trace_builder_SOURCES = trace_builder.c
++sim_ctlr_SOURCES = sim_ctlr.c
++update_trace_SOURCES = update_trace.c
++
++convenience_libs = $(top_builddir)/src/api/libslurm.o 
++
++sim_mgr_LDADD = $(convenience_libs)
++list_trace_LDADD = $(convenience_libs)
++trace_builder_LDADD = $(convenience_libs)
++update_trace_LDADD = $(convenience_libs)
++sim_ctlr_LDADD = $(convenience_libs)
++
++sim_mgr_LDFLAGS = -export-dynamic $(CMD_LDFLAGS) -ldl -lrt -lpthread
++list_trace_LDFLAGS = -export-dynamic $(CMD_LDFLAGS) -ldl -lrt -lpthread
++trace_builder_LDFLAGS = -export-dynamic $(CMD_LDFLAGS) -ldl -lrt -lpthread
++update_trace_LDFLAGS = -export-dynamic $(CMD_LDFLAGS) -ldl -lrt -lpthread
++sim_ctlr_LDFLAGS = -export-dynamic $(CMD_LDFLAGS) -ldl -lrt -lpthread
++
++pkglib_LTLIBRARIES = libslurm_sim.la
++
++libslurm_sim_la_SOURCES = sim_lib.c
++libslurm_sim_la_LDFLAGS = $(SO_LDFLAGS) -ldl -lrt -lpthread
++
++force:
++$(convenience_libs) : force
++	      @cd `dirname $@` && $(MAKE) `basename $@`
++
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/rpc_threads.pl slurm-2.2.6-simulator.copia/src/simulation_lib/rpc_threads.pl
+--- slurm-2.2.6.orig/src/simulation_lib/rpc_threads.pl	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/rpc_threads.pl	2011-06-16 12:00:32.000000000 +0200
+@@ -0,0 +1,6 @@
++#!/usr/bin/perl
++
++system("objdump -t ../slurmctld/slurmctld | grep _slurmctld_rpc_mgr | awk '{print \$1 \" # _slurmctld_rpc_mgr\" '} > rpc_threads.info");
++system("objdump -t ../slurmctld/slurmctld | grep _slurmctld_signal_hand | awk '{print \$1 \" # _slurmctld_signal_hand\" '} >> rpc_threads.info");
++system("objdump -t ../slurmctld/slurmctld | grep _agent | awk '{print \$1 \" # _agent\" '} >> rpc_threads.info");
++
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/rsv_trace_builder.c slurm-2.2.6-simulator.copia/src/simulation_lib/rsv_trace_builder.c
+--- slurm-2.2.6.orig/src/simulation_lib/rsv_trace_builder.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/rsv_trace_builder.c	2011-09-07 15:54:52.414181263 +0200
+@@ -0,0 +1,108 @@
++#include <stdio.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <getopt.h>
++
++#include "sim_trace.h"
++
++int option_index;
++static struct option long_options[] = {
++    {"name",      1, 0, 'n'},
++    {"account",  1, 0, 'a'},
++    {"user", 1, 0, 'u'},
++    {"partition",  1, 0, 'p'},
++    {"starttime",     1, 0, 's'},
++    {"duration",     1, 0, 'd'},
++    {"nodecnt",     1, 0, 'N'},
++    {"flags",     1, 0, 'f'},
++    {NULL,       0, 0, 0}
++};
++
++int trace_file;
++job_trace_t new_trace;
++
++char *user;
++char *account;
++char *rsv_name;
++char *partition;
++char *starttime;
++char *duration;
++char *flags;
++char *nodecount;
++
++char scontrol_command[1000];
++
++int main(int argc, char *argv[]){
++
++		int i;
++		int written;
++		int  userfile;
++		int  qosfile;
++		int char_pos;
++		int endfile = 0;
++		char *name;
++        int opt_char;
++        int option_index;
++
++        while((opt_char = getopt_long(argc, argv, "naupsdNf",
++                        long_options, &option_index)) != -1) {
++            switch (opt_char) {
++                case (int)'n':
++                    rsv_name = strdup(optarg);
++                    /*printf("Using name %s for the reservation\n", rsv_name);*/
++                    break;
++
++                case (int)'a':
++                    account = strdup(optarg);
++                    /*printf("Using account %s for the reservation\n", account);*/
++                    break;
++
++                case (int)'u':
++                    user = strdup(optarg);
++                    break;
++
++                case (int)'p':
++                    partition = strdup(optarg);
++                    break;
++
++                case (int)'s':
++                    starttime = strdup(optarg);
++                    break;
++
++                case (int)'d':
++                    duration = strdup(optarg);
++                    break;
++
++                case (int)'f':
++                    flags = strdup(optarg);
++                    break;
++
++                case (int)'N':
++                    nodecount = strdup(optarg);
++                    break;
++
++                default:
++                    fprintf(stderr, "getopt error, returned %c\n",
++                            opt_char);
++                    exit(0);
++            }
++        }
++
++        sprintf(scontrol_command, "scontrol create reservation=%s users=%s accounts=%s partitionname=%s starttime=%s duration=%s flags=%s nodecnt=%s\n", 
++                rsv_name, user, account, partition, starttime, duration, flags, nodecount);
++
++        if((trace_file = open("test.trace", O_CREAT | O_APPEND | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0){
++            printf("Error opening file test.trace\n");
++            return -1;
++		}
++
++        write(trace_file, scontrol_command, strlen(scontrol_command));
++
++        close(trace_file);
++        
++
++		return 0;
++}
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/sim_ctlr.c slurm-2.2.6-simulator.copia/src/simulation_lib/sim_ctlr.c
+--- slurm-2.2.6.orig/src/simulation_lib/sim_ctlr.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/sim_ctlr.c	2011-09-19 22:35:30.471211344 +0200
+@@ -0,0 +1,225 @@
++#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
++#include <string.h>
++#include <sys/types.h>
++#include <sys/wait.h>
++#include <sys/socket.h>
++#include <arpa/inet.h>
++#include <netinet/in.h>
++#include <errno.h>
++#include <signal.h>
++
++#define SIM_MGR_SERVER_PORT 23720
++
++#define mysql_client "get_sim_data.pl"
++
++int alert_received = 0;
++
++void alert_checked(int signum){
++	printf("OK. Resuming operation\n");
++	alert_received = 1;
++}
++
++int main(int argc, char *argv[], char *envp[]){
++
++
++	int sock_control;
++	struct sockaddr_in mgr_addr;
++	int req_type;
++
++	if(argc < 2){
++		printf("Usage: %s req_type(100=control_thread, 200=get_thread_id)\n", argv[0]);
++		return -1;
++	}
++
++	/* When started before than exec_sim inside a global script test */
++	sleep(5);
++
++	sock_control = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
++	if(sock_control < 0){
++		printf("sim_ctrl: error with socket\n");
++		return -1;
++	}
++
++	mgr_addr.sin_family = AF_INET;
++	mgr_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
++	mgr_addr.sin_port = htons(SIM_MGR_SERVER_PORT);
++
++	if(connect(sock_control, (struct sockaddr *)&mgr_addr, sizeof(mgr_addr)) < 0){
++		printf("sim_ctrl: error connecting to simulation manager: %d\n", errno);
++		return -1;
++	}
++
++	req_type = atoi(argv[1]);
++
++
++       	signal(SIGUSR1, alert_checked);
++
++	switch(req_type){
++
++	       	int thread_id;
++	       	int res;
++	       	unsigned long long func_addr;
++		unsigned int current_sim, real_time, real_time_usecs;
++		unsigned int last_secs, last_usecs;
++	       	int count;
++
++		case 100:
++		       
++			if(argc < 3){
++				printf("Request 100 needs a parameter for thread id\n");
++				return -1;
++			}
++			thread_id = atoi(argv[2]);
++
++			printf("Sending request 100\n");
++		       	if(send(sock_control, &req_type, sizeof(req_type), 0) < 0){
++			       	printf("sim_ctrl: send error\n");
++			       	return -1;
++		       	}
++
++			printf("Sending thread id %d\n", thread_id);
++		       	if(send(sock_control, &thread_id, sizeof(req_type), 0) < 0){
++			       	printf("sim_ctrl: send error\n");
++			       	return -1;
++		       	}
++			printf("Waiting for confirmation...");
++		       	if(recv(sock_control, &res, sizeof(req_type), 0) < 0){
++			       	printf("sim_ctrl: recv error\n");
++			       	return -1;
++		       	}
++			if(res == 0)
++				printf("Ok. Now simulation is frozen when thread %d is ready to be executed\n", thread_id);
++			else{
++				printf("ERROR. This can not be done. Are you using the right thread id?\n");
++				return -1;
++		       	}
++			break;
++
++		case 200:
++
++			printf("Sending request 200\n");
++		       	if(send(sock_control, &req_type, sizeof(req_type), 0) < 0){
++			       	printf("sim_ctrl: send error\n");
++			       	return -1;
++		       	}
++		       	res = 0;
++
++			while(res > 0){
++			       	if(recv(sock_control, &func_addr, sizeof(func_addr), 0) < 0){
++				       	printf("sim_ctrl: recv error\n");
++				       	return -1;
++			       	}
++				printf("Thread ID: %d, func_addr: %016llx\n", res, func_addr);
++				res--;
++			}
++			break;
++
++		case 300:
++
++			last_secs = 0;
++			last_usecs = 0;
++
++			count = 0;
++
++			while(1){
++				int child;
++				int exec_result;
++				char *child_args[5] = {"","","","", (char *)0 };
++				unsigned int diff;
++
++			       	//printf("Getting current simulation time\n");
++				/* this is the signal for getting simulation statistics safely */
++			       	if(recv(sock_control, &current_sim, sizeof(current_sim), 0) < 0){
++				       	printf("sim_ctrl: recv error\n");
++				       	return -1;
++			       	}
++
++				//printf("Current simulation time %u\n", current_sim);
++			       	if(recv(sock_control, &real_time, sizeof(real_time), 0) < 0){
++				       	printf("sim_ctrl: recv error\n");
++				       	return -1;
++			       	}
++
++
++			       	if(recv(sock_control, &real_time_usecs, sizeof(real_time), 0) < 0){
++				       	printf("sim_ctrl: recv error\n");
++				       	return -1;
++			       	}
++
++				//printf("Real simulation time %u-%u\n", real_time, real_time_usecs);
++
++				if(last_secs > 0){
++					if(real_time_usecs > last_usecs)
++						diff = ((real_time - last_secs) * 1000000) + (real_time_usecs - last_usecs);
++					else
++						diff = ((real_time - last_secs) * 1000000) + (real_time_usecs + (1000000 - last_usecs));
++				}else{
++					diff = 0;
++				}
++
++				last_secs = real_time;
++				last_usecs = real_time_usecs;
++
++
++				/* Let's work with milliseconds */
++				//printf("Diff: %u (%u)\n", diff, diff / 1000);
++				diff = diff / 1000;
++
++			       	child = fork();
++
++			       	if(child == 0){ /* the child */
++
++					if(daemon(1,1) < 0){
++						printf("daemon call error\n");
++					};
++					child_args[1] = malloc(30);
++					memset(child_args[1], '\0', 30);
++					child_args[2] = malloc(30);
++					memset(child_args[2], '\0', 30);
++					child_args[3] = malloc(30);
++					memset(child_args[3], '\0', 30);
++
++					sprintf(child_args[1], "%u", current_sim);
++					sprintf(child_args[2], "%u", diff);
++					sprintf(child_args[3], "%d", count);
++
++					count++;
++
++				       	if(execve(mysql_client, child_args, envp) < 0){
++					       	printf("Error in execve for tch\n");
++					       	printf("Exiting...\n");
++					       	return(-1);
++				       	}
++			       	}
++
++#if 0
++				if(current_sim >= (1305530000)){
++				//if(current_sim >= (1304958545- 300)){
++					while(alert_received == 0){
++						printf("ALERT! We got the 1305913406 second\n");
++						sleep(5);
++					}
++				}
++#endif
++
++				waitpid(child, &exec_result, 0);
++
++			       	//printf("Returning control to sim_mgr...\n");
++			       	if(send(sock_control, &current_sim, sizeof(current_sim), 0) < 0){
++				       	printf("sim_ctrl: recv error\n");
++				       	return -1;
++			       	}
++				count++;
++			}
++
++			break;
++
++	}
++
++	close(sock_control);
++
++	return 0;
++
++}
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/sim_lib.c slurm-2.2.6-simulator.copia/src/simulation_lib/sim_lib.c
+--- slurm-2.2.6.orig/src/simulation_lib/sim_lib.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/sim_lib.c	2011-09-05 18:13:19.811181527 +0200
+@@ -0,0 +1,768 @@
++#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
++#include <time.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <sys/mman.h>
++#define _GNU_SOURCE
++#include <dlfcn.h>
++#include <sched.h>
++#include <semaphore.h>
++
++#include <pthread.h>
++#include <string.h>
++
++#include "slurm_sim.h"
++#include "comm_protocol.h"
++
++#include <sys/time.h>
++#include <errno.h>
++
++#include <execinfo.h>
++
++#define LIBC_PATH  "/lib64/libc.so.6"
++
++#undef DEBUG
++//#define DEBUG
++
++int sim_lib_debug_level = 9;
++
++#define sim_lib_printf(debug_level, ...) \
++    ({ \
++     if(debug_level >= sim_lib_debug_level) \
++     printf(__VA_ARGS__); \
++     })
++
++
++int ffsll(long long int i);
++
++int (*real_gettimeofday)(struct timeval *,struct timezone *) = NULL;
++unsigned int (*real_sleep)(unsigned int) = NULL;
++time_t (*real_time)(time_t *) = NULL;
++int (*real_pthread_create)(pthread_t *, const pthread_attr_t *, void *(*start) (void *), void *);
++void (*real_pthread_exit)(void *retval);
++int (*real_pthread_join)(pthread_t thread, void **retval);
++
++int get_new_thread_id();
++int set_exit_map_array(int pos);
++int set_new_thread(int pos);
++int get_thread_id();
++
++/* Pointer to shared memory initialized by sim_mgr */
++void *timemgr_data;
++
++sem_t *global_sem;      
++sem_t *thread_sem[MAX_THREADS];
++sem_t *thread_sem_back[MAX_THREADS];
++
++/* Pointers to shared memory data */
++unsigned int *current_sim;
++unsigned int *current_micro;
++thread_data_t *threads_data;
++unsigned int *current_threads;
++unsigned int *proto_threads;
++long long int *sleep_map_array;
++long long int *thread_exit_array;
++long long int *thread_new_array;
++unsigned int *fast_threads_counter;
++unsigned int *pthread_create_counter;
++unsigned int *pthread_exit_counter;
++int *slurmctl_pid;
++int *slurmd_pid;
++
++/* Local data by program */
++pthread_t main_thread;
++int main_thread_id;
++
++typedef struct thread_sem_info{
++    int id;
++    pthread_t p;
++}thread_sem_info_t;
++
++/* This array links simulation threads id with pthreads id */
++/* Now when a thread enters a wrapper function this array is used for simulation operations */
++thread_sem_info_t thread_info_list[MAX_THREADS];
++
++void pthread_exit(void *retval) {
++
++    int tid = -1;
++    int reps;
++
++    sim_lib_printf(0, "Wrapper for pthread_exit [%lu]\n", pthread_self());
++    if(pthread_self() == main_thread){
++
++        /* this could happen if slurmd pthread_create fails several times and _service_connection
++         * * is executed without using a thread */
++        sim_lib_printf(0, "pthread_exit for main thread do nothing. Returning\n");
++
++    }else{ 
++        tid = get_thread_id();
++
++        reps = 0;
++        /* A thread could be created and executed so fast pthread_create wrapper could not set sync tables properly*/
++        while((tid < 0) || (tid > 63)){
++
++            /* Let's track how often this happens and leave some time for pthread_create wrapper to work */
++            fast_threads_counter[0]++;
++            usleep(10000);
++
++            tid = get_thread_id();
++            reps++;
++
++            /* Something is wrong. Let's dump some information, got the global sem then stalls */
++            if(reps == 1000){
++                int i = 0;
++                printf("Thread %ld: Too much calls to get_thread_id. Listing current threads...\n", pthread_self());
++                sem_wait(global_sem);
++                while(i < MAX_THREADS){
++                    if(thread_info_list[i].p != 0)
++                        printf("Thread %ld[%d]\n", thread_info_list[i].p, i);
++                    i++;
++                }
++                while(i > 0);
++            }
++        }
++
++        sim_lib_printf(0, "pthread_exit getting global_sem\n");
++        /* We need the lock for updating global structures */
++        sem_wait(global_sem);
++
++        pthread_exit_counter[0]++;
++
++        sim_lib_printf(0, "pthread_exit waking_up sim_mgr\n");
++
++        /* Most of threads do not need this but it does not hurt */
++        sem_post(thread_sem_back[tid]);
++
++        sim_lib_printf(0, "pthread_exit closing semaphore\n");
++
++        set_exit_map_array(tid);
++        threads_data[tid].ptid = 0;
++
++        /* Now simulation stuctures are updated. Real pthread_exit call can be done freely */
++        sem_post(global_sem);
++
++        sim_lib_printf(0, "pthread_exit for %d: calling real_pthread_exit\n", tid);
++
++        real_pthread_exit(retval);
++    }
++}
++
++
++int pthread_join(pthread_t thread, void **retval){
++
++    int tid = -1;
++    int ret;
++
++    while(tid < 0)
++        tid = get_thread_id();
++
++    sim_lib_printf(0, "pthread_join wrapper for %d thread\n", tid);
++
++    threads_data[tid].joining = 1;
++
++    /* Calling real pthread_join */
++    ret = real_pthread_join(thread, retval);
++
++    threads_data[tid].joining = 0;
++
++    return ret;
++}
++
++int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start) (void *), void *arg){
++
++    int ret;
++    char sem_name[100];
++    int s_id;
++    int sval;
++    int err = 0;
++    int proto = 0;
++
++
++    /* This wrapper executes the full code with global lock, even call to real pthread_create */
++    sem_wait(global_sem);
++
++    pthread_create_counter[0]++;
++
++    /* First of all, we need a simulation thread id. Under thread creation bursts could it be no
++     * * free slot is available. This is what we call a proto-thread. It should be enough to wait 
++     * * some time till one slot is available. If the wait takes more than 10 seconds, something is
++     * * wrong about the simulation */
++    while(1){
++        struct timespec waiting;
++
++        s_id = get_new_thread_id();
++        if(s_id < 0){
++            if(proto == 0){
++                proto = 1;
++                proto_threads[0]++;
++                printf("WAITING FOR AN SLOT proto_threads: %d\n", proto_threads[0]);
++            }
++            sem_post(global_sem);
++        }
++        else
++            break;
++        err++;
++        pthread_yield();
++        if(err == 1000){
++            printf("WARNING: pthread_create wrapper returning EAGAIN!!!\n");
++            proto_threads[0]--;
++            return -EAGAIN;
++        }
++        waiting.tv_sec = 0;
++        waiting.tv_nsec = 10000000;
++        nanosleep(&waiting, 0);
++        sem_wait(global_sem);
++    }
++
++    /* Once we got here the simulation thread is not a proto-thread any more */
++    if(proto)
++        proto_threads[0]--;
++
++    sim_lib_printf(0, "I GOT AN SLOT: proto_threads: %d\n", proto_threads[0]);
++
++    /* simulation thread initialization */
++    /* Most of it is just for debugging except sleep field */
++    threads_data[s_id].sleep = -1;
++    threads_data[s_id].creation = *current_sim;
++    threads_data[s_id].deletion = 0;
++    threads_data[s_id].last_sleep = 0;
++    threads_data[s_id].never_ending = 0;
++    threads_data[s_id].last_wakeup = 0;
++    threads_data[s_id].wait_time = 0;
++    threads_data[s_id].wait_count = 0;
++    threads_data[s_id].func_addr = (unsigned long)start;
++    threads_data[s_id].pid = getpid();
++
++    set_new_thread(s_id);
++
++    /* Calling real pthread_create is needed at this point. We need pthread_id for linking 
++     * * a simulation thread id with a pthread_id. It could happen a fast thread trying to use
++     * * this linking table before an entry has been created for it, but we are aware of this.
++     * * The link is done as one of the last steps because we need to work for leaving all
++     * * stable before the thread starts working with simulation structures.
++     * */
++    ret = real_pthread_create(thread, attr, start, arg);
++
++    /* Opening semaphores using simulation thread id */
++    memset(&sem_name, '\0', 100);
++    sprintf(sem_name, "%s%d", SIM_LOCAL_SEM_PREFIX, s_id);
++
++    sim_lib_printf(0, "Opening semaphore %s\n", sem_name);
++    thread_sem[s_id] = sem_open(sem_name, 0);
++    if(thread_sem[s_id] == SEM_FAILED){
++        printf("Error opening semaphore number %d\n", s_id);
++        return -1;
++    }
++
++    sem_getvalue(thread_sem[s_id], &sval);
++
++    sim_lib_printf(0, "pthread_create: sval for %s = %d\n", sem_name, sval);
++
++    memset(&sem_name, '\0', 100);
++    sprintf(sem_name, "%s%d", SIM_LOCAL_SEM_BACK_PREFIX, s_id);
++
++    sim_lib_printf(0, "Opening semaphore %s\n", sem_name);
++
++    thread_sem_back[s_id] = sem_open(sem_name, 0);
++    if(thread_sem_back[s_id] == SEM_FAILED){
++        printf("Error opening semaphore number %d\n", s_id);
++        return -1;
++    }
++
++    sem_getvalue(thread_sem_back[s_id], &sval);
++
++    sim_lib_printf(0, "pthread_create: sval for %s = %d\n", sem_name, sval);
++
++    /* Sometimes previous thread using this semaphore left the wrong value */
++    while(sval > 1){
++        sem_wait(thread_sem_back[s_id]);
++        sem_getvalue(thread_sem_back[s_id], &sval);
++    }
++
++    if(sval == 0)
++        sem_post(thread_sem_back[s_id]);
++
++    sim_lib_printf(0, "pthread_create: sval for %s = %d\n", sem_name, sval);
++
++    /* Is this really needed??? */
++    thread_info_list[s_id].id = s_id;
++
++    sim_lib_printf(0, "Dentro de wrapper para pthread_create, getting sleep id %d [%lu]\n", thread_info_list[s_id].id , *(thread));
++
++    /* This is the important step. After this a thread can work with simulation wrappers */
++    thread_info_list[s_id].p = *thread;
++
++    threads_data[s_id].is_new = 1;
++    threads_data[s_id].ptid = *thread;
++
++    sem_post(global_sem);
++
++    return ret;
++}
++
++
++/* Sleep wrapper is self-suficient. It never calls real sleep function */
++unsigned int sleep(unsigned int seconds){
++
++    int tid = -1;
++    int sval;
++
++    sim_lib_printf(0, "SIM: sleep_wrapper calling sleep for %d secs (self: %ld - main: %ld)\n", seconds, pthread_self(), main_thread);
++
++    if(seconds == 0) /* Just in case */
++        return 0;
++
++    /* There is a issue with synchronization between sim_mgr and a thread calling sleep. What is needed to be done is
++     * * to update sleep field for this thread and wait till such amount of time has been consumed in simulation time using
++     * * a explicit semaphore for this thread. It could happen sim_mgr handling this thread between updating sleep field and 
++     * * going to sleep with the semaphore. You can not use global_sem for this two steps, of course, maybe using more sempahores
++     * * could it be possible. However, this is possible to control */
++
++    if(pthread_self() == main_thread){
++
++        threads_data[main_thread_id].sleep = seconds;
++
++        sem_getvalue(thread_sem_back[main_thread_id], &sval);
++
++        if(sval > 0){
++            sem_wait(thread_sem_back[main_thread_id]);
++        }else{
++            sim_lib_printf(0, "[%u]Waking up sim_mgr from %d\n", *(current_sim), main_thread_id);
++            sem_post(thread_sem_back[main_thread_id]);
++        }
++
++        sim_lib_printf(0, "SIM: sleep_wrapper calling sleep for main thread: %d secs\n", seconds);
++        sem_wait(thread_sem[main_thread_id]);
++
++    }else{
++        while(tid < 0)
++            tid = get_thread_id();
++
++        threads_data[tid].sleep = seconds;
++
++        sem_getvalue(thread_sem_back[tid], &sval);
++        if(sval > 0){
++            sem_wait(thread_sem_back[tid]);
++        }else{
++            sim_lib_printf(0, "[%u]Waking up sim_mgr from %d\n", *(current_sim), tid);
++            sem_post(thread_sem_back[tid]);
++        }
++
++
++        sim_lib_printf(0, "SIM: sleep_wrapper (sval: %d) calling sleep for thread %d [%lu]: %d secs\n", sval, tid, pthread_self(), seconds);
++        threads_data[tid].last_sleep = *current_sim;
++        sem_wait(thread_sem[tid]);
++        threads_data[tid].last_wakeup = *current_sim;
++    }
++
++    sim_lib_printf(0, "SIM: sleep_wrapper exiting for %ld\n", pthread_self());
++
++    return 0;
++}
++
++
++time_t time(time_t *t){
++
++    sim_lib_printf(0, "time_wrapper: %u\n", *(current_sim));
++
++    if(t)
++        *t = *(current_sim);
++
++    return *(current_sim);
++};
++
++
++int gettimeofday(struct timeval *tv, struct timezone *tz){
++
++
++    tv->tv_sec = *(current_sim);
++
++    if((slurmctl_pid[0] == getpid()) || (slurmd_pid[0] == getpid()))
++        sem_wait(global_sem);
++
++    *(current_micro) = *(current_micro) + 100;
++
++    if((slurmctl_pid[0] == getpid()) || (slurmd_pid[0] == getpid()))
++        sem_post(global_sem);
++
++    tv->tv_usec = *(current_micro);
++
++
++    sim_lib_printf(0, "SIM: gettimeofday_wrapper GOT the time data back: %ld - %ld\n", tv->tv_sec, tv->tv_usec);
++
++    return 0;
++}
++
++
++int set_new_thread(int pos){
++
++    sim_lib_printf(0, "set_new_thread for thread_id: %d\n", pos);
++    thread_new_array[0] |= (1ULL << pos);
++
++    return 0;
++}
++
++int set_exit_map_array(int pos){
++
++    sim_lib_printf(0, "set_exit_map_array for thread_id: %d, pthread: %ld, thread_exit_array: %16lld\n", pos, pthread_self(), thread_exit_array[0]);
++
++    thread_exit_array[0] |= (1ULL << pos);
++    thread_info_list[pos].p = 0;
++    current_threads[0]--;
++
++    return 0;
++}
++
++
++int get_thread_id(){
++
++    int i = 0;
++    pthread_t this;
++
++    this = pthread_self();
++
++    sim_lib_printf(0, "get_thread_id: %ld (main: %ld)\n", this, main_thread);
++    if(this == main_thread){
++        return 0;
++    }
++
++    while(i < MAX_THREADS){
++
++        if(thread_info_list[i].p == this){
++            return thread_info_list[i].id;
++        }
++
++        i++;
++    }
++
++    /* During thread creation could be a problem of thread running but thread_info_list not created yet */
++    /* Returning -1 means try again later */
++
++    return -1;
++}
++
++
++/* This should be called with global_sem protection */
++int get_new_thread_id(pthread_t *thread){
++
++    long long int map;
++    struct timeval l_tv;
++
++    map = sleep_map_array[0];
++
++    /* First 32 thread slots are for slurmd, last 32 ones for slurmctld */
++    if(slurmd_pid[0] == getpid())
++        map |= 0xFFFFFFFF00000000ULL;
++    else
++        map |= 0xFFFFFFFFULL;
++
++    map = ~map;
++
++#if 0
++    real_gettimeofday(&l_tv, NULL);
++    sim_lib_printf(0, "[%ld-%ld] Using map: %016llx\n", l_tv.tv_sec, l_tv.tv_usec, map);
++    sim_lib_printf(0, "get_new_thread_id: [%16llx][%016llx], threads counter= %d\n", sleep_map_array[0], thread_exit_array[0], current_threads[0]);
++#endif
++
++    /* Getting first slot available */
++    map = ffsll(map);
++
++    if(map == 0){
++        /*printf("WARNING!: space no available for a new threads. Current threads: %u\n", current_threads[0]);*/
++        return -1;
++    }
++
++    /* Bit 0 is bit 1(ffsll returns ordinal value) */
++    map = map - 1;
++
++    sleep_map_array[0] |= (1ULL << map);
++    current_threads[0]++;
++    if(current_threads[0] == 62){   /* 62 because we have slots for main slurmctl and slurmd threads */
++        printf("SIM ERROR: %d threads is not possible\n", current_threads[0]);
++        return -1;
++    }
++
++    return map;
++}
++
++/* We need to know which threads are from slurmctld and which from slurmd */
++int register_program(){
++
++    int fproc;
++    char fname[100];
++    char *raw;
++    char program_name[100];
++    int count = 0;
++
++    sprintf(fname, "/proc/%d/cmdline", getpid());
++    printf("Register: opening file %s\n", fname);
++
++    fproc = open(fname, O_RDONLY);
++
++    if(fproc < 0){
++        printf("We got a problem reading proc file for process %d\n", getpid());
++        return -1;
++    }
++
++    memset(&program_name, '\0', 100);
++    count = read(fproc, &program_name, 100);
++    count = strlen(program_name);
++
++    printf("[Read %d bytes] Using program name %s\n", count, &program_name);
++
++    /* Getting last slash position or full program name */
++    while(program_name[count] != '/'){
++        count--;
++        if(count == 0)
++            break;
++    }
++
++    count++;
++
++    raw = (char *)&program_name + count;
++
++    printf("[Read %d(%d) bytes] Registering program %s and pid %d\n", count, errno, raw, getpid());
++
++    if(strncmp(raw, "slurmctld", 9) == 0){
++        printf("Registering slurmctld with pid %d\n", getpid());
++        slurmctl_pid[0] = getpid();
++    }else{
++        printf("Registering slurmd with pid %d\n", getpid());
++        slurmd_pid[0] = getpid();
++    }
++
++    close(fproc);
++
++    return 0;
++}
++
++
++
++int init_semaphores(){
++
++    char sem_name[100];
++
++    printf("Initializing semaphores...\n");
++
++    global_sem = sem_open(SIM_GLOBAL_SEM, 0);
++    if(global_sem == SEM_FAILED){
++        printf("global_sem can not be created\n");
++        return -1;
++    }
++
++    /* Slurmctld and slurmd main threads are registered during initialization */
++    main_thread = pthread_self();
++
++    sem_wait(global_sem);
++
++    main_thread = pthread_self();
++
++    main_thread_id = get_new_thread_id(&main_thread);
++    threads_data[main_thread_id].sleep = -1;
++    threads_data[main_thread_id].pid  = getpid();
++
++    printf("Getting main_thread_id %d\n", main_thread_id);
++
++    sem_post(global_sem);
++
++    /* and then initializing semaphores for this main thread */
++    memset(&sem_name, '\0', 100);
++    sprintf(sem_name, "%s%d", SIM_LOCAL_SEM_PREFIX, main_thread_id);
++    printf("Opening semaphore %s\n", sem_name);
++
++    thread_sem[main_thread_id] = sem_open(sem_name, 0);
++    if(thread_sem[main_thread_id] == SEM_FAILED){
++        printf("Error opening semaphore number %d\n", main_thread_id);
++        return -1;
++    }
++
++    memset(&sem_name, '\0', 100);
++    sprintf(sem_name, "%s%d", SIM_LOCAL_SEM_BACK_PREFIX, main_thread_id);
++    printf("Opening semaphore %s\n", sem_name);
++
++    thread_sem_back[main_thread_id] = sem_open(sem_name, 0);
++    if(thread_sem_back[main_thread_id] == SEM_FAILED){
++        printf("Error opening semaphore number %d\n", main_thread_id);
++        return -1;
++    }
++
++    return 0;
++}
++
++
++/* Slurmctld and slurmd do not really build shared memory but they use that one built by sim_mgr */
++int building_shared_memory(){
++
++    int fd;
++
++    fd = shm_open(SLURM_SIM_SHM, O_RDWR, S_IRUSR | S_IWUSR);
++    if(fd < 0){
++        printf("Error opening %s\n", SLURM_SIM_SHM);
++        return -1;
++    }
++
++    ftruncate(fd, 8192);
++
++    timemgr_data = mmap(0, 8192, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
++
++    if(!timemgr_data){
++        printf("mmaping %s file can not be done\n", SLURM_SIM_SHM);
++        return -1;
++    }
++
++    /* Initializing pointers to shared memory */
++    current_sim = timemgr_data + SIM_SECONDS_OFFSET;
++    current_micro = timemgr_data + SIM_MICROSECONDS_OFFSET;
++    threads_data = timemgr_data + SIM_SYNC_ARRAY_OFFSET;
++    current_threads = timemgr_data + SIM_THREADS_COUNT_OFFSET;
++    proto_threads = timemgr_data + SIM_PROTO_THREADS_OFFSET;
++    sleep_map_array = timemgr_data + SIM_SLEEP_ARRAY_MAP_OFFSET;
++    thread_exit_array = timemgr_data + SIM_THREAD_EXIT_MAP_OFFSET;
++    thread_new_array = timemgr_data + SIM_THREAD_NEW_MAP_OFFSET;
++    fast_threads_counter = timemgr_data + SIM_FAST_THREADS_OFFSET;
++    pthread_create_counter = timemgr_data + SIM_PTHREAD_CREATE_COUNTER;
++    pthread_exit_counter = timemgr_data + SIM_PTHREAD_EXIT_COUNTER;
++    slurmctl_pid = timemgr_data + SIM_PTHREAD_SLURMCTL_PID;
++    slurmd_pid = timemgr_data + SIM_PTHREAD_SLURMD_PID;
++
++    if((slurmctl_pid[0] == 0) || (slurmd_pid[0] == 0)){
++
++        register_program();
++
++        if(init_semaphores() < 0){
++            printf("semaphores initialization failed\n");
++            return 1;
++        }
++    }
++
++    return 0;
++}
++
++
++/* TODO: It is necessary to use another method for finding out which are the paths to libraries 
++ * * and, maybe, which are the libraries (it seems it is not always the same libraries for different 
++ * * distributions) */
++
++void __attribute__ ((constructor)) sim_init(void){
++
++    void *handle;
++
++    if(building_shared_memory() < 0){
++        printf("Error building shared memory and mmaping it\n");
++    };
++
++    if(real_gettimeofday == NULL){
++
++        printf("Looking for real gettimeofday function\n");
++        handle = dlopen(LIBC_PATH, RTLD_LOCAL | RTLD_LAZY);
++        if(handle == NULL){
++            printf("Error in dlopen\n");
++            return;
++        }
++
++        real_gettimeofday = dlsym( handle, "gettimeofday");
++        if(real_gettimeofday == NULL){
++            printf("Erro: no sleep function found\n");
++            return;
++        }
++    }
++
++    /* slurmctld and slurmd got all the wrappers but some other programs like sinfo or scontrol just time related wrappers */
++    if(slurmctl_pid[0] == getpid() || 
++            slurmd_pid[0] == getpid())
++    {
++        printf("This slurm program is not the controller nor a slurmd (%d)(controller: %d)(daemon: %d)\n", getpid(), slurmctl_pid[0], slurmd_pid[0]);
++        if(real_sleep == NULL){
++
++            printf("Looking for real sleep function\n");
++            handle = dlopen(LIBC_PATH, RTLD_LOCAL | RTLD_LAZY);
++            if(handle == NULL){
++                printf("Error in dlopen\n");
++                return;
++            }
++            real_sleep = dlsym( handle, "sleep");
++            if(real_sleep == NULL){
++                printf("Erro: no sleep function found\n");
++                return;
++            }
++        }
++    }
++
++    if(real_time == NULL){
++
++        printf("Looking for real time function\n");
++        handle = dlopen(LIBC_PATH, RTLD_LOCAL | RTLD_LAZY);
++        if(handle == NULL){
++            printf("Error in dlopen: %s\n", dlerror());
++            return;
++        }
++        real_time = dlsym( handle, "time");
++        if(real_time == NULL){
++            printf("Erro: no sleep function found\n");
++            return;
++        }
++    }
++
++    if(slurmctl_pid[0] == getpid() || 
++            slurmd_pid[0] == getpid())
++    {
++        if(real_pthread_create == NULL){
++
++            printf("Looking for real pthread_create function\n");
++            handle = dlopen("/lib64/libpthread.so.0", RTLD_LOCAL | RTLD_LAZY);
++            if(handle == NULL){
++                printf("Error in dlopen: %s\n", dlerror());
++                return;
++            }
++            real_pthread_create = dlsym( handle, "pthread_create");
++            if(real_pthread_create == NULL){
++                printf("Erro: no pthread_create function found\n");
++                return;
++            }
++        }
++
++        if(real_pthread_exit == NULL){
++
++            printf("Looking for real pthread_exit function\n");
++            handle = dlopen("/lib64/libpthread.so.0", RTLD_LOCAL | RTLD_LAZY);
++            if(handle == NULL){
++                printf("Error in dlopen: %s\n", dlerror());
++                return;
++            }
++            real_pthread_exit = dlsym( handle, "pthread_exit");
++            if(real_pthread_exit == NULL){
++                printf("Erro: no pthread_exit function found\n");
++                return;
++            }
++        }
++
++        if(real_pthread_join == NULL){
++
++            printf("Looking for real pthread_join function\n");
++            handle = dlopen("/lib64/libpthread.so.0", RTLD_LOCAL | RTLD_LAZY);
++            if(handle == NULL){
++                printf("Error in dlopen: %s\n", dlerror());
++                return;
++            }
++            real_pthread_join = dlsym( handle, "pthread_join");
++            if(real_pthread_join == NULL){
++                printf("Erro: no pthread_join function found\n");
++                return;
++            }
++        }
++
++        /* Telling sim_mgr we are ready for the kick off */
++        sem_wait(global_sem);
++        thread_exit_array[0]++;
++        sem_post(global_sem);
++
++        /* And wait for starting */
++        sem_wait(thread_sem[main_thread_id]);
++    }
++
++    printf("sim_init: done\n");
++}
++
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/sim_mgr.c slurm-2.2.6-simulator.copia/src/simulation_lib/sim_mgr.c
+--- slurm-2.2.6.orig/src/simulation_lib/sim_mgr.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/sim_mgr.c	2011-10-03 16:53:13.679249396 +0200
+@@ -0,0 +1,1256 @@
++#include <stdio.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <time.h>
++#include <sys/types.h>
++#include <sys/socket.h>
++#include <netinet/in.h>
++#include <arpa/inet.h>
++#include <linux/tcp.h>
++#include <string.h>
++#include <strings.h>
++#include <errno.h>
++#include<time.h>
++#include<sys/time.h>
++#include<sys/stat.h>
++#include<fcntl.h>
++
++#include<ctype.h>
++
++#include <sim_trace.h>
++#include <slurm_sim.h>
++
++#include <sys/mman.h>
++#include <semaphore.h>
++
++#include <config.h>
++#include <slurm/slurm_errno.h>
++
++#include <src/common/forward.h>
++#include <src/common/hostlist.h>
++#include <src/common/node_select.h>
++#include <src/common/parse_time.h>
++#include <src/common/slurm_accounting_storage.h>
++#include <src/common/slurm_jobcomp.h>
++#include <src/common/slurm_protocol_pack.h>
++#include <src/common/switch.h>
++#include <src/common/xassert.h>
++#include <src/common/xstring.h>
++#include <src/common/assoc_mgr.h>
++
++#include "comm_protocol.h"
++
++#define MAX_INDEPENDENT_THREADS 50
++
++#define MONITOR_INTERVAL 300
++
++#undef DEBUG
++       
++int sim_mgr_debug_level = 9;
++
++#define sim_mgr_debug(debug_level, ...) \
++    ({ \
++     if(debug_level >= sim_mgr_debug_level) \
++     printf(__VA_ARGS__); \
++     })
++
++
++#undef MONITOR
++
++#define IS_ACTIVE_SLOT(i)   (sleep_map_array[0] & (1ULL << i))
++#define HAS_THREAD_FINISHED(i) (thread_exit_array[0] & (1ULL << i))
++
++#define RELEASE_SLOTS() \
++        sleep_map_array[0] &= ~thread_exit_array[0]; \
++        thread_new_array[0] &= ~thread_exit_array[0]; \
++        *(thread_exit_array) =  0; 
++
++int ffsll(long long int i);
++
++/* simulation time starting point */
++long int sim_start_point;
++/* simulation end point is an optional parameter */
++long int sim_end_point;
++
++job_trace_t *trace_head, *trace_tail;
++rsv_trace_t *rsv_trace_head, *rsv_trace_tail;
++
++/* Pointer to shared memory */
++void *timemgr_data;
++
++/* There are some threads out of sim_mgr control like those doing rpc management */
++/* In other case it would lead to a deadlock */
++unsigned long *independent_threads[MAX_INDEPENDENT_THREADS];
++char *independent_thread_name[MAX_INDEPENDENT_THREADS];
++                        
++/* global data */
++sem_t *global_sem;      
++sem_t *thread_sem[MAX_THREADS];
++sem_t *thread_sem_back[MAX_THREADS];
++unsigned int *current_sim;
++long long int *sleep_map_array;
++long long int *thread_exit_array;
++unsigned int *fast_threads_counter;
++unsigned int *pthread_create_counter;
++unsigned int *pthread_exit_counter;
++long long int *thread_new_array;
++thread_data_t *threads_data;
++unsigned int *proto_threads;
++
++#ifdef MONITOR
++static pthread_mutex_t monitor_lock = PTHREAD_MUTEX_INITIALIZER;
++static pthread_mutex_t simulation_lock = PTHREAD_MUTEX_INITIALIZER;
++static pthread_cond_t  monitor_start = PTHREAD_COND_INITIALIZER;
++static pthread_cond_t  monitor_stop = PTHREAD_COND_INITIALIZER;
++#endif
++
++/* path to sbatch  & scontrol programs */
++char sbatch_bin[200];
++char scontrol_bin[200];
++
++char *global_envp[100];     /* Uhmmm ... I do not like this limitted number of env values */
++
++void change_debug_level(int signum){
++
++	if(sim_mgr_debug_level > 0)
++		sim_mgr_debug_level = 0;
++	else
++		sim_mgr_debug_level = 9;
++}
++
++/* Debugging */
++void dumping_shared_mem(int signum){
++
++    int i;
++    struct timeval t1;
++
++    printf("Let's dump the shared memory contents\n");
++
++    gettimeofday(&t1, NULL);
++    printf("SIM_MGR[%u][%ld][%ld]: created,exited: %d,%d\n", current_sim[0], t1.tv_sec, t1.tv_usec, pthread_create_counter[0], pthread_exit_counter[0]);
++    printf("sleep_map_array: %16llx\n", sleep_map_array[0]);
++    printf("thread_exit_array: %16llx\n", thread_exit_array[0]);
++    printf("Total fast threads: %u\n", fast_threads_counter[0]);
++    printf("Total thread create counter: %u\n", pthread_create_counter[0]);
++    printf("Total thread exit counter: %u\n", pthread_exit_counter[0]);
++
++    printf("Dumping thread data ...\n\n");
++
++    printf("Thread\t\tpid\t\tf_address\t\tsl/new/noend/join\tcreation\tlast_sleep\tlast_wakeup\twait_mean\n");
++    printf("======\t\t===\t\t=========\t\t=================\t==========\t===========\t========\t========\n");
++
++    for(i = 0; i < MAX_THREADS; i++){
++
++        if(threads_data[i].wait_count > 0)
++            printf("%d\t\t%d\t\t%016lx\t\t%d/%d/%d/%d\t\t\t%08ld\t%08ld\t%08ld\t%lld\n", i, threads_data[i].pid, 
++                            threads_data[i].func_addr, threads_data[i].sleep, threads_data[i].is_new,
++                            threads_data[i].never_ending, threads_data[i].joining, 
++                            threads_data[i].creation, threads_data[i].last_sleep, 
++                            threads_data[i].last_wakeup,
++                            threads_data[i].wait_time / threads_data[i].wait_count);
++        else
++            printf("%d\t\t%d\t\t%016lx\t\t%d/%d/%d/%d\t\t\t%08ld\t%08ld\t%08ld\t%lld\n", i, threads_data[i].pid, 
++                            threads_data[i].func_addr, threads_data[i].sleep, threads_data[i].is_new,
++                            threads_data[i].never_ending, threads_data[i].joining, 
++                            threads_data[i].creation, threads_data[i].last_sleep, threads_data[i].last_wakeup, 
++                            0LL);
++    }
++
++#if 0
++    printf("Dumping semaphores state:\n");
++    for(i = 0; i < MAX_THREADS; i++){
++        sem_getvalue(thread_sem[i], &sval);
++        printf("[%d]: %d\n", i, sval);
++        sem_getvalue(thread_sem_back[i], &sval);
++        printf("[%d]BACK: %d\n", i, sval);
++    }
++#endif
++
++    /* Let's kill slurmctld and slurmd */
++    /* This is not the way you should stop slurm in a real environment but it helps for simulation debugging */
++    kill(threads_data[0].pid, SIGSEGV);
++    kill(threads_data[32].pid, SIGSEGV);
++
++    if(signum == SIGINT)
++        exit(0);
++
++    return;
++}
++
++int is_independent_thread(unsigned long *addr){
++
++    int i = 0;
++
++    while(i < MAX_INDEPENDENT_THREADS){
++            if(addr == independent_threads[i++])
++                return 1;
++        }
++
++    return 0;
++}
++
++int wait_thread_running(int i){
++
++    struct timeval t1;
++
++    gettimeofday(&t1, NULL);
++
++    while(1){ 
++        
++        struct timespec waiting;
++        int waitloops = 0;
++        struct timeval l_tv;
++
++        if((threads_data[i].never_ending) || (threads_data[i].joining) || (threads_data[i].sleep >= 0))
++            break;
++
++        /* Next two clauses are redundant. Do we need them both? */
++        if(HAS_THREAD_FINISHED(i))
++            break;
++
++        if(!IS_ACTIVE_SLOT(i))
++            break;
++
++        sem_wait(global_sem);
++
++        gettimeofday(&l_tv, NULL); 
++        sim_mgr_debug(0, "[%ld-%ld] Releasing thread slots from exit array\n", l_tv.tv_sec, l_tv.tv_usec);
++        sim_mgr_debug(0, "[%016llx][%016llx]\n", sleep_map_array[0], thread_exit_array[0]);
++
++        /* Let's release slots of finished threads */
++        RELEASE_SLOTS();
++
++        sim_mgr_debug(0, "[%016llx][%016llx]\n", sleep_map_array[0], thread_exit_array[0]);
++
++        sem_post(global_sem);
++
++        /* Let's leave some time to execute */
++        waiting.tv_sec = 0;
++        waiting.tv_nsec = 1000000;
++        nanosleep(&waiting, 0);
++
++        waitloops++;
++        if(waitloops >= 30000){
++            printf("ERROR: Too much wait loops in wait_thread_running\n");
++            printf("sleep_map_array: %16llx\n", sleep_map_array[0]);
++            printf("thread_exit_array: %16llx\n", thread_exit_array[0]);
++            dumping_shared_mem(SIGSEGV);
++            pthread_exit(0);
++        }
++    }
++
++    return 0;
++
++}
++
++
++/* New slurm threads appear when:
++  - a job is dispatched
++  - a job completes 
++  - a job is submitted
++ 
++  Usually new threads will send messages then other new threads are created for processing those messages.
++  This is the reason behind reserving half of simulation thread slots to slurmd and half to slurmctld because
++  a new slutmctld thread will need a new slurmd thread to keep going so it is not good if one program can use all
++  thread slots since during a cycle when a lot of jobs are submitted, dispatched or finished, deadlocks can appear due to 
++  lack of free simulation thread slots. 
++  As most of new threads execute fast, those slots need to be released under a burst of new threads.
++
++  This needs to be called with global_sem closed 
++ */
++int checking_for_new_threads(){
++
++    int new;
++
++    while(1){
++    
++        struct timespec waiting;
++
++        /* Checking for new threads created during this cycle and no checked yet */
++        sim_mgr_debug(3, "Checking for new threads [%16llx] created during this cycle and no checked yet\n", thread_new_array[0]);
++
++        while((new = ffsll(thread_new_array[0])) > 0)
++        {
++            new--;  /* ffs returns ordinal */
++
++            /* Releasing threads slots */
++            sim_mgr_debug(3, "SMA: %16llx, TEM: %16llx\n", sleep_map_array[0], thread_exit_array[0]);
++
++            sleep_map_array[0] &= ~(thread_exit_array[0]);
++
++            sim_mgr_debug(3, "SMA: %16llx, TEM: %16llx\n", sleep_map_array[0], thread_exit_array[0]);
++
++            thread_new_array[0] &= ~(thread_exit_array[0]);
++
++            if(HAS_THREAD_FINISHED(new)){
++                /* a thread fast like Bolt */
++                /* Let's release resources */
++                thread_exit_array[0] =  0;
++                continue;
++            };
++
++            thread_exit_array[0] =  0;
++
++            sim_mgr_debug(3, "thread_new_array: %16llx\n", thread_new_array[0]);
++
++            if(threads_data[new].is_new){
++
++                /* This check is for rpc threads. Does it make sense for a new thread? */
++                /* Probably this is just true during first simulation cycle */
++                if(is_independent_thread((unsigned long *)threads_data[new].func_addr)){
++                    sim_mgr_debug(3, "Thread[%d] is NEW and a RPC thread\n", new);
++                    threads_data[new].never_ending = 1;
++                }
++                else{
++                    sim_mgr_debug(3, "Thread[%d] is NEW. Waiting until that thread exits or sleeps\n", new);
++                    sem_post(global_sem);
++                    sim_mgr_debug(3, "CALLING wait_thread_running_new\n");
++                    wait_thread_running(new);
++                    sem_wait(global_sem);
++                }
++            }
++            threads_data[new].is_new = 0;
++            thread_new_array[0] &= ~(1ULL << (new));
++        }
++
++        if((proto_threads[0] == 0) && (thread_new_array[0] == 0))
++            break;
++
++        /* Lets give some time for those proto threads being scheduled */
++        sem_post(global_sem);
++
++        waiting.tv_sec = 0;
++        waiting.tv_nsec = 10000000;
++        nanosleep(&waiting, 0);
++
++        sem_wait(global_sem);
++
++        if((proto_threads[0] == 0) && (thread_new_array[0] == 0))
++            break;
++
++        /* We have more work to do */
++        sim_mgr_debug(3, "PROTO_THREADS: %d\n", proto_threads[0]);
++    }
++
++}
++
++
++/* This is the main simulator function */
++static void *time_mgr(void *arg){
++
++    unsigned int *current_micro;
++    unsigned int *current_threads;
++    int child;
++    long int wait_time;
++    struct timeval t1, t2;
++    int i, j;
++    int monitor_countdown;
++
++    /* TODO: Submit should be more flexible. This is fine for Marenostrum usual job but it should cover all sbatch possibilities */
++    char *child_args[15] = { "", "--workdir=/tmp",
++        "--error=/tmp/dumb", 
++        "--output=/tmp/dumb --job-name=test", 
++        "", "", 
++        "",
++        "--no-requeue", 
++        "",
++        "",
++        "",
++        "",
++        "",
++        "test_command.cmd", (char *) 0 };
++
++    printf("INFO: Creating time_mgr thread\n");
++
++    current_sim = timemgr_data + SIM_SECONDS_OFFSET;
++    current_micro = timemgr_data + SIM_MICROSECONDS_OFFSET;
++    current_threads = timemgr_data + SIM_THREADS_COUNT_OFFSET;
++    pthread_create_counter = timemgr_data + SIM_PTHREAD_CREATE_COUNTER;
++    pthread_exit_counter = timemgr_data + SIM_PTHREAD_EXIT_COUNTER;
++    proto_threads = timemgr_data + SIM_PROTO_THREADS_OFFSET;
++    sleep_map_array = timemgr_data + SIM_SLEEP_ARRAY_MAP_OFFSET;
++    thread_exit_array = timemgr_data + SIM_THREAD_EXIT_MAP_OFFSET;
++    thread_new_array = timemgr_data + SIM_THREAD_NEW_MAP_OFFSET;
++    threads_data = timemgr_data + SIM_SYNC_ARRAY_OFFSET;
++    fast_threads_counter = timemgr_data + SIM_FAST_THREADS_OFFSET;
++
++    current_sim[0] = sim_start_point;
++    current_micro[0] = 0;
++    current_threads[0] = 0;
++
++#ifdef MONITOR
++    printf("Waiting for sim_mon to connect...");
++
++    pthread_mutex_lock(&simulation_lock);
++    pthread_cond_wait(&monitor_start, &simulation_lock);
++    pthread_mutex_unlock(&simulation_lock);
++
++    printf("CONNECTED.\n");
++#endif
++
++    printf("Leaving some time for slurm threads to be ready ...\n");
++
++    while(1){
++        sleep(1);
++        /* Borrowing thread_exit_array per initialization ... */
++        if(thread_exit_array[0] == 2) /* Waiting for 2 processes to execute sim_init: slurmctld and slurmd */
++            break;
++    }
++
++    /* Resetting thread_exit_array */
++    thread_exit_array[0] = 0;
++
++    sem_wait(global_sem);
++
++    /* Now we can leave slurm daemons go */
++    for(i = 0; i < MAX_THREADS; i++){
++
++        if(sleep_map_array[0] & (1ULL << i)){
++            printf("Sync: waking up thread %d\n", i);
++            sem_post(thread_sem[i]);
++        }
++    }
++
++    /* Giving time for main threads creation */
++    sleep(1);
++
++#ifdef MONITOR
++    monitor_countdown = MONITOR_INTERVAL;
++#endif
++
++    gettimeofday(&t1, NULL);
++       
++    printf("SIM_MGR[%u][%ld][%ld]: Checking for %d threads [%016llx], last_cycle (created,exited): %d,%d\n", current_sim[0], t1.tv_sec, t1.tv_usec, current_threads[0], sleep_map_array[0], pthread_create_counter[0], pthread_exit_counter[0]);
++
++
++    /* Main simulation manager loop */
++    while(1){ 
++        
++        /* Do we have to end simulation in this cycle? */
++        if(sim_end_point == current_sim[0]){
++
++                dumping_shared_mem(SIGSEGV);
++        }
++
++#ifdef MONITOR
++        if(monitor_countdown == 0){
++            /* Monitor thread starts to work */
++            pthread_mutex_lock(&monitor_lock);
++            pthread_cond_signal(&monitor_start);
++            pthread_cond_wait(&monitor_stop, &monitor_lock);
++            pthread_mutex_unlock(&monitor_lock);
++
++            monitor_countdown = MONITOR_INTERVAL;
++        }
++        
++        monitor_countdown--;
++#endif
++
++        /* First going through threads and leaving a chance to execute code */
++
++        gettimeofday(&t1, NULL);
++
++        sim_mgr_debug(3, "SIM_MGR[%u][%ld][%ld]: Checking for %d threads [%016llx], last_cycle (created,exited): %d,%d\n", current_sim[0], t1.tv_sec, t1.tv_usec, current_threads[0], sleep_map_array[0], pthread_create_counter[0], pthread_exit_counter[0]);
++
++        /* With global sem locked any thread can be created. Resetting create and exit counters */
++        pthread_create_counter[0] = 0;
++        pthread_exit_counter[0] = 0;
++
++        for(i = 0; i < MAX_THREADS; i++){
++
++            /* if this is Main slurmd thread or slot is not actived or this is a new thread*/
++            if((i == 0) || (!IS_ACTIVE_SLOT(i)) || (threads_data[i].is_new))
++                continue;
++
++            /* Waiting for new threads to finish is good for determinsm */
++            checking_for_new_threads();
++
++            sim_mgr_debug(3, "Is thread %d running?\n", i);
++            sem_post(global_sem);
++            gettimeofday(&t1, NULL);
++            wait_thread_running(i);
++            sem_wait(global_sem);
++
++            gettimeofday(&t2, NULL);
++            wait_time = ((t2.tv_sec - t1.tv_sec) * 1000000) - t1.tv_usec + t2.tv_usec;
++            sim_mgr_debug(3, "Waiting for: %ld\n", wait_time);
++            sim_mgr_debug(3, "Checking active thread %d (%016llx)\n", i, sleep_map_array[0]);
++
++            if(threads_data[i].sleep >= 0){
++
++                sim_mgr_debug(3, "Thread[%d] waiting for %d seconds\n", i, threads_data[i].sleep);
++
++                /* We handle new threads later on */
++                if(threads_data[i].is_new)
++                    continue;
++
++                if(threads_data[i].sleep == 0){
++
++                    int sval;
++                    struct timespec waiting_back;
++                    int res_sem;
++                    struct timeval l_tv;
++
++                    /* We have a thread to wake up */
++
++                    sem_getvalue(thread_sem_back[i], &sval);
++                    sim_mgr_debug(3, "Waking up thread %d (sem_back: %d)\n", i, sval);
++
++                    sem_post(thread_sem[i]);
++                    gettimeofday(&t1, NULL);
++
++                    /* Always waiting until thread sleeps again or exits */
++                    sem_post(global_sem);
++
++                    gettimeofday(&l_tv, NULL);
++                    res_sem = -1;
++
++                    /* while waiting new threads could need a slot so we release slots of
++                       threads exiting  for avoiding a potential deadlock */
++                    while(res_sem < 0){
++
++                        waiting_back.tv_sec = l_tv.tv_sec;
++                        waiting_back.tv_nsec = (l_tv.tv_usec * 1000) + 1000000;
++
++                        res_sem = sem_timedwait(thread_sem_back[i], &waiting_back);
++
++                        sem_wait(global_sem);
++                        gettimeofday(&l_tv, NULL);
++                        sim_mgr_debug(3, "[%ld-%ld] Releasing thread slots from exit array\n", l_tv.tv_sec, l_tv.tv_usec);
++                        sim_mgr_debug(3, "[%016llx][%016llx]\n", sleep_map_array[0], thread_exit_array[0]);
++
++                        RELEASE_SLOTS();
++
++                        sim_mgr_debug(3, "[%016llx][%016llx]\n", sleep_map_array[0], thread_exit_array[0]);
++                        sem_post(global_sem);
++                    }
++
++                    /* At this point thread has gone to sleep again or maybe it has just exited */
++
++                    gettimeofday(&t2, NULL);
++                    sem_wait(global_sem);
++                    wait_time = ((t2.tv_sec - t1.tv_sec) * 1000000) - t1.tv_usec + t2.tv_usec;
++
++                    sim_mgr_debug(3, "Waiting for thread %d back...%ld\n", i, wait_time);
++                    threads_data[i].wait_count++;
++                    threads_data[i].wait_time += wait_time;
++                }
++                else{
++                    sim_mgr_debug(3, "Timer for thread %i expires in %u\n", i, threads_data[i].sleep);
++                }
++
++            }
++        }
++
++        /* Main threads and threads created previously to this simulation cycle have got a chance to execute */
++        /* Let's wait new threads to end before submiting new jobs */
++        checking_for_new_threads();
++
++        sem_post(global_sem);
++
++        /* Now checking if a new reservation needs to be created */
++        if(rsv_trace_head && (current_sim[0] >= rsv_trace_head->creation_time)){
++
++            int exec_result;
++            printf("Creation reservation for %s [%ld - %ld]\n", rsv_trace_head->rsv_command, current_sim[0], rsv_trace_head->creation_time);
++            child = fork();
++
++            if(child == 0){ /* the child */
++
++                if(execve(rsv_trace_head->rsv_command, NULL, global_envp) < 0){
++                    printf("Error in execve for %s\n", rsv_trace_head->rsv_command);
++                    printf("Exiting...\n");
++                    exit(-1);
++                }
++            }
++
++            waitpid(child, &exec_result, 0);
++            if(exec_result == 0)
++                sim_mgr_debug(9, "reservation created\n");
++            else
++                sim_mgr_debug(9, "reservation failed");
++
++            rsv_trace_head = rsv_trace_head->next;
++        }
++
++        /* Now checking if a new job needs to be submitted */
++        while(trace_head){
++
++            int hour,min,sec;
++            int exec_result;
++
++            /* Uhmm... This is necessary if a large number of jobs are submitted at the same time but it seems
++             * to have an impact on determinism */
++
++            sem_wait(global_sem);
++            checking_for_new_threads();
++            sem_post(global_sem);
++
++#ifdef DEBUG
++            printf("time_mgr: current %u and next trace %ld\n", *(current_sim), trace_head->submit);
++#endif
++            if(*(current_sim) >= trace_head->submit){
++
++                sim_job_msg_t req;
++                slurm_msg_t req_msg;
++                slurm_msg_t resp_msg;
++                slurm_addr_t remote_addr;
++                job_trace_t *temp_ptr;
++
++                /* First Sending a slurm message to slurmd  using a special SLURM message ID for simulation 
++                 * purposes including jobid and job duration */
++
++                slurm_msg_t_init(&req_msg);
++                slurm_msg_t_init(&resp_msg);
++
++                req.job_id  = trace_head->job_id;
++                req.duration = trace_head->duration;
++                req_msg.msg_type = REQUEST_SIM_JOB;
++                req_msg.data     = &req;
++
++                /* TODO: avoid using hardcoded slurmd port number */
++                slurm_set_addr(&remote_addr, 6818, "localhost");
++
++                req_msg.address = remote_addr;
++
++                if (slurm_send_recv_node_msg(&req_msg, &resp_msg, 500000) < 0){
++                    printf("check_events_trace: error in slurm_send_recv_node_msg\n");
++                }
++
++                sim_mgr_debug(0, "check_events_trace: I got the SLURM_OK. Let's do the fork\n");
++
++                /* First some parameters updates using job trace information */
++                child_args[8] = malloc(100);
++                memset(child_args[8], '\0', 100);
++                sprintf(child_args[8], "--ntasks=%d", trace_head->tasks);
++
++                child_args[4] = malloc(100);
++                memset(child_args[4], '\0', 100);
++                sprintf(child_args[4], "--account=%s", trace_head->account);
++
++                child_args[5] = malloc(100);
++                memset(child_args[5], '\0', 100);
++                sprintf(child_args[5], "--partition=%s", trace_head->partition);
++
++                child_args[6] = malloc(100);
++                memset(child_args[6], '\0', 100);
++                sprintf(child_args[6], "--cpus-per-task=%d", trace_head->cpus_per_task);
++
++                child_args[9] = malloc(100);
++                memset(child_args[9], '\0', 100);
++                hour = trace_head->wclimit / 3600;
++                min = (trace_head->wclimit % 3600) / 60;
++                sec = (trace_head->wclimit % 3600) % 60;
++                sprintf(child_args[9],"--time=%02d:%02d:%02d", hour,min,sec);
++
++                child_args[10] = malloc(100);
++                memset(child_args[10], '\0', 100);
++                sprintf(child_args[10],"--uid=%s", trace_head->username);
++
++                child_args[11] = malloc(100);
++                memset(child_args[11], '\0', 100);
++                sprintf(child_args[11],"--qos=%s", trace_head->qosname);
++
++                child_args[12] = malloc(100);
++                memset(child_args[12], '\0', 100);
++
++                if(strlen(trace_head->reservation)> 0)
++                    sprintf(child_args[12],"--reservation=%s", trace_head->reservation);
++                else
++                    sprintf(child_args[12],"--comment=using normal resources");
++
++                child = fork();
++
++                if(child == 0){ /* the child */
++
++                    if(execve(sbatch_bin, child_args, global_envp) < 0){
++                        printf("Error in execve for sbatch\n");
++                        printf("Exiting...\n");
++                        exit(-1);
++                    }
++                }
++
++                waitpid(child, &exec_result, 0);
++                if(exec_result == 0)
++                    sim_mgr_debug(3, "sbatch done for jobid %d\n", trace_head->job_id);
++                else
++                    sim_mgr_debug(3, "sbatch failed for \"jobid\" %d\n", trace_head->job_id);
++
++                /* Let's free trace record */
++                temp_ptr = trace_head;
++                trace_head = trace_head->next;
++                free(temp_ptr);
++
++            }else{
++                /* job trace list is ordered in time so nothing else to do */
++                break;
++            }
++        }
++
++        sem_wait(global_sem);
++
++        /* New jobs submitted create new threads */
++        checking_for_new_threads();
++
++        /* Now it is safe to decrement sleep field for sleeping threads */
++        for(i = 0; i < MAX_THREADS; i++){
++
++            if(threads_data[i].sleep > 0)
++                threads_data[i].sleep--;
++        }
++
++        sim_mgr_debug(3, "SMA: %16llx, TEM: %16llx\n", *(sleep_map_array), *(thread_exit_array));
++
++        /* Releasing those slots of exited threads */
++        *(sleep_map_array) &= ~(*(thread_exit_array));
++        *(thread_exit_array) = 0;
++
++        sim_mgr_debug(3, "SMA: %16llx, TEM: %16llx\n", *(sleep_map_array), *(thread_exit_array));
++        sim_mgr_debug(3, "Threads management: created %d, exited %d\n", pthread_create_counter[0], pthread_exit_counter[0]);
++
++        /* And finally we can increment simulation time */
++        *(current_sim) = *(current_sim) + 1;
++    }
++
++    return 0;
++
++}
++
++int insert_trace_record(job_trace_t *new){
++
++    if(trace_head == NULL){
++        trace_head = new;
++        trace_tail = new;
++    }
++    else{
++        trace_tail->next = new;
++        trace_tail = new;
++    }
++    return 0;
++}
++
++int insert_rsv_trace_record(rsv_trace_t *new){
++
++    if(rsv_trace_head == NULL){
++        rsv_trace_head = new;
++        rsv_trace_tail = new;
++    }
++    else{
++        rsv_trace_tail->next = new;
++        rsv_trace_tail = new;
++    }
++    return 0;
++}
++
++int init_trace_info(void *ptr, int op){
++
++    job_trace_t *new_trace_record;
++    rsv_trace_t *new_rsv_trace_record;
++    static int count = 0;
++
++    if(op == 0){
++        new_trace_record = calloc(1, sizeof(job_trace_t));
++        if(new_trace_record == NULL){
++            printf("init_trace_info: Error in calloc.\n");
++            return -1;
++        }
++
++        *new_trace_record = *(job_trace_t *)ptr;
++
++        if(count == 0){
++            sim_start_point = new_trace_record->submit - 600;
++            /*first_submit = new_trace_record->submit;*/
++        }
++
++        count++;
++
++        /* Next is hardcoded for Marenostrum node type */
++        new_trace_record->tasks_per_node = 4;
++
++        new_trace_record->cpus_per_task = 1;
++
++#if 0
++        /* Lets make a busy queue from the beginning */
++        if(count < 300)
++            new_trace_record->submit = first_submit;
++#endif
++
++        /* We do not want jobs being canceled during simulation */
++        if(new_trace_record->duration > new_trace_record->wclimit)
++            new_trace_record->duration = new_trace_record->wclimit;
++
++
++        /* Cheating a bit for studying wclimit impact  */
++        //new_trace_record->wclimit = new_trace_record->duration;
++
++        insert_trace_record(new_trace_record);
++    }
++
++    if(op == 1){
++        new_rsv_trace_record = calloc(1, sizeof(rsv_trace_t));
++        if(new_rsv_trace_record == NULL){
++            printf("init_trace_info: Error in calloc for new reservation\n");
++            return -1;
++        }
++
++        *new_rsv_trace_record = *(rsv_trace_t *)ptr;
++        new_rsv_trace_record->next = NULL;
++
++        printf("Inserting new reservation trace record for time %ld\n", new_rsv_trace_record->creation_time);
++
++        insert_rsv_trace_record(new_rsv_trace_record);
++    }
++
++    return 0;
++
++}
++
++
++int init_job_trace(){
++
++    int trace_file;
++    job_trace_t new_job;
++    int total_trace_records = 0;
++
++    trace_file = open("test.trace", O_RDONLY);
++    if(trace_file < 0){
++        printf("Error opening file test.trace\n");
++        return -1;
++    }
++
++    /* job_id, submit_delta, duration, tasks, tasks_per_node, cpus_per_task */
++    while(read(trace_file, &new_job, sizeof(new_job))){ 
++
++	init_trace_info(&new_job, 0);
++        total_trace_records++;
++    }
++
++
++    printf("Trace initializarion done. Total trace records: %d\n", total_trace_records);
++    close(trace_file);
++
++    return 0;
++}
++
++int init_rsv_trace(){
++
++    int trace_file;
++    rsv_trace_t new_rsv;
++    int total_trace_records = 0;
++    int count;
++    char new_char;
++    char buff[20];
++
++    trace_file = open("rsv.trace", O_RDONLY);
++    if(trace_file < 0){
++        printf("Error opening file rsv.trace\n");
++        return -1;
++    }
++
++    new_rsv.rsv_command = malloc(100);
++    if(new_rsv.rsv_command < 0){
++	    printf("Malloc problem with reservation creation\n");
++	    return -1;
++    }
++
++    memset(buff, '\0', 20);
++    memset(new_rsv.rsv_command, '\0', 100);
++
++    while(1){
++
++        count = 0;
++
++        /* First reading the creation time value */
++        while(read(trace_file, &new_char, sizeof(char))){
++
++            if(new_char == '=')
++                break;
++
++            buff[count++] = new_char;
++        }
++
++        if(count == 0)
++            break;
++
++        new_rsv.creation_time = (long int)atoi(buff);
++
++        count = 0;
++
++        /* then reading the script name to execute */
++        while(read(trace_file, &new_char, sizeof(char))){
++
++            new_rsv.rsv_command[count++] = new_char;
++
++            if(new_char == '\n'){ 
++                new_rsv.rsv_command[--count] = '\0';
++                break;
++            }
++        }
++
++#if DEBUG
++        printf("Reading filename %s for execution at %ld\n", new_rsv.rsv_command, new_rsv.creation_time);
++#endif
++
++        init_trace_info(&new_rsv, 1);
++        total_trace_records++;
++        if(total_trace_records > 10)
++            break;
++    }
++
++
++    printf("Trace initializarion done. Total trace records for reservations: %d\n", total_trace_records);
++    close(trace_file);
++
++    return 0;
++}
++
++/* IPC semaphores created use as a prefix the name of user executing sim_mgr */
++int init_semaphores(){
++
++    char sem_name[100];
++    int i;
++
++    /* First removing old semaphores...*/
++    sem_unlink(SIM_GLOBAL_SEM);
++
++    printf("Initializing semaphores...\n");
++    global_sem = sem_open(SIM_GLOBAL_SEM, O_CREAT, S_IRUSR | S_IWUSR, 1);
++    if(global_sem == SEM_FAILED){
++        printf("global_sem can not be created\n");
++        return -1;
++    }
++
++    for(i = 0; i < MAX_THREADS; i++){
++
++        memset(&sem_name, '\0', 100);
++        sprintf(sem_name, "%s%d", SIM_LOCAL_SEM_PREFIX, i);
++
++        /* Removing this semaphore from IPC space */
++        sem_unlink(sem_name);
++
++        thread_sem[i] = sem_open(sem_name, O_CREAT, S_IRUSR | S_IWUSR, 0);
++        if(thread_sem[i] == SEM_FAILED){
++            printf("Error opening semaphore number %d\n", i);
++            return -1;
++        }
++
++        memset(&sem_name, '\0', 100);
++        sprintf(sem_name, "%s%d", SIM_LOCAL_SEM_BACK_PREFIX, i);
++        /* Removing this semaphore from IPC space */
++        sem_unlink(sem_name);
++
++        thread_sem_back[i] = sem_open(sem_name, O_CREAT, S_IRUSR | S_IWUSR, 1);
++        if(thread_sem_back[i] == SEM_FAILED){
++            printf("Error opening semaphore number %d\n", i);
++            return -1;
++        }
++    }
++
++    return 0;
++}
++
++
++int building_shared_memory(){
++
++    int fd;
++
++    /* A healthy check */
++    if((sizeof(thread_data_t) * MAX_THREADS) > 8000){
++        printf("Possible problem with shared memory size\n");
++        return -1;
++    }
++
++    fd = shm_open(SLURM_SIM_SHM, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
++    if(fd < 0){
++        printf("Error opening %s\n", SLURM_SIM_SHM);
++        return -1;
++    }
++
++    ftruncate(fd, 8192);
++
++    if(init_semaphores() < 0){
++        printf("semaphores initialization failed\n");
++        return 1;
++    }
++
++    timemgr_data = mmap(0, 8192, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
++
++    if(!timemgr_data){
++        printf("mmaping %s file can not be done\n", SLURM_SIM_SHM);
++        return -1;
++    }
++
++    memset(timemgr_data, 0, 8192);
++
++    return 0;
++
++}
++
++/* I do not like this approach for thread identification but ...*/
++int reading_rpc_threads_info(){
++
++    int fd;
++    char *addr1;
++    char *name1;
++    int i,j;
++    int name_mark;
++
++    fd = open("rpc_threads.info", O_RDONLY);
++    if(fd < 0){
++        return -1;
++    }
++
++    addr1 = malloc(30);
++    name1 = malloc(100);
++
++    i = j = 0;
++    name_mark = 0;
++
++    /* rpc_thread.info has address and thread name by line separated by an # sign */
++    while(read(fd, &addr1[i], 1)){
++
++        if(addr1[i] == '\n'){
++            name1[i] = '\0';
++            independent_thread_name[j] = name1;
++
++            printf("Read address %p\n", independent_threads[j]);
++            printf("Thread name: %s\n", independent_thread_name[j]);
++
++            i = 0;
++            j++;
++            name_mark = 0;
++            if(j == MAX_INDEPENDENT_THREADS)
++                break;
++
++            /* Getting memory for another thread name */
++            name1 = malloc(100);
++        }
++        else 
++            if(addr1[i] == '#'){
++                name_mark = 1;
++                addr1[i] = '\0';
++                independent_threads[j] = (unsigned long *)strtol(addr1, 0, 16);
++                i = 0;
++            }
++            else {
++                if((name_mark) && !(isspace(addr1[i]))){
++                    name1[i] = addr1[i];
++                    i++;
++                }
++
++                if((name_mark == 0) && !(isspace(addr1[i])))
++                    i++;
++            }
++    }
++
++    return 0;
++}
++
++#ifdef MONITOR
++
++#define DEBUG_SERVER_PORT 23720
++
++static void *debug_server(void *arg){
++
++    int server_sock_fd, server_sock;
++    int val;
++    socklen_t len;
++    struct sockaddr_in sin;
++    struct sockaddr_in remote_addr;
++    socklen_t remote_addrlen = sizeof(remote_addr);
++    int req_type;
++    int debug_log;
++    char buffer_log[1024];
++
++    debug_log = open("sim_debug_server.log", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
++    if(debug_log < 0){
++        printf("(debug_server): debug log file sim_debug_server.log problem. Exiting\n");
++        pthread_exit(0);
++    }
++
++    server_sock_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
++    if(server_sock_fd < 0){
++        memset(&buffer_log, 1024, '\0');
++        sprintf(&buffer_log[0], "(debug_server): Something was wrong creating socket\n");
++        write(debug_log, &buffer_log, strlen(buffer_log));
++        pthread_exit(0);
++    }
++
++    memset(&buffer_log[0], 1024, '\0');
++    sprintf(&buffer_log[0], "(debug_server): Opened log file...\n");
++    write(debug_log, &buffer_log, strlen(buffer_log));
++
++    val = 1;
++    setsockopt(server_sock_fd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(int));
++
++
++    memset(&sin, 0, sizeof(sin));
++    sin.sin_family = AF_INET;
++    sin.sin_addr.s_addr = htonl(INADDR_ANY);
++    sin.sin_port = htons(DEBUG_SERVER_PORT);
++
++    if(bind(server_sock_fd, (struct sockaddr *) &sin, sizeof(sin)) < 0){
++        memset(&buffer_log, 1024, '\0');
++        sprintf(&buffer_log[0], "(debug_server): problem binding socket\n");
++        write(debug_log, &buffer_log, strlen(buffer_log));
++        pthread_exit(0);
++    }
++
++    if(listen(server_sock_fd, 10) < 0){
++        memset(&buffer_log, 1024, '\0');
++        sprintf(&buffer_log[0], "(debug_server): problem listening to socket\n");
++        write(debug_log, &buffer_log, strlen(buffer_log));
++        pthread_exit(0);
++    }
++
++    if((server_sock = accept(server_sock_fd, (struct sockaddr *)&remote_addr, &remote_addrlen)) < 0){
++        memset(&buffer_log, 1024, '\0');
++        sprintf((char *)&buffer_log, "(monitor_server): accept error\n");
++        write(debug_log, (char *)&buffer_log, strlen(buffer_log));
++    }
++
++    pthread_mutex_lock(&monitor_lock);
++
++    /* We got the connection with external monitoring program*/
++    pthread_cond_signal(&monitor_start);
++
++    threads_data = timemgr_data + SIM_SYNC_ARRAY_OFFSET;
++
++    while(1){
++
++        unsigned int simtime;
++        struct timeval t1;
++
++        sim_mgr_debug(5, "DEBUG_SERVER: new loop\n");
++
++        pthread_cond_wait(&monitor_start, &monitor_lock);
++
++        sim_mgr_debug(5, "DEBUG_SERVER: Sending current simulation time %u\n", *current_sim);
++
++        simtime = *current_sim;
++
++        if(send(server_sock, &simtime, sizeof(unsigned int), 0) < sizeof(unsigned int)){
++            memset(&buffer_log, 1024, '\0');
++            printf("DEBUG_SERVER: send_error\n");
++            sprintf((char *)&buffer_log, "(monitor_server): send error\n");
++            write(debug_log, (char *)&buffer_log, strlen(buffer_log));
++        }else{
++            sim_mgr_debug(5, "DEBUG_SERVER: %d bytes sent\n", sizeof(unsigned int));
++        };
++
++        gettimeofday(&t1, NULL);
++        if(send(server_sock, &t1.tv_sec, sizeof(unsigned int), 0) < sizeof(unsigned int)){
++            memset(&buffer_log, 1024, '\0');
++            printf("DEBUG_SERVER: send_error\n");
++            sprintf((char *)&buffer_log, "(monitor_server): send error\n");
++            write(debug_log, (char *)&buffer_log, strlen(buffer_log));
++        }else{
++            sim_mgr_debug(5, "DEBUG_SERVER: %d bytes sent\n", sizeof(unsigned int));
++        };
++
++        if(send(server_sock, &t1.tv_usec, sizeof(unsigned int), 0) < sizeof(unsigned int)){
++            memset(&buffer_log, 1024, '\0');
++            printf("DEBUG_SERVER: send_error\n");
++            sprintf((char *)&buffer_log, "(monitor_server): send error\n");
++            write(debug_log, (char *)&buffer_log, strlen(buffer_log));
++        }else{
++            sim_mgr_debug(5, "DEBUG_SERVER: %d bytes sent\n", sizeof(unsigned int));
++        };
++
++        pthread_cond_signal(&monitor_stop);
++
++        while(recv(server_sock, &req_type, sizeof(int), 0) < 0){
++            memset(&buffer_log, 1024, '\0');
++            sprintf(&buffer_log[0], "(debug_server): recv error\n");
++            write(debug_log, &buffer_log, strlen(buffer_log));
++            continue;
++        }
++
++    }
++
++    close(server_sock_fd);
++
++}
++
++#endif
++
++
++int main(int argc, char *argv[], char *envp[]){
++
++    pthread_attr_t attr;
++    pthread_t id_server, id_mgr;   
++    int i;
++
++    if(argc != 2){
++        printf("Usage %s sim_end_point \n", argv[0]);
++        return -1;
++    }
++    sim_end_point = atoi(argv[1]);
++
++    i = 0;
++    while(envp[i]){
++        global_envp[i] = envp[i++];
++    }
++
++    /* We need to execute sbatch wherever the program was installed */
++    if(getenv("SLURM_PROGRAMS") == NULL){
++        printf("SLURM_PROGRAMS variable not set. It should point to sbatch program directory. Exiting\n");
++        return -1;
++    }
++
++    sprintf((char *)&sbatch_bin, "%s/sbatch", getenv("SLURM_PROGRAMS"));
++    printf("Found sbatch program at %s\n", sbatch_bin);
++
++    sprintf((char *)&scontrol_bin, "%s/scontrol", getenv("SLURM_PROGRAMS"));
++    printf("Found scontrol program at %s\n", sbatch_bin);
++
++    /* Using a generated file during installation for threads identification ... sucks but something like 
++     * * using thread start address for function name resolution is not trivial */
++    /* What would be needed is some way for linking slurm daemons binaries with rpc_threads.info data 
++     * * ensuring they both are from same slurm version. A key shared by sim_mgr and rpc_threads.info? */
++    if(reading_rpc_threads_info() < 0){
++        printf("Error reading RPC threads info. Did you install rpc_threads.info correctly?\n");
++        return -1;
++    }
++
++    if(building_shared_memory() < 0){
++        printf("Error building shared memory and mmaping it\n");
++        return -1;
++    };
++
++    if(init_job_trace() < 0){
++        printf("An error was detected when reading trace file. Exiting...\n");
++        return -1;
++    }
++
++    if(init_rsv_trace() < 0){
++        printf("An error was detected when reading trace file. Exiting...\n");
++        return -1;
++    }
++
++    pthread_attr_init(&attr);
++    signal(SIGINT, dumping_shared_mem);
++    signal(SIGHUP, dumping_shared_mem);
++    signal(SIGUSR1, change_debug_level);
++
++#ifdef MONITOR 
++    while(pthread_create(&id_server, &attr, &debug_server, 0)) {
++        printf("Debug server can not be executed. Exiting...\n");
++        return -1;
++    }
++#endif
++
++    pthread_attr_init(&attr);
++
++    /* This is a thread for flexibility */
++    while (pthread_create(&id_mgr, &attr, &time_mgr, 0)) {
++        printf("Error with pthread_create for time_mgr\n"); 
++        return -1;
++    }
++
++    pthread_join(id_mgr, NULL);
++    pthread_join(id_server, NULL);
++    sleep(1);
++
++    return 0;
++}
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/sim_trace.h slurm-2.2.6-simulator.copia/src/simulation_lib/sim_trace.h
+--- slurm-2.2.6.orig/src/simulation_lib/sim_trace.h	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/sim_trace.h	2011-10-05 10:30:52.187238378 +0200
+@@ -0,0 +1,28 @@
++#define MAX_USERNAME_LEN 30
++#define MAX_RSVNAME_LEN 30
++#define MAX_QOSNAME 30
++#define TIMESPEC_LEN 30
++#define MAX_RSVNAME 30
++
++typedef struct job_trace{
++    int job_id;
++    char username[MAX_USERNAME_LEN];
++    long int submit; /* relative or absolute? */
++    int duration;
++    int wclimit;
++    int tasks;
++    char qosname[MAX_QOSNAME];
++    char partition[MAX_QOSNAME];
++    char account[MAX_QOSNAME];
++    int cpus_per_task;
++    int tasks_per_node;
++    char reservation[MAX_RSVNAME];
++    char dependency[MAX_RSVNAME];
++    struct job_trace *next;
++} job_trace_t;
++
++typedef struct rsv_trace{
++    long int creation_time;
++    char *rsv_command;
++    struct rsv_trace *next;
++} rsv_trace_t;
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/slurm_sim.pl slurm-2.2.6-simulator.copia/src/simulation_lib/slurm_sim.pl
+--- slurm-2.2.6.orig/src/simulation_lib/slurm_sim.pl	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/slurm_sim.pl	2011-06-16 12:00:32.000000000 +0200
+@@ -0,0 +1,69 @@
++#!/usr/bin/perl
++
++my $USER=$ENV{"USER"};
++
++open LOG,">src/simulation_lib/slurm_sim.h";
++
++print LOG
++"
++/*
++########################################################################
++#  THIS FILE IS AUTOMATICALLY CREATED BY slurm_sim.pl when             #
++#	slurm configure is executed  	          		       #
++#  								       #
++#    IPC names are based on username compiling Slurm		       #
++#    sim_mgr should be executed with same uid			       #
++#    								       #
++########################################################################
++*/
++
++#include <pthread.h>
++
++#define MAX_THREADS 64
++
++#define SLURM_SIM_SHM \"/".$USER."_slurm_sim.shm\"
++
++#define SIM_GLOBAL_SEM \"".$USER."_slurm_simulator\"
++#define SIM_LOCAL_SEM_PREFIX \"".$USER."_slurm_simulator_thread_sem_\"
++#define SIM_LOCAL_SEM_BACK_PREFIX \"".$USER."_slurm_simulator_thread_sem_back_\"
++
++
++/* Offsets */
++#define SIM_SECONDS_OFFSET      0
++#define SIM_MICROSECONDS_OFFSET 4
++
++/* This set a MAX_THREAD upper limit to 64 */
++#define SIM_SLEEP_ARRAY_MAP_OFFSET    8
++#define SIM_THREAD_EXIT_MAP_OFFSET   16 
++#define SIM_THREAD_NEW_MAP_OFFSET    24 
++#define SIM_THREADS_COUNT_OFFSET	 32
++#define SIM_PROTO_THREADS_OFFSET	 36
++#define SIM_FAST_THREADS_OFFSET	 	40
++#define SIM_PTHREAD_CREATE_COUNTER	 	44
++#define SIM_PTHREAD_EXIT_COUNTER	 	48
++#define SIM_PTHREAD_SLURMCTL_PID		52
++#define SIM_PTHREAD_SLURMD_PID			56
++
++#define SIM_SYNC_ARRAY_OFFSET        60
++
++typedef struct thread_data {
++		pthread_t ptid;
++		pid_t pid;
++		unsigned long func_addr;
++		time_t creation;
++		time_t last_sleep;
++		time_t last_wakeup;
++		time_t deletion;
++		int sleep;
++		int is_new;
++		int never_ending;
++		int joining;
++		long long wait_time;
++		long int wait_count;
++} thread_data_t;
++
++/* Each thread needs a sleep count value and a sem_t variable */
++#define THREAD_DATA_SIZE    (sizeof(thread_data_t))
++
++";
++
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/trace_builder.c slurm-2.2.6-simulator.copia/src/simulation_lib/trace_builder.c
+--- slurm-2.2.6.orig/src/simulation_lib/trace_builder.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/trace_builder.c	2011-10-03 16:48:55.220275354 +0200
+@@ -0,0 +1,409 @@
++#include <stdio.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <getopt.h>
++#include <string.h>
++
++#include "sim_trace.h"
++
++#define MAX_WALLCLOCK	7200
++#define MIN_WALLCLOCK	60
++
++#define MAX_USERS 1000
++/* this program creates a file with a set of job traces for slurm simulator */
++
++static struct option long_options[] = {
++    {"cpus",      1, 0, 'c'},
++    {"jobs",  1, 0, 'j'},
++    {"partition",  1, 0, 'p'},
++    {"account",     1, 0, 'a'},
++    {"cpus_per_task",     1, 0, 'm'},
++    {"tasks_per_node",     1, 0, 't'},
++    {"submit_time",     1, 0, 's'},
++    {NULL,       0, 0, 0}
++};
++
++
++/* job_id, user, partition, account, class, submit_time, duration, wclimit, tasks, tasks_per_node, cpus_per_task */
++
++int trace_file;
++int job_counter = 1001;
++int total_cpus = 0;
++int total_jobs = 0;
++int submit_time = 0;
++int cpus_per_task = 0;
++int tasks_per_node = 0;
++
++job_trace_t new_trace;
++
++char *username[1000];
++int total_users = 0;
++
++char *qosname[1000];
++int total_qos = 0;
++
++char *default_partition;
++char *default_account;
++
++int get_duration(){
++
++		unsigned int value;
++		int frand;
++
++		frand = open("/dev/urandom", O_RDONLY);
++		if(frand < 0){
++				printf("Error opening /dev/urandom\n");
++				return -1;
++		}
++
++		read(frand, &value, 4);
++
++		close(frand);
++
++		value = value % 10;
++
++		switch (value) {
++
++				case 0:
++				case 1:
++						return 30;
++				case 2:
++				case 3: 
++						return 60;
++
++				case 4:
++				case 5:
++						return 300;
++
++				case 6:
++				case 7:
++						return 600;
++
++				case 8:
++						return 1800;
++				case 9:
++						return 3600;
++
++				default:
++
++						return 60;
++		}
++
++		return 0;
++
++}
++
++int get_tasks(){
++
++		unsigned int value;
++		int frand;
++		static int last_big;
++
++		frand = open("/dev/urandom", O_RDONLY);
++		if(frand < 0){
++				printf("Error opening /dev/urandom\n");
++				return -1;
++		}
++
++		read(frand, &value, 4);
++
++		close(frand);
++
++		value = value % 20;
++
++		switch (value) {
++
++				case 0:
++				case 1:
++				case 2:
++				case 3: 
++						return 4;
++
++				case 4:
++				case 5:
++				case 6:
++				case 7:
++						return 8;
++				case 8:
++						return 16;
++
++				case 9:
++						return 32;
++				case 10:
++						return 40;
++		}
++
++		if(total_cpus > 40){
++
++				switch (value) {
++						case 11:
++								if(total_cpus < 64)
++										return total_cpus;
++								else
++										return 64;
++						case 12:
++								if(total_cpus < 80)
++										return total_cpus;
++								else
++										return 80;
++						case 13:
++								if(total_cpus < 128)
++										return total_cpus;
++								else
++										return 128;
++						case 14:
++								if(total_cpus < 256)
++										return total_cpus;
++								else
++										return 256;
++						case 15:
++								if(total_cpus < 512)
++										return total_cpus;
++								else
++										return 512;
++						case 16:
++								if(total_cpus < 1024)
++										return total_cpus;
++								else
++										return 1024;
++						case 17:
++								if(last_big == 0){
++
++										last_big++;
++
++										if(total_cpus < 2048)
++												return total_cpus;
++										else
++												return 2048;
++								}
++								if(last_big == 1){
++
++										last_big++;
++
++										if(total_cpus < 4096)
++												return total_cpus;
++										else
++												return 4096;
++								}
++								if(last_big == 2){
++
++										last_big = 0;
++										if(total_cpus < 8192)
++												return total_cpus;
++										else
++												return 8192;
++								}
++						default:
++								return 4;
++				}
++		
++		}
++		return 0;
++}
++
++
++int main(int argc, char *argv[]){
++
++		int i;
++		int written;
++		int  userfile;
++		int  qosfile;
++		int char_pos;
++		int endfile = 0;
++		char *name;
++        int option_index;
++        int opt_char;
++
++        while((opt_char = getopt_long(argc, argv, "cjpamt",
++                        long_options, &option_index)) != -1) {
++            switch (opt_char) {
++                case (int)'c':
++                    total_cpus = atoi(optarg);
++
++                case (int)'j':
++                    total_jobs = atoi(optarg);
++                    break;
++
++                case (int)'p':
++                    default_partition = strdup(optarg);
++                    break;
++
++                case (int)'a':
++                    default_account = strdup(optarg);
++                    break;
++
++                case (int)'m':
++                    cpus_per_task = atoi(optarg);
++                    break;
++
++                case (int)'t':
++                    tasks_per_node = atoi(optarg);
++                    break;
++
++                case (int)'s':
++                    submit_time = atoi(optarg);
++                    break;
++
++                default:
++                    fprintf(stderr, "getopt error, returned %c\n",
++                            opt_char);
++                    exit(0);
++            }
++        }
++
++        if(total_cpus == 0){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++		if(total_jobs == 0){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++		if(default_partition == NULL){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++		if(default_account == NULL){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++
++        if(cpus_per_task == 0){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++
++        if(tasks_per_node == 0){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++
++        if(submit_time == 0){
++            printf("Usage: %s --cpus=xx --jobs=xx --partition=xxxx --account=xxxx --cpus_per_task=xx --tasks_per_node=xx --submit_time=xx(unixtime)\n", argv[0]);
++            return -1;
++        }
++
++		if(total_cpus < 40){
++				printf("Setting total_cpus to the minimum value: 40\n");
++				total_cpus = 40;
++		}
++
++		userfile = open("users.sim", O_RDONLY);
++
++		if(userfile < 0){
++			printf("users.sim file not found\n");
++			return -1;
++		}
++
++		while(1){
++		  	char_pos = 0;
++			name = malloc(30);
++			while(1){
++				if(read(userfile, &name[char_pos], 1) <= 0){
++					endfile = 1;
++					break;
++				};
++				//printf("Reading char: %c\n", username[char_pos][total_users]);
++				if(name[char_pos] == '\n'){
++					name[char_pos] = '\0';
++					break;
++				}
++				char_pos++;
++			}
++			if(endfile)
++				break;
++			username[total_users] = name;
++			printf("Reading user: %s\n", username[total_users]);
++			total_users++;
++		}
++
++		qosfile = open("qos.sim", O_RDONLY);
++
++		if(qosfile < 0){
++			printf("qos.sim file not found\n");
++			return -1;
++		}
++
++		endfile = 0;
++		while(1){
++		  	char_pos = 0;
++			name = malloc(30);
++			while(1){
++				if(read(qosfile, &name[char_pos], 1) <= 0){
++					endfile = 1;
++					break;
++				};
++				//printf("Reading char: %c\n", username[char_pos][total_users]);
++				if(name[char_pos] == '\n'){
++					name[char_pos] = '\0';
++					break;
++				}
++				char_pos++;
++			}
++			if(endfile)
++				break;
++			qosname[total_qos] = name;
++			printf("Reading qos: %s\n", qosname[total_qos]);
++			total_qos++;
++		}
++
++		if((trace_file = open("test.trace", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) < 0){
++				printf("Error opening file test.trace\n");
++				return -1;
++		}
++
++        submit_time = 1316242565;
++
++		for(i = 0; i < total_jobs; i++){
++
++				int j;
++
++				new_trace.job_id = job_counter++;
++
++				/* Submitting a job every 30s */
++				new_trace.submit = submit_time;
++				submit_time += 30;
++
++				sprintf(new_trace.username, username[i % total_users]);
++
++				sprintf(new_trace.qosname, qosname[i % total_qos]);
++
++				new_trace.duration = get_duration();
++				if(new_trace.duration < 0){
++						printf("frand did not work. Exiting...\n");
++						return -1;
++				}
++
++				new_trace.tasks = get_tasks();
++				if(new_trace.tasks < 0){
++						printf("frand did not work. Exiting...\n");
++						return -1;
++				}
++
++				new_trace.wclimit = new_trace.duration + (new_trace.duration *0.30);
++
++
++				if(new_trace.wclimit < 60)
++					new_trace.wclimit = 60;
++
++				sprintf(new_trace.account, "%s", default_account);
++				sprintf(new_trace.partition, "%s", default_partition);
++
++				new_trace.cpus_per_task = 1;
++				new_trace.tasks_per_node = 4;
++
++				written = write(trace_file, &new_trace, sizeof(new_trace));
++
++				printf("JOB(%s): %d, %d, %d\n", new_trace.username, job_counter - 1, new_trace.duration, new_trace.tasks);
++				if(written != sizeof(new_trace)){
++						printf("Error writing to file: %d of %ld\n", written, sizeof(new_trace));
++						return -1;
++				}
++
++		}
++
++		return 0;
++}
+diff -Naur slurm-2.2.6.orig/src/simulation_lib/update_trace.c slurm-2.2.6-simulator.copia/src/simulation_lib/update_trace.c
+--- slurm-2.2.6.orig/src/simulation_lib/update_trace.c	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/simulation_lib/update_trace.c	2011-10-03 16:48:37.351197635 +0200
+@@ -0,0 +1,148 @@
++#include <stdio.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <stdlib.h>
++#include <getopt.h>
++#include <string.h>
++#include <errno.h>
++
++#include "sim_trace.h"
++
++/* This command modifies a job trace file depending on options given by the user:
++ *
++ * -R implies linking jobs to reservations
++ * -D implies linking a job to other by dependency
++ *
++*/
++
++
++static struct option long_options[] = {
++    {"reservation",      0, 0, 'R'},
++    {"dependency",  0, 0, 'D'},
++    {"rsv_name",  1, 0, 'n'},
++    {"jobid",     1, 0, 'j'},
++    {"ref_jobid",     1, 0, 'r'},
++    {"account",     1, 0, 'a'},
++    {NULL,       0, 0, 0}
++};
++
++char *rsv_name;
++int reservation_opt = 0;
++int dependency_opt = 0;
++int jobid;
++char *ref_jobid;
++char *account;
++
++int main(int argc, char *argv[]){
++
++    int trace_file, new_file;
++    job_trace_t job_trace;
++    int option_index;
++    int opt_char;
++
++
++    while((opt_char = getopt_long(argc, argv, "RDnjra",
++                    long_options, &option_index)) != -1) {
++        switch (opt_char) {
++            case (int)'R':
++                printf("Reservation option\n");
++                reservation_opt = 1;
++                break;
++
++            case (int)'D':
++                printf("Dependency option\n");
++                dependency_opt = 1;
++                break;
++
++            case (int)'n':
++                rsv_name = strdup(optarg);
++                printf("Parsing reservation name to %s\n", rsv_name);
++                break;
++
++            case (int)'j':
++                jobid = atoi(optarg);
++                printf("Parsing jobid to %d\n", jobid);
++                break;
++
++            case (int)'r':
++                ref_jobid = strdup(optarg);
++                break;
++
++            case (int)'a':
++                account = strdup(optarg);
++                printf("Parsing account to %s\n", account);
++                break;
++
++            default:
++                fprintf(stderr, "getopt error, returned %c\n",
++                        opt_char);
++                exit(0);
++        }
++    }
++
++    if(!reservation_opt && !dependency_opt){
++        printf("Command needs to specify reservation or dependency action\n");
++        return -1;
++    }
++
++    if(reservation_opt){
++        if((rsv_name == NULL) || (jobid == 0) || (account == NULL)){
++            printf("Reservation option needs:\n\t --rsv_name and \n\t--jobid\n\t--account\n");
++            return -1;
++        }
++    }
++    if(dependency_opt){
++        if((ref_jobid == NULL) || (jobid == 0)){
++            printf("Dependency option needs --jobid and --ref_jobid\n");
++            return -1;
++        }
++    }
++
++
++    trace_file = open("test.trace", O_RDONLY);
++    if(trace_file < 0){
++        printf("Error opening test.trace\n");
++        return -1;
++    }
++
++    new_file = open(".test.trace.new", O_CREAT | O_RDWR);
++    if(new_file < 0){
++        printf("Error creating temporal file at /tmp\n");
++        return -1;
++    }
++
++    while(read(trace_file, &job_trace, sizeof(job_trace))){
++
++        if(reservation_opt){
++            if(job_trace.job_id != jobid){
++                write(new_file, &job_trace, sizeof(job_trace));
++                continue;
++            }
++           
++            sprintf(job_trace.reservation, "%s", rsv_name);
++            sprintf(job_trace.account, "%s", account);
++        }
++
++        if(dependency_opt){
++            if(job_trace.job_id != jobid){
++                write(new_file, &job_trace, sizeof(job_trace));
++                continue;
++            }
++
++            sprintf(job_trace.dependency, "%s", ref_jobid);
++        }
++
++        write(new_file, &job_trace, sizeof(job_trace));
++    }
++
++    close(trace_file);
++    close(new_file);
++
++    if(rename(".test.trace.new", "./test.trace") < 0){
++        printf("Error renaming file: %d\n", errno);
++    };
++
++    return 0;
++}
+diff -Naur slurm-2.2.6.orig/src/slurmctld/agent.c slurm-2.2.6-simulator.copia/src/slurmctld/agent.c
+--- slurm-2.2.6.orig/src/slurmctld/agent.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmctld/agent.c	2011-06-16 10:16:17.000000000 +0200
+@@ -353,6 +353,8 @@
+ 	pthread_cond_broadcast(&agent_cnt_cond);
+ 	slurm_mutex_unlock(&agent_cnt_mutex);
+ 
++	pthread_exit(NULL);
++
+ 	return NULL;
+ }
+ 
+@@ -513,7 +515,7 @@
+  * IN args - pointer to agent_info_t with info on threads to watch
+  * Sleep between polls with exponential times (from 0.125 to 1.0 second)
+  */
+-static void *_wdog(void *args)
++void *_wdog(void *args)
+ {
+ 	bool srun_agent = false;
+ 	int i;
+@@ -543,7 +545,8 @@
+ 		thd_comp.retry_cnt   = 0;   /* assume no required retries */
+ 		thd_comp.now         = time(NULL);
+ 
+-		usleep(usec);
++		//usleep(usec);
++		sleep(1);
+ 		usec = MIN((usec * 2), 1000000);
+ 
+ 		slurm_mutex_lock(&agent_ptr->thread_mutex);
+@@ -588,6 +591,9 @@
+ 		debug2("agent maximum delay %d seconds", thd_comp.max_delay);
+ 
+ 	slurm_mutex_unlock(&agent_ptr->thread_mutex);
++
++	pthread_exit(NULL);
++
+ 	return (void *) NULL;
+ }
+ 
+@@ -1019,6 +1025,9 @@
+ 	(*threads_active_ptr)--;
+ 	pthread_cond_signal(thread_cond_ptr);
+ 	slurm_mutex_unlock(thread_mutex_ptr);
++
++	pthread_exit(NULL);
++
+ 	return (void *) NULL;
+ }
+ 
+diff -Naur slurm-2.2.6.orig/src/slurmctld/controller.c slurm-2.2.6-simulator.copia/src/slurmctld/controller.c
+--- slurm-2.2.6.orig/src/slurmctld/controller.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmctld/controller.c	2011-08-25 10:39:04.454275065 +0200
+@@ -150,6 +150,8 @@
+ /* Scheduler Log options */
+ log_options_t sched_log_opts = SCHEDLOG_OPTS_INITIALIZER;
+ 
++#define SIMULATOR_MODE
++
+ /* Global variables */
+ slurmctld_config_t slurmctld_config;
+ int bg_recover = DEFAULT_RECOVER;
+@@ -398,6 +400,7 @@
+ 	*/
+ 	load_assoc_usage(slurmctld_conf.state_save_location);
+ 
++#ifndef SIMULATOR_MODE
+ 	/* This thread is looking for when we get correct data from
+ 	   the database so we can update the assoc_ptr's in the jobs
+ 	*/
+@@ -410,6 +413,7 @@
+ 		}
+ 		slurm_attr_destroy(&thread_attr);
+ 	}
++#endif
+ 
+ 	info("slurmctld version %s started on cluster %s",
+ 	     SLURM_VERSION_STRING, slurmctld_cluster_name);
+@@ -523,8 +527,10 @@
+ 		if (slurm_priority_init() != SLURM_SUCCESS)
+ 			fatal("failed to initialize priority plugin");
+ 
++#ifndef SIMULATOR_MODE
+ 		if (slurm_sched_init() != SLURM_SUCCESS)
+ 			fatal("failed to initialize scheduling plugin");
++#endif
+ 
+ 
+ 		/*
+@@ -554,6 +560,7 @@
+ 		}
+ 		slurm_attr_destroy(&thread_attr);
+ 
++#ifndef SIMULATOR_MODE
+ 		/*
+ 		 * create attached thread for state save
+ 		 */
+@@ -565,6 +572,7 @@
+ 			sleep(1);
+ 		}
+ 		slurm_attr_destroy(&thread_attr);
++#endif
+ 
+ 		/*
+ 		 * create attached thread for node power management
+@@ -786,7 +794,7 @@
+ }
+ 
+ /* _slurmctld_signal_hand - Process daemon-wide signals */
+-static void *_slurmctld_signal_hand(void *no_data)
++void *_slurmctld_signal_hand(void *no_data)
+ {
+ 	int sig;
+ 	int i, rc;
+@@ -849,7 +857,7 @@
+ }
+ 
+ /* _slurmctld_rpc_mgr - Read incoming RPCs and create pthread for each */
+-static void *_slurmctld_rpc_mgr(void *no_data)
++void *_slurmctld_rpc_mgr(void *no_data)
+ {
+ 	slurm_fd_t newsockfd;
+ 	slurm_fd_t maxsockfd;
+@@ -988,7 +996,7 @@
+  *	upon completion
+  * RET - NULL
+  */
+-static void *_service_connection(void *arg)
++void *_service_connection(void *arg)
+ {
+ 	connection_arg_t *conn = (connection_arg_t *) arg;
+ 	void *return_code = NULL;
+@@ -1026,6 +1034,9 @@
+ 	slurm_free_msg(msg);
+ 	xfree(arg);
+ 	_free_server_thread();
++
++	pthread_exit(NULL);
++
+ 	return return_code;
+ }
+ 
+@@ -1408,6 +1419,7 @@
+ #endif
+ 			unlock_slurmctld(node_write_lock);
+ 		}
++#ifndef SIMULATOR_MODE
+ 		if (((difftime(now, last_ping_node_time) >= ping_interval) ||
+ 		     ping_nodes_now) && is_ping_done()) {
+ 			now = time(NULL);
+@@ -1439,6 +1451,7 @@
+ 			srun_ping();
+ 			unlock_slurmctld(job_read_lock);
+ 		}
++#endif
+ 
+ 		/* Process any pending agent work */
+ 		agent_retry(RPC_RETRY_INTERVAL, true);
+@@ -1943,7 +1956,7 @@
+ 
+ /* _assoc_cache_mgr - hold out until we have real data from the
+  * database so we can reset the job ptr's assoc ptr's */
+-static void *_assoc_cache_mgr(void *no_data)
++void *_assoc_cache_mgr(void *no_data)
+ {
+ 	ListIterator itr = NULL;
+ 	struct job_record *job_ptr = NULL;
+diff -Naur slurm-2.2.6.orig/src/slurmctld/job_mgr.c slurm-2.2.6-simulator.copia/src/slurmctld/job_mgr.c
+--- slurm-2.2.6.orig/src/slurmctld/job_mgr.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmctld/job_mgr.c	2011-06-29 17:30:09.461204624 +0200
+@@ -111,6 +111,8 @@
+ List   job_list = NULL;		/* job_record list */
+ time_t last_job_update;		/* time of last update to job records */
+ 
++#define SIMULATOR_MODE
++
+ /* Local variables */
+ static uint32_t maximum_prio = TOP_PRIORITY;
+ static int      hash_table_size = 0;
+@@ -425,6 +427,7 @@
+ 	xstrcat(new_file, "/job_state.new");
+ 	unlock_slurmctld(job_read_lock);
+ 
++#ifdef SIMULATOR_MODE
+ 	if (stat(reg_file, &stat_buf) == 0) {
+ 		static time_t last_mtime = (time_t) 0;
+ 		int delta_t = difftime(stat_buf.st_mtime, last_mtime);
+@@ -439,6 +442,7 @@
+ 		}
+ 		last_mtime = time(NULL);
+ 	}
++#endif
+ 
+ 	lock_state_files();
+ 	log_fd = creat(new_file, 0600);
+@@ -848,6 +852,12 @@
+ 	slurmdb_association_rec_t assoc_rec;
+ 	slurmdb_qos_rec_t qos_rec;
+ 	bool job_finished = false;
++#ifdef SIMULATOR_MODE
++	time_t simulation_current_time = 1301915280;
++	time_t simulation_delta_time;
++
++	simulation_delta_time = time(NULL) - simulation_current_time;
++#endif
+ 
+ 	if(protocol_version >= SLURM_2_2_PROTOCOL_VERSION) {
+ 		safe_unpack32(&assoc_id, buffer);
+@@ -889,7 +899,14 @@
+ 		safe_unpack32(&qos_id, buffer);
+ 
+ 		safe_unpack_time(&start_time, buffer);
++		
++#ifdef SIMULATION_MODE
++		start_time += simulation_delta_time;
++#endif
+ 		safe_unpack_time(&end_time, buffer);
++#ifdef SIMULATION_MODE
++		end_time += simulation_delta_time;
++#endif
+ 		safe_unpack_time(&suspend_time, buffer);
+ 		safe_unpack_time(&pre_sus_time, buffer);
+ 		safe_unpack_time(&resize_time, buffer);
+@@ -1037,7 +1054,14 @@
+ 		safe_unpack32(&next_step_id, buffer);
+ 
+ 		safe_unpack_time(&start_time, buffer);
++#ifdef SIMULATION_MODE
++		start_time += simulation_delta_time;
++#endif
++
+ 		safe_unpack_time(&end_time, buffer);
++#ifdef SIMULATION_MODE
++		end_time += simulation_delta_time;
++#endif
+ 		safe_unpack_time(&suspend_time, buffer);
+ 		safe_unpack_time(&pre_sus_time, buffer);
+ 		safe_unpack_time(&tot_sus_time, buffer);
+@@ -1439,6 +1463,13 @@
+ 	time_t begin_time, submit_time;
+ 	int i;
+ 	multi_core_data_t *mc_ptr;
++#ifdef SIMULATION_MODE
++	time_t simulation_current_time = 1301915280;
++	time_t simulation_delta_time;
++
++	simulation_delta_time = time(NULL) - simulation_current_time;
++
++#endif
+ 
+ 	/* unpack the job's details from the buffer */
+ 	if(protocol_version >= SLURM_2_2_PROTOCOL_VERSION) {
+@@ -1472,6 +1503,10 @@
+ 		safe_unpack32(&pn_min_tmp_disk, buffer);
+ 		safe_unpack_time(&begin_time, buffer);
+ 		safe_unpack_time(&submit_time, buffer);
++#ifdef SIMULATION_MODE
++		begin_time += simulation_delta_time;
++		submit_time += simulation_delta_time;
++#endif
+ 
+ 		safe_unpackstr_xmalloc(&req_nodes,  &name_len, buffer);
+ 		safe_unpackstr_xmalloc(&exc_nodes,  &name_len, buffer);
+@@ -1518,6 +1553,10 @@
+ 		safe_unpack32(&pn_min_tmp_disk, buffer);
+ 		safe_unpack_time(&begin_time, buffer);
+ 		safe_unpack_time(&submit_time, buffer);
++#ifdef SIMULATION_MODE
++		begin_time += simulation_delta_time;
++		submit_time += simulation_delta_time;
++#endif
+ 
+ 		safe_unpackstr_xmalloc(&req_nodes,  &name_len, buffer);
+ 		safe_unpackstr_xmalloc(&exc_nodes,  &name_len, buffer);
+diff -Naur slurm-2.2.6.orig/src/slurmctld/job_scheduler.c slurm-2.2.6-simulator.copia/src/slurmctld/job_scheduler.c
+--- slurm-2.2.6.orig/src/slurmctld/job_scheduler.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmctld/job_scheduler.c	2011-06-16 10:37:14.000000000 +0200
+@@ -73,6 +73,8 @@
+ #define _DEBUG 0
+ #define MAX_RETRIES 10
+ 
++#define SIMULATOR_MODE
++
+ static char **	_build_env(struct job_record *job_ptr);
+ static void	_depend_list_del(void *dep_ptr);
+ static void	_feature_list_delete(void *x);
+@@ -698,6 +700,7 @@
+ 	launch_msg_ptr->select_jobinfo = select_g_select_jobinfo_copy(
+ 			job_ptr->select_jobinfo);
+ 
++#ifndef SIMULATOR_MODE
+ 	agent_arg_ptr = (agent_arg_t *) xmalloc(sizeof(agent_arg_t));
+ 	agent_arg_ptr->node_count = 1;
+ 	agent_arg_ptr->retry = 0;
+@@ -707,6 +710,38 @@
+ 
+ 	/* Launch the RPC via agent */
+ 	agent_queue_request(agent_arg_ptr);
++#else
++
++	{
++		slurm_msg_t msg, resp;
++		slurm_msg_t_init(&msg);
++		msg.msg_type = REQUEST_BATCH_JOB_LAUNCH;
++		msg.data = launch_msg_ptr;
++		info("SIM: sending message type REQUEST_BATCH_JOB_LAUNCH to %s\n", node_ptr->name);
++			
++		if(slurm_conf_get_addr(node_ptr->name, &msg.address) == SLURM_ERROR) {
++				error("SIM: "
++				      "can't find address for host %s, "
++				      "check slurm.conf",
++				      node_ptr->name);
++		}
++
++		if (slurm_send_recv_node_msg(&msg, &resp, 5000000) != SLURM_SUCCESS) {
++				error("SIM: slurm_send_only_node_msg failed\n");
++		}
++
++		/* Let's free memory allocated */
++
++		if(launch_msg_ptr->environment){
++			xfree(launch_msg_ptr->environment[0]);
++			xfree(launch_msg_ptr->environment);
++		}
++
++		slurm_free_job_launch_msg(launch_msg_ptr);
++
++
++	}
++#endif
+ }
+ 
+ /*
+@@ -1338,7 +1373,7 @@
+ 	return my_env;
+ }
+ 
+-static void *_run_epilog(void *arg)
++void *_run_epilog(void *arg)
+ {
+ 	struct job_record *job_ptr = (struct job_record *) arg;
+ 	uint32_t job_id;
+@@ -1392,6 +1427,8 @@
+ 	for (i=0; my_env[i]; i++)
+ 		xfree(my_env[i]);
+ 	xfree(my_env);
++
++	pthread_exit(NULL);
+ 	return NULL;
+ }
+ 
+@@ -1438,7 +1475,7 @@
+ 	}
+ }
+ 
+-static void *_run_prolog(void *arg)
++void *_run_prolog(void *arg)
+ {
+ 	struct job_record *job_ptr = (struct job_record *) arg;
+ 	uint32_t job_id;
+@@ -1556,6 +1593,8 @@
+ 	unlock_slurmctld(config_read_lock);
+ 	FREE_NULL_BITMAP(node_bitmap);
+ 
++	pthread_exit(NULL);
++
+ 	return NULL;
+ }
+ 
+diff -Naur slurm-2.2.6.orig/src/slurmctld/node_scheduler.c slurm-2.2.6-simulator.copia/src/slurmctld/node_scheduler.c
+--- slurm-2.2.6.orig/src/slurmctld/node_scheduler.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmctld/node_scheduler.c	2011-06-16 11:18:04.000000000 +0200
+@@ -79,6 +79,8 @@
+ #include "src/slurmctld/sched_plugin.h"
+ #include "src/slurmctld/slurmctld.h"
+ 
++#define SIMULATOR_MODE
++
+ #define MAX_FEATURES  32	/* max exclusive features "[fs1|fs2]"=2 */
+ #define MAX_RETRIES   10
+ 
+@@ -241,7 +243,42 @@
+ 	}
+ 
+ 	agent_args->msg_args = kill_job;
++#ifndef SIMULATOR_MODE
+ 	agent_queue_request(agent_args);
++#else
++
++	{
++		slurm_msg_t msg, resp;
++		char *nodename;
++
++		slurm_msg_t_init(&msg);
++		msg.msg_type = REQUEST_TERMINATE_JOB;
++		msg.data = kill_job;
++
++		nodename = hostlist_shift(agent_args->hostlist);
++		info("SIM: sending message type REQUEST_TERMINATE_JOB (%d) to %s\n", kill_job->job_id, nodename);
++			
++		if(slurm_conf_get_addr(nodename, &msg.address) == SLURM_ERROR) {
++				error("SIM: "
++				      "can't find address for host %s, "
++				      "check slurm.conf",
++				      nodename);
++		}
++		if (slurm_send_recv_node_msg(&msg, &resp, 5000000) != SLURM_SUCCESS) {
++				error("SIM: slurm_send_only_node_msg failed\n");
++		}
++
++		info("SIM: REQUEST_TERMINATE_JOB (%d) to %s WAS SENT\n", kill_job->job_id, nodename);
++		/* Let's free memory allocated */
++
++		xfree(kill_job->nodes);
++		select_g_select_jobinfo_free(kill_job->select_jobinfo);
++		xfree(kill_job);
++		hostlist_destroy(agent_args->hostlist);
++		xfree(agent_args);
++
++	}
++#endif
+ 	return;
+ }
+ 
+diff -Naur slurm-2.2.6.orig/src/slurmctld/proc_req.c slurm-2.2.6-simulator.copia/src/slurmctld/proc_req.c
+--- slurm-2.2.6.orig/src/slurmctld/proc_req.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmctld/proc_req.c	2011-06-30 13:32:27.751160426 +0200
+@@ -102,6 +102,7 @@
+ inline static void  _slurm_rpc_delete_partition(slurm_msg_t * msg);
+ inline static void  _slurm_rpc_complete_job_allocation(slurm_msg_t * msg);
+ inline static void  _slurm_rpc_complete_batch_script(slurm_msg_t * msg);
++inline static void  _slurm_rpc_sim_helper_cycle(slurm_msg_t * msg);
+ inline static void  _slurm_rpc_dump_conf(slurm_msg_t * msg);
+ inline static void  _slurm_rpc_dump_jobs(slurm_msg_t * msg);
+ inline static void  _slurm_rpc_dump_job_single(slurm_msg_t * msg);
+@@ -220,6 +221,10 @@
+ 		_slurm_rpc_complete_batch_script(msg);
+ 		slurm_free_complete_batch_script_msg(msg->data);
+ 		break;
++	case MESSAGE_SIM_HELPER_CYCLE:
++		_slurm_rpc_sim_helper_cycle(msg);
++		slurm_free_sim_helper_msg(msg->data);
++		break;
+ 	case REQUEST_JOB_STEP_CREATE:
+ 		_slurm_rpc_job_step_create(msg);
+ 		slurm_free_job_step_create_request_msg(msg->data);
+@@ -1172,6 +1177,10 @@
+ 	bool run_scheduler = false;
+ 
+ 	START_TIMER;
++
++	info("SIM: Processing RPC: MESSAGE_EPILOG_COMPLETE for jobid %d", epilog_msg->job_id);
++	slurm_send_rc_msg(msg, SLURM_SUCCESS);
++
+ 	debug2("Processing RPC: MESSAGE_EPILOG_COMPLETE uid=%d", uid);
+ 	lock_slurmctld(job_write_lock);
+ 	if (!validate_slurm_user(uid)) {
+@@ -1196,12 +1205,14 @@
+ 		       epilog_msg->job_id, epilog_msg->node_name,
+ 		       TIME_STR);
+ 
++#if 0
+ 	/* Functions below provide their own locking */
+ 	if (run_scheduler) {
+ 		(void) schedule(0);
+ 		schedule_node_save();
+ 		schedule_job_save();
+ 	}
++#endif
+ 
+ 	/* NOTE: RPC has no response */
+ }
+@@ -1337,6 +1348,16 @@
+ 	}
+ }
+ 
++static void _slurm_rpc_sim_helper_cycle(slurm_msg_t * msg)
++{
++	sim_helper_msg_t *helper_msg =
++		(sim_helper_msg_t *) msg->data;
++
++	info("Processing RPC: MESSAGE_SIM_HELPER_CYCLE for %d jobs", helper_msg->total_jobs_ended);
++	slurm_send_rc_msg(msg, SLURM_SUCCESS);
++	schedule(0);
++}
++
+ /* _slurm_rpc_complete_batch - process RPC from slurmstepd to note the
+  *	completion of a batch script */
+ static void _slurm_rpc_complete_batch_script(slurm_msg_t * msg)
+@@ -2391,11 +2412,13 @@
+ 	response_msg.protocol_version = msg->protocol_version;
+ 
+ 	/* do RPC call */
++#if 0
+ 	if ( (uid != job_desc_msg->user_id) && (!validate_slurm_user(uid)) ) {
+ 		/* NOTE: User root can submit a batch job for any other user */
+ 		error_code = ESLURM_USER_ID_MISSING;
+ 		error("Security violation, SUBMIT_JOB from uid=%d", uid);
+ 	}
++#endif
+ 	if ((job_desc_msg->alloc_node == NULL) ||
+ 	    (job_desc_msg->alloc_node[0] == '\0')) {
+ 		error_code = ESLURM_INVALID_NODE_NAME;
+diff -Naur slurm-2.2.6.orig/src/slurmd/slurmd/req.c slurm-2.2.6-simulator.copia/src/slurmd/slurmd/req.c
+--- slurm-2.2.6.orig/src/slurmd/slurmd/req.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmd/slurmd/req.c	2011-06-16 12:55:38.173022283 +0200
+@@ -88,8 +88,12 @@
+ #include "src/slurmd/common/slurmstepd_init.h"
+ #include "src/slurmd/common/task_plugin.h"
+ 
++#include "sim_events.h"
++
+ #define _LIMIT_INFO 0
+ 
++#define SIMULATOR_MODE
++
+ #ifndef MAXHOSTNAMELEN
+ #define MAXHOSTNAMELEN	64
+ #endif
+@@ -136,6 +140,7 @@
+ static void _rpc_launch_tasks(slurm_msg_t *);
+ static void _rpc_abort_job(slurm_msg_t *);
+ static void _rpc_batch_job(slurm_msg_t *);
++static void simulator_rpc_batch_job(slurm_msg_t *);
+ static void _rpc_job_notify(slurm_msg_t *);
+ static void _rpc_signal_tasks(slurm_msg_t *);
+ static void _rpc_checkpoint_tasks(slurm_msg_t *);
+@@ -145,6 +150,8 @@
+ static void _rpc_signal_job(slurm_msg_t *);
+ static void _rpc_suspend_job(slurm_msg_t *);
+ static void _rpc_terminate_job(slurm_msg_t *);
++static void simulator_rpc_terminate_job(slurm_msg_t *msg);
++static int _rpc_sim_job(slurm_msg_t *msg);
+ static void _rpc_update_time(slurm_msg_t *);
+ static void _rpc_shutdown(slurm_msg_t *msg);
+ static void _rpc_reconfig(slurm_msg_t *msg);
+@@ -199,6 +206,13 @@
+ static List job_limits_list = NULL;
+ static bool job_limits_loaded = false;
+ 
++extern pthread_mutex_t simulator_mutex;
++extern simulator_event_t *head_simulator_event;
++extern simulator_event_t *head_sim_completed_jobs;
++extern int total_sim_events;
++
++simulator_event_info_t *head_simulator_event_info;
++
+ /* NUM_PARALLEL_SUSPEND controls the number of jobs suspended/resumed
+  * at one time as well as the number of jobsteps per job that can be
+  * suspended at one time */
+@@ -231,11 +245,16 @@
+ 
+ 	switch(msg->msg_type) {
+ 	case REQUEST_BATCH_JOB_LAUNCH:
++#ifndef SIMULATOR_MODE
+ 		/* Mutex locking moved into _rpc_batch_job() due to
+ 		 * very slow prolog on Blue Gene system. Only batch
+ 		 * jobs are supported on Blue Gene (no job steps). */
+ 		_rpc_batch_job(msg);
+ 		last_slurmctld_msg = time(NULL);
++#else
++		simulator_rpc_batch_job(msg);
++#endif
++		info("REQUEST BATCH_JOB_LAUNCH FINISHED\n");
+ 		slurm_free_job_launch_msg(msg->data);
+ 		break;
+ 	case REQUEST_LAUNCH_TASKS:
+@@ -290,7 +309,12 @@
+ 	case REQUEST_TERMINATE_JOB:
+ 		debug2("Processing RPC: REQUEST_TERMINATE_JOB");
+ 		last_slurmctld_msg = time(NULL);
++#ifndef SIMULATOR_MODE
+ 		_rpc_terminate_job(msg);
++#else
++		simulator_rpc_terminate_job(msg);
++#endif
++		info("RPC TERMINATE_JOB FINISHED\n");
+ 		slurm_free_kill_job_msg(msg->data);
+ 		break;
+ 	case REQUEST_UPDATE_JOB_TIME:
+@@ -302,6 +326,10 @@
+ 		_rpc_shutdown(msg);
+ 		slurm_free_shutdown_msg(msg->data);
+ 		break;
++	case REQUEST_SIM_JOB:
++        info("SIM: REQUEST_SIM_JOB message received\n");
++		_rpc_sim_job(msg);
++		break;
+ 	case REQUEST_RECONFIGURE:
+ 		_rpc_reconfig(msg);
+ 		last_slurmctld_msg = time(NULL);
+@@ -364,6 +392,104 @@
+ 	return;
+ }
+ 
++#ifdef SIMULATOR_MODE
++
++int simulator_add_future_event(batch_job_launch_msg_t *req){
++    simulator_event_t  *new_event;
++    simulator_event_info_t *temp_ptr = head_simulator_event_info;
++    time_t now;
++
++	pthread_mutex_lock(&simulator_mutex);
++    now = time(NULL);
++
++    new_event = (simulator_event_t *)malloc(sizeof(simulator_event_t));
++    if(!new_event){
++        error("SIMULATOR: malloc fails for new_event\n");
++	   	pthread_mutex_unlock(&simulator_mutex);
++        return -1;
++    }
++
++    /* Checking job_id as expected */
++    while(temp_ptr){
++        if(temp_ptr->job_id == req->job_id)
++            break;
++        temp_ptr = temp_ptr->next;
++    }
++    if(!temp_ptr){
++        info("SIM: No job_id event matching this job_id %d\n", req->job_id);
++		pthread_mutex_unlock(&simulator_mutex);
++        return -1;
++    }
++    new_event->job_id = req->job_id;
++    new_event->type = REQUEST_COMPLETE_BATCH_SCRIPT;
++    new_event->when = now + temp_ptr->duration;
++    new_event->nodelist = strdup(req->nodes);
++    new_event->next = NULL;
++
++    total_sim_events++;
++    if(!head_simulator_event){
++        info("SIM: Adding new event for job %d when list is empty for future time %ld!", new_event->job_id, new_event->when);
++        head_simulator_event = new_event;
++    }else{
++		simulator_event_t *node_temp = head_simulator_event;
++        info("SIM: Adding new event for job %d in the event listi for future time %ld", new_event->job_id, new_event->when);
++
++        if(head_simulator_event->when > new_event->when){
++				new_event->next = head_simulator_event;
++				head_simulator_event = new_event;
++				pthread_mutex_unlock(&simulator_mutex);
++				return 0;
++		}
++	
++		while((node_temp->next) && (node_temp->next->when < new_event->when))
++			node_temp = node_temp->next;
++
++		if(node_temp->next){
++				new_event->next = node_temp->next;
++				node_temp->next = new_event;
++				pthread_mutex_unlock(&simulator_mutex);
++				return 0;
++		}
++		node_temp->next = new_event;
++   }
++
++	pthread_mutex_unlock(&simulator_mutex);
++	return 0;
++}
++
++static void
++simulator_rpc_batch_job(slurm_msg_t *msg)
++{
++	batch_job_launch_msg_t *req = (batch_job_launch_msg_t *)msg->data;
++	bool     first_job_run = true;
++	int      rc = SLURM_SUCCESS;
++	uid_t    req_uid = g_slurm_auth_get_uid(msg->auth_cred, NULL);
++	char    *resv_id = NULL;
++	bool	 replied = false;
++	slurm_addr_t *cli = &msg->orig_addr;
++   hostlist_t hl;
++    char *node_name;
++
++    info("SIM: Dentro de simulator_rpc_batch_job for %d\n", req->job_id);
++    hl = hostlist_create(req->nodes);
++    while ((node_name = hostlist_shift(hl))) {
++        info("SIM: nodelist %s\n", node_name);
++    }
++    info("SIM: Hostlist printed\n");
++
++
++    if (slurm_send_rc_msg(msg, SLURM_SUCCESS) < 1) {
++	error("SIM: Could not confirm batch launch for job %d\n", req->job_id);
++    }
++
++    simulator_add_future_event(req);
++
++
++}
++#endif
++
++
++
+ static int
+ _send_slurmstepd_init(int fd, slurmd_step_type_t type, void *req,
+ 		      slurm_addr_t *cli, slurm_addr_t *self,
+@@ -1736,6 +1862,37 @@
+ }
+ 
+ static int
++_rpc_sim_job(slurm_msg_t *msg)
++{
++	int        rc = SLURM_SUCCESS;
++    sim_job_msg_t *sim_job;
++    simulator_event_info_t *new;
++
++    sim_job = (sim_job_msg_t *)msg->data;
++
++    info("SIM: Got info for jobid: %u with a duration of %u\n", sim_job->job_id, sim_job->duration);
++
++    new = (simulator_event_info_t *)calloc(1, sizeof(simulator_event_info_t));
++    if(!new){
++        info("SIM: _rpc_sim_job error in calloc\n");
++        return rc;
++    }
++
++    new->job_id = sim_job->job_id;
++    new->duration = sim_job->duration;
++
++    new->next = head_simulator_event_info;
++    head_simulator_event_info = new;
++
++	if (slurm_send_rc_msg(msg, rc) < 0) {
++		error("Error responding to sim_job: %m");
++	}
++    return rc;
++}
++
++
++
++static int
+ _rpc_ping(slurm_msg_t *msg)
+ {
+ 	int        rc = SLURM_SUCCESS;
+@@ -1925,6 +2082,85 @@
+ }
+ 
+ static void
++simulator_rpc_terminate_job(slurm_msg_t *rec_msg)
++{
++
++	slurm_msg_t            msg;
++	epilog_complete_msg_t  req;
++    hostlist_t hl;
++   char *node_name;
++	int             rc     = SLURM_SUCCESS;
++	kill_job_msg_t *req_kill    = rec_msg->data;
++	simulator_event_t *temp, *event_sim;
++
++    /* First sending an OK to the controller */
++
++
++    info("simulator_rpc_terminate_job, jobid = %d", req_kill->job_id);
++
++    slurm_send_rc_msg(rec_msg, SLURM_SUCCESS);
++
++    info("simulator_rpc_terminate_job, jobid = %d ready for sending message", req_kill->job_id);
++
++	pthread_mutex_lock(&simulator_mutex);
++
++	event_sim = head_sim_completed_jobs;
++
++	if((head_sim_completed_jobs) && (head_sim_completed_jobs->job_id == req_kill->job_id)){
++			head_sim_completed_jobs = head_sim_completed_jobs->next;
++	}else{
++
++			temp = head_sim_completed_jobs;
++			if(!temp){
++					printf("SIM: Error, no event found for completed job %d\n", req_kill->job_id);
++					pthread_mutex_unlock(&simulator_mutex);
++					return;
++			}
++
++			while((temp->next) && (temp->next->job_id =! req_kill->job_id)){
++					temp = temp->next;
++			}
++
++			if(temp->next){
++					event_sim = temp->next;
++					temp->next = event_sim->next;
++			}else{
++					printf("SIM: Error, no event found for completed job %d\n", req_kill->job_id);
++					pthread_mutex_unlock(&simulator_mutex);
++					return;
++			}
++	}
++
++	pthread_mutex_unlock(&simulator_mutex);
++
++    hl = hostlist_create(event_sim->nodelist);
++
++	/* With FRONTEND just one epilog complete message is needed */
++    node_name = hostlist_shift(hl);
++    //while ((node_name = hostlist_shift(hl))) {
++
++       info("SIM: Sending epilog complete message for job %d node %s", req_kill->job_id, node_name);
++	    slurm_msg_t_init(&msg);
++
++	    req.job_id      = req_kill->job_id;
++	    req.return_code = rc;
++	    req.node_name   = node_name;
++	    if (switch_g_alloc_node_info(&req.switch_nodeinfo))
++		    error("switch_g_alloc_node_info: %m");
++
++	    msg.msg_type    = MESSAGE_EPILOG_COMPLETE;
++	    msg.data        = &req;
++
++		/* Let wait for an answer for simulation syncronization */
++		slurm_send_recv_controller_rc_msg(&msg, &rc);
++
++	    switch_g_free_node_info(&req.switch_nodeinfo);
++    //}
++   hostlist_destroy(hl);
++	free(event_sim);
++}
++
++static void
+ _rpc_terminate_tasks(slurm_msg_t *msg)
+ {
+ 	kill_tasks_msg_t *req = (kill_tasks_msg_t *) msg->data;
+diff -Naur slurm-2.2.6.orig/src/slurmd/slurmd/sim_events.h slurm-2.2.6-simulator.copia/src/slurmd/slurmd/sim_events.h
+--- slurm-2.2.6.orig/src/slurmd/slurmd/sim_events.h	1970-01-01 01:00:00.000000000 +0100
++++ slurm-2.2.6-simulator.copia/src/slurmd/slurmd/sim_events.h	2011-06-16 12:00:32.000000000 +0200
+@@ -0,0 +1,17 @@
++/*
++ ** Definitions for simulation mode
++ ** */
++
++typedef struct simulator_event{
++    int job_id;
++    int type;
++    time_t when;
++    char *nodelist;
++    struct simulator_event *next;
++}simulator_event_t;
++
++typedef struct simulator_event_info{
++    int job_id;
++    int duration;
++    struct simulator_event_info *next;
++}simulator_event_info_t;
+diff -Naur slurm-2.2.6.orig/src/slurmd/slurmd/slurmd.c slurm-2.2.6-simulator.copia/src/slurmd/slurmd/slurmd.c
+--- slurm-2.2.6.orig/src/slurmd/slurmd/slurmd.c	2011-05-27 20:25:06.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmd/slurmd/slurmd.c	2011-06-30 13:29:48.619125543 +0200
+@@ -94,6 +94,9 @@
+ #include "src/slurmd/slurmd/get_mach_stat.h"
+ #include "src/slurmd/common/proctrack.h"
+ 
++#include "sim_events.h"
++
++
+ #define GETOPT_ARGS	"cCd:Df:hL:Mn:N:vV"
+ 
+ #ifndef MAXHOSTNAMELEN
+@@ -121,6 +124,11 @@
+ } conn_t;
+ 
+ 
++volatile simulator_event_t *head_simulator_event;
++volatile simulator_event_t *head_sim_completed_jobs;
++int total_sim_events = 0;
++
++pthread_mutex_t simulator_mutex  = PTHREAD_MUTEX_INITIALIZER;
+ 
+ /*
+  * static shutdown and reconfigure flags:
+@@ -144,6 +152,8 @@
+ static void      _install_fork_handlers(void);
+ static void 	 _kill_old_slurmd(void);
+ static void      _msg_engine(void);
++static void     *_simulator_helper(void *arg);
++static void      _spawn_simulator_helper(void);
+ static void      _print_conf(void);
+ static void      _print_config(void);
+ static void      _process_cmdline(int ac, char **av);
+@@ -327,6 +337,7 @@
+ 	slurm_conf_install_fork_handlers();
+ 
+ 	_spawn_registration_engine();
++    	_spawn_simulator_helper();
+ 	_msg_engine();
+ 
+ 	/*
+@@ -346,12 +357,38 @@
+ 	_destroy_conf();
+ 	slurm_crypto_fini();	/* must be after _destroy_conf() */
+ 
+-	info("Slurmd shutdown completing");
+ 	log_fini();
+        	return 0;
+ }
+ 
+ static void
++_spawn_simulator_helper(void)
++{
++	int            rc;
++	pthread_attr_t attr;
++	pthread_t      id;
++	int            retries = 0;
++
++	slurm_attr_init(&attr);
++	rc = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
++	if (rc != 0) {
++		errno = rc;
++		fatal("Unable to set detachstate on attr: %m");
++		slurm_attr_destroy(&attr);
++		return;
++	}
++
++	while (pthread_create(&id, &attr, &_simulator_helper, NULL)) {
++		error("simulator_helper: pthread_create: %m");
++		if (++retries > 3)
++			fatal("simulator_helper: pthread_create: %m");
++		usleep(10);	/* sleep and again */
++	}
++
++	return;
++}
++
++void
+ _spawn_registration_engine(void)
+ {
+ 	int            rc;
+@@ -399,9 +436,158 @@
+ 	}
+ 
+ 	_decrement_thd_count();
++
++	pthread_exit(NULL);
++
++	return NULL;
++}
++
++static int
++_send_complete_batch_script_msg(uint32_t jobid, int err, int status)
++{
++	int		rc, i;
++	slurm_msg_t	req_msg;
++	complete_batch_script_msg_t req;
++
++	req.job_id	= jobid;
++	req.job_rc      = status;
++	req.slurm_rc	= err;
++
++	slurm_msg_t_init(&req_msg);
++	req.node_name	= NULL;
++	req_msg.msg_type= REQUEST_COMPLETE_BATCH_SCRIPT;
++	req_msg.data	= &req;
++
++	info("SIM: sending REQUEST_COMPLETE_BATCH_SCRIPT");
++
++	/* Note: these log messages don't go to slurmd.log from here */
++	for (i=0; i<=5; i++) {
++		struct timespec waiting;
++
++		if (slurm_send_recv_controller_rc_msg(&req_msg, &rc) == 0)
++			break;
++		info("SIM: Retrying job complete RPC for %u",
++		     jobid);
++		waiting.tv_sec = 0;
++		waiting.tv_nsec = 10000000;
++		//usleep(10000);
++		nanosleep(&waiting, 0);
++	}
++	if (i > 5) {
++		sleep(10);
++		error("SIM: Unable to send job complete message: %m");
++		return SLURM_ERROR;
++	}
++
++	if ((rc == ESLURM_ALREADY_DONE) || (rc == ESLURM_INVALID_JOB_ID))
++		rc = SLURM_SUCCESS;
++	if (rc)
++		slurm_seterrno_ret(rc);
++
++	return SLURM_SUCCESS;
++}
++
++static int
++_send_sim_helper_cycle_msg(uint32_t jobs_count)
++{
++	int		rc, i;
++	slurm_msg_t	req_msg;
++	sim_helper_msg_t req;
++
++	req.total_jobs_ended = jobs_count;
++
++	slurm_msg_t_init(&req_msg);
++	req_msg.msg_type= MESSAGE_SIM_HELPER_CYCLE;
++	req_msg.data	= &req;
++
++	info("SIM: sending MESSAGE_SIM_HELPER_CYCLE");
++
++	/* Note: these log messages don't go to slurmd.log from here */
++	for (i=0; i<=5; i++) {
++		struct timespec waiting;
++
++		if (slurm_send_recv_controller_rc_msg(&req_msg, &rc) == 0)
++			break;
++		info("SIM: Retrying message helper cycle RPC");
++		waiting.tv_sec = 0;
++		waiting.tv_nsec = 10000000;
++		//usleep(10000);
++		nanosleep(&waiting, 0);
++	}
++	if (i > 5) {
++		sleep(10);
++		error("SIM: Unable to send message helper cycle complete message: %m");
++		return SLURM_ERROR;
++	}
++
++	if ((rc == ESLURM_ALREADY_DONE) || (rc == ESLURM_INVALID_JOB_ID))
++		rc = SLURM_SUCCESS;
++	if (rc)
++		slurm_seterrno_ret(rc);
++
++	return SLURM_SUCCESS;
++}
++
++
++void *
++_simulator_helper(void *arg)
++{
++   time_t now, last;
++   int jobs_ended;
++	_increment_thd_count();
++
++    last = 0;
++    now = 0;
++   info("SIM: Simulator Helper starting...\n");
++	while (!_shutdown) {
++
++		jobs_ended = 0;
++		now = time(NULL);
++		if((now - last != 1) && (last > 0)){
++			info("Simulator Helper cycle ERROR: last %ld and now %ld\n", last, now);
++			while(1);
++		}
++		pthread_mutex_lock(&simulator_mutex);
++		if(head_simulator_event)
++			info("Simulator Helper cycle: %ld, Next event at %ld, total_sim_events: %d\n", now, head_simulator_event->when, total_sim_events);
++		else
++			info("Simulator Helper cycle: %ld, No events!!!\n", now);
++
++		while((head_simulator_event) && (now >= head_simulator_event->when)){
++			simulator_event_t *aux;
++			int event_jid;
++			event_jid = head_simulator_event->job_id;
++			aux = head_simulator_event;
++			head_simulator_event = head_simulator_event->next;
++			aux->next = head_sim_completed_jobs;
++			head_sim_completed_jobs = aux;
++			total_sim_events--;
++			info("SIM: Sending JOB_COMPLETE_BATCH_SCRIPT for job %d", event_jid);
++			pthread_mutex_unlock(&simulator_mutex);
++			_send_complete_batch_script_msg(event_jid, SLURM_SUCCESS, 0);
++			pthread_mutex_lock(&simulator_mutex);
++			info("SIM: JOB_COMPLETE_BATCH_SCRIPT for job %d SENT", event_jid);
++			jobs_ended++;
++			
++		}
++		pthread_mutex_unlock(&simulator_mutex);
++		last = now;
++		if(jobs_ended){
++			/* Let's give some time to EPILOG_MESSAGE process to terminate  */
++			/* TODO: It should be done better with a counter of EPILOG messages processed */
++			usleep(5000);
++			_send_sim_helper_cycle_msg(jobs_ended);
++		}
++		sleep(1);
++	
++	}
++   	info("SIM: Simulator Helper finishing...");
++	pthread_exit(0);
++	_decrement_thd_count();
+ 	return NULL;
+ }
+ 
++
+ static void
+ _msg_engine(void)
+ {
+@@ -431,6 +617,9 @@
+ 	}
+ 	verbose("got shutdown request");
+ 	slurm_shutdown_msg_engine(conf->lfd);
++
++	pthread_exit(NULL);
++
+ 	return;
+ }
+ 
+@@ -474,7 +663,7 @@
+ 	verbose("all threads complete.");
+ }
+ 
+-static void
++void
+ _handle_connection(slurm_fd_t fd, slurm_addr_t *cli)
+ {
+ 	int            rc;
+@@ -545,6 +734,9 @@
+ 	xfree(con);
+ 	slurm_free_msg(msg);
+ 	_decrement_thd_count();
++
++	pthread_exit(NULL);
++
+ 	return NULL;
+ }
+ 
+diff -Naur slurm-2.2.6.orig/src/slurmdbd/proc_req.c slurm-2.2.6-simulator.copia/src/slurmdbd/proc_req.c
+--- slurm-2.2.6.orig/src/slurmdbd/proc_req.c	2011-05-27 20:25:07.000000000 +0200
++++ slurm-2.2.6-simulator.copia/src/slurmdbd/proc_req.c	2011-06-29 17:27:52.606236275 +0200
+@@ -846,12 +846,14 @@
+ 	dbd_rec_msg_t *rec_msg = NULL;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)) {
+ 		comment = "DBD_ADD_RESV message from invalid uid";
+ 		error("DBD_ADD_RESV message from invalid uid %u", *uid);
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_rec_msg(&rec_msg, slurmdbd_conn->rpc_version,
+ 				    DBD_ADD_RESV, in_buffer) != SLURM_SUCCESS) {
+ 		comment = "Failed to unpack DBD_ADD_RESV message";
+@@ -975,12 +977,14 @@
+ 	int rc = SLURM_SUCCESS;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)) {
+ 		comment = "DBD_CLUSTER_CPUS message from invalid uid";
+ 		error("DBD_CLUSTER_CPUS message from invalid uid %u", *uid);
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_cluster_cpus_msg(&cluster_cpus_msg,
+ 					     slurmdbd_conn->rpc_version,
+ 					     in_buffer) !=
+@@ -1343,6 +1347,7 @@
+ 
+ 	debug2("DBD_GET_PROBS: called");
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)
+ 	    && assoc_mgr_get_admin_level(slurmdbd_conn->db_conn, *uid)
+ 	    < SLURMDB_ADMIN_OPERATOR) {
+@@ -1354,6 +1359,7 @@
+ 
+ 		return ESLURM_ACCESS_DENIED;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_cond_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				     DBD_GET_PROBS, in_buffer) !=
+@@ -1616,6 +1622,7 @@
+ 
+ 	debug2("DBD_GET_WCKEYS: called");
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)
+ 	    && assoc_mgr_get_admin_level(slurmdbd_conn->db_conn, *uid)
+ 	    < SLURMDB_ADMIN_OPERATOR) {
+@@ -1626,6 +1633,7 @@
+ 					      DBD_GET_WCKEYS);
+ 		return ESLURM_ACCESS_DENIED;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_cond_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				     DBD_GET_WCKEYS, in_buffer) !=
+@@ -1714,12 +1722,14 @@
+ 	int rc = SLURM_SUCCESS;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)) {
+ 		comment = "DBD_FLUSH_JOBS message from invalid uid";
+ 		error("DBD_FLUSH_JOBS message from invalid uid %u", *uid);
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_cluster_cpus_msg(
+ 		    &cluster_cpus_msg, slurmdbd_conn->rpc_version, in_buffer)
+ 	    != SLURM_SUCCESS) {
+@@ -1828,6 +1838,7 @@
+ 	int rc = SLURM_SUCCESS;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_JOB_COMPLETE message from invalid uid";
+ 		error("CONN:%u %s %u",
+@@ -1835,6 +1846,7 @@
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_job_complete_msg(
+ 		    &job_comp_msg, slurmdbd_conn->rpc_version, in_buffer)
+ 	    != SLURM_SUCCESS) {
+@@ -1888,6 +1900,7 @@
+ 	dbd_id_rc_msg_t id_rc_msg;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_JOB_START message from invalid uid";
+ 		error("CONN:%u %s %u",
+@@ -1897,6 +1910,7 @@
+ 					      DBD_JOB_START);
+ 		return SLURM_ERROR;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_job_start_msg((void **)&job_start_msg,
+ 					  slurmdbd_conn->rpc_version,
+ 					  in_buffer) !=
+@@ -1928,6 +1942,7 @@
+ 	int rc = SLURM_SUCCESS;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_JOB_SUSPEND message from invalid uid";
+ 		error("CONN:%u %s %u",
+@@ -1935,6 +1950,7 @@
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_job_suspend_msg(&job_suspend_msg,
+ 					    slurmdbd_conn->rpc_version,
+ 					    in_buffer) != SLURM_SUCCESS) {
+@@ -1983,6 +1999,7 @@
+ 
+ 	debug2("DBD_MODIFY_ACCOUNTS: called");
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)
+ 	    && assoc_mgr_get_admin_level(slurmdbd_conn->db_conn, *uid)
+ 	    < SLURMDB_ADMIN_OPERATOR) {
+@@ -1994,6 +2011,7 @@
+ 
+ 		return ESLURM_ACCESS_DENIED;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_modify_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				       DBD_MODIFY_ACCOUNTS,
+@@ -2190,6 +2208,7 @@
+ 
+ 	debug2("DBD_MODIFY_JOB: called");
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)
+ 	    && assoc_mgr_get_admin_level(slurmdbd_conn->db_conn, *uid)
+ 	    < SLURMDB_ADMIN_SUPER_USER) {
+@@ -2201,6 +2220,7 @@
+ 
+ 		return ESLURM_ACCESS_DENIED;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_modify_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				       DBD_MODIFY_JOB,
+@@ -2261,6 +2281,7 @@
+ 
+ 	debug2("DBD_MODIFY_QOS: called");
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)
+ 	    && assoc_mgr_get_admin_level(slurmdbd_conn->db_conn, *uid)
+ 	    < SLURMDB_ADMIN_SUPER_USER) {
+@@ -2272,6 +2293,7 @@
+ 
+ 		return ESLURM_ACCESS_DENIED;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_modify_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				       DBD_MODIFY_QOS,
+@@ -2556,6 +2578,7 @@
+ 	char *comment = NULL;
+ 
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_NODE_STATE message from invalid uid";
+ 		error("CONN:%u %s %u",
+@@ -2563,6 +2586,7 @@
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_node_state_msg(&node_state_msg,
+ 					   slurmdbd_conn->rpc_version,
+ 					   in_buffer) !=
+@@ -2700,6 +2724,7 @@
+ 	slurmdb_cluster_rec_t cluster;
+ 	dbd_list_msg_t list_msg;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_REGISTER_CTLD message from invalid uid";
+ 		error("CONN:%u %s %u",
+@@ -2707,6 +2732,7 @@
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_register_ctld_msg(&register_ctld_msg,
+ 					      slurmdbd_conn->rpc_version,
+ 					      in_buffer) !=
+@@ -3318,6 +3344,7 @@
+ 
+ 	info("DBD_ROLL_USAGE: called");
+ 
++#if 0
+ 	if ((*uid != slurmdbd_conf->slurm_user_id && *uid != 0)
+ 	    && assoc_mgr_get_admin_level(slurmdbd_conn->db_conn, *uid)
+ 	    < SLURMDB_ADMIN_OPERATOR) {
+@@ -3326,6 +3353,7 @@
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_roll_usage_msg(
+ 		    &get_msg, slurmdbd_conn->rpc_version, in_buffer)
+@@ -3358,6 +3386,7 @@
+ 	dbd_job_start_msg_t *job_start_msg;
+ 	dbd_id_rc_msg_t *id_rc_msg;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_SEND_MULT_JOB_START message from invalid uid";
+ 		error("%s %u", comment, *uid);
+@@ -3366,6 +3395,7 @@
+ 					      DBD_SEND_MULT_JOB_START);
+ 		return SLURM_ERROR;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_list_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				     DBD_SEND_MULT_JOB_START,
+@@ -3412,6 +3442,7 @@
+ 	Buf req_buf = NULL, ret_buf = NULL;
+ 	int rc = SLURM_SUCCESS;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_SEND_MULT_MSG message from invalid uid";
+ 		error("%s %u", comment, *uid);
+@@ -3420,6 +3451,7 @@
+ 					      DBD_SEND_MULT_MSG);
+ 		return SLURM_ERROR;
+ 	}
++#endif
+ 
+ 	if (slurmdbd_unpack_list_msg(&get_msg, slurmdbd_conn->rpc_version,
+ 				     DBD_SEND_MULT_MSG,
+@@ -3468,12 +3500,14 @@
+ 	int rc = SLURM_SUCCESS;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_STEP_COMPLETE message from invalid uid";
+ 		error("%s %u", comment, *uid);
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_step_complete_msg(&step_comp_msg,
+ 					      slurmdbd_conn->rpc_version,
+ 					      in_buffer) !=
+@@ -3532,12 +3566,14 @@
+ 	int rc = SLURM_SUCCESS;
+ 	char *comment = NULL;
+ 
++#if 0
+ 	if (*uid != slurmdbd_conf->slurm_user_id) {
+ 		comment = "DBD_STEP_START message from invalid uid";
+ 		error("%s %u", comment, *uid);
+ 		rc = ESLURM_ACCESS_DENIED;
+ 		goto end_it;
+ 	}
++#endif
+ 	if (slurmdbd_unpack_step_start_msg(&step_start_msg,
+ 					   slurmdbd_conn->rpc_version,
+ 					   in_buffer) != SLURM_SUCCESS) {
