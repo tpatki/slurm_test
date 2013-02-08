@@ -1,6 +1,0 @@
-{ global:
-   islurm_*;
-   slurm_*;
-   slurmdb_*;
-  local: *;
-};
